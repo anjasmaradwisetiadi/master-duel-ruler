@@ -17,8 +17,8 @@ use App\Http\Controllers\ApiTodoListController;
 */
 
 Route::get("/todolist/delete/{id}", [ApiTodoListController::class, 'getDelete']);
-Route::get("/todolist/update/{id}", [ApiTodoListController::class, 'postUpdate']);
-Route::get("/todolist/create", [ApiTodoListController::class, 'postCreate']);
+Route::post("/todolist/update/{id}", [ApiTodoListController::class, 'postUpdate']);
+Route::post("/todolist/create", [ApiTodoListController::class, 'postCreate']);
 Route::get("/todolist/list", [ApiTodoListController::class, 'getList']);
 // Route::get("/todolist/list", function(){
 //     dd('testing');

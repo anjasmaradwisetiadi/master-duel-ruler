@@ -25,8 +25,8 @@ class ApiTodoListController extends Controller
     public function postUpdate($id){
         $content = request('content');
         DB::table('todolists')
-            -> where ("id",$id)
-            ->insert([
+            ->where("id","=",$id)
+            ->update([
                 'created_at'=>date('Y-m-d H:i:s'),
                 'content'=>$content
             ]);

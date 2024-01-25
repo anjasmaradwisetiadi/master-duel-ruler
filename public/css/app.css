@@ -1,2 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
+@font-face {
+  font-family: RogFont;
+  src: url(/fonts/7032-fontps.ttf?5009174bbb62c27533bcae5ab22a1503);
+  font-weight: bold;
+}
+.RogFont {
+  font-family: RogFont;
+  font-size: 22px;
+  font-weight: bold;
+}
 
+body {
+  font-family: Roboto, sans-serif !important;
+  background-color: #0B365E !important;
+  color: white;
+}

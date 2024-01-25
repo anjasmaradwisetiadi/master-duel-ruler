@@ -1,0 +1,14 @@
+@font-face {
+    font-family: RogFont;
+    src: url(../assets/7032-fontps.ttf);
+    font-weight: bold;
+}
+
+.RogFont{
+    font-family: RogFont;
+}
+
+body{
+    font-family: Roboto !important;
+    background-color: #0B365E !important;
+}

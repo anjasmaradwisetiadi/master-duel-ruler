@@ -4,5 +4,20 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
-// @import '~bootstrap/scss/bootstrap';
+@font-face {
+    font-family: RogFont;
+    src: url(../assets/7032-fontps.ttf);
+    font-weight: bold;
+}
+
+.RogFont{
+    font-family: RogFont;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+body{
+    font-family: Roboto, sans-serif !important;
+    background-color: #0B365E !important;
+    color: white;
+}

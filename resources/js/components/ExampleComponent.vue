@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header">Example Component testeing</div>
 
-                    <div class="card-body">
+                    <div class="card-body RogFont">
                         I'm an example downloadS
                     </div>
 
@@ -69,3 +69,10 @@
     }
 
 </script>
+
+<style>
+.RogFont{
+    font-family: RogFont;
+    font-weight: bold;
+}
+</style>

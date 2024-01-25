@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoListController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,11 @@ use App\Http\Controllers\TodoListController;
 |
 */
 
-Route::get('/', [TodoListController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/tier-list', [DashboardController::class, 'index']);
+Route::get('/counter-style-deck', [DashboardController::class, 'index']);
+Route::get('/play-style-deck', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Auth::routes();

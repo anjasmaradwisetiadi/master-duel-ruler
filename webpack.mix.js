@@ -1,4 +1,16 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack')
+
+// mix.webpackConfig(webpack => {
+//     return {
+//         plugins: [
+//             new webpack.DefinePlugin({
+//                 NODE_ENV: JSON.stringify("development"),
+//                 __VUE_OPTIONS_API__: true,
+//             }),
+//         ],
+//     }
+// })
 
 /*
  |--------------------------------------------------------------------------
@@ -13,4 +25,4 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')

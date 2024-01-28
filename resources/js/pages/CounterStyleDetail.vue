@@ -25,8 +25,129 @@
         <div class="row justify-content-center mt-3">
             <div class="col-9 background-image">
                     <div class="d-flex">
-                        <img v-for="(urlImage,index) in urlImages" :key="index" :src="urlImage.image" :alt="urlImage.name" >
+                        <div
+                            v-for="(urlImage,index) in urlImages" 
+                            :key="index" 
+                            class="wrap-card" 
+                            :style="hoverFunctionCard"
+                        >
+                            <!-- <img 
+                                :src="urlImage.image" 
+                                :alt="urlImage.name"
+                                @mouseover="hoverCondition = true" 
+                                @mouseleave="hoverCondition = false" 
+                                class="image-style"
+                            > -->
+                            <!-- <div :class="hoverCondition ? 'hover-card':'non-hover-card'">
+                                <p>data</p>
+                            </div> -->
+                            <img 
+                                :src="urlImage.image" 
+                                :alt="urlImage.name"
+                                @mouseover=" displayCard(index,true)" 
+                                @mouseleave=" displayCard(index,false)"
+                                @click="openModalCard(true)" 
+                                class="image-style"
+                            >
+                            <div class="hover-card">
+                                <div class="d-flex">
+                                    <div class="image-section">
+                                        <img :src="dummyCardKashtira.card_images[0].image_url" :alt="dummyCardKashtira.name" >
+                                    </div>
+                                    <div class="information-section">
+                                        <div class="d-flex">
+                                            <div class="mr-auto">
+                                                <span> <b>{{ dummyCardKashtira.name }}</b></span>
+                                            </div>
+                                            <div class="ml-auto ">
+                                                <span class="mr-1"> <b>{{ dummyCardKashtira.attribute }}</b></span>
+                                                <span class="wrap-star" v-if="dummyCardKashtira.frameType === 'xyz'">
+                                                    <img src="../../assets/image/rank-icon.webp" alt="rank">
+                                                    <span>{{ dummyCardKashtira.level }}</span>
+                                                </span>
+                                                <span class="wrap-star" v-else-if="dummyCardKashtira.frameType === 'link'">
+                                                    Link - 
+                                                    <span>{{ dummyCardKashtira.level }}</span>
+                                                </span>
+                                                <span class="wrap-star" v-else>
+                                                    <img src="../../assets/image/star-icon.webp" alt="star">
+                                                    <span>{{ dummyCardKashtira.level }}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span><b>[ {{ dummyCardKashtira.race }} / {{ textTypeMonster(dummyCardKashtira.frameType) }} {{textEffectMonster(dummyCardKashtira.frameType)}} ]</b></span>
+                                        </div>
+                                        <div>
+                                            {{ decodeHTML(descCard) }} 
+                                        </div>
+                                        <div>
+                                            <span><b>ATK/</b>{{ dummyCardKashtira.atk }} <span :innerHTML="textDef(dummyCardKashtira.frameType, dummyCardKashtira.def)"></span></span>   
+                                        </div>
+                                        <div>
+                                            <span>Released on Card Set  {{dummyCardKashtira.card_sets[0].set_name}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+            </div>
+        </div>
+        <div>
+            <p>howvr condition = {{hoverCondition}}</p>
+            <p>Hover Condition Index = {{hoverFunctionCard}}</p>
+        </div>
+        <!-- modal image previews -->
+        <div :class="listenModalDisplay?'modal-wrapper':'modal-wrapper-none'">
+            <div class="close-section">
+                <a  @click="openModalCard(false)"  >
+                    <span 
+                        class="material-icons" 
+                        style="font-size: 36px"
+                    >   
+                        cancel
+                    </span>
+                </a>
+            </div>
+            <div class="content-section">
+                <div class="d-flex">
+                    <div class="image-section">
+                        <img :src="dummyCardKashtira.card_images[0].image_url" :alt="dummyCardKashtira.name" >
+                    </div>
+                    <div class="information-section">
+                        <div class="mb-3">
+                            <span class=" name-card"> <b>{{ dummyCardKashtira.name }}</b></span>
+                        </div>
+                        <div class="mb-2 d-flex">
+                            <span class="mr-3"> <b>{{ dummyCardKashtira.attribute }}</b></span>
+                            <span class="wrap-star" v-if="dummyCardKashtira.frameType === 'xyz'">
+                                <img src="../../assets/image/rank-icon.webp" alt="rank">
+                                <span>{{ dummyCardKashtira.level }}</span>
+                            </span>
+                            <span class="wrap-star" v-else-if="dummyCardKashtira.frameType === 'link'">
+                                Link - 
+                                <span>{{ dummyCardKashtira.level }}</span>
+                            </span>
+                            <span class="wrap-star" v-else>
+                                <img src="../../assets/image/star-icon.webp" alt="star">
+                                <span>{{ dummyCardKashtira.level }}</span>
+                            </span>
+                        </div>
+                        <div class="mb-2">
+                            <span><b>[ {{ dummyCardKashtira.race }} / {{ textTypeMonster(dummyCardKashtira.frameType) }} {{textEffectMonster(dummyCardKashtira.frameType)}} ]</b></span>
+                        </div>
+                        <div class="mb-2">
+                            {{ decodeHTML(descCard) }} 
+                        </div>
+                        <div class="mb-1">
+                            <span><b>ATK/</b>{{ dummyCardKashtira.atk }} <span :innerHTML="textDef(dummyCardKashtira.frameType, dummyCardKashtira.def)"></span></span>   
+                        </div>
+                        <div class="released-card mb-2">
+                            <span>Released on Card Set  {{dummyCardKashtira.card_sets[0].set_name}}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -34,9 +155,11 @@
 
 <script setup>
 
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router'
+import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { mapMutations, useStore } from 'vuex';
 const router = useRouter();
+const store = useStore();
 
 const urlImages = ref([
     {
@@ -56,12 +179,96 @@ const urlImages = ref([
     },
 ])
 
+const openModal = ref(false);
+const hoverCondition = ref(false)
+const hoverConditionIndex = ref(0)
+const descCard = ref(`2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nOnce per turn, when this card destroys an opponent's monster by battle: You can gain LP equal to that monster's original ATK. You can only use each of the following effects of "Noh-P.U.N.K. Foxy Tune" once per turn. You can Tribute 1 "P.U.N.K." monster; Special Summon this card from your hand. You can send this card from your hand or field to the GY; send 1 card from your hand to the GY, and if you do, Special Summon 1 "P.U.N.K." monster from your Deck, except a Level 8 monster.`)
+const hoverCard = computed(()=>{
+    return hoverCondition
+})
+const dataDummyCardKashtira = ref(store.getters.getterDataDummyCard.data[1])
+
+const hoverFunctionCard = computed(()=>{
+    return hoverConditionIndex;
+})
+
+const dummyCardKashtira = computed(()=>{
+    return dataDummyCardKashtira.value;
+})
+const listenModalDisplay = computed(()=>{
+    return openModal.value;
+})
+
+
+function displayCard(index, condition ){
+    hoverCondition.value = condition;
+    hoverConditionIndex.value  = index;
+    createdStyleCardHover(index, condition)
+}
+
+function decodeHTML(htmlText){
+      let txt = document.createElement("textarea");
+      txt.innerHTML = htmlText;
+      return txt.value;
+}
+
+function openModalCard (value) {
+    openModal.value = value;
+}
+
+function createdStyleCardHover(index, condition){
+    const data = index+1;
+    let listCardSelector = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card`);
+    // trial add before
+    // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
+    if (condition){
+        listCardSelector.style.maxWidth= '550px';
+        listCardSelector.style.padding= '8px';
+        listCardSelector.style.borderRadius= '8px';
+        listCardSelector.style.backgroundColor= 'chocolate';
+        listCardSelector.style.zIndex='99';
+        listCardSelector.style.position='absolute';
+        listCardSelector.style.marginRight = '12px';
+        listCardSelector.style.top = '-53px';
+        listCardSelector.style.display = 'inline';
+        listCardSelector.style.color = 'white'
+
+        // trial add before
+        // listCardSelectorBefore.style.left = 'auto';
+        // listCardSelectorBefore.style.right = '0';
+        // listCardSelectorBefore.style.borderRight = 'none'
+        // listCardSelectorBefore.style.borderLeft = '50px solid transparent'
+        // listCardSelectorBefore.style.borderTop = '40px solid #257287'
+        // listCardSelectorBefore.style.bottom = '-40px'
+        // listCardSelectorBefore.style.position='absolute';
+    } else{
+        listCardSelector.style.position='relative';
+        listCardSelector.style.display = 'none';
+    }
+}
+function textTypeMonster(data){
+    if( data === 'link' || data === 'xyz' ){
+        return data.toUpperCase();
+    } else {
+        return data[0].toUpperCase()+data.substr(1).toLowerCase();
+    }
+}
+
+function textEffectMonster(data){
+    return data !== 'effect' ? '/ Effect' : ''
+}
+
+function textDef(type,def=0){
+    let txt = document.createElement("textarea");
+    let htmlText = type === 'link' ? '' : `<b>DEF/</b>${def}`
+    txt.innerHTML = htmlText;
+    return txt.value;
+}
 onMounted(()=>{
-    console.log("ini routing = ")
-    console.log(router.currentRoute.value.path)
+
 })
 </script>
-<style>
+<style scoped>
     .card{
         color: black;
     }
@@ -86,8 +293,99 @@ onMounted(()=>{
         background-color: #03182c;
         padding: 10px;
     }
-    .background-image img{
+    .background-image .image-style{
         max-width: 95px;
         padding-right: 8px;
+    }
+    /* .wrap-card{
+        position: relative;
+    } */
+    .image-style{
+        cursor: pointer;
+    }
+
+    /* *********** style .wrap-card */
+    .wrap-card .hover-card{
+        display: none;
+        position: relative;
+    }
+
+    /* .wrap-card .hover-card::before{
+        left: auto;
+        right: 0;
+        border-right: none;
+        border-left: 5px solid transparent;
+        border-top: 4px solid #257287;
+        bottom: -4px;
+    } */
+
+    .wrap-card .non-hover-card{
+        display: none;
+    }
+
+    .background-image .hover-card .image-section img{
+        width: 160px !important;
+        margin-right: 0.75rem;
+    }
+
+    /* *********** style .modal-wrapper */
+    .modal-wrapper-none{
+        display: none;
+    }
+    .modal-wrapper {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 999;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        display: grid;
+        /* place-items: center; */
+    }
+
+    .modal-wrapper .close-section{
+        display: grid;
+        justify-items: end;
+        margin-top: 1.5rem;
+        margin-right: 2rem;
+        grid-template-rows: 0.1fr 0.1fr;
+    }
+
+    .modal-wrapper .content-section{
+        display: grid;
+        place-items: center;
+        grid-template-rows: 0fr 0fr;
+    }
+
+    .modal-wrapper .image-section img{
+        width: 210px;
+        margin-right: 0.75rem;
+    }
+
+    .modal-wrapper .information-section {
+        width: 30rem;
+        padding: 8px;
+        background-color: #0B365E;
+        border-radius: 10px;
+    }
+
+    .modal-wrapper .information-section .released-card {
+        display: flex;
+        justify-content: end;
+    }
+    
+    .modal-wrapper .information-section .wrap-star {
+        display: flex;
+        align-items: center;
+    }
+
+    .modal-wrapper .information-section .name-card {
+        font-size: 22px;
+    }
+    .modal-wrapper .information-section .wrap-star img{
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
     }
 </style>

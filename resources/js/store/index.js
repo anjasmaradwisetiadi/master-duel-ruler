@@ -2,12 +2,14 @@ import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import axios from 'axios';
 import {collectionUrl} from '../urlCollect'
+import {dataDummyCards} from '../DummyDataCard'
 
 // Create a new store instance.
 export default createStore({
   state: {
     counter: 1,
-    todoList:[]
+    todoList:[],
+    dataDummyCards: dataDummyCards,
   },
   mutations: {
     decrementCounter(state,payload){
@@ -42,7 +44,10 @@ export default createStore({
       console.log("getters")
       console.log(state.todoList)
       return state.todoList;
-    }
+    },
+    getterDataDummyCard: (state)=>{
+      return state.dataDummyCards;
+    } 
   },
   modules: {
 

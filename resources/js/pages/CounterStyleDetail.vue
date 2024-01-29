@@ -22,6 +22,7 @@
                 </div>
             </div>
         </div>
+        <!-- list image previews -->
         <div class="row justify-content-center mt-3">
             <div class="col-9 background-image">
                     <div class="d-flex">
@@ -55,7 +56,7 @@
                                         <img :src="dummyCardKashtira.card_images[0].image_url" :alt="dummyCardKashtira.name" >
                                     </div>
                                     <div class="information-section">
-                                        <div class="d-flex">
+                                        <div class="d-flex mb-2">
                                             <div class="mr-auto">
                                                 <span> <b>{{ dummyCardKashtira.name }}</b></span>
                                             </div>
@@ -75,13 +76,13 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div>
+                                        <div class="mb-2">
                                             <span><b>[ {{ dummyCardKashtira.race }} / {{ textTypeMonster(dummyCardKashtira.frameType) }} {{textEffectMonster(dummyCardKashtira.frameType)}} ]</b></span>
                                         </div>
-                                        <div>
+                                        <div class="mb-2">
                                             {{ decodeHTML(descCard) }} 
                                         </div>
-                                        <div>
+                                        <div class="mb-2">
                                             <span><b>ATK/</b>{{ dummyCardKashtira.atk }} <span :innerHTML="textDef(dummyCardKashtira.frameType, dummyCardKashtira.def)"></span></span>   
                                         </div>
                                         <div>
@@ -94,10 +95,7 @@
                     </div>
             </div>
         </div>
-        <div>
-            <p>howvr condition = {{hoverCondition}}</p>
-            <p>Hover Condition Index = {{hoverFunctionCard}}</p>
-        </div>
+
         <!-- modal image previews -->
         <div :class="listenModalDisplay?'modal-wrapper':'modal-wrapper-none'">
             <div class="close-section">
@@ -225,13 +223,14 @@ function createdStyleCardHover(index, condition){
         listCardSelector.style.maxWidth= '550px';
         listCardSelector.style.padding= '8px';
         listCardSelector.style.borderRadius= '8px';
-        listCardSelector.style.backgroundColor= 'chocolate';
+        listCardSelector.style.backgroundColor= 'rgba(0, 0, 0, 0.85)';
         listCardSelector.style.zIndex='99';
         listCardSelector.style.position='absolute';
         listCardSelector.style.marginRight = '12px';
         listCardSelector.style.top = '-53px';
         listCardSelector.style.display = 'inline';
-        listCardSelector.style.color = 'white'
+        listCardSelector.style.color = 'white';
+        listCardSelector.style.fontSize = '13px';
 
         // trial add before
         // listCardSelectorBefore.style.left = 'auto';
@@ -326,6 +325,12 @@ onMounted(()=>{
     .background-image .hover-card .image-section img{
         width: 160px !important;
         margin-right: 0.75rem;
+    }
+
+    .hover-card .information-section .wrap-star img{
+        width: 20px;
+        height: 20px;
+        margin-right: 4px;
     }
 
     /* *********** style .modal-wrapper */

@@ -20992,13 +20992,14 @@ __webpack_require__.r(__webpack_exports__);
         listCardSelector.style.maxWidth = '550px';
         listCardSelector.style.padding = '8px';
         listCardSelector.style.borderRadius = '8px';
-        listCardSelector.style.backgroundColor = 'chocolate';
+        listCardSelector.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
         listCardSelector.style.zIndex = '99';
         listCardSelector.style.position = 'absolute';
         listCardSelector.style.marginRight = '12px';
         listCardSelector.style.top = '-53px';
         listCardSelector.style.display = 'inline';
         listCardSelector.style.color = 'white';
+        listCardSelector.style.fontSize = '13px';
 
         // trial add before
         // listCardSelectorBefore.style.left = 'auto';
@@ -21370,7 +21371,7 @@ var _hoisted_13 = {
   "class": "information-section"
 };
 var _hoisted_14 = {
-  "class": "d-flex"
+  "class": "d-flex mb-2"
 };
 var _hoisted_15 = {
   "class": "mr-auto"
@@ -21405,14 +21406,23 @@ var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
     alt: "star"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "ATK/", -1 /* HOISTED */);
-});
-var _hoisted_24 = ["innerHTML"];
+var _hoisted_23 = {
+  "class": "mb-2"
+};
+var _hoisted_24 = {
+  "class": "mb-2"
+};
 var _hoisted_25 = {
-  "class": "close-section"
+  "class": "mb-2"
 };
 var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "ATK/", -1 /* HOISTED */);
+});
+var _hoisted_27 = ["innerHTML"];
+var _hoisted_28 = {
+  "class": "close-section"
+};
+var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "material-icons",
     style: {
@@ -21420,74 +21430,74 @@ var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
     }
   }, " cancel ", -1 /* HOISTED */);
 });
-var _hoisted_27 = [_hoisted_26];
-var _hoisted_28 = {
+var _hoisted_30 = [_hoisted_29];
+var _hoisted_31 = {
   "class": "content-section"
 };
-var _hoisted_29 = {
+var _hoisted_32 = {
   "class": "d-flex"
 };
-var _hoisted_30 = {
+var _hoisted_33 = {
   "class": "image-section"
 };
-var _hoisted_31 = ["src", "alt"];
-var _hoisted_32 = {
+var _hoisted_34 = ["src", "alt"];
+var _hoisted_35 = {
   "class": "information-section"
 };
-var _hoisted_33 = {
+var _hoisted_36 = {
   "class": "mb-3"
 };
-var _hoisted_34 = {
+var _hoisted_37 = {
   "class": "name-card"
 };
-var _hoisted_35 = {
+var _hoisted_38 = {
   "class": "mb-2 d-flex"
 };
-var _hoisted_36 = {
+var _hoisted_39 = {
   "class": "mr-3"
 };
-var _hoisted_37 = {
+var _hoisted_40 = {
   key: 0,
   "class": "wrap-star"
 };
-var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_41 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_1__["default"],
     alt: "rank"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_39 = {
+var _hoisted_42 = {
   key: 1,
   "class": "wrap-star"
 };
-var _hoisted_40 = {
+var _hoisted_43 = {
   key: 2,
   "class": "wrap-star"
 };
-var _hoisted_41 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_2__["default"],
     alt: "star"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_42 = {
+var _hoisted_45 = {
   "class": "mb-2"
 };
-var _hoisted_43 = {
+var _hoisted_46 = {
   "class": "mb-2"
 };
-var _hoisted_44 = {
+var _hoisted_47 = {
   "class": "mb-1"
 };
-var _hoisted_45 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_48 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "ATK/", -1 /* HOISTED */);
 });
-var _hoisted_46 = ["innerHTML"];
-var _hoisted_47 = {
+var _hoisted_49 = ["innerHTML"];
+var _hoisted_50 = {
   "class": "released-card mb-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.urlImages, function (urlImage, index) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" list image previews "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.urlImages, function (urlImage, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: index,
       "class": "wrap-card",
@@ -21508,21 +21518,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_8), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       src: $setup.dummyCardKashtira.card_images[0].image_url,
       alt: $setup.dummyCardKashtira.name
-    }, null, 8 /* PROPS */, _hoisted_12)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.attribute), 1 /* TEXT */)]), $setup.dummyCardKashtira.frameType === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : $setup.dummyCardKashtira.frameType === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Link - "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)]))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textTypeMonster($setup.dummyCardKashtira.frameType)) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textEffectMonster($setup.dummyCardKashtira.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.decodeHTML($setup.descCard)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, null, 8 /* PROPS */, _hoisted_12)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.attribute), 1 /* TEXT */)]), $setup.dummyCardKashtira.frameType === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : $setup.dummyCardKashtira.frameType === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Link - "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)]))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textTypeMonster($setup.dummyCardKashtira.frameType)) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textEffectMonster($setup.dummyCardKashtira.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.decodeHTML($setup.descCard)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       innerHTML: $setup.textDef($setup.dummyCardKashtira.frameType, $setup.dummyCardKashtira.def)
-    }, null, 8 /* PROPS */, _hoisted_24)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.card_sets[0].set_name), 1 /* TEXT */)])])])])], 4 /* STYLE */);
-  }), 128 /* KEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "howvr condition = " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.hoverCondition), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Hover Condition Index = " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.hoverFunctionCard), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" modal image previews "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    }, null, 8 /* PROPS */, _hoisted_27)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.card_sets[0].set_name), 1 /* TEXT */)])])])])], 4 /* STYLE */);
+  }), 128 /* KEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" modal image previews "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($setup.listenModalDisplay ? 'modal-wrapper' : 'modal-wrapper-none')
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.openModalCard(false);
     })
-  }, [].concat(_hoisted_27))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  }, [].concat(_hoisted_30))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: $setup.dummyCardKashtira.card_images[0].image_url,
     alt: $setup.dummyCardKashtira.name
-  }, null, 8 /* PROPS */, _hoisted_31)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.attribute), 1 /* TEXT */)]), $setup.dummyCardKashtira.frameType === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_37, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : $setup.dummyCardKashtira.frameType === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Link - "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textTypeMonster($setup.dummyCardKashtira.frameType)) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textEffectMonster($setup.dummyCardKashtira.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.decodeHTML($setup.descCard)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  }, null, 8 /* PROPS */, _hoisted_34)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.attribute), 1 /* TEXT */)]), $setup.dummyCardKashtira.frameType === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : $setup.dummyCardKashtira.frameType === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Link - "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_43, [_hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.level), 1 /* TEXT */)]))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textTypeMonster($setup.dummyCardKashtira.frameType)) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.textEffectMonster($setup.dummyCardKashtira.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.decodeHTML($setup.descCard)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     innerHTML: $setup.textDef($setup.dummyCardKashtira.frameType, $setup.dummyCardKashtira.def)
-  }, null, 8 /* PROPS */, _hoisted_46)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.card_sets[0].set_name), 1 /* TEXT */)])])])])], 2 /* CLASS */)]);
+  }, null, 8 /* PROPS */, _hoisted_49)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dummyCardKashtira.card_sets[0].set_name), 1 /* TEXT */)])])])])], 2 /* CLASS */)]);
 }
 
 /***/ }),
@@ -21963,7 +21973,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-5a16d7e2]{\r\n        color: black;\n}\n.card-style[data-v-5a16d7e2] {\r\n        border: 2px solid #03182c;\r\n        max-height: 84px;\n}\n.image-crop-resize[data-v-5a16d7e2]{\r\n        max-width: 82px;\r\n        max-height: 80px;\r\n        border: 2px solid black;\n}\nh4[data-v-5a16d7e2]{\r\n        font-weight: 600 !important;\r\n        padding: 0px !important;\r\n        margin: 0px !important;\n}\n.date-update[data-v-5a16d7e2]{\r\n        font-size: 14px;\n}\n.background-image[data-v-5a16d7e2]{\r\n        background-color: #03182c;\r\n        padding: 10px;\n}\n.background-image .image-style[data-v-5a16d7e2]{\r\n        max-width: 95px;\r\n        padding-right: 8px;\n}\r\n    /* .wrap-card{\r\n        position: relative;\r\n    } */\n.image-style[data-v-5a16d7e2]{\r\n        cursor: pointer;\n}\r\n\r\n    /* *********** style .wrap-card */\n.wrap-card .hover-card[data-v-5a16d7e2]{\r\n        display: none;\r\n        position: relative;\n}\r\n\r\n    /* .wrap-card .hover-card::before{\r\n        left: auto;\r\n        right: 0;\r\n        border-right: none;\r\n        border-left: 5px solid transparent;\r\n        border-top: 4px solid #257287;\r\n        bottom: -4px;\r\n    } */\n.wrap-card .non-hover-card[data-v-5a16d7e2]{\r\n        display: none;\n}\n.background-image .hover-card .image-section img[data-v-5a16d7e2]{\r\n        width: 160px !important;\r\n        margin-right: 0.75rem;\n}\r\n\r\n    /* *********** style .modal-wrapper */\n.modal-wrapper-none[data-v-5a16d7e2]{\r\n        display: none;\n}\n.modal-wrapper[data-v-5a16d7e2] {\r\n        position: fixed;\r\n        left: 0;\r\n        top: 0;\r\n        z-index: 999;\r\n        width: 100vw;\r\n        height: 100vh;\r\n        background: rgba(0, 0, 0, 0.4);\r\n        display: grid;\r\n        /* place-items: center; */\n}\n.modal-wrapper .close-section[data-v-5a16d7e2]{\r\n        display: grid;\r\n        justify-items: end;\r\n        margin-top: 1.5rem;\r\n        margin-right: 2rem;\r\n        grid-template-rows: 0.1fr 0.1fr;\n}\n.modal-wrapper .content-section[data-v-5a16d7e2]{\r\n        display: grid;\r\n        place-items: center;\r\n        grid-template-rows: 0fr 0fr;\n}\n.modal-wrapper .image-section img[data-v-5a16d7e2]{\r\n        width: 210px;\r\n        margin-right: 0.75rem;\n}\n.modal-wrapper .information-section[data-v-5a16d7e2] {\r\n        width: 30rem;\r\n        padding: 8px;\r\n        background-color: #0B365E;\r\n        border-radius: 10px;\n}\n.modal-wrapper .information-section .released-card[data-v-5a16d7e2] {\r\n        display: flex;\r\n        justify-content: end;\n}\n.modal-wrapper .information-section .wrap-star[data-v-5a16d7e2] {\r\n        display: flex;\r\n        align-items: center;\n}\n.modal-wrapper .information-section .name-card[data-v-5a16d7e2] {\r\n        font-size: 22px;\n}\n.modal-wrapper .information-section .wrap-star img[data-v-5a16d7e2]{\r\n        width: 20px;\r\n        height: 20px;\r\n        margin-right: 6px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-5a16d7e2]{\r\n        color: black;\n}\n.card-style[data-v-5a16d7e2] {\r\n        border: 2px solid #03182c;\r\n        max-height: 84px;\n}\n.image-crop-resize[data-v-5a16d7e2]{\r\n        max-width: 82px;\r\n        max-height: 80px;\r\n        border: 2px solid black;\n}\nh4[data-v-5a16d7e2]{\r\n        font-weight: 600 !important;\r\n        padding: 0px !important;\r\n        margin: 0px !important;\n}\n.date-update[data-v-5a16d7e2]{\r\n        font-size: 14px;\n}\n.background-image[data-v-5a16d7e2]{\r\n        background-color: #03182c;\r\n        padding: 10px;\n}\n.background-image .image-style[data-v-5a16d7e2]{\r\n        max-width: 95px;\r\n        padding-right: 8px;\n}\r\n    /* .wrap-card{\r\n        position: relative;\r\n    } */\n.image-style[data-v-5a16d7e2]{\r\n        cursor: pointer;\n}\r\n\r\n    /* *********** style .wrap-card */\n.wrap-card .hover-card[data-v-5a16d7e2]{\r\n        display: none;\r\n        position: relative;\n}\r\n\r\n    /* .wrap-card .hover-card::before{\r\n        left: auto;\r\n        right: 0;\r\n        border-right: none;\r\n        border-left: 5px solid transparent;\r\n        border-top: 4px solid #257287;\r\n        bottom: -4px;\r\n    } */\n.wrap-card .non-hover-card[data-v-5a16d7e2]{\r\n        display: none;\n}\n.background-image .hover-card .image-section img[data-v-5a16d7e2]{\r\n        width: 160px !important;\r\n        margin-right: 0.75rem;\n}\n.hover-card .information-section .wrap-star img[data-v-5a16d7e2]{\r\n        width: 20px;\r\n        height: 20px;\r\n        margin-right: 4px;\n}\r\n\r\n    /* *********** style .modal-wrapper */\n.modal-wrapper-none[data-v-5a16d7e2]{\r\n        display: none;\n}\n.modal-wrapper[data-v-5a16d7e2] {\r\n        position: fixed;\r\n        left: 0;\r\n        top: 0;\r\n        z-index: 999;\r\n        width: 100vw;\r\n        height: 100vh;\r\n        background: rgba(0, 0, 0, 0.4);\r\n        display: grid;\r\n        /* place-items: center; */\n}\n.modal-wrapper .close-section[data-v-5a16d7e2]{\r\n        display: grid;\r\n        justify-items: end;\r\n        margin-top: 1.5rem;\r\n        margin-right: 2rem;\r\n        grid-template-rows: 0.1fr 0.1fr;\n}\n.modal-wrapper .content-section[data-v-5a16d7e2]{\r\n        display: grid;\r\n        place-items: center;\r\n        grid-template-rows: 0fr 0fr;\n}\n.modal-wrapper .image-section img[data-v-5a16d7e2]{\r\n        width: 210px;\r\n        margin-right: 0.75rem;\n}\n.modal-wrapper .information-section[data-v-5a16d7e2] {\r\n        width: 30rem;\r\n        padding: 8px;\r\n        background-color: #0B365E;\r\n        border-radius: 10px;\n}\n.modal-wrapper .information-section .released-card[data-v-5a16d7e2] {\r\n        display: flex;\r\n        justify-content: end;\n}\n.modal-wrapper .information-section .wrap-star[data-v-5a16d7e2] {\r\n        display: flex;\r\n        align-items: center;\n}\n.modal-wrapper .information-section .name-card[data-v-5a16d7e2] {\r\n        font-size: 22px;\n}\n.modal-wrapper .information-section .wrap-star img[data-v-5a16d7e2]{\r\n        width: 20px;\r\n        height: 20px;\r\n        margin-right: 6px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -90,7 +90,8 @@
         <div :class="listenModalDisplay?'modal-wrapper':'modal-wrapper-none'">
             <template v-if="dummyCardKashtira">
                 <div class="close-section">
-                    <a  @click="openModalCard(false)"  >
+                    <a  style="cursor: pointer;"
+                        @click="openModalCard(false)"  >
                         <span 
                             class="material-icons" 
                             style="font-size: 36px"

@@ -7,13 +7,13 @@
         </div>
         <div class="row mb-1">
             <div class="col">
-                <button type="button" class="btn btn-secondary">Add New Counter</button>
+                <button type="button" class="btn btn-secondary"><a :href="urlCreateDeck" class="add-new-counter-link">Add New Counter</a></button>
             </div>
         </div>
         <div class="row">
             <div v-for="(card,index) in Cards" :key="index" class="col-lg-3 col-md-4">
                 <div class="card mb-3 card-style">
-                    <a :href="urlActive" class="target-style">
+                    <a :href="urlActive" class="target-style text-black">
                         <div class="row no-gutters">
                         <div class="col-md-4 no-gutters">
                             <img src="../../assets/image/Khastira-Unicorn.png" :alt="card.name">
@@ -66,6 +66,7 @@ const Cards = ref([
 ])
 
 let urlActive = ref(collectionUrl.baseUrlHead+'counter-style-deck/detail');
+let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create')
 onMounted(()=>{
     console.log("ini routing testing = ")
     console.log(router.currentRoute)
@@ -74,13 +75,11 @@ onMounted(()=>{
 <style>
     .card{
         color: black;
-        border-radius: 10px;
     }
     .card-style {
         border: 2px solid #03182c;
         max-height: 84px;
         cursor: pointer;
-        border-radius: 10px;
         
     }
     .image-crop-resize{
@@ -103,4 +102,14 @@ onMounted(()=>{
     .target-style:hover{
         text-decoration: none !important;
     }
+
+    .add-new-counter-link{
+        text-decoration: none !important;
+        color: white;
+    }
+    .add-new-counter-link:hover{
+        text-decoration: none !important;
+        color: white;
+    }
+
 </style>

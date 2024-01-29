@@ -74,11 +74,13 @@ onMounted(()=>{
 <style>
     .card{
         color: black;
+        border-radius: 10px;
     }
     .card-style {
         border: 2px solid #03182c;
         max-height: 84px;
         cursor: pointer;
+        border-radius: 10px;
         
     }
     .image-crop-resize{

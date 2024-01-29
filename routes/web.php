@@ -20,6 +20,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/tier-list', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck/detail', [DashboardController::class, 'index']);
+Route::get('/counter-style-deck/create', [DashboardController::class, 'index']);
 Route::get('/play-style-deck', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

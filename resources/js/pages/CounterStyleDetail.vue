@@ -32,61 +32,51 @@
                             class="wrap-card" 
                             :style="hoverFunctionCard"
                         >
-                            <!-- <img 
-                                :src="urlImage.image" 
-                                :alt="urlImage.name"
-                                @mouseover="hoverCondition = true" 
-                                @mouseleave="hoverCondition = false" 
-                                class="image-style"
-                            > -->
-                            <!-- <div :class="hoverCondition ? 'hover-card':'non-hover-card'">
-                                <p>data</p>
-                            </div> -->
                             <img 
-                                :src="urlImage.image" 
+                                :src="urlImage.card_images[0].image_url" 
                                 :alt="urlImage.name"
                                 @mouseover=" displayCard(index,true)" 
                                 @mouseleave=" displayCard(index,false)"
-                                @click="openModalCard(true)" 
+                                @click="openModalCard(true, index)" 
                                 class="image-style"
                             >
                             <div class="hover-card">
                                 <div class="d-flex">
                                     <div class="image-section">
-                                        <img :src="dummyCardKashtira.card_images[0].image_url" :alt="dummyCardKashtira.name" >
+                                        <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
                                     </div>
                                     <div class="information-section">
                                         <div class="d-flex mb-2">
                                             <div class="mr-auto">
-                                                <span> <b>{{ dummyCardKashtira.name }}</b></span>
+                                                <span> <b>{{ urlImage.name }}</b></span>
                                             </div>
                                             <div class="ml-auto ">
-                                                <span class="mr-1"> <b>{{ dummyCardKashtira.attribute }}</b></span>
-                                                <span class="wrap-star" v-if="dummyCardKashtira.frameType === 'xyz'">
+                                                <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
+                                                <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
                                                     <img src="../../assets/image/rank-icon.webp" alt="rank">
-                                                    <span>{{ dummyCardKashtira.level }}</span>
+                                                    <span>{{ urlImage.level }}</span>
                                                 </span>
-                                                <span class="wrap-star" v-else-if="dummyCardKashtira.frameType === 'link'">
+                                                <span class="wrap-star" v-else-if="urlImage.frameType === 'link'">
                                                     Link - 
-                                                    <span>{{ dummyCardKashtira.level }}</span>
+                                                    <span>{{ urlImage.level }}</span>
                                                 </span>
                                                 <span class="wrap-star" v-else>
                                                     <img src="../../assets/image/star-icon.webp" alt="star">
-                                                    <span>{{ dummyCardKashtira.level }}</span>
+                                                    <span>{{ urlImage.level }}</span>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="mb-2">
-                                            <span><b>[ {{ dummyCardKashtira.race }} / {{ textTypeMonster(dummyCardKashtira.frameType) }} {{textEffectMonster(dummyCardKashtira.frameType)}} ]</b></span>
+                                            <span><b>[ {{ urlImage.race }} / {{ textTypeMonster(urlImage.frameType) }} {{textEffectMonster(urlImage.frameType)}} ]</b></span>
                                         </div>
                                         <div class="mb-2">
-                                            {{ decodeHTML(descCard) }} 
+                                            {{ decodeHTML(urlImage.desc) }} 
                                         </div>
                                         <div class="mb-2">
-                                            <span><b>ATK/</b>{{ dummyCardKashtira.atk }} <span :innerHTML="textDef(dummyCardKashtira.frameType, dummyCardKashtira.def)"></span></span>   
+                                            <span><b>ATK/</b>{{ urlImage.atk }} <span :innerHTML="textDef(urlImage.frameType, urlImage.def)"></span></span>   
                                         </div>
                                         <div>
-                                            <span>Released on Card Set  {{dummyCardKashtira.card_sets[0].set_name}}</span>
+                                            <span>Released on Card Set  {{urlImage.card_sets[0].set_name}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -98,55 +88,60 @@
 
         <!-- modal image previews -->
         <div :class="listenModalDisplay?'modal-wrapper':'modal-wrapper-none'">
-            <div class="close-section">
-                <a  @click="openModalCard(false)"  >
-                    <span 
-                        class="material-icons" 
-                        style="font-size: 36px"
-                    >   
-                        cancel
-                    </span>
-                </a>
-            </div>
-            <div class="content-section">
-                <div class="d-flex">
-                    <div class="image-section">
-                        <img :src="dummyCardKashtira.card_images[0].image_url" :alt="dummyCardKashtira.name" >
-                    </div>
-                    <div class="information-section">
-                        <div class="mb-3">
-                            <span class=" name-card"> <b>{{ dummyCardKashtira.name }}</b></span>
-                        </div>
-                        <div class="mb-2 d-flex">
-                            <span class="mr-3"> <b>{{ dummyCardKashtira.attribute }}</b></span>
-                            <span class="wrap-star" v-if="dummyCardKashtira.frameType === 'xyz'">
-                                <img src="../../assets/image/rank-icon.webp" alt="rank">
-                                <span>{{ dummyCardKashtira.level }}</span>
-                            </span>
-                            <span class="wrap-star" v-else-if="dummyCardKashtira.frameType === 'link'">
-                                Link - 
-                                <span>{{ dummyCardKashtira.level }}</span>
-                            </span>
-                            <span class="wrap-star" v-else>
-                                <img src="../../assets/image/star-icon.webp" alt="star">
-                                <span>{{ dummyCardKashtira.level }}</span>
-                            </span>
-                        </div>
-                        <div class="mb-2">
-                            <span><b>[ {{ dummyCardKashtira.race }} / {{ textTypeMonster(dummyCardKashtira.frameType) }} {{textEffectMonster(dummyCardKashtira.frameType)}} ]</b></span>
-                        </div>
-                        <div class="mb-2">
-                            {{ decodeHTML(descCard) }} 
-                        </div>
-                        <div class="mb-1">
-                            <span><b>ATK/</b>{{ dummyCardKashtira.atk }} <span :innerHTML="textDef(dummyCardKashtira.frameType, dummyCardKashtira.def)"></span></span>   
-                        </div>
-                        <div class="released-card mb-2">
-                            <span>Released on Card Set  {{dummyCardKashtira.card_sets[0].set_name}}</span>
-                        </div>
-                    </div>
+            <template v-if="dummyCardKashtira">
+                <div class="close-section">
+                    <a  @click="openModalCard(false)"  >
+                        <span 
+                            class="material-icons" 
+                            style="font-size: 36px"
+                        >   
+                            cancel
+                        </span>
+                    </a>
                 </div>
-            </div>
+                <div class="content-section">
+                    <div class="wrap-card-currently">
+                        <div class="d-flex justify-content-center">
+                            <div class="mb-3">
+                                    <h3 class=" name-card"> <b>{{ dummyCardKashtira?.name }}</b></h3>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="image-section">
+                                <img :src="dummyCardKashtira?.card_images[0]?.image_url" :alt="dummyCardKashtira?.name" >
+                            </div>
+                            <div class="information-section">
+                                <div class="mb-2 d-flex">
+                                    <span class="mr-3"> <b>{{ dummyCardKashtira?.attribute }}</b></span>
+                                    <span class="wrap-star" v-if="dummyCardKashtira?.frameType === 'xyz'">
+                                        <img src="../../assets/image/rank-icon.webp" alt="rank">
+                                        <span>{{ dummyCardKashtira?.level }}</span>
+                                    </span>
+                                    <span class="wrap-star" v-else-if="dummyCardKashtira?.frameType === 'link'">
+                                        <span>Link - {{ dummyCardKashtira?.linkval }}</span>
+                                    </span>
+                                    <span class="wrap-star" v-else>
+                                        <img src="../../assets/image/star-icon.webp" alt="star">
+                                        <span>{{ dummyCardKashtira?.level }}</span>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <span><b>[ {{ dummyCardKashtira?.race }} / {{ textTypeMonster(dummyCardKashtira?.frameType) }} {{textEffectMonster(dummyCardKashtira?.frameType)}} ]</b></span>
+                                </div>
+                                <div class="mb-2">
+                                    {{ decodeHTML(dummyCardKashtira.desc) }} 
+                                </div>
+                                <div class="mb-1">
+                                    <span><b>ATK/</b>{{ dummyCardKashtira?.atk }} <span :innerHTML="textDef(dummyCardKashtira?.frameType, dummyCardKashtira?.def)"></span></span>   
+                                </div>
+                                <div class="released-card mb-2">
+                                    <span>Released on Card Set  {{dummyCardKashtira?.card_sets[0]?.set_name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>      
+                </div>
+            </template>
         </div>
     </div>
 </template>
@@ -159,23 +154,8 @@ import { mapMutations, useStore } from 'vuex';
 const router = useRouter();
 const store = useStore();
 
-const urlImages = ref([
-    {
-        image:"https://images.ygoprodeck.com/images/cards/48626373.jpg",
-        name: "Khastira Rise Heart",
-        update:"1-Jan-2024"
-    },
-    {
-        image:"https://images.ygoprodeck.com/images/cards/6983839.jpg",
-        name: "Dragon Tornado",
-        update:"1-Jan-2024"
-    },
-    {
-        image:"https://images.ygoprodeck.com/images/cards/48626373.jpg",
-        name: "Khastira",
-        update:"1-Jan-2024"
-    },
-])
+const urlDataImages = ref(store.getters.getterDataDummyCard.data)
+const dataDummyCardKashtira = ref()
 
 const openModal = ref(false);
 const hoverCondition = ref(false)
@@ -184,7 +164,6 @@ const descCard = ref(`2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nO
 const hoverCard = computed(()=>{
     return hoverCondition
 })
-const dataDummyCardKashtira = ref(store.getters.getterDataDummyCard.data[1])
 
 const hoverFunctionCard = computed(()=>{
     return hoverConditionIndex;
@@ -195,6 +174,9 @@ const dummyCardKashtira = computed(()=>{
 })
 const listenModalDisplay = computed(()=>{
     return openModal.value;
+})
+const urlImages = computed(()=>{
+    return urlDataImages.value;
 })
 
 
@@ -210,7 +192,8 @@ function decodeHTML(htmlText){
       return txt.value;
 }
 
-function openModalCard (value) {
+function openModalCard (value, index=0) {
+    dataDummyCardKashtira.value = store.getters.getterDataDummyCard.data[index]
     openModal.value = value;
 }
 
@@ -290,6 +273,7 @@ onMounted(()=>{
     }
     .background-image{
         background-color: #03182c;
+        border-radius: 10px;
         padding: 10px;
     }
     .background-image .image-style{
@@ -349,6 +333,12 @@ onMounted(()=>{
         /* place-items: center; */
     }
 
+    .wrap-card-currently {
+        background-color: #0D2F4E;
+        padding: 14px;
+        border-radius: 10px;
+    }
+
     .modal-wrapper .close-section{
         display: grid;
         justify-items: end;
@@ -371,7 +361,7 @@ onMounted(()=>{
     .modal-wrapper .information-section {
         width: 30rem;
         padding: 8px;
-        background-color: #0B365E;
+        background-color: #175188;
         border-radius: 10px;
     }
 

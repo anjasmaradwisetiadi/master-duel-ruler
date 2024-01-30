@@ -21089,30 +21089,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __name: 'CreateCounterStyleDeck',
-  props: {
-    "title": {},
-    "titleModifiers": {},
-    "information": {},
-    "informationModifiers": {}
-  },
-  emits: ["update:title", "update:information"],
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose;
     __expose();
-    var count = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
-    var title = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'title');
-    var information = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'information');
+    var title = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var information = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var preview = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var inputFile = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
-    var dummyListChips = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(['Budi', 'Johny', 'Starlink', 'Merkurie', 'Budi', 'Johny', 'Starlink', 'Merkurie', 'Budi', 'Johny', 'Starlink', 'Merkurie', 'Budi', 'Johny', 'Starlink', 'Merkurie', 'Budi', 'Johny', 'Starlink', 'Merkurie']);
+    var listChips = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       preview: preview,
       image: image,
-      inputFile: inputFile
+      inputFile: inputFile,
+      information: information,
+      title: title,
+      listChips: listChips
     });
     function previewImage(event) {
       var input = event.target;
@@ -21129,22 +21123,66 @@ __webpack_require__.r(__webpack_exports__);
       state.preview = null;
       inputFile.value.value = "";
     }
-    function removeChips(index) {}
+    function generateChips() {
+      state.listChips = [];
+      var inputBody = document.querySelector("#inputBody");
+      var createStringInformation = inputBody.value.toString();
+      var arrayIndexInformation = [];
+      for (var index = 0; index < createStringInformation.length; index++) {
+        if (createStringInformation[index] === "\"") {
+          arrayIndexInformation.push(index);
+        }
+      }
+      var oddArrayIndexInformation = arrayIndexInformation.filter(function (item, index) {
+        var newIndex = index + 1;
+        if (newIndex % 2) {
+          return item;
+        }
+      });
+      var evenArrayIndexInformation = arrayIndexInformation.filter(function (item, index) {
+        var newIndex = index + 1;
+        if (!(newIndex % 2)) {
+          return item;
+        }
+      });
+      for (var _index = 0; _index < oddArrayIndexInformation.length; _index++) {
+        var indexOdd = oddArrayIndexInformation[_index];
+        var indexEven = evenArrayIndexInformation[_index];
+        var dataText = createStringInformation.substring(indexOdd + 1, indexEven);
+        state.listChips.push(dataText);
+      }
+    }
+    function removeChip(index) {
+      listChips.value.splice(index, 1);
+    }
+    function submit() {
+      var slugCreated = '';
+      slugCreated = title.value.toLowerCase().replace(' ', '-');
+      var getParamsCreate = {
+        'title': title.value,
+        'slug': slugCreated,
+        'image': image.value,
+        'information': information.value,
+        'list_chips': listChips.value
+      };
+      console.log("getParamsCreate = ");
+      console.log(getParamsCreate);
+    }
     var __returned__ = {
-      count: count,
       title: title,
       information: information,
       preview: preview,
       image: image,
       inputFile: inputFile,
-      dummyListChips: dummyListChips,
+      listChips: listChips,
       state: state,
       previewImage: previewImage,
       removeImage: removeImage,
-      removeChips: removeChips,
+      generateChips: generateChips,
+      removeChip: removeChip,
+      submit: submit,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
-      reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
-      defineModel: vue__WEBPACK_IMPORTED_MODULE_0__.defineModel
+      reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -21669,7 +21707,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _hoisted_1 = {
   id: "CreateCounterStyleDeck",
-  "class": "mt-4"
+  "class": "mt-4 mb-5"
 };
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "row justify-content-center"
@@ -21719,7 +21757,6 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   id: "inputBody",
   type: "hidden",
   name: "body",
-  value: "{{old('body')}}",
   required: ""
 }, null, -1 /* HOISTED */);
 var _hoisted_17 = {
@@ -21735,21 +21772,15 @@ var _hoisted_19 = {
 var _hoisted_20 = {
   "class": "mb-1"
 };
-var _hoisted_21 = {
-  type: "button",
-  "class": "btn btn-secondary"
-};
-var _hoisted_22 = ["href"];
-var _hoisted_23 = {
+var _hoisted_21 = ["href"];
+var _hoisted_22 = {
+  key: 0,
   "class": "row"
 };
-var _hoisted_24 = {
+var _hoisted_23 = {
   "class": "col"
 };
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "closebtn",
-  onclick: "removeChips(index)"
-}, "×", -1 /* HOISTED */);
+var _hoisted_24 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_trix_editor = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("trix-editor");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -21781,20 +21812,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "",
     style: {
       "border": "1 solid red !important"
-    },
-    modelValue: $setup.information,
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return $setup.information = $event;
+    }
+  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.information.value), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-secondary",
+    onClick: _cache[3] || (_cache[3] = function ($event) {
+      return $setup.generateChips();
     })
-  }, null, 8 /* PROPS */, ["modelValue"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: _ctx.urlCreateDeck,
     "class": "add-new-counter-link"
-  }, "Generate Chips File", 8 /* PROPS */, _hoisted_22)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.dummyListChips, function (chip, index) {
+  }, "Generate Chips File", 8 /* PROPS */, _hoisted_21)])]), $setup.listChips.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.listChips, function (chip, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "chip mr-2 mt-2",
       key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(chip) + " ", 1 /* TEXT */), _hoisted_25]);
-  }), 128 /* KEYED_FRAGMENT */))])])])])])]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(chip) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      "class": "closebtn",
+      onClick: function onClick($event) {
+        return $setup.removeChip(index);
+      }
+    }, "×", 8 /* PROPS */, _hoisted_24)]);
+  }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-success",
+    onClick: _cache[4] || (_cache[4] = function ($event) {
+      return $setup.submit();
+    })
+  }, "Submit")])])]);
 }
 
 /***/ }),

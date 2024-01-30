@@ -1,5 +1,5 @@
 <template>
-    <div id="CreateCounterStyleDeck" class="mt-4">
+    <div id="CreateCounterStyleDeck" class="mt-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-6 text-center">
                 <h3>Create Counter Style Deck</h3>
@@ -39,42 +39,48 @@
 
             <div class="form-group">
                 <label for="inputBody">Information</label>
-                <input id="inputBody" type="hidden" name="body" value="{{old('body')}}" required>
-                <trix-editor input="inputBody" class="" style="border: 1 solid red !important;" v-model="information"></trix-editor>
+                <input id="inputBody" type="hidden" name="body" required>
+                <trix-editor input="inputBody" class="" style="border: 1 solid red !important;" ></trix-editor>
+            </div>
+            <div>
+                {{information.value}}
             </div>
             <div class="form-group">
                 <label for="chips">Chips File</label>
                 <div id="chips" aria-describedby="chips">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-secondary"><a :href="urlCreateDeck" class="add-new-counter-link">Generate Chips File</a></button>
+                        <button type="button" class="btn btn-secondary" @click="generateChips()"><a :href="urlCreateDeck" class="add-new-counter-link">Generate Chips File</a></button>
                     </div>
-                    <div class="row">
+                    <div v-if="listChips.length" class="row">
                         <div class="col">
-                            <div class="chip mr-2 mt-2" v-for="(chip, index) in dummyListChips" :key="index">
+                            <div class="chip mr-2 mt-2" v-for="(chip, index) in listChips" :key="index">
                                 {{ chip }}
-                                <span class="closebtn" onclick="removeChips(index)">&times;</span>
+                                <span class="closebtn" @click="removeChip(index)">&times;</span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-success" @click="submit()">Submit</button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref, reactive, defineModel } from 'vue'
+    import { ref, reactive} from 'vue'
 
-    const count = ref(0);
-    const title = defineModel('title');
-    const information = defineModel('information');
+    const title = ref('');
+    const information = ref('');
     const preview = ref(null);
     const image = ref(null);
     const inputFile = ref(0);
-    const dummyListChips = ref(['Budi', 'Johny', 'Starlink','Merkurie','Budi', 'Johny', 'Starlink','Merkurie','Budi', 'Johny', 'Starlink','Merkurie','Budi', 'Johny', 'Starlink','Merkurie','Budi', 'Johny', 'Starlink','Merkurie'])
+    const listChips = ref([])
 
     const state = reactive({
-        preview, image, inputFile
+        preview, image, inputFile, information, title, listChips
     })
 
     function previewImage(event){
@@ -94,10 +100,57 @@
         inputFile.value.value = ""
     }
 
-    function removeChips(index){
+    function generateChips(){
+        state.listChips=[];
+        const inputBody =  document.querySelector("#inputBody");
+        const createStringInformation = inputBody.value.toString();
+        let arrayIndexInformation = [];
+        for(let index=0; index<createStringInformation.length; index++){
+            if(createStringInformation[index] === `"`){
+                arrayIndexInformation.push(index);
+            }
+        }
 
+        const oddArrayIndexInformation = arrayIndexInformation.filter((item, index)=>{
+            let newIndex= index+1
+            if((newIndex % 2)){
+                return item;
+            }  
+        })
+
+        const evenArrayIndexInformation = arrayIndexInformation.filter((item, index)=>{
+            let newIndex= index+1
+            if(!(newIndex % 2)){
+                return item
+            }  
+        })
+
+        for (let index = 0; index < oddArrayIndexInformation.length; index++) {
+            const indexOdd = oddArrayIndexInformation[index];
+            const indexEven = evenArrayIndexInformation[index];
+            const dataText = createStringInformation.substring((indexOdd+1), (indexEven));
+            state.listChips.push(dataText);
+        }
     }
 
+    function removeChip(index){
+        listChips.value.splice(index,1)
+    }
+
+    function submit(){
+        let slugCreated = ''
+        slugCreated = title.value.toLowerCase().replace(' ', '-');
+        const getParamsCreate = {
+            'title': title.value,
+            'slug': slugCreated,
+            'image':image.value,
+            'information': information.value,
+            'list_chips': listChips.value
+        }
+
+        console.log("getParamsCreate = ")
+        console.log(getParamsCreate)
+    }
 </script>
 
 <style>

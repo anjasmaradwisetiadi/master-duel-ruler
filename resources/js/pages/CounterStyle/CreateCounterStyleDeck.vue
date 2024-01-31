@@ -104,6 +104,7 @@
         state.listChips=[];
         const inputBody =  document.querySelector("#inputBody");
         const createStringInformation = inputBody.value.toString();
+        state.information = createStringInformation;
         let arrayIndexInformation = [];
         for(let index=0; index<createStringInformation.length; index++){
             if(createStringInformation[index] === `"`){

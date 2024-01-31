@@ -11,20 +11,20 @@
             </div>
         </div>
         <div class="row">
-            <div v-for="(card,index) in Cards" :key="index" class="col-lg-3 col-md-4">
+            <div v-for="(card,index) in cardListCounterStyle" :key="index" class="col-lg-3 col-md-4">
                 <div class="card mb-3 card-style">
                     <a :href="urlActive" class="target-style text-black">
                         <div class="row no-gutters">
                         <div class="col-md-4 no-gutters">
-                            <img src="../../assets/image/Khastira-Unicorn.png" :alt="card.name">
+                            <img class="image-crop-resize" :src="card.image" :alt="card.name">
                         </div>
                         <div class="col-md-8">
                             <!-- <div class="card-body">
                                 <h5 class="card-title">Card title</h5>
                             </div> -->
                             <div class="ml-2 text-left">
-                                <h4 class="target-style">{{ card.name }}</h4>
-                                <span class="date-update text-muted target-style">Update: {{ card.update }}</span>
+                                <h6 class="target-style title-card">{{ card.title }}</h6>
+                                <span class="date-update text-muted target-style">Update: {{ dayjs(card.updated_at).format('D-MMM-YYYY')  }}</span>
                             </div>
                         </div>
                     </div>
@@ -37,10 +37,18 @@
 
 <script setup>
 
-import { onMounted, ref } from 'vue';
+import { computed, ref, onMounted, onBeforeMount, onBeforeUpdate } from 'vue';
 import { useRouter } from 'vue-router'
 import {collectionUrl} from '../urlCollect'
+import { useStore } from 'vuex'
+const dayjs = require('dayjs')
+
+const store = useStore();
 const router = useRouter();
+
+const cardListCounterStyle = computed(()=>{
+    return store.getters.getterListCounterStyle
+})
 
 const Cards = ref([
     {
@@ -66,11 +74,20 @@ const Cards = ref([
 ])
 
 let urlActive = ref(collectionUrl.baseUrlHead+'counter-style-deck/detail');
-let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create')
+let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create');
+
+onBeforeMount(()=>{
+    console.log("trigger getListApi counter-style-deck-api = ")
+    store.dispatch('getListCounterStyle')
+})
+
 onMounted(()=>{
     console.log("ini routing testing = ")
     console.log(router.currentRoute)
 })
+
+
+
 </script>
 <style>
     .card{
@@ -110,6 +127,10 @@ onMounted(()=>{
     .add-new-counter-link:hover{
         text-decoration: none !important;
         color: white;
+    }
+    .title-card{
+        font-weight: bold;
+        text-transform: uppercase;
     }
 
 </style>

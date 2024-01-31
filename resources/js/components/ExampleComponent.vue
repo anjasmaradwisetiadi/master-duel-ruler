@@ -35,6 +35,12 @@
     import { reactive, computed, onMounted, onBeforeMount } from 'vue'
     import { mapMutations, useStore } from 'vuex'
     import storing from '../store/index.js';
+
+    const store = useStore();
+    const dataReactives = reactive({
+        name: store.state.todoList,
+    })
+
     onBeforeMount(()=>{
 
     })
@@ -48,18 +54,14 @@
         store.dispatch('getListTodoList')
     })
 
-    const store = useStore();
-    const dataReactives = reactive({
-        name: store.state.todoList,
-    })
-
     const datas = computed(() =>store.state.todoList)
     const compute = computed(() =>store.state.counter)
     const dataTodoList = computed(()=> {
-        console.log("store.getters.getterTodoList = ")
-        console.log(store.getters.getterTodoList)
+        // console.log("store.getters.getterTodoList = ")
+        // console.log(store.getters.getterTodoList)
         return store.getters.getterTodoList
     })
+    
     function decrementCounter(){
         store.commit('decrementCounter',1)
     }

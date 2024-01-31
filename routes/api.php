@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiTodoListController;
+use App\Http\Controllers\CounterStyleDeckController;
 
 
 /*
@@ -20,6 +21,8 @@ Route::get("/todolist/delete/{id}", [ApiTodoListController::class, 'getDelete'])
 Route::post("/todolist/update/{id}", [ApiTodoListController::class, 'postUpdate']);
 Route::post("/todolist/create", [ApiTodoListController::class, 'postCreate']);
 Route::get("/todolist/list", [ApiTodoListController::class, 'getList']);
+
+Route::resource('/counter-style-deck-api', CounterStyleDeckController::class);
 // Route::get("/todolist/list", function(){
 //     dd('testing');
 // });

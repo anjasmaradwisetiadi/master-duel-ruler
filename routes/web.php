@@ -23,5 +23,6 @@ Route::get('/counter-style-deck/detail', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck/create', [DashboardController::class, 'index']);
 Route::get('/play-style-deck', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Auth::routes();

@@ -27,6 +27,7 @@
         "vuex": "^4.1.0"
     },
     "dependencies": {
+        "dayjs": "^1.11.10",
         "vue-next": "^0.0.1"
     }
 }

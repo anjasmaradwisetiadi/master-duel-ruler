@@ -4,12 +4,19 @@ import axios from 'axios';
 import {collectionUrl} from '../urlCollect'
 import {dataDummyCards} from '../DummyDataCard'
 import {playStyleDeck} from './PlayStyleDeck/playStyleDeck'
-import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck.js'
+// import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
 const urlCounterStyle = `${collectionUrl.baseUrlApi}counter-style-deck-api`
 
 // Create a new store instance.
-export default createStore({
+const store = createStore({
+
+  modules: {
+    // ******** still not working , because action another file (playStyleDeck) cannot read action
+    // playStyleDeck,
+    // counterStyleDeck
+  },
+
   state: {
     counter: 1,
     todoList:[],
@@ -28,18 +35,14 @@ export default createStore({
     },
     mutateTodoList: (state, payload)=>{
       state.todoList = payload;
-      console.log("state.todoList mutate = ")
-      console.log(state.todoList);
     },
-    //********** */ counter style
+    //********** */ counter style need explode file
     mutateListCounterStyle(state,payload){
       state.listCounterStyle = payload
-  }
+    }
   },
   actions: {
     getListTodoList({commit},state){
-      console.log("collectionUrl = ")
-      console.log(`${collectionUrl.baseUrl},list`)
       axios({
         method: 'get',
         url: `${collectionUrl.baseUrl}list`,
@@ -51,31 +54,17 @@ export default createStore({
       });
     },
 
-    // getListCounterStyleDeck({commit}, state){
-    //   axios({
-    //     method: 'get',
-    //     url: `${collectionUrl.baseUrl}list`,
-    //   })
-    //   .then(function (response) {
-    //     // state.todoList = response.data
-    //     commit('mutateTodoList',response.data)
-    //     // response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-    //   });
-    // }
-
-    //********** */ counter style
+    //********** */ counter style need explode file
     getListCounterStyle({commit, rootState}){
-      console.log('`${urlCounterStyle}` = ')
-      console.log(`${urlCounterStyle}`)
       rootState.loading = true;
       axios({
           method: 'get',
           url: `${urlCounterStyle}`,
+          headers:{
+            'Content-Type': "multipart/form-data"
+          }
       })
       .then(function(response){
-          console.log("getListCounterStyle = ")
-          console.log(response.data)
-
           commit('mutateListCounterStyle',response.data);
           rootState.loading = false;
           // console.log(response.data)
@@ -84,26 +73,47 @@ export default createStore({
           rootState.error = error.message; 
           rootState.loading = false;
       })
-  }
+    },
+
+    createCounterStyle({commit,rootState}, payload){
+      console.log("payload = ")
+      console.log(payload)
+      rootState.loading = true;
+      axios({
+          method: 'post',
+          url: `${urlCounterStyle}`,
+          config:{
+            headers:{
+              'Content-Type': 'multipart/form-data'
+            },
+          },
+          data:payload
+      })
+      .then(function(response){
+          console.log(response.data)
+          // commit('mutateListCounterStyle',response.data);
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          rootState.error = error.message; 
+          rootState.loading = false;
+      })
+    },
   },
   getters: {
-    getterTodoList: (state)=>{
-      console.log("getters")
-      console.log(state.todoList)
+    getterTodoList(state){
       return state.todoList;
     },
-    getterDataDummyCard: (state)=>{
+    getterDataDummyCard (state){
       return state.dataDummyCards;
     },
 
-    //********** */ counter style
+    //********** */ counter style need explode file
     getterListCounterStyle(state){
       return state.listCounterStyle;
     } 
   },
-  modules: {
-    // playStyleDeck,
-    // counterStyleDeck
-  }
 })
 
+
+export default store;

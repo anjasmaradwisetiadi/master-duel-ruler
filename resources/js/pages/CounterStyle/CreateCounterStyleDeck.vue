@@ -64,13 +64,16 @@
 
             <div>
                 <button type="button" class="btn btn-success" @click="submit()">Submit</button>
+                <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-    import { ref, reactive} from 'vue'
+    import { ref, reactive, onMounted} from 'vue'
+    import { useStore } from 'vuex';
+    const store = useStore();
 
     const title = ref('');
     const information = ref('');
@@ -78,9 +81,10 @@
     const image = ref(null);
     const inputFile = ref(0);
     const listChips = ref([])
+    const textInformation = ref('')
 
     const state = reactive({
-        preview, image, inputFile, information, title, listChips
+        preview, image, inputFile, information, title, listChips, textInformation
     })
 
     function previewImage(event){
@@ -141,16 +145,32 @@
     function submit(){
         let slugCreated = ''
         slugCreated = title.value.toLowerCase().replace(' ', '-');
+        // *********** i use formData() because  i want send 2 type data (json and file image) 
+        let formData = new FormData();
         const getParamsCreate = {
             'title': title.value,
             'slug': slugCreated,
-            'image':image.value,
-            'information': information.value,
+            'information': textInformation.value,
             'list_chips': listChips.value
         }
+        // *********** i use formData() because  i want send 2 type data (json and file image) 
+        formData.append('image', image.value);
+        for (const key in getParamsCreate) {
+            formData.append(key,  getParamsCreate[key])
+        }
 
-        console.log("getParamsCreate = ")
-        console.log(getParamsCreate)
+        store.dispatch('createCounterStyle', formData)
+    }
+
+    // for make dummy datapayload
+    function createPayload(){
+        state.title = "example deck"
+        state.slug = "example-deck"
+        state.image = "still development"
+        // const inputBody =  document.querySelector("#inputBody");
+        // inputBody.innerHTML = "1. testing flow"
+        state.textInformation = "1. testing flow"
+        state.listChips = ["testing-flow", "testing creeation"]
     }
 </script>
 

@@ -7,7 +7,9 @@ export const playStyleDeck = {
 
     }, 
     action:{
-
+        testingVue({rootState}){
+            rootState.loading = true;
+        }
     },
     getters:{
         

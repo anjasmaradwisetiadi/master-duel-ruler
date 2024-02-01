@@ -10,7 +10,7 @@ class CounterStyleDecks extends Model
 {
     use HasFactory;
 
-    protected $guard=[];
+    protected $guarded = []; 
 
     protected $cast = [
         'list_chips'=> 'array'

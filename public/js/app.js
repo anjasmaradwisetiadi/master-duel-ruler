@@ -21108,25 +21108,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __name: 'CreateCounterStyleDeck',
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose;
     __expose();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
     var title = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var information = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var preview = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var image = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var inputFile = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
     var listChips = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var textInformation = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       preview: preview,
       image: image,
       inputFile: inputFile,
       information: information,
       title: title,
-      listChips: listChips
+      listChips: listChips,
+      textInformation: textInformation
     });
     function previewImage(event) {
       var input = event.target;
@@ -21179,31 +21184,54 @@ __webpack_require__.r(__webpack_exports__);
     function submit() {
       var slugCreated = '';
       slugCreated = title.value.toLowerCase().replace(' ', '-');
+      // *********** i use formData() because  i want send 2 type data (json and file image) 
+      var formData = new FormData();
       var getParamsCreate = {
         'title': title.value,
         'slug': slugCreated,
-        'image': image.value,
-        'information': information.value,
+        'information': textInformation.value,
         'list_chips': listChips.value
       };
-      console.log("getParamsCreate = ");
-      console.log(getParamsCreate);
+      // *********** i use formData() because  i want send 2 type data (json and file image) 
+      formData.append('image', image.value);
+      for (var key in getParamsCreate) {
+        formData.append(key, getParamsCreate[key]);
+      }
+      store.dispatch('createCounterStyle', formData);
+    }
+
+    // for make dummy datapayload
+    function createPayload() {
+      state.title = "example deck";
+      state.slug = "example-deck";
+      state.image = "still development";
+      // const inputBody =  document.querySelector("#inputBody");
+      // inputBody.innerHTML = "1. testing flow"
+      state.textInformation = "1. testing flow";
+      state.listChips = ["testing-flow", "testing creeation"];
     }
     var __returned__ = {
+      store: store,
       title: title,
       information: information,
       preview: preview,
       image: image,
       inputFile: inputFile,
       listChips: listChips,
+      textInformation: textInformation,
       state: state,
       previewImage: previewImage,
       removeImage: removeImage,
       generateChips: generateChips,
       removeChip: removeChip,
       submit: submit,
+      createPayload: createPayload,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
-      reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive
+      reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
+      get useStore() {
+        return vuex__WEBPACK_IMPORTED_MODULE_1__.useStore;
+      }
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -21858,7 +21886,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $setup.submit();
     })
-  }, "Submit")])])]);
+  }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-danger ml-2\" @click=\"createPayload()\">Create Payload</button> ")])])]);
 }
 
 /***/ }),
@@ -22065,7 +22093,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_App_vue__WEBPACK_IMPORTED_MODULE_3__["default"]);
-app.use(_routes_js__WEBPACK_IMPORTED_MODULE_1__["default"]).use(_store_index_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+app.use(_routes_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
+app.use(_store_index_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.mount('#app');
 
 /***/ }),
@@ -22124,66 +22153,6 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_6__.createRouter)({
 
 /***/ }),
 
-/***/ "./resources/js/store/CounterStyleDeck/counterStyleDeck.js":
-/*!*****************************************************************!*\
-  !*** ./resources/js/store/CounterStyleDeck/counterStyleDeck.js ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   counterStyleDeck: () => (/* binding */ counterStyleDeck)
-/* harmony export */ });
-/* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../urlCollect */ "./resources/js/urlCollect.js");
-
-var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApi, ",counter-style-deck-api");
-var counterStyleDeck = {
-  state: {
-    listCounterStyle: {}
-  },
-  mutations: {
-    mutateListCounterStyle: function mutateListCounterStyle(state, payload) {
-      state.listCounterStyle = payload;
-    }
-  },
-  action: {
-    getListCounterStyle: function (_getListCounterStyle) {
-      function getListCounterStyle(_x) {
-        return _getListCounterStyle.apply(this, arguments);
-      }
-      getListCounterStyle.toString = function () {
-        return _getListCounterStyle.toString();
-      };
-      return getListCounterStyle;
-    }(function (_ref) {
-      var commit = _ref.commit,
-        rootState = _ref.rootState;
-      axios({
-        method: 'get',
-        url: "".concat(urlCounterStyle)
-      }).then(function (response) {
-        console.log(getListCounterStyle);
-        console.log(response.data);
-        rootState.loading = true;
-        commit('mutateListCounterStyle', response.data);
-        rootState.loading = false;
-        // console.log(response.data)
-      })["catch"](function (error) {
-        rootState.error = error.message;
-        rootState.loading = false;
-      });
-    })
-  },
-  getters: {
-    getterListCounterStyle: function getterListCounterStyle(state) {
-      return state.listCounterStyle;
-    }
-  }
-};
-
-/***/ }),
-
 /***/ "./resources/js/store/PlayStyleDeck/playStyleDeck.js":
 /*!***********************************************************!*\
   !*** ./resources/js/store/PlayStyleDeck/playStyleDeck.js ***!
@@ -22198,7 +22167,12 @@ __webpack_require__.r(__webpack_exports__);
 var playStyleDeck = {
   state: {},
   mutations: {},
-  action: {},
+  action: {
+    testingVue: function testingVue(_ref) {
+      var rootState = _ref.rootState;
+      rootState.loading = true;
+    }
+  },
   getters: {}
 };
 
@@ -22216,24 +22190,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../urlCollect */ "./resources/js/urlCollect.js");
 /* harmony import */ var _DummyDataCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../DummyDataCard */ "./resources/js/DummyDataCard.js");
 /* harmony import */ var _PlayStyleDeck_playStyleDeck__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PlayStyleDeck/playStyleDeck */ "./resources/js/store/PlayStyleDeck/playStyleDeck.js");
-/* harmony import */ var _CounterStyleDeck_counterStyleDeck_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CounterStyleDeck/counterStyleDeck.js */ "./resources/js/store/CounterStyleDeck/counterStyleDeck.js");
 
 
 
 
 
 
+// import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
 var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApi, "counter-style-deck-api");
 
 // Create a new store instance.
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vuex__WEBPACK_IMPORTED_MODULE_6__.createStore)({
+var store = (0,vuex__WEBPACK_IMPORTED_MODULE_5__.createStore)({
+  modules: {
+    // ******** still not working , because action another file (playStyleDeck) cannot read action
+    // playStyleDeck,
+    // counterStyleDeck
+  },
   state: {
     counter: 1,
     todoList: [],
@@ -22252,10 +22231,8 @@ var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collect
     },
     mutateTodoList: function mutateTodoList(state, payload) {
       state.todoList = payload;
-      console.log("state.todoList mutate = ");
-      console.log(state.todoList);
     },
-    //********** */ counter style
+    //********** */ counter style need explode file
     mutateListCounterStyle: function mutateListCounterStyle(state, payload) {
       state.listCounterStyle = payload;
     }
@@ -22263,8 +22240,6 @@ var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collect
   actions: {
     getListTodoList: function getListTodoList(_ref, state) {
       var commit = _ref.commit;
-      console.log("collectionUrl = ");
-      console.log("".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrl, ",list"));
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
         url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrl, "list")
@@ -22274,33 +22249,45 @@ var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collect
         // response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
       });
     },
-    // getListCounterStyleDeck({commit}, state){
-    //   axios({
-    //     method: 'get',
-    //     url: `${collectionUrl.baseUrl}list`,
-    //   })
-    //   .then(function (response) {
-    //     // state.todoList = response.data
-    //     commit('mutateTodoList',response.data)
-    //     // response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-    //   });
-    // }
-    //********** */ counter style
+    //********** */ counter style need explode file
     getListCounterStyle: function getListCounterStyle(_ref2) {
       var commit = _ref2.commit,
         rootState = _ref2.rootState;
-      console.log('`${urlCounterStyle}` = ');
-      console.log("".concat(urlCounterStyle));
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
-        url: "".concat(urlCounterStyle)
+        url: "".concat(urlCounterStyle),
+        headers: {
+          'Content-Type': "multipart/form-data"
+        }
       }).then(function (response) {
-        console.log("getListCounterStyle = ");
-        console.log(response.data);
         commit('mutateListCounterStyle', response.data);
         rootState.loading = false;
         // console.log(response.data)
+      })["catch"](function (error) {
+        rootState.error = error.message;
+        rootState.loading = false;
+      });
+    },
+    createCounterStyle: function createCounterStyle(_ref3, payload) {
+      var commit = _ref3.commit,
+        rootState = _ref3.rootState;
+      console.log("payload = ");
+      console.log(payload);
+      rootState.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        method: 'post',
+        url: "".concat(urlCounterStyle),
+        config: {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        },
+        data: payload
+      }).then(function (response) {
+        console.log(response.data);
+        // commit('mutateListCounterStyle',response.data);
+        rootState.loading = false;
       })["catch"](function (error) {
         rootState.error = error.message;
         rootState.loading = false;
@@ -22309,23 +22296,18 @@ var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collect
   },
   getters: {
     getterTodoList: function getterTodoList(state) {
-      console.log("getters");
-      console.log(state.todoList);
       return state.todoList;
     },
     getterDataDummyCard: function getterDataDummyCard(state) {
       return state.dataDummyCards;
     },
-    //********** */ counter style
+    //********** */ counter style need explode file
     getterListCounterStyle: function getterListCounterStyle(state) {
       return state.listCounterStyle;
     }
-  },
-  modules: {
-    // playStyleDeck,
-    // counterStyleDeck
   }
-}));
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
 
 /***/ }),
 

@@ -24,7 +24,8 @@ const store = createStore({
     error: '',
     dataDummyCards: dataDummyCards,
     //********** */ counter style
-    listCounterStyle: {}
+    listCounterStyle: {},
+    detailCounterStyle: {},
   },
   mutations: {
     decrementCounter(state,payload){
@@ -39,6 +40,9 @@ const store = createStore({
     //********** */ counter style need explode file
     mutateListCounterStyle(state,payload){
       state.listCounterStyle = payload
+    },
+    mutateDetailCounterStyle(state, payload){
+      state.detailCounterStyle = payload
     }
   },
   actions: {
@@ -48,9 +52,7 @@ const store = createStore({
         url: `${collectionUrl.baseUrl}list`,
       })
       .then(function (response) {
-        // state.todoList = response.data
         commit('mutateTodoList',response.data)
-        // response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
       });
     },
 
@@ -67,7 +69,6 @@ const store = createStore({
       .then(function(response){
           commit('mutateListCounterStyle',response.data);
           rootState.loading = false;
-          // console.log(response.data)
       })
       .catch(function(error) {
           rootState.error = error.message; 
@@ -75,9 +76,7 @@ const store = createStore({
       })
     },
 
-    createCounterStyle({commit,rootState}, payload){
-      console.log("payload = ")
-      console.log(payload)
+    createCounterStyle({rootState}, payload){
       rootState.loading = true;
       axios({
           method: 'post',
@@ -91,7 +90,6 @@ const store = createStore({
       })
       .then(function(response){
           console.log(response.data)
-          // commit('mutateListCounterStyle',response.data);
           rootState.loading = false;
       })
       .catch(function(error) {
@@ -99,6 +97,42 @@ const store = createStore({
           rootState.loading = false;
       })
     },
+
+    detailCounterStyle({commit,rootState}, payload){
+      rootState.loading = true;
+      axios({
+          method: 'get',
+          url: `${urlCounterStyle}/${payload}`,
+      })
+      .then(function(response){
+          commit('mutateDetailCounterStyle',response.data);
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          rootState.error = error.message; 
+          rootState.loading = false;
+      })
+    },
+
+    deleteCounterStyle({commit,rootState}, payload){
+      rootState.loading = true;
+      axios({
+          method: 'delete',
+          url: `${urlCounterStyle}/${payload}`,
+      })
+      .then(function(response){
+          console.log("action")
+          console.log(response.data)
+          // commit('mutateDetailCounterStyle',response.data);
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          rootState.error = error.message; 
+          rootState.loading = false;
+      })
+    },
+
+    //********** End */ counter style need explode file
   },
   getters: {
     getterTodoList(state){
@@ -111,7 +145,7 @@ const store = createStore({
     //********** */ counter style need explode file
     getterListCounterStyle(state){
       return state.listCounterStyle;
-    } 
+    }, 
   },
 })
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CounterStyleDecks;
+use Illuminate\Support\Facades\Storage;
 
 
 class CounterStyleDeckController extends Controller
@@ -71,7 +72,7 @@ class CounterStyleDeckController extends Controller
             'list_chips' => json_encode(array($request->list_chips))
         ]);
 
-        return response()->json(['status'=>true, 'message'=>'Data berhasil diupdate !!!']);
+        return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
     }
 
     /**
@@ -82,7 +83,7 @@ class CounterStyleDeckController extends Controller
      */
     public function show($id)
     {
-        //
+        return CounterStyleDecks::where('slug','=',$id)->firstOrFail(); 
     }
 
     /**
@@ -116,6 +117,15 @@ class CounterStyleDeckController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findData = CounterStyleDecks::where('slug','=',$id)->firstOrFail();
+        // dd(response()->json($findData->image));
+        $stringManipulate = str_replace('http://laravel-vue.test/storage/','',$findData->image);
+        if($findData->image){
+            $stringManipulate = str_replace('http://laravel-vue.test/storage/','',$findData->image);
+            Storage::delete($stringManipulate);
+        }
+
+        CounterStyleDecks::destroy($findData->id);
+        return response()->json(['status'=>true, 'message'=>'Data berhasil dihapus !!!']);
     }
 }

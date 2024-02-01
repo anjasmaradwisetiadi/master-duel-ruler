@@ -13,7 +13,7 @@
         <div class="row">
             <div v-for="(card,index) in cardListCounterStyle" :key="index" class="col-lg-3 col-md-4">
                 <div class="card mb-3 card-style">
-                    <a :href="urlActive" class="target-style text-black">
+                    <a :href="collectionUrl.baseUrlHead+'counter-style-deck/'+card.slug" class="target-style text-black">
                         <div class="row no-gutters">
                         <div class="col-md-4 no-gutters">
                             <img class="image-crop-resize" :src="card.image" :alt="card.name">
@@ -50,30 +50,6 @@ const cardListCounterStyle = computed(()=>{
     return store.getters.getterListCounterStyle
 })
 
-const Cards = ref([
-    {
-        image:"http://laravel-vue.test/images/Khastira-Unicorn.png?b552a94bb37edf55d611ddae7bae200e",
-        name: "Khastira",
-        update:"1-Jan-2024"
-    },
-    {
-        image:"http://laravel-vue.test/images/Khastira-Unicorn.png?b552a94bb37edf55d611ddae7bae200e",
-        name: "Khastira",
-        update:"1-Jan-2024"
-    },
-    {
-        image:"http://laravel-vue.test/images/Khastira-Unicorn.png?b552a94bb37edf55d611ddae7bae200e",
-        name: "Khastira",
-        update:"1-Jan-2024"
-    },
-    {
-        image:"http://laravel-vue.test/images/Khastira-Unicorn.png?b552a94bb37edf55d611ddae7bae200e",
-        name: "Khastira",
-        update:"1-Jan-2024"
-    }
-])
-
-let urlActive = ref(collectionUrl.baseUrlHead+'counter-style-deck/detail');
 let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create');
 
 onBeforeMount(()=>{

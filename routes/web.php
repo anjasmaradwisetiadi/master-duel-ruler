@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\DashboardController;
-
+use App\Models\CounterStyleDecks;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +19,7 @@ Route::get('/', [DashboardController::class, 'index']);
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/tier-list', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck', [DashboardController::class, 'index']);
-Route::get('/counter-style-deck/detail', [DashboardController::class, 'index']);
+Route::get('/counter-style-deck/{CounterStyleDecks:slug}', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck/create', [DashboardController::class, 'index']);
 Route::get('/play-style-deck', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);

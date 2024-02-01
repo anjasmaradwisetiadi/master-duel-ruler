@@ -2,13 +2,13 @@
     <div id="CounterStyleDetail" class="mt-4">
         <div class="row justify-content-center mb-5">
             <div class="col-8 text-center">
-                <h1>Khastira</h1>
+                <h1>{{ getDataCounterStyleDeck.title }}</h1>
             </div>
         </div>
         <div class="row mb-1">
             <div class="col">
-                <button type="button" class="btn btn-warning mr-2">Edit Counter Style</button>
-                <button type="button" class="btn btn-danger">Delete Counter Style</button>
+                <button type="button" class="btn btn-warning mr-2" @click="editCounterStyle()">Edit Counter Style</button>
+                <button type="button" class="btn btn-danger" @click="deleteCounterStyle()">Delete Counter Style</button>
             </div>
         </div>
         <div class="row">
@@ -53,7 +53,7 @@
                                             <div class="ml-auto ">
                                                 <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
                                                 <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
-                                                    <img src="../../assets/image/rank-icon.webp" alt="rank">
+                                                    <img src="../../../assets/image/rank-icon.webp" alt="rank">
                                                     <span>{{ urlImage.level }}</span>
                                                 </span>
                                                 <span class="wrap-star" v-else-if="urlImage.frameType === 'link'">
@@ -61,7 +61,7 @@
                                                     <span>{{ urlImage.level }}</span>
                                                 </span>
                                                 <span class="wrap-star" v-else>
-                                                    <img src="../../assets/image/star-icon.webp" alt="star">
+                                                    <img src="../../../assets/image/star-icon.webp" alt="star">
                                                     <span>{{ urlImage.level }}</span>
                                                 </span>
                                             </div>
@@ -115,14 +115,14 @@
                                 <div class="mb-2 d-flex">
                                     <span class="mr-3"> <b>{{ dummyCardKashtira?.attribute }}</b></span>
                                     <span class="wrap-star" v-if="dummyCardKashtira?.frameType === 'xyz'">
-                                        <img src="../../assets/image/rank-icon.webp" alt="rank">
+                                        <img src="../../../assets/image/rank-icon.webp" alt="rank">
                                         <span>{{ dummyCardKashtira?.level }}</span>
                                     </span>
                                     <span class="wrap-star" v-else-if="dummyCardKashtira?.frameType === 'link'">
                                         <span>Link - {{ dummyCardKashtira?.linkval }}</span>
                                     </span>
                                     <span class="wrap-star" v-else>
-                                        <img src="../../assets/image/star-icon.webp" alt="star">
+                                        <img src="../../../assets/image/star-icon.webp" alt="star">
                                         <span>{{ dummyCardKashtira?.level }}</span>
                                     </span>
                                 </div>
@@ -149,7 +149,7 @@
 
 <script setup>
 
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { mapMutations, useStore } from 'vuex';
 const router = useRouter();
@@ -161,9 +161,23 @@ const dataDummyCardKashtira = ref()
 const openModal = ref(false);
 const hoverCondition = ref(false)
 const hoverConditionIndex = ref(0)
-const descCard = ref(`2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nOnce per turn, when this card destroys an opponent's monster by battle: You can gain LP equal to that monster's original ATK. You can only use each of the following effects of "Noh-P.U.N.K. Foxy Tune" once per turn. You can Tribute 1 "P.U.N.K." monster; Special Summon this card from your hand. You can send this card from your hand or field to the GY; send 1 card from your hand to the GY, and if you do, Special Summon 1 "P.U.N.K." monster from your Deck, except a Level 8 monster.`)
-const hoverCard = computed(()=>{
-    return hoverCondition
+const dataCardDetail = ref(null);
+const paramsUrl = ref('');
+
+const state = reactive({
+    paramsUrl
+}) 
+
+onMounted(()=>{
+    // console.log("router")
+    // console.log(router.currentRoute.value.params.slug)
+    const payload = router.currentRoute.value.params.slug
+    state.paramsUrl = payload;
+    store.dispatch('detailCounterStyle', payload);
+})
+
+const getDataCounterStyleDeck= computed(()=>{
+    return store.state.detailCounterStyle;
 })
 
 const hoverFunctionCard = computed(()=>{
@@ -179,6 +193,7 @@ const listenModalDisplay = computed(()=>{
 const urlImages = computed(()=>{
     return urlDataImages.value;
 })
+
 
 
 function displayCard(index, condition ){
@@ -247,9 +262,15 @@ function textDef(type,def=0){
     txt.innerHTML = htmlText;
     return txt.value;
 }
-onMounted(()=>{
 
-})
+function editCounterStyle(){
+
+}
+
+function deleteCounterStyle(){
+    store.dispatch('deleteCounterStyle', paramsUrl.value)
+}
+
 </script>
 <style scoped>
     .card{

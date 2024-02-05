@@ -19,6 +19,7 @@ const router = createRouter({
         // { path: '/counter-style-deck/detail', component: CounterStyleDetail },
         { path: '/counter-style-deck/:slug', component: CounterStyleDetail },
         { path: '/counter-style-deck/create', component: CreateCounterStyleDeck },
+        { path: '/counter-style-deck/:slug/edit', component: CreateCounterStyleDeck },
         { path: '/play-style-deck', component: PlayStyleDeck },
         { path: '/play-style-deck', component: PlayStyleDeck },
     ]

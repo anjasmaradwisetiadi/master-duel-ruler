@@ -26,6 +26,8 @@ const store = createStore({
     //********** */ counter style
     listCounterStyle: {},
     detailCounterStyle: {},
+    getEditCounterStyle: {},
+    responseGeneral: {},
   },
   mutations: {
     decrementCounter(state,payload){
@@ -39,10 +41,16 @@ const store = createStore({
     },
     //********** */ counter style need explode file
     mutateListCounterStyle(state,payload){
-      state.listCounterStyle = payload
+      state.listCounterStyle = payload;
     },
     mutateDetailCounterStyle(state, payload){
-      state.detailCounterStyle = payload
+      state.detailCounterStyle = payload;
+    },
+    mutateGetEditCounterStyle(state,payload){
+      state.getEditCounterStyle = payload;
+    }, 
+    mutateResponsGeneral(state, payload){
+      state.responseGeneral = payload;
     }
   },
   actions: {
@@ -71,12 +79,12 @@ const store = createStore({
           rootState.loading = false;
       })
       .catch(function(error) {
-          rootState.error = error.message; 
+        commit('mutateResponsGeneral', error.message); 
           rootState.loading = false;
       })
     },
 
-    createCounterStyle({rootState}, payload){
+    createCounterStyle({commit, rootState}, payload){
       rootState.loading = true;
       axios({
           method: 'post',
@@ -89,11 +97,11 @@ const store = createStore({
           data:payload
       })
       .then(function(response){
-          console.log(response.data)
+          commit('mutateResponsGeneral', response.data); 
           rootState.loading = false;
       })
       .catch(function(error) {
-          rootState.error = error.message; 
+          commit('mutateResponsGeneral', error.message); 
           rootState.loading = false;
       })
     },
@@ -109,7 +117,46 @@ const store = createStore({
           rootState.loading = false;
       })
       .catch(function(error) {
-          rootState.error = error.message; 
+        commit('mutateResponsGeneral', error.message); 
+          rootState.loading = false;
+      })
+    },
+
+    getEditCounterStyle({commit, rootState},payload){
+      rootState.loading =true;
+      axios({
+          method: 'get',
+          url: `${urlCounterStyle}/${payload}/edit`,
+      })
+      .then(function(response){
+          commit('mutateGetEditCounterStyle',response.data);
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+        commit('mutateResponsGeneral', error.message); 
+          rootState.loading = false;
+      })
+    },
+
+    editCounterStyle({commit, rootState}, payload){
+      const dataForm = payload.form
+      rootState.loading =true;
+      axios({
+          method: 'post',
+          url: `${urlCounterStyle}/${payload.slug}`,
+          config:{
+            headers:{
+              'Content-Type': 'multipart/form-data'
+            },
+          },
+          data:dataForm
+      })
+      .then(function(response){
+          commit('mutateResponsGeneral', response.data); 
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          commit('mutateResponsGeneral', error.message); 
           rootState.loading = false;
       })
     },
@@ -121,13 +168,11 @@ const store = createStore({
           url: `${urlCounterStyle}/${payload}`,
       })
       .then(function(response){
-          console.log("action")
-          console.log(response.data)
-          // commit('mutateDetailCounterStyle',response.data);
+          commit('mutateResponsGeneral', response.data); 
           rootState.loading = false;
       })
       .catch(function(error) {
-          rootState.error = error.message; 
+          commit('mutateResponsGeneral', error.message); 
           rootState.loading = false;
       })
     },

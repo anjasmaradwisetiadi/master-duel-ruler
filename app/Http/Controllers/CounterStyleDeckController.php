@@ -58,18 +58,18 @@ class CounterStyleDeckController extends Controller
         //     'created_at'=>date('Y-m-d H:i:s'),
         //     'title'=>$content,
         // ]);
-
         $imagePost = '';
         if($request->file('image')){
             $baseUrlImage = 'http://laravel-vue.test/storage/';
             $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
         }
+        $list_chips_convert = explode(',', $request->list_chips);
         CounterStyleDecks::create([
             'title' => $request->title,
             'slug' => $request->slug,
             'image' => $imagePost,
             'information' => $request->information,
-            'list_chips' => json_encode(array($request->list_chips))
+            'list_chips' => json_encode($list_chips_convert)
         ]);
 
         return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
@@ -93,8 +93,10 @@ class CounterStyleDeckController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $findData = CounterStyleDecks::where('slug','=',$id)->firstOrFail();
+        $findData->list_chips = json_decode($findData->list_chips);
+        return response()->json($findData);
     }
 
     /**
@@ -106,7 +108,25 @@ class CounterStyleDeckController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $findData = CounterStyleDecks::where('slug','=',$id)->firstOrFail(); 
+        $imageReplace= str_replace("http://laravel-vue.test/storage/", "", $findData->image);
+        // dd($request);
+        // if($request->file('image')){
+        //     if($imageReplace !== $request->image){
+        //         Storage::delete($imageReplace);
+        //     }
+        // }
+        $list_chips_convert = explode(',', $request->list_chips);
+        CounterStyleDecks::where('id', $findData->id)
+            ->update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'image' => $request->image,
+            'information' => $request->information,
+            'list_chips' => json_encode($list_chips_convert)
+        ]);
+
+        return response()->json(['status'=>true, 'message'=>'Data berhasil diUpdate !!!']);
     }
 
     /**

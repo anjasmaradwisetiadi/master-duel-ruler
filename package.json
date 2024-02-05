@@ -27,7 +27,10 @@
         "vuex": "^4.1.0"
     },
     "dependencies": {
+        "@vueup/vue-quill": "^1.2.0",
         "dayjs": "^1.11.10",
-        "vue-next": "^0.0.1"
+        "vue-next": "^0.0.1",
+        "vue-runtime-helpers": "^1.1.2",
+        "vue-sweetalert2": "^5.0.5"
     }
 }

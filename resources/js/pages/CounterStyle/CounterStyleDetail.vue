@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-1">
             <div class="col">
-                <button type="button" class="btn btn-warning mr-2" @click="editCounterStyle()">Edit Counter Style</button>
+                <button type="button" class="btn btn-warning mr-2" @click="editCounterStyle(getDataCounterStyleDeck.slug)">Edit Counter Style</button>
                 <button type="button" class="btn btn-danger" @click="deleteCounterStyle()">Delete Counter Style</button>
             </div>
         </div>
@@ -194,8 +194,6 @@ const urlImages = computed(()=>{
     return urlDataImages.value;
 })
 
-
-
 function displayCard(index, condition ){
     hoverCondition.value = condition;
     hoverConditionIndex.value  = index;
@@ -263,8 +261,8 @@ function textDef(type,def=0){
     return txt.value;
 }
 
-function editCounterStyle(){
-
+function editCounterStyle(slug){
+    router.push(`/counter-style-deck/${slug}/edit`);
 }
 
 function deleteCounterStyle(){

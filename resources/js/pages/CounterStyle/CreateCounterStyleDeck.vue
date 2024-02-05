@@ -2,7 +2,7 @@
     <div id="CreateCounterStyleDeck" class="mt-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-6 text-center">
-                <h3>Create Counter Style Deck</h3>
+                <h3>{{editOrNot ? 'Edit':'Create'}} Counter Style Deck</h3>
             </div>
         </div>
         <div class="form-create">
@@ -39,11 +39,7 @@
 
             <div class="form-group">
                 <label for="inputBody">Information</label>
-                <input id="inputBody" type="hidden" name="body" required>
-                <trix-editor input="inputBody" class="" style="border: 1 solid red !important;" ></trix-editor>
-            </div>
-            <div>
-                {{information.value}}
+                <quill-editor v-model:content="information" contentType="text" placeholder="Write your information...."></quill-editor>
             </div>
             <div class="form-group">
                 <label for="chips">Chips File</label>
@@ -61,18 +57,23 @@
                     </div>
                 </div>
             </div>
-
             <div>
                 <button type="button" class="btn btn-success" @click="submit()">Submit</button>
-                <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
+                <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button>
             </div>
         </div>
+        <LoadingAndAlert text="dataFormer" :loading="loading" :responseGeneral="responseGeneral" ></LoadingAndAlert>
     </div>
 </template>
 
 <script setup>
-    import { ref, reactive, onMounted} from 'vue'
+    import { ref, reactive,computed, watch, onBeforeMount, onMounted, onBeforeUpdate, } from 'vue';
+    import '@vueup/vue-quill/dist/vue-quill.snow.css';
+    import { QuillEditor } from '@vueup/vue-quill'
+    import { useRouter } from 'vue-router';
     import { useStore } from 'vuex';
+    import LoadingAndAlert from '../../components/LoadingAndAlert.vue'
+    const router = useRouter();
     const store = useStore();
 
     const title = ref('');
@@ -82,10 +83,59 @@
     const inputFile = ref(0);
     const listChips = ref([])
     const textInformation = ref('')
+    const paramsUrl = ref('');
+    const oldSlug = ref('');
+    const editOrNot = ref(null);
 
     const state = reactive({
-        preview, image, inputFile, information, title, listChips, textInformation
+        preview, 
+        image, 
+        inputFile, 
+        information, 
+        title, 
+        listChips, 
+        textInformation, 
+        paramsUrl,
+        oldSlug,
+        editOrNot
     })
+
+    const getDataEditCounterStyle = computed(()=>{
+        const data = store.state.getEditCounterStyle
+        if(data?.title){
+            return data
+        }
+    })
+
+    const loading = computed(()=>{
+        return store.state.loading
+    })
+
+    const responseGeneral = computed(()=>{
+        return store.state.responseGeneral
+    })
+
+    watch( getDataEditCounterStyle,async (newValue, oldValue)=>{
+        state.title = newValue.title;
+        state.slug = newValue.slug;
+        state.listChips = newValue.list_chips;
+        state.information = newValue.information;
+        state.preview = newValue.image;
+        state.oldSlug = newValue.slug
+    })
+
+    onMounted(()=>{
+        decisionEditOrCreateRuler();
+    })
+
+    function decisionEditOrCreateRuler(){
+        const payload = router.currentRoute.value.params.slug
+        state.paramsUrl = payload;
+        if(payload){
+            state.editOrNot = true;
+            store.dispatch('getEditCounterStyle',payload)
+        } 
+    }
 
     function previewImage(event){
         var input = event.target;
@@ -106,9 +156,7 @@
 
     function generateChips(){
         state.listChips=[];
-        const inputBody =  document.querySelector("#inputBody");
-        const createStringInformation = inputBody.value.toString();
-        state.information = createStringInformation;
+        const createStringInformation = information.value;
         let arrayIndexInformation = [];
         for(let index=0; index<createStringInformation.length; index++){
             if(createStringInformation[index] === `"`){
@@ -144,33 +192,57 @@
 
     function submit(){
         let slugCreated = ''
-        slugCreated = title.value.toLowerCase().replace(' ', '-');
+        slugCreated = title.value.toLowerCase().replaceAll(' ', '-');
+
         // *********** i use formData() because  i want send 2 type data (json and file image) 
         let formData = new FormData();
         const getParamsCreate = {
             'title': title.value,
             'slug': slugCreated,
-            'information': textInformation.value,
-            'list_chips': listChips.value
+            'information': information.value,
+            'list_chips': listChips.value,
         }
         // *********** i use formData() because  i want send 2 type data (json and file image) 
-        formData.append('image', image.value);
         for (const key in getParamsCreate) {
-            formData.append(key,  getParamsCreate[key])
+            formData.append(key, getParamsCreate[key])
         }
 
-        store.dispatch('createCounterStyle', formData)
+
+        if(!editOrNot.value){
+            formData.append('image', image.value);
+            store.dispatch('createCounterStyle', formData)
+            state.editOrNot = false
+        } else {
+            formData.append('image', preview.value);
+            // add function spoofing because laravel not know about method Put, Patch, Delete
+            formData.append('_method', 'PUT');
+            formData.append('old-slug', oldSlug.value)
+            const data ={
+                slug:slugCreated,
+                form:formData
+            } 
+            store.dispatch('editCounterStyle', data)
+            state.editOrNot = false
+        }
     }
 
     // for make dummy datapayload
     function createPayload(){
+        // payload dummy created
         state.title = "example deck"
         state.slug = "example-deck"
         state.image = "still development"
         // const inputBody =  document.querySelector("#inputBody");
         // inputBody.innerHTML = "1. testing flow"
-        state.textInformation = "1. testing flow"
+        state.information = "1. testing flow"
         state.listChips = ["testing-flow", "testing creeation"]
+
+        // sweet alert funcionalty
+        // Swal.fire({
+        //     title: "Good job!",
+        //     text: "You clicked the button!",
+        //     icon: "success"
+        // });
     }
 </script>
 
@@ -179,17 +251,8 @@ button {
   font-weight: bold;
 }
 
-trix-toolbar [data-trix-button-group ="text-tools"]{
-    background-color: white !important;
-}
-trix-toolbar [data-trix-button-group ="block-tools"]{
-    background-color: white;
-}
-trix-toolbar [data-trix-button-group ="file-tools"]{
-    display: none;
-}
-trix-toolbar [data-trix-button-group ="history-tools"]{
-    background-color: white;
+.ql-toolbar{
+    background-color: #e2e5e7;
 }
 
 .image-preview-wrap {

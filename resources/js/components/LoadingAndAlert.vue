@@ -5,42 +5,71 @@
                 <img src="../../assets/image/animated/spinner.svg" alt="spinner">
             </div>
         </div>
-        <div class="sweet-alert">
+        <div class="sweet-alert" v-if="props.responseGeneral">
            <div style="display: none;">{{responseGeneral}}</div> 
+        </div>
+        <div class="sweet-alert" v-if="props.confirmDelete">
+           <div style="display: none;">{{confirmDelete}}</div> 
         </div>
     </div>
 </template>
 <script setup>
-     import { reactive, computed, onMounted, defineProps } from 'vue';
+     import { reactive, computed, onMounted, defineProps, defineEmits } from 'vue';
      import { useStore } from 'vuex';
      import Swal from 'sweetalert2'
      const store = useStore();
      const props = defineProps([
         'text',
         'loading',
-        'responseGeneral'
+        'responseGeneral',
+        'confirmDelete'
     ])
+
+    const emit = defineEmits([
+        'confirm',
+        'confirmDelete'
+    ]);
 
      onMounted(()=>{
      })
 
      const responseGeneral = computed(()=>{
-        const response = props.responseGeneral;
+        const response = props?.responseGeneral;
             if(!props.loading){
-                if(response.status === true){
+                if(response?.status === true){
                     return  Swal.fire({
                         title: "Sukses!!!",
                         text: response.message,
                         icon: "success"
+                    }).then((result)=>{
+                        if (result.isConfirmed) {
+                            emit('confirm',true)
+                        }
+                    })
+                } else if(response?.status === false) {
+                    return  Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Something went wrong!",
                     });
-            } else if(response.status === false) {
-                return  Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Something went wrong!",
-                });
+                }
             }
-        }
+    })
+
+    const confirmDelete = computed(()=>{
+        props?.confirmDelete;
+        return Swal.fire({
+            title: "Apa kamu yakin akan mengapus info Deck ini ? ",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                emit('confirm',true);
+            } else{
+                emit('confirm',false);
+            }
+        });
     })
 </script>
 <style scoped>

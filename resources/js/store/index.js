@@ -177,11 +177,19 @@ const store = createStore({
       })
     },
 
+    returnDoneNow(){
+      return 'Done'
+    }
+
     //********** End */ counter style need explode file
   },
   getters: {
     getterTodoList(state){
       return state.todoList;
+    },
+    // it need getter for loading because when read action "getListCounterStyle()" always true not false
+    getterStateLoading(state){
+      return state.loading;
     },
     getterDataDummyCard (state){
       return state.dataDummyCards;

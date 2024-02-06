@@ -8,12 +8,27 @@
         <div class="form-create">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="name" v-model="title">
+                <input type="text" class="form-control" id="name" aria-describedby="name" 
+                    v-model="title" 
+                    :disabled="editOrNot ? '':disabled">
                 <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
             </div>
             <div class="form-group">
                 <label for="imageUpload">Upload Image</label>
-                <input type="file"  class="form-control-file" id="imageUpload" @change="previewImage($event)" ref="inputFile">
+                <div id="imageUpload" class="form-input-file">   
+                    <div class="input-file-style">
+                        <input type="file"  class="form-control-file"  @change="previewImage($event)" ref="inputFile" 
+                            :disabled="conditionImage === 'input-image' || conditionImage === 'neutral' ? disabled : ''  ">
+                    </div>
+                    <div class="px-3 d-flex align-items-center">
+                        <span>OR</span>
+                    </div>
+                    <div class="input-file-style">
+                        <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Input url..."
+                            @change="previewImage($event)" 
+                            :disabled="conditionImage === 'input-url-image' || conditionImage === 'neutral' ? disabled: '' " >
+                    </div>
+                </div>
                 <!-- image preview -->
             </div>
             <div v-if="preview" class="mb-3">
@@ -62,7 +77,7 @@
                 <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button>
             </div>
         </div>
-        <LoadingAndAlert text="dataFormer" :loading="loading" :responseGeneral="responseGeneral" ></LoadingAndAlert>
+        <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
     </div>
 </template>
 
@@ -73,13 +88,16 @@
     import { useRouter } from 'vue-router';
     import { useStore } from 'vuex';
     import LoadingAndAlert from '../../components/LoadingAndAlert.vue'
+    import Swal from 'sweetalert2'
     const router = useRouter();
     const store = useStore();
 
     const title = ref('');
     const information = ref('');
     const preview = ref(null);
+    const conditionImage = ref('neutral');
     const image = ref(null);
+    const urlImage = ref(null);
     const inputFile = ref(0);
     const listChips = ref([])
     const textInformation = ref('')
@@ -90,6 +108,8 @@
     const state = reactive({
         preview, 
         image, 
+        urlImage,
+        conditionImage,
         inputFile, 
         information, 
         title, 
@@ -108,7 +128,7 @@
     })
 
     const loading = computed(()=>{
-        return store.state.loading
+        return store.getters.loading;
     })
 
     const responseGeneral = computed(()=>{
@@ -138,7 +158,7 @@
     }
 
     function previewImage(event){
-        var input = event.target;
+        let input = event.target;
         if (input.files) {
             var reader = new FileReader();
             reader.onload = (e) => {
@@ -146,12 +166,29 @@
             }
             state.image=input.files[0];
             reader.readAsDataURL(input.files[0]);
+            if(image.value){
+                state.conditionImage = 'input-image';
+            } else if(!image.value) {
+                state.conditionImage = 'neutral';
+            }
+        } 
+        else if(!input.files){
+            state.urlImage = event.target.value;
+            state.preview = event.target.value;
+            if(urlImage.value){
+                state.conditionImage = 'input-url-image';
+            } else if(!urlImage.value) {
+                state.conditionImage = 'neutral';
+            }
         }
     }
 
     function removeImage(){
         state.preview = null;
-        inputFile.value.value = ""
+        state.image = null;
+        state.urlImage = null;
+        inputFile.value.value = "";
+        state.conditionImage = 'neutral';
     }
 
     function generateChips(){
@@ -201,6 +238,7 @@
             'slug': slugCreated,
             'information': information.value,
             'list_chips': listChips.value,
+            'url_image': urlImage.value
         }
         // *********** i use formData() because  i want send 2 type data (json and file image) 
         for (const key in getParamsCreate) {
@@ -213,7 +251,11 @@
             store.dispatch('createCounterStyle', formData)
             state.editOrNot = false
         } else {
-            formData.append('image', preview.value);
+            if(conditionImage.value === 'neutral'){
+                formData.append('image', preview.value);
+            } else {
+                formData.append('image', image.value);
+            }
             // add function spoofing because laravel not know about method Put, Patch, Delete
             formData.append('_method', 'PUT');
             formData.append('old-slug', oldSlug.value)
@@ -226,23 +268,32 @@
         }
     }
 
+    function confirm($event){
+        if($event){
+            router.push('/counter-style-deck/');
+        }
+    }
+
     // for make dummy datapayload
     function createPayload(){
         // payload dummy created
         state.title = "example deck"
         state.slug = "example-deck"
-        state.image = "still development"
-        // const inputBody =  document.querySelector("#inputBody");
-        // inputBody.innerHTML = "1. testing flow"
+        state.image = "still development",
+        // state.urlImage = '',
         state.information = "1. testing flow"
         state.listChips = ["testing-flow", "testing creeation"]
 
         // sweet alert funcionalty
-        // Swal.fire({
+        // return Swal.fire({
         //     title: "Good job!",
         //     text: "You clicked the button!",
         //     icon: "success"
-        // });
+        // }).then((result)=>{
+        //     if (result.isConfirmed) {
+        //         console.log("result confirm pass");
+        //     }
+        // })
     }
 </script>
 
@@ -253,6 +304,20 @@ button {
 
 .ql-toolbar{
     background-color: #e2e5e7;
+}
+
+.ql-editor.ql-blank::before{
+    color: rgba(226,229,231, 0.8);
+    content: attr(data-placeholder);
+    font-style: italic;
+    left: 15px;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+}
+
+.ql-container {
+    min-height: 120px;
 }
 
 .image-preview-wrap {
@@ -304,5 +369,12 @@ button {
 
 .closebtn:hover {
   color: #0b365e;
+}
+
+.form-input-file{
+    display: flex;
+}
+.form-input-file .input-file-style{
+    width: 250px;
 }
 </style>

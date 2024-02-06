@@ -5,7 +5,7 @@
                 <input type="text" class="form-control" id="Search" aria-describedby="Search" placeholder="Search...">
             </div>
         </div>
-        <div class="row mb-1">
+        <div class="row mb-2">
             <div class="col">
                 <button type="button" class="btn btn-secondary"><a :href="urlCreateDeck" class="add-new-counter-link">Add New Counter</a></button>
             </div>
@@ -32,6 +32,7 @@
                 </div>
             </div>
         </div>
+        <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
     </div>
 </template>
 
@@ -40,6 +41,7 @@
 import { computed, ref, onMounted, onBeforeMount, onBeforeUpdate } from 'vue';
 import { useRouter } from 'vue-router'
 import {collectionUrl} from '../urlCollect'
+import LoadingAndAlert from '../components/LoadingAndAlert.vue'
 import { useStore } from 'vuex'
 const dayjs = require('dayjs')
 
@@ -53,13 +55,16 @@ const cardListCounterStyle = computed(()=>{
 let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create');
 
 onBeforeMount(()=>{
-    console.log("trigger getListApi counter-style-deck-api = ")
     store.dispatch('getListCounterStyle')
 })
 
 onMounted(()=>{
     console.log("ini routing testing = ")
     console.log(router.currentRoute)
+})
+
+const loading = computed(()=>{
+    return store.getters.getterStateLoading
 })
 
 

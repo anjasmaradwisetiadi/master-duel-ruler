@@ -5,10 +5,13 @@
                 <h1>{{ getDataCounterStyleDeck.title }}</h1>
             </div>
         </div>
-        <div class="row mb-1">
+        <div class="row mb-2">
             <div class="col">
-                <button type="button" class="btn btn-warning mr-2" @click="editCounterStyle(getDataCounterStyleDeck.slug)">Edit Counter Style</button>
+                <button type="button" class="btn btn-success mr-2" @click="editCounterStyle(getDataCounterStyleDeck.slug)">Edit Counter Style</button>
                 <button type="button" class="btn btn-danger" @click="deleteCounterStyle()">Delete Counter Style</button>
+            </div>
+            <div class="col d-flex justify-content-end">
+                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="row">
@@ -144,14 +147,17 @@
                 </div>
             </template>
         </div>
+        <LoadingAndAlert :loading="loading" :confirmDelete="confirmDelete" @confirm="methodConfirmDelete"></LoadingAndAlert>
     </div>
 </template>
 
 <script setup>
 
 import { computed, onMounted, ref, reactive } from 'vue';
+import LoadingAndAlert from '../../components/LoadingAndAlert.vue'
 import { useRouter } from 'vue-router';
-import { mapMutations, useStore } from 'vuex';
+import { useStore } from 'vuex';
+import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
 
@@ -161,21 +167,21 @@ const dataDummyCardKashtira = ref()
 const openModal = ref(false);
 const hoverCondition = ref(false)
 const hoverConditionIndex = ref(0)
-const dataCardDetail = ref(null);
 const paramsUrl = ref('');
+const confirmDelete = ref(false);
+const statusDelete = ref(false);
 
 const state = reactive({
-    paramsUrl
+    paramsUrl,
+    confirmDelete,
+    statusDelete
 }) 
 
 onMounted(()=>{
-    // console.log("router")
-    // console.log(router.currentRoute.value.params.slug)
     const payload = router.currentRoute.value.params.slug
     state.paramsUrl = payload;
     store.dispatch('detailCounterStyle', payload);
 })
-
 const getDataCounterStyleDeck= computed(()=>{
     return store.state.detailCounterStyle;
 })
@@ -193,6 +199,19 @@ const listenModalDisplay = computed(()=>{
 const urlImages = computed(()=>{
     return urlDataImages.value;
 })
+
+const loading = computed(()=>{
+    return store.getters.getterStateLoading;
+})
+
+const responseGeneral = computed(()=>{
+    return store.state.responseGeneral
+})
+
+// it cannot use watch whe we want get data ready
+// const watchResponseGeneral = store.watch( (state, getters) => state.responseGeneral, (newValue, oldValue)=>{
+//         state.statusDelete = newValue.status;
+// })
 
 function displayCard(index, condition ){
     hoverCondition.value = condition;
@@ -266,7 +285,48 @@ function editCounterStyle(slug){
 }
 
 function deleteCounterStyle(){
-    store.dispatch('deleteCounterStyle', paramsUrl.value)
+    state.confirmDelete = true;
+}
+
+function methodConfirmDelete($event){
+    if($event){
+        Swal.fire({
+            title: "Success Delete ",
+            icon: "success"
+        })
+        .then((success)=>{
+            if(success){
+                store.dispatch('deleteCounterStyle', paramsUrl.value);
+                router.push('/counter-style-deck/');
+            }
+        });
+        
+        // it still not working
+        // dataDelete.then((result)=>{
+        //     console.log("result = ")
+        //     console.log(result)
+        //     if(result.status){
+        //         Swal.fire({
+        //             title: "Success Delete ",
+        //             icon: "success"
+        //         })
+        //         .then((success)=>{
+        //             if(success){
+        //                 router.push('/counter-style-deck/');
+        //             }
+        //     });
+        //     }
+        // })
+        // router.push('/counter-style-deck/');
+        // console.log("statusDelete.value = ");
+        // console.log(statusDelete.value);
+        // still blocking for implement this code
+
+    }
+}
+
+function backRoute(){
+    router.back();
 }
 
 </script>

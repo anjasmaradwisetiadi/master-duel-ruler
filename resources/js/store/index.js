@@ -28,6 +28,7 @@ const store = createStore({
     detailCounterStyle: {},
     getEditCounterStyle: {},
     responseGeneral: {},
+    dataListChips:[],
   },
   mutations: {
     decrementCounter(state,payload){
@@ -51,6 +52,9 @@ const store = createStore({
     }, 
     mutateResponsGeneral(state, payload){
       state.responseGeneral = payload;
+    },
+    mutateGetDataListChips(state, payload){
+      state.dataListChips.push(payload) 
     }
   },
   actions: {
@@ -177,11 +181,23 @@ const store = createStore({
       })
     },
 
-    returnDoneNow(){
-      return 'Done'
-    }
-
     //********** End */ counter style need explode file
+
+    getDataListChips({commit,rootState}, payload){
+      rootState.loading = true;
+      axios({
+          method: 'get',
+          url: `${collectionUrl.baseUrlApiYgoProDeck}${payload}`,
+      })
+      .then(function(response){
+          commit('mutateGetDataListChips', response.data.data[0]); 
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          commit('mutateResponsGeneral', error.message); 
+          rootState.loading = false;
+      })
+    }
   },
   getters: {
     getterTodoList(state){
@@ -191,10 +207,6 @@ const store = createStore({
     getterStateLoading(state){
       return state.loading;
     },
-    getterDataDummyCard (state){
-      return state.dataDummyCards;
-    },
-
     //********** */ counter style need explode file
     getterListCounterStyle(state){
       return state.listCounterStyle;

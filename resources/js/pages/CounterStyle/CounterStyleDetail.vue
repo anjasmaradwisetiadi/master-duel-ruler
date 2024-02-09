@@ -18,9 +18,8 @@
             <div class="col">
                 <h5>Information: </h5>
                 <div class="card">
-                    <div class="card-body">
-                        1. negate kartu monster "Kashtira Unicorn" ketika dia mengaktifkan effect add kartu ke tangan. <br>
-                        2. ketika kita punya kartu monster "Nibiru" tunggu sampai di panggil monster "Kashtira Arise-Heart" 
+                    <div class="card-body" >
+                        <div class="information-html" v-html="getDataCounterStyleDeck.information"></div>
                     </div>
                 </div>
             </div>
@@ -30,7 +29,7 @@
             <div class="col-9 background-image">
                     <div class="d-flex">
                         <div
-                            v-for="(urlImage,index) in urlImages" 
+                            v-for="(urlImage,index) in getDataYgoProDeck" 
                             :key="index" 
                             class="wrap-card" 
                             :style="hoverFunctionCard"
@@ -44,45 +43,70 @@
                                 class="image-style"
                             >
                             <div class="hover-card">
-                                <div class="d-flex">
-                                    <div class="image-section">
-                                        <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
-                                    </div>
-                                    <div class="information-section">
-                                        <div class="d-flex mb-2">
-                                            <div class="mr-auto">
-                                                <span> <b>{{ urlImage.name }}</b></span>
+                                <template v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'">
+                                    <div class="d-flex card-monster">
+                                        <div class="image-section">
+                                            <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
+                                        </div>
+                                        <div class="information-section">
+                                            <div class="row mb-2">
+                                                <div class="col-8 mr-auto">
+                                                    <span> <b>{{ urlImage.name }}</b></span>
+                                                </div>
+                                                <div class="col-4 ml-auto ">
+                                                    <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
+                                                    <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
+                                                        <img src="../../../assets/image/rank-icon.webp" alt="rank">
+                                                        <span>{{ urlImage.level }}</span>
+                                                    </span>
+                                                    <span class="wrap-star" v-else-if="urlImage.frameType === 'link'">
+                                                        Link - 
+                                                        <span>{{ urlImage.linkval }}</span>
+                                                    </span>
+                                                    <span class="wrap-star" v-else>
+                                                        <img src="../../../assets/image/star-icon.webp" alt="star">
+                                                        <span>{{ urlImage.level }}</span>
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="ml-auto ">
-                                                <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
-                                                <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
-                                                    <img src="../../../assets/image/rank-icon.webp" alt="rank">
-                                                    <span>{{ urlImage.level }}</span>
-                                                </span>
-                                                <span class="wrap-star" v-else-if="urlImage.frameType === 'link'">
-                                                    Link - 
-                                                    <span>{{ urlImage.level }}</span>
-                                                </span>
-                                                <span class="wrap-star" v-else>
-                                                    <img src="../../../assets/image/star-icon.webp" alt="star">
-                                                    <span>{{ urlImage.level }}</span>
-                                                </span>
+                                            <div class="mb-2">
+                                                <span><b>[ {{ urlImage.race }} / {{ textTypeMonster(urlImage.frameType) }} {{textEffectMonster(urlImage.frameType)}} ]</b></span>
+                                            </div>
+                                            <div class="mb-2">
+                                                {{ decodeHTML(urlImage.desc) }} 
+                                            </div>
+                                            <div class="mb-2">
+                                                <span><b>ATK/</b>{{ urlImage.atk }} <span :innerHTML="textDef(urlImage.frameType, urlImage.def)"></span></span>   
+                                            </div>
+                                            <div class="released-card">
+                                                <span>Released on Card Set  {{urlImage.card_sets[0].set_name}}</span>
                                             </div>
                                         </div>
-                                        <div class="mb-2">
-                                            <span><b>[ {{ urlImage.race }} / {{ textTypeMonster(urlImage.frameType) }} {{textEffectMonster(urlImage.frameType)}} ]</b></span>
+                                    </div>
+                                </template>
+                                <template v-if="urlImage.frameType === 'trap' || urlImage.frameType === 'spell'">
+                                    <div class="d-flex card-trap-spell">
+                                        <div class="image-section">
+                                            <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
                                         </div>
-                                        <div class="mb-2">
-                                            {{ decodeHTML(urlImage.desc) }} 
-                                        </div>
-                                        <div class="mb-2">
-                                            <span><b>ATK/</b>{{ urlImage.atk }} <span :innerHTML="textDef(urlImage.frameType, urlImage.def)"></span></span>   
-                                        </div>
-                                        <div>
-                                            <span>Released on Card Set  {{urlImage.card_sets[0].set_name}}</span>
+                                        <div class="information-section">
+                                            <div class="row mb-2">
+                                                <div class="col-8 mr-auto">
+                                                    <span> <b>{{ urlImage.name }}</b></span>
+                                                </div>
+                                                <div class="col-4 ml-auto ">
+                                                    <span class="mr-1"> <b>{{ textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
+                                                </div>
+                                            </div>
+                                            <div class="mb-2">
+                                                {{ decodeHTML(urlImage.desc) }} 
+                                            </div>
+                                            <div class="released-card">
+                                                <span>Released on Card Set  {{urlImage.card_sets[0].set_name}}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -91,7 +115,7 @@
 
         <!-- modal image previews -->
         <div :class="listenModalDisplay?'modal-wrapper':'modal-wrapper-none'">
-            <template v-if="dummyCardKashtira">
+            <template v-if="dataHasSelected">
                 <div class="close-section">
                     <a  style="cursor: pointer;"
                         @click="openModalCard(false)"  >
@@ -104,48 +128,81 @@
                     </a>
                 </div>
                 <div class="content-section">
-                    <div class="wrap-card-currently">
-                        <div class="d-flex justify-content-center">
-                            <div class="mb-3">
-                                    <h3 class=" name-card"> <b>{{ dummyCardKashtira?.name }}</b></h3>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="image-section">
-                                <img :src="dummyCardKashtira?.card_images[0]?.image_url" :alt="dummyCardKashtira?.name" >
-                            </div>
-                            <div class="information-section">
-                                <div class="mb-2 d-flex">
-                                    <span class="mr-3"> <b>{{ dummyCardKashtira?.attribute }}</b></span>
-                                    <span class="wrap-star" v-if="dummyCardKashtira?.frameType === 'xyz'">
-                                        <img src="../../../assets/image/rank-icon.webp" alt="rank">
-                                        <span>{{ dummyCardKashtira?.level }}</span>
-                                    </span>
-                                    <span class="wrap-star" v-else-if="dummyCardKashtira?.frameType === 'link'">
-                                        <span>Link - {{ dummyCardKashtira?.linkval }}</span>
-                                    </span>
-                                    <span class="wrap-star" v-else>
-                                        <img src="../../../assets/image/star-icon.webp" alt="star">
-                                        <span>{{ dummyCardKashtira?.level }}</span>
-                                    </span>
-                                </div>
-                                <div class="mb-2">
-                                    <span><b>[ {{ dummyCardKashtira?.race }} / {{ textTypeMonster(dummyCardKashtira?.frameType) }} {{textEffectMonster(dummyCardKashtira?.frameType)}} ]</b></span>
-                                </div>
-                                <div class="mb-2">
-                                    {{ decodeHTML(dummyCardKashtira.desc) }} 
-                                </div>
-                                <div class="mb-1">
-                                    <span><b>ATK/</b>{{ dummyCardKashtira?.atk }} <span :innerHTML="textDef(dummyCardKashtira?.frameType, dummyCardKashtira?.def)"></span></span>   
-                                </div>
-                                <div class="released-card mb-2">
-                                    <span>Released on Card Set  {{dummyCardKashtira?.card_sets[0]?.set_name}}</span>
+                    <template v-if="dataHasSelected.frameType !== 'trap' && dataHasSelected.frameType !== 'spell'">
+                        <div class="card-monster-preview wrap-card-currently">
+                            <div class="d-flex justify-content-center">
+                                <div class="mb-3">
+                                        <h3 class=" name-card"> <b>{{ dataHasSelected?.name }}</b></h3>
                                 </div>
                             </div>
-                        </div>
-                    </div>      
+                            <div class="d-flex">
+                                <div class="image-section">
+                                    <img :src="dataHasSelected?.card_images[0]?.image_url" :alt="dataHasSelected?.name" >
+                                </div>
+                                <div class="information-section">
+                                    <div class="mb-2 d-flex">
+                                        <span class="mr-3"> <b>{{ dataHasSelected?.attribute }}</b></span>
+                                        <span class="wrap-star" v-if="dataHasSelected?.frameType === 'xyz'">
+                                            <img src="../../../assets/image/rank-icon.webp" alt="rank">
+                                            <span>{{ dataHasSelected?.level }}</span>
+                                        </span>
+                                        <span class="wrap-star" v-else-if="dataHasSelected?.frameType === 'link'">
+                                            <span>Link - {{ dataHasSelected?.linkval }}</span>
+                                        </span>
+                                        <span class="wrap-star" v-else>
+                                            <img src="../../../assets/image/star-icon.webp" alt="star">
+                                            <span>{{ dataHasSelected?.level }}</span>
+                                        </span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span><b>[ {{ dataHasSelected?.race }} / {{ textTypeMonster(dataHasSelected?.frameType) }} {{textEffectMonster(dataHasSelected?.frameType)}} ]</b></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        {{ decodeHTML(dataHasSelected.desc) }} 
+                                    </div>
+                                    <div class="mb-1">
+                                        <span><b>ATK/</b>{{ dataHasSelected?.atk }} <span :innerHTML="textDef(dataHasSelected?.frameType, dataHasSelected?.def)"></span></span>   
+                                    </div>
+                                    <div class="released-card mb-2">
+                                        <span>Released on Card Set  {{dataHasSelected?.card_sets[0]?.set_name}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>  
+                    </template>  
+                    <template v-if="dataHasSelected.frameType === 'trap' || dataHasSelected.frameType === 'spell'">
+                        <div class="card-trap-spell-preview wrap-card-currently">
+                            <div class="d-flex justify-content-center">
+                                <div class="mb-3">
+                                        <h3 class=" name-card"> <b>{{ dataHasSelected?.name }}</b></h3>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="image-section">
+                                    <img :src="dataHasSelected?.card_images[0]?.image_url" :alt="dataHasSelected?.name" >
+                                </div>
+                                <div class="information-section">
+                                    <div class="row mb-2">
+                                        <div class="col-8 mr-auto">
+                                            <span> <b>{{ dataHasSelected.name }}</b></span>
+                                        </div>
+                                        <div class="col-4 ml-auto ">
+                                            <span class="mr-1"> <b>{{ textTypeMonster(dataHasSelected.frameType)}} - {{ dataHasSelected.race }}</b></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        {{ decodeHTML(dataHasSelected.desc) }} 
+                                    </div>
+                                    <div class="released-card mb-2">
+                                        <span>Released on Card Set  {{dataHasSelected.card_sets[0].set_name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </template>  
                 </div>
-            </template>
+            </template>       
         </div>
         <LoadingAndAlert :loading="loading" :confirmDelete="confirmDelete" @confirm="methodConfirmDelete"></LoadingAndAlert>
     </div>
@@ -153,7 +210,7 @@
 
 <script setup>
 
-import { computed, onMounted, ref, reactive } from 'vue';
+import { computed, onMounted, ref, reactive, watch } from 'vue';
 import LoadingAndAlert from '../../components/LoadingAndAlert.vue'
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
@@ -161,8 +218,8 @@ import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
 
-const urlDataImages = ref(store.getters.getterDataDummyCard.data)
-const dataDummyCardKashtira = ref()
+const urlDataImages = ref(store.state.dataListChips)
+const dataSelectCards = ref()
 
 const openModal = ref(false);
 const hoverCondition = ref(false)
@@ -190,16 +247,12 @@ const hoverFunctionCard = computed(()=>{
     return hoverConditionIndex;
 })
 
-const dummyCardKashtira = computed(()=>{
-    return dataDummyCardKashtira.value;
+const dataHasSelected = computed(()=>{
+    return dataSelectCards.value;
 })
 const listenModalDisplay = computed(()=>{
     return openModal.value;
 })
-const urlImages = computed(()=>{
-    return urlDataImages.value;
-})
-
 const loading = computed(()=>{
     return store.getters.getterStateLoading;
 })
@@ -207,6 +260,25 @@ const loading = computed(()=>{
 const responseGeneral = computed(()=>{
     return store.state.responseGeneral
 })
+
+const getDataYgoProDeck = computed(()=>{
+    console.log()
+    return store.state.dataListChips;
+})
+
+watch(getDataCounterStyleDeck, async (newValue, oldValue)=>{
+    const dataListChips= newValue.list_chips;
+    store.state.dataListChips = [];
+    for (let dataListChip of dataListChips) {
+        if(dataListChip.includes('&')){
+            dataListChip = dataListChip.replaceAll('&','%26')
+        }
+        store.dispatch("getDataListChips",dataListChip);
+    }
+    
+})
+
+
 
 // it cannot use watch whe we want get data ready
 // const watchResponseGeneral = store.watch( (state, getters) => state.responseGeneral, (newValue, oldValue)=>{
@@ -226,7 +298,7 @@ function decodeHTML(htmlText){
 }
 
 function openModalCard (value, index=0) {
-    dataDummyCardKashtira.value = store.getters.getterDataDummyCard.data[index]
+    dataSelectCards.value = store.state.dataListChips[index]
     openModal.value = value;
 }
 
@@ -237,6 +309,7 @@ function createdStyleCardHover(index, condition){
     // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
     if (condition){
         listCardSelector.style.maxWidth= '550px';
+        listCardSelector.style.minWidth= '550px';
         listCardSelector.style.padding= '8px';
         listCardSelector.style.borderRadius= '8px';
         listCardSelector.style.backgroundColor= 'rgba(0, 0, 0, 0.85)';
@@ -392,9 +465,10 @@ function backRoute(){
     }
 
     .hover-card .information-section .wrap-star img{
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
         margin-right: 4px;
+        margin-top:-4px;
     }
 
     /* *********** style .modal-wrapper */
@@ -445,7 +519,7 @@ function backRoute(){
         border-radius: 10px;
     }
 
-    .modal-wrapper .information-section .released-card {
+    .released-card {
         display: flex;
         justify-content: end;
     }
@@ -462,5 +536,12 @@ function backRoute(){
         width: 20px;
         height: 20px;
         margin-right: 6px;
+    }
+</style>
+
+<style>
+    .card-body .information-html p{
+        padding: 0px !important;
+        margin: 0px !important;
     }
 </style>

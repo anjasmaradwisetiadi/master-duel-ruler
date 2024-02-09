@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
-const webpack = require('webpack')
+const webpack = require('webpack');
+
 
 // mix.webpackConfig(webpack => {
 //     return {

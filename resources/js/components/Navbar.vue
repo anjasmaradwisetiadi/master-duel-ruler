@@ -28,14 +28,13 @@ import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 const router = useRouter();
 onMounted(()=>{
-
 })
 const activeLink = computed(()=>{
-    if(router.currentRoute.value.path === '/tier-list'){
+    if(router.currentRoute.value.path.includes('/tier-list')){
         return 'tier-list'
-    } else if(router.currentRoute.value.path === '/counter-style-deck'){
+    } else if(router.currentRoute.value.path.includes('/counter-style-deck')){
         return 'counter-style-deck'
-    } else if(router.currentRoute.value.path === '/play-style-deck'){
+    } else if(router.currentRoute.value.path.includes('/play-style-deck')){
         return 'play-style-deck'
     }
 })

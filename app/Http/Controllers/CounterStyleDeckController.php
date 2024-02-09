@@ -77,8 +77,10 @@ class CounterStyleDeckController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return CounterStyleDecks::where('slug','=',$id)->firstOrFail(); 
+    {   
+        $findData = CounterStyleDecks::where('slug','=',$id)->firstOrFail(); 
+        $findData->list_chips = json_decode($findData->list_chips);
+        return response()->json($findData);
     }
 
     /**

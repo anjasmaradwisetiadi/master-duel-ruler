@@ -54,7 +54,7 @@
 
             <div class="form-group">
                 <label for="inputBody">Information</label>
-                <quill-editor v-model:content="information" contentType="text" placeholder="Write your information...."></quill-editor>
+                <quill-editor v-model:content="information" content-type="html" placeholder="Write your information...."></quill-editor>
             </div>
             <div class="form-group">
                 <label for="chips">Chips File</label>
@@ -74,7 +74,7 @@
             </div>
             <div>
                 <button type="button" class="btn btn-success" @click="submit()">Submit</button>
-                <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button>
+                <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>
         <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>

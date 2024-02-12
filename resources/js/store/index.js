@@ -197,6 +197,21 @@ const store = createStore({
           commit('mutateResponsGeneral', error.message); 
           rootState.loading = false;
       })
+    },
+
+    getSearchStyleDeck({commit,rootState}, payload){
+      axios({
+          method: 'get',
+          url: `${urlCounterStyle}/search/${payload}`,
+      })
+      .then(function(response){
+          commit('mutateListCounterStyle', response.data); 
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          commit('mutateResponsGeneral', error.message); 
+          rootState.loading = false;
+      })
     }
   },
   getters: {

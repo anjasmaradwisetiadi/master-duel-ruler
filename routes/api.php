@@ -23,9 +23,7 @@ Route::post("/todolist/create", [ApiTodoListController::class, 'postCreate']);
 Route::get("/todolist/list", [ApiTodoListController::class, 'getList']);
 
 Route::resource('/counter-style-deck-api', CounterStyleDeckController::class);
-// Route::get("/todolist/list", function(){
-//     dd('testing');
-// });
+Route::get('/counter-style-deck-api/search/{title}', [CounterStyleDeckController::class, 'seacrhing']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

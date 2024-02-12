@@ -2,7 +2,9 @@
     <div id="CounterStyleDeck" class="mt-4">
         <div class="row justify-content-center mb-5">
             <div class="col-8 ">
-                <input type="text" class="form-control" id="Search" aria-describedby="Search" placeholder="Search...">
+                <input type="text" class="form-control" id="Search" aria-describedby="Search" placeholder="Search..."
+                    @change="searching($event)"
+                >
             </div>
         </div>
         <div class="row mb-2">
@@ -19,9 +21,6 @@
                             <img class="image-crop-resize" :src="card.image" :alt="card.name">
                         </div>
                         <div class="col-md-8">
-                            <!-- <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                            </div> -->
                             <div class="ml-2 text-left">
                                 <h6 class="target-style title-card">{{ card.title }}</h6>
                                 <div>
@@ -68,6 +67,18 @@ onMounted(()=>{
 const loading = computed(()=>{
     return store.getters.getterStateLoading
 })
+
+function searching(event){
+    const input = event.target.value;
+    if(input){
+        setTimeout(()=>{
+            store.dispatch('getSearchStyleDeck', input)
+        }, 800)        
+    } else {
+        store.dispatch('getListCounterStyle')
+    }
+
+}
 
 
 

@@ -16,8 +16,9 @@ class CounterStyleDeckController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $results = CounterStyleDecks::orderBy('id')->get();
+    {   
+        // $results = CounterStyleDecks::orderBy('id')->get();
+        $results = CounterStyleDecks::latest()->get();
         for ($index=0; $index<count($results); $index++) {
             $results[$index]->list_chips = json_decode($results[$index]->list_chips);
         };
@@ -187,6 +188,16 @@ class CounterStyleDeckController extends Controller
 
         CounterStyleDecks::destroy($findData->id);
         return response()->json(['status'=>true, 'message'=>'Data berhasil dihapus !!!']);
+    }
+
+    public function seacrhing($title){
+        if($title){
+            $results = CounterStyleDecks::where('title','like','%'. $title.'%')->latest()->get();
+            for ($index=0; $index<count($results); $index++) {
+                $results[$index]->list_chips = json_decode($results[$index]->list_chips);
+            };
+            return response()->json($results);
+        }
     }
 
     public function removeImageOld($request, $findData, $imagePosition){

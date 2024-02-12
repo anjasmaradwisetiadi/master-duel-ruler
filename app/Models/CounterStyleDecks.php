@@ -15,6 +15,14 @@ class CounterStyleDecks extends Model
     protected $cast = [
         'list_chips'=> 'array'
     ];
+
+    // try to filter function by model
+    // public function scopeFilter($query, $filters){
+    //     if(request('search')){
+    //         return $query->where('title','like','%'. request('search').'%');
+    //     }
+    // }
+
     // protected $fillable=[
     //     'title','slug','image','information','list_chips'
     // ];

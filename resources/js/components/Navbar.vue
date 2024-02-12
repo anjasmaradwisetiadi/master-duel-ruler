@@ -3,7 +3,7 @@
         <nav class="navbar navbar-expand-lg non-padding navbar-color text-white">
             <div class="container">
                 <div class="navbar-nav mr-auto">
-                    <a class="navbar-brand RogFont text-font text-white" href="#">Master Duel<br> Ruler</a>
+                    <a class="navbar-brand RogFont text-font text-white" href="/">Master Duel<br> Ruler</a>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">

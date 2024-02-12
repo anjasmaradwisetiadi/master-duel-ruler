@@ -8,10 +8,11 @@
         <div class="form-create">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="name" 
+                <input type="text" class="form-control" 
                     v-model="title" 
+                    :class="responseGeneral?.message?.title ? 'is-invalid':''" id="name" aria-describedby="name" 
                     :disabled="editOrNot ? '':disabled">
-                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                <small v-if="!responseGeneral?.status" class="form-text invalid-feedback">{{responseGeneral?.message?.title ? responseGeneral?.message?.title[0] : ''}}</small>
             </div>
             <div class="form-group">
                 <label for="imageUpload">Upload Image</label>
@@ -24,11 +25,13 @@
                         <span>OR</span>
                     </div>
                     <div class="input-file-style">
-                        <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Input url..."
+                        <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Input url..." 
+                            :class="responseGeneral?.message?.image ? 'is-invalid':''"
                             @change="previewImage($event)" 
                             :disabled="conditionImage === 'input-url-image' || conditionImage === 'neutral' ? disabled: '' " >
                     </div>
                 </div>
+                <div v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.image ? responseGeneral?.message?.image[0] : ''}}</div>
                 <!-- image preview -->
             </div>
             <div v-if="preview" class="mb-3">
@@ -54,7 +57,8 @@
 
             <div class="form-group">
                 <label for="inputBody">Information</label>
-                <quill-editor v-model:content="information" content-type="html" placeholder="Write your information...."></quill-editor>
+                <quill-editor id="inputBody" v-model:content="information" content-type="html" placeholder="Write your information...."></quill-editor>
+                <small v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.information ? responseGeneral?.message?.information[0] : ''}}</small>
             </div>
             <div class="form-group">
                 <label for="chips">Chips File</label>
@@ -87,8 +91,8 @@
     import { QuillEditor } from '@vueup/vue-quill'
     import { useRouter } from 'vue-router';
     import { useStore } from 'vuex';
-    import LoadingAndAlert from '../../components/LoadingAndAlert.vue'
-    import Swal from 'sweetalert2'
+    import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
+    import Swal from 'sweetalert2';
     const router = useRouter();
     const store = useStore();
 
@@ -135,6 +139,17 @@
         return store.state.responseGeneral
     })
 
+    watch( responseGeneral,async (newValue, oldValue)=>{
+        if(!responseGeneral?.status){
+            const information =  newValue?.message?.information[0];
+            if(information){
+                let container = document.querySelector('.ql-container.ql-snow ');
+                // const toolbar = document.getElementsByClassName('ql-toolbar');
+                container.style.border= '1px solid #dc3545 !important';
+            }
+        }
+    })
+
     watch( getDataEditCounterStyle,async (newValue, oldValue)=>{
         state.title = newValue.title;
         state.slug = newValue.slug;
@@ -146,6 +161,9 @@
 
     onMounted(()=>{
         decisionEditOrCreateRuler();
+        // let container = document.querySelector('.ql-container.ql-snow ');
+            // const toolbar = document.getElementsByClassName('ql-toolbar');
+            // container.style.border= '1px solid #dc3545 !important';
     })
 
     function decisionEditOrCreateRuler(){
@@ -377,4 +395,11 @@ button {
 .form-input-file .input-file-style{
     width: 250px;
 }
+.invalid-feedback-custom {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: #dc3545;
+}
+
 </style>

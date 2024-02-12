@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CounterStyleDecks;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class CounterStyleDeckController extends Controller
@@ -40,34 +41,44 @@ class CounterStyleDeckController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        // dd($request->file('image'));
-        // $requestData = json_encode($request);
-        // return dd($requestData);
-        // $validatedData = $requestData->validate([
-        //     'title' => 'required|max:255',
-        //     'slug' => 'required|unique:counter_style_decks',
-        //     'image' =>'required',
-        //     'information' => 'required',
-        // ]);
-        $imagePost = '';
-        if($request->url_image !== 'null'){
-            $imagePost = $request->url_image;
-        } else if($request->file('image')){
-            $baseUrlImage = 'http://laravel-vue.test/storage/';
-            $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+    {   
+        $validator = $this->validatorInputCounterStyle($request, 'created');
+        $validator->after(function ($validator) use ($request){
+            $checkStringContain = $this->isHTML($request->information);
+            // this code add validation manual for conatin string or not in tag html contain
+            if(!$checkStringContain){
+                $validator->errors()->add(
+                    'information', 'isi information sekarang'
+                );
+            }
+            // this code add validation manual for image
+            if($request->url_image === 'null' && !$request->file('image') && $request->image === 'null'){
+                $validator->errors()->add(
+                    'image', 'tambakan image sekarang'
+                );
+            }
+    });
+        if($validator->fails()){
+            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+        } else if($validator){
+            $imagePost = '';
+            if($request->url_image !== 'null'){
+                $imagePost = $request->url_image;
+            } else if($request->file('image')){
+                $baseUrlImage = 'http://laravel-vue.test/storage/';
+                $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+            }
+    
+            $list_chips_convert = explode(',', $request->list_chips);
+            CounterStyleDecks::create([
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'image' => $imagePost,
+                'information' => $request->information,
+                'list_chips' => json_encode($list_chips_convert)
+            ]);
+            return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
         }
-
-        $list_chips_convert = explode(',', $request->list_chips);
-        CounterStyleDecks::create([
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'image' => $imagePost,
-            'information' => $request->information,
-            'list_chips' => json_encode($list_chips_convert)
-        ]);
-
-        return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
     }
 
     /**
@@ -109,32 +120,52 @@ class CounterStyleDeckController extends Controller
 
         $imagePost = '';
         $imagePosition = '';
-        if($request->url_image !== 'null'){
-            $imagePost = $request->url_image;
-            $imagePosition = 'new';
-            $this->removeImageOld($request, $findData, $imagePosition);
-        } else if($request->file('image')){
-            $baseUrlImage = 'http://laravel-vue.test/storage/';
-            $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
-            $imagePosition = 'new';
-            $this->removeImageOld($request, $findData, $imagePosition);
-        } else if($request->image !== 'null'){
-            $imagePost= $request->image;
-            $imagePosition = 'old';
-            $this->removeImageOld($request, $findData, $imagePosition);
+        $validator = $this->validatorInputCounterStyle($request, 'edited');
+        $validator->after(function ($validator) use ($request){
+                $checkStringContain = $this->isHTML($request->information);
+                // this code add validation manual for conatin string or not in tag html contain
+                if(!$checkStringContain){
+                    $validator->errors()->add(
+                        'information', 'isi information sekarang'
+                    );
+                }
+                // this code add validation manual for image
+                if($request->url_image === 'null' && !$request->file('image') && $request->image === 'null'){
+                    $validator->errors()->add(
+                        'image', 'tambakan image sekarang'
+                    );
+                }
+        });
+        if($validator->fails()){
+            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+        } else if($validator){
+            if($request->url_image !== 'null'){
+                $imagePost = $request->url_image;
+                $imagePosition = 'new';
+                $this->removeImageOld($request, $findData, $imagePosition);
+            } else if($request->file('image')){
+                $baseUrlImage = 'http://laravel-vue.test/storage/';
+                $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+                $imagePosition = 'new';
+                $this->removeImageOld($request, $findData, $imagePosition);
+            } else if($request->image !== 'null'){
+                $imagePost= $request->image;
+                $imagePosition = 'old';
+                $this->removeImageOld($request, $findData, $imagePosition);
+            }
+
+            $list_chips_convert = explode(',', $request->list_chips);
+            CounterStyleDecks::where('id', $findData->id)
+                ->update([
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'image' => $imagePost,
+                'information' => $request->information,
+                'list_chips' => json_encode($list_chips_convert)
+            ]);
+    
+            return response()->json(['status'=>true, 'message'=>'Data berhasil diUpdate !!!']);
         }
-
-        $list_chips_convert = explode(',', $request->list_chips);
-        CounterStyleDecks::where('id', $findData->id)
-            ->update([
-            'title' => $request->title,
-            'slug' => $request->slug,
-            'image' => $imagePost,
-            'information' => $request->information,
-            'list_chips' => json_encode($list_chips_convert)
-        ]);
-
-        return response()->json(['status'=>true, 'message'=>'Data berhasil diUpdate !!!']);
     }
 
     /**
@@ -163,5 +194,52 @@ class CounterStyleDeckController extends Controller
         if($imagePosition === 'new'){
             Storage::delete($imageReplace);
         } 
+    }
+
+    public function validatorInputCounterStyle($request, $from){
+        if($from === 'created'){
+            $rules =[
+                'title' => 'required|max:255',
+                'slug' => 'required|unique:counter_style_decks',
+                'information' => 'required',
+            ];
+    
+            $messages =[
+                'title.required' => 'isi title sekarang',
+                'slug.required'=> 'isi slug sekarang',
+                'slug.unique'=> 'isi unique sekarang',
+                'information.required'=> 'isi information sekarang'
+            ];
+            if ($request->file('image')){
+                $rules['image'] = 'required|file|max:1024';
+                $messages['image.required'] = 'isi image sekarang';
+                $messages['image.file'] = 'isi file tidak cocok';
+                $messages['image.max'] = 'file size terlalu besar >= 1024';
+            }
+    
+        } else if($from === 'edited') {
+            $rules =[
+                'title' => 'required|max:255',
+                'information' => 'required',
+            ];
+    
+            $messages =[
+                'title.required' => 'isi title sekarang',
+                'information.required'=> 'isi information sekarang'
+            ];
+            if ($request->file('image')){
+                $rules['image'] = 'required|file|max:1024';
+                $messages['image.required'] = 'isi image sekarang';
+                $messages['image.file'] = 'isi file tidak cocok';
+                $messages['image.max'] = 'file size terlalu besar >= 1024';
+            }
+    
+        }
+        $validator = Validator::make($request->all(), $rules, $messages);
+        return $validator;
+    }
+
+    public function isHTML($string){
+        return strip_tags($string);
     }
 }

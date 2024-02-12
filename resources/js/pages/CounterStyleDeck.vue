@@ -24,7 +24,9 @@
                             </div> -->
                             <div class="ml-2 text-left">
                                 <h6 class="target-style title-card">{{ card.title }}</h6>
-                                <span class="date-update text-muted target-style">Update: {{ dayjs(card.updated_at).format('D-MMM-YYYY')  }}</span>
+                                <div>
+                                    <span class="date-update text-muted target-style">Update: {{ dayjs(card.updated_at).format('D-MMM-YYYY')  }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -76,14 +78,16 @@ const loading = computed(()=>{
     }
     .card-style {
         border: 2px solid #03182c;
-        max-height: 84px;
+        max-height: 90px;
+        min-height: 90px;
         cursor: pointer;
         
     }
     .image-crop-resize{
-        max-width: 82px;
-        max-height: 80px;
-        border: 2px solid black;
+        max-width: 90px;
+        max-height: 88px;
+        min-height: 88px;
+        border-right: 2px solid #03182c;
     }
     h4{
         font-weight: 600 !important;
@@ -112,6 +116,7 @@ const loading = computed(()=>{
     .title-card{
         font-weight: bold;
         text-transform: uppercase;
+        height: 54px;
     }
 
 </style>

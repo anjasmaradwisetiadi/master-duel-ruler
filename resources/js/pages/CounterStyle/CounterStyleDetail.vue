@@ -2,7 +2,7 @@
     <div id="CounterStyleDetail" class="mt-4">
         <div class="row justify-content-center mb-5">
             <div class="col-8 text-center">
-                <h1>{{ getDataCounterStyleDeck.title }}</h1>
+                <h1>{{ getDataCounterStyleDeck?.title?.toUpperCase() }}</h1>
             </div>
         </div>
         <div class="row mb-2">
@@ -27,7 +27,8 @@
         <!-- list image previews -->
         <div class="row justify-content-center mt-3">
             <div class="col-9 background-image">
-                    <div class="d-flex">
+                    <div class="d-flex" 
+                        v-if="getDataYgoProDeck.length">
                         <div
                             v-for="(urlImage,index) in getDataYgoProDeck" 
                             :key="index" 
@@ -109,6 +110,12 @@
                                 </template>
                             </div>
                         </div>
+                    </div>
+                    <div 
+                        class="d-flex justify-content-center"
+                        v-if="!getDataYgoProDeck.length"
+                    >
+                        <span>Tidak ada kartu yang ke record</span>
                     </div>
             </div>
         </div>
@@ -262,7 +269,6 @@ const responseGeneral = computed(()=>{
 })
 
 const getDataYgoProDeck = computed(()=>{
-    console.log()
     return store.state.dataListChips;
 })
 
@@ -469,6 +475,13 @@ function backRoute(){
         height: 16px;
         margin-right: 4px;
         margin-top:-4px;
+    }
+
+    .middle-notice{
+        line-height: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     /* *********** style .modal-wrapper */

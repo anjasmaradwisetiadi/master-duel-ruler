@@ -21453,11 +21453,21 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         } else if ((response === null || response === void 0 ? void 0 : response.status) === false) {
-          return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!"
-          });
+          var _response$message, _response$message2;
+          var conditionSlug = response !== null && response !== void 0 && (_response$message = response.message) !== null && _response$message !== void 0 && _response$message.slug ? response === null || response === void 0 || (_response$message2 = response.message) === null || _response$message2 === void 0 ? void 0 : _response$message2.slug[0] : '';
+          if (conditionSlug === 'slug unique') {
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Nama counter deck sudah ada, coba ganti nama lain !"
+            });
+          } else {
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!"
+            });
+          }
         }
       }
     });
@@ -21589,8 +21599,8 @@ __webpack_require__.r(__webpack_exports__);
       store.dispatch('getListCounterStyle');
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
-      console.log("ini routing testing = ");
-      console.log(router.currentRoute);
+      // console.log("ini routing testing = ")
+      // console.log(router.currentRoute)
     });
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterStateLoading;
@@ -22802,7 +22812,7 @@ var _hoisted_14 = {
   "class": "col-md-8"
 };
 var _hoisted_15 = {
-  "class": "ml-2 text-left"
+  "class": "ml-3 text-left"
 };
 var _hoisted_16 = {
   "class": "target-style title-card"
@@ -22810,6 +22820,12 @@ var _hoisted_16 = {
 var _hoisted_17 = {
   "class": "date-update text-muted target-style"
 };
+var _hoisted_18 = {
+  key: 1,
+  "class": "col-12 justify-content-center"
+};
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Data tidak ditemukan...", -1 /* HOISTED */);
+var _hoisted_20 = [_hoisted_19];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -22823,7 +22839,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 32 /* NEED_HYDRATION */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: $setup.urlCreateDeck,
     "class": "add-new-counter-link"
-  }, "Add New Counter", 8 /* PROPS */, _hoisted_7)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.cardListCounterStyle, function (card, index) {
+  }, "Add New Counter", 8 /* PROPS */, _hoisted_7)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [$setup.cardListCounterStyle.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.cardListCounterStyle, function (card, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: index,
       "class": "col-lg-3 col-md-4"
@@ -22835,7 +22853,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       src: card.image,
       alt: card.name
     }, null, 8 /* PROPS */, _hoisted_13)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(card.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_17, "Update: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs(card.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])])])])], 8 /* PROPS */, _hoisted_10)])]);
-  }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
+  }), 128 /* KEYED_FRAGMENT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [].concat(_hoisted_20)))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: $setup.loading,
     responseGeneral: _ctx.responseGeneral,
     onConfirm: _ctx.confirm

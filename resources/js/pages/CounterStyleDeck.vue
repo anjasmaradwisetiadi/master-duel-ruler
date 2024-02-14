@@ -13,25 +13,32 @@
             </div>
         </div>
         <div class="row">
-            <div v-for="(card,index) in cardListCounterStyle" :key="index" class="col-lg-3 col-md-4">
-                <div class="card mb-3 card-style">
-                    <a :href="collectionUrl.baseUrlHead+'counter-style-deck/'+card.slug" class="target-style text-black">
-                        <div class="row no-gutters">
-                        <div class="col-md-4 no-gutters">
-                            <img class="image-crop-resize" :src="card.image" :alt="card.name">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="ml-2 text-left">
-                                <h6 class="target-style title-card">{{ card.title }}</h6>
-                                <div>
-                                    <span class="date-update text-muted target-style">Update: {{ dayjs(card.updated_at).format('D-MMM-YYYY')  }}</span>
+            <template v-if="cardListCounterStyle.length">
+                <div v-for="(card,index) in cardListCounterStyle" :key="index" class="col-lg-3 col-md-4">
+                    <div class="card mb-3 card-style">
+                        <a :href="collectionUrl.baseUrlHead+'counter-style-deck/'+card.slug" class="target-style text-black">
+                            <div class="row no-gutters">
+                            <div class="col-md-4 no-gutters">
+                                <img class="image-crop-resize" :src="card.image" :alt="card.name">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="ml-3 text-left">
+                                    <h6 class="target-style title-card">{{ card.title }}</h6>
+                                    <div>
+                                        <span class="date-update text-muted target-style">Update: {{ dayjs(card.updated_at).format('D-MMM-YYYY')  }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        </a>
                     </div>
-                    </a>
                 </div>
-            </div>
+            </template>
+            <template v-else>
+                <div class="col-12 justify-content-center">
+                    <h4>Data tidak ditemukan...</h4>
+                </div>
+            </template>
         </div>
         <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
     </div>
@@ -60,8 +67,8 @@ onBeforeMount(()=>{
 })
 
 onMounted(()=>{
-    console.log("ini routing testing = ")
-    console.log(router.currentRoute)
+    // console.log("ini routing testing = ")
+    // console.log(router.currentRoute)
 })
 
 const loading = computed(()=>{

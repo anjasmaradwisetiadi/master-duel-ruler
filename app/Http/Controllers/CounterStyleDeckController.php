@@ -66,7 +66,7 @@ class CounterStyleDeckController extends Controller
             if($request->url_image !== 'null'){
                 $imagePost = $request->url_image;
             } else if($request->file('image')){
-                $baseUrlImage = 'http://laravel-vue.test/storage/';
+                $baseUrlImage =  env('APP_URL').'storage/';
                 $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
             }
     
@@ -145,7 +145,7 @@ class CounterStyleDeckController extends Controller
                 $imagePosition = 'new';
                 $this->removeImageOld($request, $findData, $imagePosition);
             } else if($request->file('image')){
-                $baseUrlImage = 'http://laravel-vue.test/storage/';
+                $baseUrlImage = env('APP_URL').'storage/';
                 $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
                 $imagePosition = 'new';
                 $this->removeImageOld($request, $findData, $imagePosition);
@@ -178,10 +178,10 @@ class CounterStyleDeckController extends Controller
     public function destroy($id)
     {
         $findData = CounterStyleDecks::where('slug','=',$id)->firstOrFail();
-        $findPathImage = stristr($findData->image, 'http://laravel-vue.test/storage/');
+        $findPathImage = stristr($findData->image, env('APP_URL').'storage/');
         if($findPathImage){
             if($findData->image){
-                $stringManipulate = str_replace('http://laravel-vue.test/storage/','',$findData->image);
+                $stringManipulate = str_replace(env('APP_URL').'storage/','',$findData->image);
                 Storage::delete($stringManipulate);
             }
         } 
@@ -201,7 +201,7 @@ class CounterStyleDeckController extends Controller
     }
 
     public function removeImageOld($request, $findData, $imagePosition){
-        $imageReplace= str_replace("http://laravel-vue.test/storage/", "", $findData->image);
+        $imageReplace= str_replace(env('APP_URL').'storage/', "", $findData->image);
         if($imagePosition === 'new'){
             Storage::delete($imageReplace);
         } 
@@ -218,7 +218,7 @@ class CounterStyleDeckController extends Controller
             $messages =[
                 'title.required' => 'isi title sekarang',
                 'slug.required'=> 'isi slug sekarang',
-                'slug.unique'=> 'isi unique sekarang',
+                'slug.unique'=> 'slug unique',
                 'information.required'=> 'isi information sekarang'
             ];
             if ($request->file('image')){

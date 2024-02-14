@@ -97,13 +97,12 @@
     </div>
 </template>
 <script setup>
-     import { ref, reactive, computed, onMounted } from 'vue';
+     import { ref, computed, onMounted, defineProps, defineEmits } from 'vue';
      import { useStore } from 'vuex';
      import Swal from 'sweetalert2';
      const store = useStore();
      const props = defineProps([
         'getDataYgoProDeck',
-
         'responseGeneral',
      ])
 

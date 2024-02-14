@@ -141,7 +141,7 @@
 
     watch( responseGeneral,async (newValue, oldValue)=>{
         if(!responseGeneral?.status){
-            const information =  newValue?.message?.information[0];
+            const information =  newValue?.message?.information ? newValue?.message?.information[0] : '';
             if(information){
                 let container = document.querySelector('.ql-container.ql-snow ');
                 // const toolbar = document.getElementsByClassName('ql-toolbar');
@@ -162,8 +162,8 @@
     onMounted(()=>{
         decisionEditOrCreateRuler();
         // let container = document.querySelector('.ql-container.ql-snow ');
-            // const toolbar = document.getElementsByClassName('ql-toolbar');
-            // container.style.border= '1px solid #dc3545 !important';
+        // const toolbar = document.getElementsByClassName('ql-toolbar');
+        // container.style.border= '1px solid #dc3545 !important';
     })
 
     function decisionEditOrCreateRuler(){

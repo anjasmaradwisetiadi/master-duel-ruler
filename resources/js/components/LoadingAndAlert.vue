@@ -16,7 +16,7 @@
 <script setup>
      import { reactive, computed, onMounted, defineProps, defineEmits } from 'vue';
      import { useStore } from 'vuex';
-     import Swal from 'sweetalert2'
+     import Swal from 'sweetalert2';
      const store = useStore();
      const props = defineProps([
         'text',

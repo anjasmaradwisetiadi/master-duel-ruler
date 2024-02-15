@@ -5,6 +5,11 @@
                 <h3>{{editOrNot ? 'Edit':'Create'}} Counter Style Deck</h3>
             </div>
         </div>
+        <div class="row mb-2">
+            <div class="col d-flex justify-content-end">
+                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+            </div>
+        </div>
         <div class="form-create">
             <div class="form-group">
                 <label for="name">Name</label>
@@ -64,7 +69,7 @@
                 <label for="chips">Chips File</label>
                 <div id="chips" aria-describedby="chips">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-secondary" @click="generateChips()"><a :href="urlCreateDeck" class="add-new-counter-link">Generate Chips File</a></button>
+                        <button type="button" class="btn btn-secondary" @click="generateChips()"><a class="add-new-counter-link">Generate Chips File</a></button>
                     </div>
                     <div v-if="listChips.length" class="row">
                         <div class="col">
@@ -76,11 +81,17 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group mb-2" v-if="listChips?.length">
+                <!-- list image previews -->
+                <ListImageHover :getDataYgoProDeck='getDataYgoProDeck' @dataModalCard='dataModalCard' ></ListImageHover>
+            </div> 
             <div>
                 <button type="button" class="btn btn-success" @click="submit()">Submit</button>
-                <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
+                <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button>
             </div>
         </div>
+        <!-- modal image previews -->
+        <ImagePreview :openModal="openModal" :dataSelectCards="dataSelectCards" @dataModalCardPreview="dataModalCardPreview"></ImagePreview>
         <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
     </div>
 </template>
@@ -92,6 +103,8 @@
     import { useRouter } from 'vue-router';
     import { useStore } from 'vuex';
     import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
+    import ListImageHover from '../../components/ListImageHover.vue';
+    import ImagePreview from '../../components/ImagePreview.vue'
     import Swal from 'sweetalert2';
     const router = useRouter();
     const store = useStore();
@@ -108,6 +121,8 @@
     const paramsUrl = ref('');
     const oldSlug = ref('');
     const editOrNot = ref(null);
+    const openModal = ref(false);
+    const dataSelectCards = ref(null);
 
     const state = reactive({
         preview, 
@@ -132,11 +147,15 @@
     })
 
     const loading = computed(()=>{
-        return store.getters.loading;
+        return store?.getters?.loading;
     })
 
     const responseGeneral = computed(()=>{
-        return store.state.responseGeneral
+        return store?.state?.responseGeneral;
+    })
+
+    const getDataYgoProDeck = computed(()=>{
+        return store?.state?.dataListChips;
     })
 
     watch( responseGeneral,async (newValue, oldValue)=>{
@@ -156,7 +175,8 @@
         state.listChips = newValue.list_chips;
         state.information = newValue.information;
         state.preview = newValue.image;
-        state.oldSlug = newValue.slug
+        state.oldSlug = newValue.slug;
+        storeListCrad(newValue.list_chips); 
     })
 
     onMounted(()=>{
@@ -171,6 +191,8 @@
         state.paramsUrl = payload;
         if(payload){
             state.editOrNot = true;
+            state.listChips=[];
+            store.state.dataListChips = [];
             store.dispatch('getEditCounterStyle',payload)
         } 
     }
@@ -211,6 +233,7 @@
 
     function generateChips(){
         state.listChips=[];
+        store.state.dataListChips = [];
         const createStringInformation = information.value;
         let arrayIndexInformation = [];
         for(let index=0; index<createStringInformation.length; index++){
@@ -239,10 +262,31 @@
             const dataText = createStringInformation.substring((indexOdd+1), (indexEven));
             state.listChips.push(dataText);
         }
+
+        storeListCrad(listChips.value); 
+    }
+
+    function storeListCrad(listChips){
+        for (let dataListChip of listChips) {
+            if(dataListChip.includes('&')){
+                dataListChip = dataListChip.replaceAll('&','%26')
+            }
+        store.dispatch("getDataListChips",dataListChip);
+        }
+    }
+
+    function dataModalCardPreview (value) {
+        openModal.value = value;
+    }
+
+    function dataModalCard($event){
+        dataSelectCards.value = $event.dataSelectCards;
+        openModal.value = $event.openModal;
     }
 
     function removeChip(index){
-        listChips.value.splice(index,1)
+        listChips.value.splice(index,1);
+        store.commit('mutateRemoveDataListChips',index);
     }
 
     function submit(){
@@ -297,7 +341,7 @@
         // payload dummy created
         state.title = "example deck"
         state.slug = "example-deck"
-        state.image = "still development",
+        state.image = "https://www.cleanpng.com/png-computer-icons-technical-support-service-maintenan-1551693/preview.html";        
         // state.urlImage = '',
         state.information = "1. testing flow"
         state.listChips = ["testing-flow", "testing creeation"]
@@ -312,6 +356,10 @@
         //         console.log("result confirm pass");
         //     }
         // })
+    }
+
+    function backRoute(){
+        router.back();
     }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
     <div id="ListImageHover">
         <div class="row justify-content-center mt-3">
-            <div class="col-9 background-image">
-                    <div class="d-flex" 
+            <div class="col-9 background-image ml-4">
+                    <div class="d-flex flex-wrap ml-1" 
                         v-if="getDataYgoProDeck.length">
                         <div
                             v-for="(urlImage,index) in getDataYgoProDeck" 
@@ -207,8 +207,8 @@
         padding: 10px;
     }
     .background-image .image-style{
-        max-width: 95px;
-        padding-right: 8px;
+        max-width: 92px;
+        padding-right: 6px;
     }
     /* .wrap-card{
         position: relative;

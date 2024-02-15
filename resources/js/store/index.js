@@ -4,6 +4,10 @@ import axios from 'axios';
 import {collectionUrl} from '../urlCollect'
 import {dataDummyCards} from '../DummyDataCard'
 import {playStyleDeck} from './PlayStyleDeck/playStyleDeck'
+import router from '../routes'
+import { useRouter } from 'vue-router';
+import Swal from 'sweetalert2';
+// const router = useRouter();
 // import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
 const urlCounterStyle = `${collectionUrl.baseUrlApi}counter-style-deck-api`
@@ -55,6 +59,9 @@ const store = createStore({
     },
     mutateGetDataListChips(state, payload){
       state.dataListChips.push(payload) 
+    }, 
+    mutateRemoveDataListChips(state, payload){
+      return state.dataListChips.splice(payload,1); 
     }
   },
   actions: {
@@ -172,7 +179,16 @@ const store = createStore({
           url: `${urlCounterStyle}/${payload}`,
       })
       .then(function(response){
-          commit('mutateResponsGeneral', response.data); 
+          Swal.fire({
+            title: "Success Delete ",
+            icon: "success"
+          })
+          .then((success)=>{
+              if(success){
+                router.push('/counter-style-deck/');
+              }
+          });
+          // commit('mutateResponsGeneral', response.data); 
           rootState.loading = false;
       })
       .catch(function(error) {

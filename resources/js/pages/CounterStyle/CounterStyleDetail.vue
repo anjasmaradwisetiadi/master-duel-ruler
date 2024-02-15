@@ -26,7 +26,6 @@
         </div>
         <!-- list image previews -->
         <ListImageHover :getDataYgoProDeck='getDataYgoProDeck' @dataModalCard='dataModalCard' ></ListImageHover>
-
         <!-- modal image previews -->
         <ImagePreview :openModal="openModal" :dataSelectCards="dataSelectCards" @dataModalCardPreview="dataModalCardPreview"></ImagePreview>
         <LoadingAndAlert :loading="loading" :confirmDelete="confirmDelete" @confirm="methodConfirmDelete" ></LoadingAndAlert>
@@ -45,10 +44,8 @@ import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
 
-const urlDataImages = ref(store.state.dataListChips);
-
 const openModal = ref(false);
-const dataSelectCards = ref();
+const dataSelectCards = ref(null);
 const paramsUrl = ref('');
 const confirmDelete = ref(false);
 const statusDelete = ref(false);
@@ -67,7 +64,6 @@ onMounted(()=>{
 const getDataCounterStyleDeck= computed(()=>{
     return store.state.detailCounterStyle;
 })
-
 
 const loading = computed(()=>{
     return store.getters.getterStateLoading;
@@ -97,11 +93,6 @@ function dataModalCardPreview (value) {
     openModal.value = value;
 }
 
-// it cannot use watch whe we want get data ready
-// const watchResponseGeneral = store.watch( (state, getters) => state.responseGeneral, (newValue, oldValue)=>{
-//         state.statusDelete = newValue.status;
-// })
-
 function dataModalCard($event){
     dataSelectCards.value = $event.dataSelectCards;
     openModal.value = $event.openModal;
@@ -116,40 +107,7 @@ function deleteCounterStyle(){
 }
 
 function methodConfirmDelete($event){
-    if($event){
-        Swal.fire({
-            title: "Success Delete ",
-            icon: "success"
-        })
-        .then((success)=>{
-            if(success){
-                store.dispatch('deleteCounterStyle', paramsUrl.value);
-                router.push('/counter-style-deck/');
-            }
-        });
-        
-        // it still not working
-        // dataDelete.then((result)=>{
-        //     console.log("result = ")
-        //     console.log(result)
-        //     if(result.status){
-        //         Swal.fire({
-        //             title: "Success Delete ",
-        //             icon: "success"
-        //         })
-        //         .then((success)=>{
-        //             if(success){
-        //                 router.push('/counter-style-deck/');
-        //             }
-        //     });
-        //     }
-        // })
-        // router.push('/counter-style-deck/');
-        // console.log("statusDelete.value = ");
-        // console.log(statusDelete.value);
-        // still blocking for implement this code
-
-    }
+    store.dispatch('deleteCounterStyle', paramsUrl.value);
 }
 
 function backRoute(){

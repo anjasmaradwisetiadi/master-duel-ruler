@@ -5,9 +5,7 @@ import {collectionUrl} from '../urlCollect'
 import {dataDummyCards} from '../DummyDataCard'
 import {playStyleDeck} from './PlayStyleDeck/playStyleDeck'
 import router from '../routes'
-import { useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
-// const router = useRouter();
 // import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
 const urlCounterStyle = `${collectionUrl.baseUrlApi}counter-style-deck-api`

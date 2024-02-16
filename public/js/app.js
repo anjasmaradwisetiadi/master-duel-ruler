@@ -23664,8 +23664,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-// const router = useRouter();
 // import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
 var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApi, "counter-style-deck-api");

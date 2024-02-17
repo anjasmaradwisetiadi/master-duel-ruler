@@ -11,6 +11,11 @@
                         <a class="nav-link text-white align-self-center ml-2" :class="[activeLink === 'tier-list'?'text-active':''] " href="/tier-list">Tier List <span class="sr-only">(current)</span></a>
                         <a class="nav-link text-white align-self-center ml-2" :class="[activeLink === 'play-style-deck'?'text-active':'']" href="/play-style-deck">Play Style Deck</a>
                         <a class="nav-link text-white align-self-center ml-2" :class="[activeLink === 'counter-style-deck'?'text-active':'']" href="/counter-style-deck">Counter Style Deck</a>
+                        <a class="nav-link text-white align-self-center ml-2 pointer" > 
+                            <span class="material-icons" @click="searchCards()">
+                                search
+                            </span>
+                        </a>
                         <a class="nav-link text-white" href="#">
                             <button type="button" class="btn btn-light">Login</button>
                         </a>
@@ -19,14 +24,24 @@
                 </div>
             </div>
         </nav>
-
+        <!-- perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain -->
+        <!-- <SearchCards :openModal="openModal" @dataModalCard="dataModalCard" ></SearchCards> -->
     </div>
 </template>
 
 <script setup>
-import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router'
+import { computed, onMounted, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+// import SearchCards from './SearchCards.vue'
 const router = useRouter();
+const store = useStore();
+
+const openModal = ref(false);
+
+const state = reactive({
+    openModal,
+})
 onMounted(()=>{
 })
 const activeLink = computed(()=>{
@@ -38,6 +53,21 @@ const activeLink = computed(()=>{
         return 'play-style-deck'
     }
 })
+    
+function searchCards(){
+    // const payload = {
+    //     name: 'floowandere',
+    //     num: 5,
+    //     offset: 0
+    // }
+    // store.dispatch('getSearchCards', payload)
+    state.openModal = true
+
+}
+
+function dataModalCard($event){
+    state.openModal = $event
+}
 
 </script>
 <style>
@@ -57,5 +87,9 @@ const activeLink = computed(()=>{
     }
     .text-active{
         text-decoration: underline;
+    }
+
+    .pointer{
+        cursor: pointer;
     }
 </style>

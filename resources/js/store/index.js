@@ -24,7 +24,7 @@ const store = createStore({
     todoList:[],
     loading: false,
     error: '',
-    dataDummyCards: dataDummyCards,
+    dataDummyCards: dataDummyCards.data,
     //********** */ counter style
     listCounterStyle: {},
     detailCounterStyle: {},
@@ -42,6 +42,7 @@ const store = createStore({
     mutateTodoList: (state, payload)=>{
       state.todoList = payload;
     },
+
     //********** */ counter style need explode file
     mutateListCounterStyle(state,payload){
       state.listCounterStyle = payload;
@@ -71,6 +72,32 @@ const store = createStore({
       .then(function (response) {
         commit('mutateTodoList',response.data)
       });
+    },
+
+    getSearchCards({commit, rootState}, payload){
+      rootState.loading = true;
+      const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=metal%20raiders&num=5&offset=0";
+      const nameCard = payload.name
+      const count = payload.num;
+      const page = payload.offset;
+      axios({
+          method: 'get',
+          url: `${collectionUrl.baseUrlApiYgoProDeck}fname=${nameCard}&num=${count}&offset=${page}`,
+          headers:{
+            'Content-Type': "multipart/form-data"
+          }
+      })
+      .then(function(response){
+          console.log("getSeacrh Cards = ")
+          console.log(response.data);
+          // commit('mutateListCounterStyle',response.data);
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+        commit('mutateResponsGeneral', error.message); 
+          rootState.loading = false;
+      })
+      
     },
 
     //********** */ counter style need explode file
@@ -195,13 +222,11 @@ const store = createStore({
       })
     },
 
-    //********** End */ counter style need explode file
-
     getDataListChips({commit,rootState}, payload){
       rootState.loading = true;
       axios({
           method: 'get',
-          url: `${collectionUrl.baseUrlApiYgoProDeck}${payload}`,
+          url: `${collectionUrl.baseUrlApiYgoProDeck}name=${payload}`,
       })
       .then(function(response){
           commit('mutateGetDataListChips', response.data.data[0]); 
@@ -212,7 +237,6 @@ const store = createStore({
           rootState.loading = false;
       })
     },
-
     getSearchStyleDeck({commit,rootState}, payload){
       axios({
           method: 'get',
@@ -227,6 +251,7 @@ const store = createStore({
           rootState.loading = false;
       })
     }
+    //********** End */ counter style need explode file
   },
   getters: {
     getterTodoList(state){
@@ -240,6 +265,10 @@ const store = createStore({
     getterListCounterStyle(state){
       return state.listCounterStyle;
     }, 
+
+    getterDummyData(state){
+      return state.dataDummyCards;
+    }
   },
 })
 

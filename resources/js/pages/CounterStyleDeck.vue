@@ -95,7 +95,7 @@ function searching(event){
         color: black;
     }
     .card-style {
-        border: 2px solid #03182c;
+        border: 2px solid #385979;
         max-height: 90px;
         min-height: 90px;
         cursor: pointer;
@@ -105,7 +105,7 @@ function searching(event){
         max-width: 90px;
         max-height: 88px;
         min-height: 88px;
-        border-right: 2px solid #03182c;
+        border-right: 2px solid #385979;
     }
     h4{
         font-weight: 600 !important;

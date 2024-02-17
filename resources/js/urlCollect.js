@@ -9,5 +9,5 @@ export const collectionUrl={
     // baseUrlHead: 'https://master-duel-ruler.000webhostapp.com/',
     // baseUrlApi: 'https://master-duel-ruler.000webhostapp.com/api/',
     
-    baseUrlApiYgoProDeck: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name='
+    baseUrlApiYgoProDeck: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?'
 }

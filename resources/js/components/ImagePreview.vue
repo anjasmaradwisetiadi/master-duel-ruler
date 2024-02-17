@@ -142,7 +142,7 @@
      }
 </script>
 <style scoped>
-        .modal-wrapper-none{
+    .modal-wrapper-none{
         display: none;
     }
     .modal-wrapper {

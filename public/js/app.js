@@ -21306,7 +21306,13 @@ __webpack_require__.r(__webpack_exports__);
     var hoverFunctionCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return hoverConditionIndex;
     });
-    function displayCard(index, condition) {
+    function displayCard($event, index, condition) {
+      if (condition) {
+        // console.log("$event.clientX = ")
+        // console.log($event.clientX)
+        // console.log("$event.clientY = ")
+        // console.log($event.clientY)
+      }
       hoverCondition.value = condition;
       hoverConditionIndex.value = index;
       createdStyleCardHover(index, condition);
@@ -21326,6 +21332,7 @@ __webpack_require__.r(__webpack_exports__);
         listCardSelector.style.zIndex = '99';
         listCardSelector.style.position = 'absolute';
         listCardSelector.style.marginRight = '12px';
+        //********** it need add position with cordinate flexible  */
         listCardSelector.style.top = '-53px';
         listCardSelector.style.display = 'inline';
         listCardSelector.style.color = 'white';
@@ -21525,7 +21532,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 
+
+
+// import SearchCards from './SearchCards.vue'
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __name: 'Navbar',
@@ -21533,6 +21544,11 @@ __webpack_require__.r(__webpack_exports__);
     var __expose = _ref.expose;
     __expose();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var openModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
+      openModal: openModal
+    });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
     var activeLink = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       if (router.currentRoute.value.path.includes('/tier-list')) {
@@ -21543,13 +21559,35 @@ __webpack_require__.r(__webpack_exports__);
         return 'play-style-deck';
       }
     });
+    function searchCards() {
+      // const payload = {
+      //     name: 'floowandere',
+      //     num: 5,
+      //     offset: 0
+      // }
+      // store.dispatch('getSearchCards', payload)
+      state.openModal = true;
+    }
+    function dataModalCard($event) {
+      state.openModal = $event;
+    }
     var __returned__ = {
       router: router,
+      store: store,
+      openModal: openModal,
+      state: state,
       activeLink: activeLink,
+      searchCards: searchCards,
+      dataModalCard: dataModalCard,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
+      reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       get useRouter() {
         return vue_router__WEBPACK_IMPORTED_MODULE_1__.useRouter;
+      },
+      get useStore() {
+        return vuex__WEBPACK_IMPORTED_MODULE_2__.useStore;
       }
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -22634,10 +22672,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       src: urlImage.card_images[0].image_url,
       alt: urlImage.name,
       onMouseover: function onMouseover($event) {
-        return $setup.displayCard(index, true);
+        return $setup.displayCard($event, index, true);
       },
       onMouseleave: function onMouseleave($event) {
-        return $setup.displayCard(index, false);
+        return $setup.displayCard($event, index, false);
       },
       onClick: function onClick($event) {
         return $setup.openModalCard(true, index);
@@ -22756,7 +22794,10 @@ var _hoisted_7 = {
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "sr-only"
 }, "(current)", -1 /* HOISTED */);
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_9 = {
+  "class": "nav-link text-white align-self-center ml-2 pointer"
+};
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "nav-link text-white",
   href: "#"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -22773,7 +22814,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, "Play Style Deck", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-link text-white align-self-center ml-2", [$setup.activeLink === 'counter-style-deck' ? 'text-active' : '']]),
     href: "/counter-style-deck"
-  }, "Counter Style Deck", 2 /* CLASS */), _hoisted_9])])])])])]);
+  }, "Counter Style Deck", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "material-icons",
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $setup.searchCards();
+    })
+  }, " search ")]), _hoisted_10])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SearchCards :openModal=\"openModal\" @dataModalCard=\"dataModalCard\" ></SearchCards> ")]);
 }
 
 /***/ }),
@@ -23493,6 +23539,1950 @@ var dataDummyCards = {
       "amazon_price": "14.46",
       "coolstuffinc_price": "7.99"
     }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
+  }, {
+    "id": 48626373,
+    "name": "Kashtira Arise-Heart",
+    "type": "XYZ Monster",
+    "frameType": "xyz",
+    "desc": "3 Level 7 monsters\r\nOnce per turn, you can also Xyz Summon \"Kashtira Arise-Heart\" by using 1 \"Kashtira\" monster you control, if an effect of \"Kashtira Shangri-Ira\" was successfully activated this turn. (Transfer its materials to this card.) Any card sent to the GY is banished instead. Once per Chain, each time a card(s) is banished: Attach 1 banished card to this card as material. Once per turn (Quick Effect): You can detach 3 materials from this card, then target 1 card on the field; banish it face-down.",
+    "atk": 3000,
+    "def": 3000,
+    "level": 7,
+    "race": "Machine",
+    "attribute": "DARK",
+    "archetype": "Heart",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/kashtira-arise-heart-13486",
+    "card_sets": [{
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Photon Hypernova",
+      "set_code": "PHHY-EN046",
+      "set_rarity": "Starlight Rare",
+      "set_rarity_code": "(StR)",
+      "set_price": "0"
+    }],
+    "banlist_info": {
+      "ban_tcg": "Banned"
+    },
+    "card_images": [{
+      "id": 48626373,
+      "image_url": "https://images.ygoprodeck.com/images/cards/48626373.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/48626373.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "11.86",
+      "tcgplayer_price": "6.91",
+      "ebay_price": "10.48",
+      "amazon_price": "0.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  }, {
+    "id": 50810455,
+    "name": "Tri-Brigade Kerass",
+    "type": "Effect Monster",
+    "frameType": "effect",
+    "desc": "You can discard 1 other Beast, Beast-Warrior, or Winged Beast monster; Special Summon this card from your hand. You can banish any number of Beast, Beast-Warrior, and/or Winged Beast monsters in your GY; Special Summon 1 Beast, Beast-Warrior, or Winged Beast Link Monster from your Extra Deck, with Link Rating equal to the number banished, also you can only use Beast, Beast-Warrior, and Winged Beast monsters as Link Material for the rest of this turn. You can only use each effect of \"Tri-Brigade Kerass\" once per turn.",
+    "atk": 1200,
+    "def": 1500,
+    "level": 2,
+    "race": "Beast",
+    "attribute": "EARTH",
+    "archetype": "Tri-Brigade",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-kerass-11316",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN170",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "1.78"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN007",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "2.1"
+    }],
+    "card_images": [{
+      "id": 50810455,
+      "image_url": "https://images.ygoprodeck.com/images/cards/50810455.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/50810455.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/50810455.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "1.49",
+      "tcgplayer_price": "0.84",
+      "ebay_price": "1.75",
+      "amazon_price": "7.59",
+      "coolstuffinc_price": "0.99"
+    }]
+  }, {
+    "id": 99726621,
+    "name": "Tri-Brigade Shuraig the Ominous Omen",
+    "type": "Link Monster",
+    "frameType": "link",
+    "desc": "2+ Beast, Beast-Warrior, and/or Winged Beast monsters\r\nIf this card is Special Summoned, or if another Beast, Beast-Warrior, or Winged Beast monster(s) is Special Summoned to your field: You can banish 1 card on the field. If this card is sent to the GY: You can add 1 Beast, Beast-Warrior, or Winged Beast monster from your Deck to your hand, whose Level is less than or equal to the number of your banished Beast, Beast-Warrior, and Winged Beast monsters. You can only use each effect of \"Tri-Brigade Shuraig the Ominous Omen\" once per turn.",
+    "atk": 3000,
+    "race": "Winged Beast",
+    "attribute": "DARK",
+    "archetype": "Tri-Brigade",
+    "linkval": 4,
+    "linkmarkers": ["Left", "Bottom-Left", "Bottom-Right", "Right"],
+    "ygoprodeck_url": "https://ygoprodeck.com/card/tri-brigade-shuraig-the-ominous-omen-11324",
+    "card_sets": [{
+      "set_name": "2021 Tin of Ancient Battles",
+      "set_code": "MP21-EN198",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "4.07"
+    }, {
+      "set_name": "Phantom Rage",
+      "set_code": "PHRA-EN048",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "6.89"
+    }],
+    "card_images": [{
+      "id": 99726621,
+      "image_url": "https://images.ygoprodeck.com/images/cards/99726621.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/99726621.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/99726621.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "6.81",
+      "tcgplayer_price": "3.90",
+      "ebay_price": "3.45",
+      "amazon_price": "42.97",
+      "coolstuffinc_price": "3.99"
+    }]
+  },
+  // example spell (field spell)
+  {
+    "id": 77103950,
+    "name": "Primeval Planet Perlereino",
+    "type": "Spell Card",
+    "frameType": "spell",
+    "desc": "When this card is activated: You can add 1 \"Tearlaments\" monster or 1 \"Visas Starfrost\" from your Deck to your hand. Fusion Monsters and \"Tearlaments\" monsters you control gain 500 ATK. If a \"Tearlaments\" monster(s) you control or in your GY is shuffled into the Deck or Extra Deck (except during the Damage Step): You can target 1 card on the field; destroy it. You can only use this effect of \"Primeval Planet Perlereino\" once per turn. You can only activate 1 \"Primeval Planet Perlereino\" per turn.",
+    "race": "Field",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/primeval-planet-perlereino-13195",
+    "card_sets": [{
+      "set_name": "Power of the Elements",
+      "set_code": "POTE-EN060",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "98.35"
+    }],
+    "banlist_info": {
+      "ban_ocg": "Limited"
+    },
+    "card_images": [{
+      "id": 77103950,
+      "image_url": "https://images.ygoprodeck.com/images/cards/77103950.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/77103950.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/77103950.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "14.08",
+      "tcgplayer_price": "10.11",
+      "ebay_price": "19.99",
+      "amazon_price": "87.00",
+      "coolstuffinc_price": "55.99"
+    }]
+  },
+  // example trap (trap card)
+  {
+    "id": 10045474,
+    "name": "Infinite Impermanence",
+    "type": "Trap Card",
+    "frameType": "trap",
+    "desc": "Target 1 face-up monster your opponent controls; negate its effects (until the end of this turn), then, if this card was Set before activation and is on the field at resolution, for the rest of this turn all other Spell/Trap effects in this column are negated. If you control no cards, you can activate this card from your hand.",
+    "race": "Normal",
+    "ygoprodeck_url": "https://ygoprodeck.com/card/infinite-impermanence-9220",
+    "card_sets": [{
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "0"
+    }, {
+      "set_name": "25th Anniversary Rarity Collection",
+      "set_code": "RA01-EN075",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Duel Overload",
+      "set_code": "DUOV-EN099",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "17.5"
+    }, {
+      "set_name": "Duel Power",
+      "set_code": "DUPO-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "15.85"
+    }, {
+      "set_name": "Flames of Destruction",
+      "set_code": "FLOD-EN077",
+      "set_rarity": "Secret Rare",
+      "set_rarity_code": "(ScR)",
+      "set_price": "64.93"
+    }, {
+      "set_name": "Magnificent Mavens",
+      "set_code": "MAMA-EN100",
+      "set_rarity": "Ultra Rare",
+      "set_rarity_code": "(UR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Maximum Gold",
+      "set_code": "MAGO-EN052",
+      "set_rarity": "Premium Gold Rare",
+      "set_rarity_code": "(PG)",
+      "set_price": "13.1"
+    }, {
+      "set_name": "OTS Tournament Pack 17",
+      "set_code": "OP17-EN002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "244.88"
+    }, {
+      "set_name": "OTS Tournament Pack 17 (POR)",
+      "set_code": "OP17-PT002",
+      "set_rarity": "Ultimate Rare",
+      "set_rarity_code": "(UtR)",
+      "set_price": "0"
+    }, {
+      "set_name": "Structure Deck: Cyber Strike",
+      "set_code": "SDCS-EN036",
+      "set_rarity": "Super Rare",
+      "set_rarity_code": "(SR)",
+      "set_price": "11.81"
+    }, {
+      "set_name": "Structure Deck: Fire Kings",
+      "set_code": "SR14-EN039",
+      "set_rarity": "Common",
+      "set_rarity_code": "(C)",
+      "set_price": "0"
+    }],
+    "card_images": [{
+      "id": 10045474,
+      "image_url": "https://images.ygoprodeck.com/images/cards/10045474.jpg",
+      "image_url_small": "https://images.ygoprodeck.com/images/cards_small/10045474.jpg",
+      "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/10045474.jpg"
+    }],
+    "card_prices": [{
+      "cardmarket_price": "2.07",
+      "tcgplayer_price": "2.60",
+      "ebay_price": "13.99",
+      "amazon_price": "14.46",
+      "coolstuffinc_price": "7.99"
+    }]
   }]
 };
 
@@ -23728,10 +25718,34 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         commit('mutateTodoList', response.data);
       });
     },
-    //********** */ counter style need explode file
-    getListCounterStyle: function getListCounterStyle(_ref2) {
+    getSearchCards: function getSearchCards(_ref2, payload) {
       var commit = _ref2.commit,
         rootState = _ref2.rootState;
+      rootState.loading = true;
+      var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=metal%20raiders&num=5&offset=0";
+      var nameCard = payload.name;
+      var count = payload.num;
+      var page = payload.offset;
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        method: 'get',
+        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "fname=").concat(nameCard, "&num=").concat(count, "&offset=").concat(page),
+        headers: {
+          'Content-Type': "multipart/form-data"
+        }
+      }).then(function (response) {
+        console.log("getSeacrh Cards = ");
+        console.log(response.data);
+        // commit('mutateListCounterStyle',response.data);
+        rootState.loading = false;
+      })["catch"](function (error) {
+        commit('mutateResponsGeneral', error.message);
+        rootState.loading = false;
+      });
+    },
+    //********** */ counter style need explode file
+    getListCounterStyle: function getListCounterStyle(_ref3) {
+      var commit = _ref3.commit,
+        rootState = _ref3.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -23747,9 +25761,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    createCounterStyle: function createCounterStyle(_ref3, payload) {
-      var commit = _ref3.commit,
-        rootState = _ref3.rootState;
+    createCounterStyle: function createCounterStyle(_ref4, payload) {
+      var commit = _ref4.commit,
+        rootState = _ref4.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'post',
@@ -23768,9 +25782,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    detailCounterStyle: function detailCounterStyle(_ref4, payload) {
-      var commit = _ref4.commit,
-        rootState = _ref4.rootState;
+    detailCounterStyle: function detailCounterStyle(_ref5, payload) {
+      var commit = _ref5.commit,
+        rootState = _ref5.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -23783,9 +25797,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getEditCounterStyle: function getEditCounterStyle(_ref5, payload) {
-      var commit = _ref5.commit,
-        rootState = _ref5.rootState;
+    getEditCounterStyle: function getEditCounterStyle(_ref6, payload) {
+      var commit = _ref6.commit,
+        rootState = _ref6.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -23798,9 +25812,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    editCounterStyle: function editCounterStyle(_ref6, payload) {
-      var commit = _ref6.commit,
-        rootState = _ref6.rootState;
+    editCounterStyle: function editCounterStyle(_ref7, payload) {
+      var commit = _ref7.commit,
+        rootState = _ref7.rootState;
       var dataForm = payload.form;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -23820,9 +25834,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    deleteCounterStyle: function deleteCounterStyle(_ref7, payload) {
-      var commit = _ref7.commit,
-        rootState = _ref7.rootState;
+    deleteCounterStyle: function deleteCounterStyle(_ref8, payload) {
+      var commit = _ref8.commit,
+        rootState = _ref8.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'delete',
@@ -23843,14 +25857,13 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    //********** End */ counter style need explode file
-    getDataListChips: function getDataListChips(_ref8, payload) {
-      var commit = _ref8.commit,
-        rootState = _ref8.rootState;
+    getDataListChips: function getDataListChips(_ref9, payload) {
+      var commit = _ref9.commit,
+        rootState = _ref9.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
-        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck).concat(payload)
+        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
       }).then(function (response) {
         commit('mutateGetDataListChips', response.data.data[0]);
         rootState.loading = false;
@@ -23859,9 +25872,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getSearchStyleDeck: function getSearchStyleDeck(_ref9, payload) {
-      var commit = _ref9.commit,
-        rootState = _ref9.rootState;
+    getSearchStyleDeck: function getSearchStyleDeck(_ref10, payload) {
+      var commit = _ref10.commit,
+        rootState = _ref10.rootState;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
         url: "".concat(urlCounterStyle, "/search/").concat(payload)
@@ -23872,7 +25885,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         commit('mutateResponsGeneral', error.message);
         rootState.loading = false;
       });
-    }
+    } //********** End */ counter style need explode file
   },
   getters: {
     getterTodoList: function getterTodoList(state) {
@@ -23885,6 +25898,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
     //********** */ counter style need explode file
     getterListCounterStyle: function getterListCounterStyle(state) {
       return state.listCounterStyle;
+    },
+    getterDummyData: function getterDummyData(state) {
+      return state.dataDummyCards.data;
     }
   }
 });
@@ -23913,7 +25929,7 @@ var collectionUrl = {
   // baseUrlHead: 'https://master-duel-ruler.000webhostapp.com/',
   // baseUrlApi: 'https://master-duel-ruler.000webhostapp.com/api/',
 
-  baseUrlApiYgoProDeck: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?name='
+  baseUrlApiYgoProDeck: 'https://db.ygoprodeck.com/api/v7/cardinfo.php?'
 };
 
 /***/ }),
@@ -25992,7 +28008,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n    /* *********** style .wrap-card */\n.date-update[data-v-31e9138a]{\r\n        font-size: 14px;\n}\n.background-image[data-v-31e9138a]{\r\n        background-color: #03182c;\r\n        border-radius: 10px;\r\n        padding: 10px;\n}\n.background-image .image-style[data-v-31e9138a]{\r\n        max-width: 92px;\r\n        padding-right: 6px;\n}\r\n    /* .wrap-card{\r\n        position: relative;\r\n    } */\n.image-style[data-v-31e9138a]{\r\n        cursor: pointer;\n}\n.wrap-card .hover-card[data-v-31e9138a]{\r\n        display: none;\r\n        position: relative;\n}\n.wrap-card .hover-card[data-v-31e9138a]{\r\n        display: none;\r\n        position: relative;\n}\n.wrap-card .non-hover-card[data-v-31e9138a]{\r\n        display: none;\n}\n.background-image .hover-card .image-section img[data-v-31e9138a]{\r\n        width: 160px !important;\r\n        margin-right: 0.75rem;\n}\n.hover-card .information-section .wrap-star img[data-v-31e9138a]{\r\n        width: 16px;\r\n        height: 16px;\r\n        margin-right: 4px;\r\n        margin-top:-4px;\n}\n.middle-notice[data-v-31e9138a]{\r\n        line-height: 8px;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n    /* *********** style .wrap-card */\n.date-update[data-v-31e9138a]{\r\n        font-size: 14px;\n}\n.background-image[data-v-31e9138a]{\r\n        background-color: #03182c;\r\n        border-radius: 10px;\r\n        padding: 10px;\n}\n.background-image .image-style[data-v-31e9138a]{\r\n        max-width: 92px;\r\n        padding-right: 6px;\r\n        cursor: pointer;\n}\r\n    /* .wrap-card{\r\n        position: relative;\r\n    } */\n.image-style[data-v-31e9138a]{\r\n        cursor: pointer;\n}\n.wrap-card .hover-card[data-v-31e9138a]{\r\n        display: none;\r\n        position: relative;\n}\n.wrap-card .non-hover-card[data-v-31e9138a]{\r\n        display: none;\n}\n.background-image .hover-card .image-section img[data-v-31e9138a]{\r\n        width: 160px !important;\r\n        margin-right: 0.75rem;\n}\n.hover-card .information-section .wrap-star img[data-v-31e9138a]{\r\n        width: 16px;\r\n        height: 16px;\r\n        margin-right: 4px;\r\n        margin-top:-4px;\n}\n.middle-notice[data-v-31e9138a]{\r\n        line-height: 8px;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -26064,7 +28080,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.text-font{\r\n        text-align: center;\n}\n.non-padding{\r\n        padding: 0px !important;\n}\n.navbar-color{\r\n        background-color: #03182C !important;\r\n        color: white !important;\n}\n.navbar-list a{\r\n        font-size: 18px;\r\n        font-weight: 600;\n}\n.text-active{\r\n        text-decoration: underline;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.text-font{\r\n        text-align: center;\n}\n.non-padding{\r\n        padding: 0px !important;\n}\n.navbar-color{\r\n        background-color: #03182C !important;\r\n        color: white !important;\n}\n.navbar-list a{\r\n        font-size: 18px;\r\n        font-weight: 600;\n}\n.text-active{\r\n        text-decoration: underline;\n}\n.pointer{\r\n        cursor: pointer;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -26088,7 +28104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card{\r\n        color: black;\n}\n.card-style {\r\n        border: 2px solid #03182c;\r\n        max-height: 90px;\r\n        min-height: 90px;\r\n        cursor: pointer;\n}\n.image-crop-resize{\r\n        max-width: 90px;\r\n        max-height: 88px;\r\n        min-height: 88px;\r\n        border-right: 2px solid #03182c;\n}\nh4{\r\n        font-weight: 600 !important;\r\n        padding: 0px !important;\r\n        margin: 0px !important;\n}\n.date-update{\r\n        font-size: 12px;\n}\n.target-style{\r\n        text-decoration: none !important;\r\n        color: black;\n}\n.target-style:hover{\r\n        text-decoration: none !important;\n}\n.add-new-counter-link{\r\n        text-decoration: none !important;\r\n        color: white;\n}\n.add-new-counter-link:hover{\r\n        text-decoration: none !important;\r\n        color: white;\n}\n.title-card{\r\n        font-weight: bold;\r\n        text-transform: uppercase;\r\n        height: 54px;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card{\r\n        color: black;\n}\n.card-style {\r\n        border: 2px solid #385979;\r\n        max-height: 90px;\r\n        min-height: 90px;\r\n        cursor: pointer;\n}\n.image-crop-resize{\r\n        max-width: 90px;\r\n        max-height: 88px;\r\n        min-height: 88px;\r\n        border-right: 2px solid #385979;\n}\nh4{\r\n        font-weight: 600 !important;\r\n        padding: 0px !important;\r\n        margin: 0px !important;\n}\n.date-update{\r\n        font-size: 12px;\n}\n.target-style{\r\n        text-decoration: none !important;\r\n        color: black;\n}\n.target-style:hover{\r\n        text-decoration: none !important;\n}\n.add-new-counter-link{\r\n        text-decoration: none !important;\r\n        color: white;\n}\n.add-new-counter-link:hover{\r\n        text-decoration: none !important;\r\n        color: white;\n}\n.title-card{\r\n        font-weight: bold;\r\n        text-transform: uppercase;\r\n        height: 54px;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

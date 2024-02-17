@@ -13,8 +13,8 @@
                             <img 
                                 :src="urlImage.card_images[0].image_url" 
                                 :alt="urlImage.name"
-                                @mouseover=" displayCard(index,true)" 
-                                @mouseleave=" displayCard(index,false)"
+                                @mouseover=" displayCard($event,index,true)" 
+                                @mouseleave=" displayCard($event,index,false)"
                                 @click="openModalCard(true, index)" 
                                 class="image-style"
                             >
@@ -123,7 +123,13 @@
      });
 
 
-     function displayCard(index, condition ){
+     function displayCard($event, index, condition ){
+        if(condition){
+            // console.log("$event.clientX = ")
+            // console.log($event.clientX)
+            // console.log("$event.clientY = ")
+            // console.log($event.clientY)
+        }
         hoverCondition.value = condition;
         hoverConditionIndex.value  = index;
         createdStyleCardHover(index, condition)
@@ -143,6 +149,7 @@
             listCardSelector.style.zIndex='99';
             listCardSelector.style.position='absolute';
             listCardSelector.style.marginRight = '12px';
+            //********** it need add position with cordinate flexible  */
             listCardSelector.style.top = '-53px';
             listCardSelector.style.display = 'inline';
             listCardSelector.style.color = 'white';
@@ -161,6 +168,7 @@
             listCardSelector.style.display = 'none';
         }
      }
+
      function openModalCard (value, index=0) {
         emit('dataModalCard',{
             dataSelectCards: store.state.dataListChips[index],
@@ -209,6 +217,7 @@
     .background-image .image-style{
         max-width: 92px;
         padding-right: 6px;
+        cursor: pointer;
     }
     /* .wrap-card{
         position: relative;
@@ -217,11 +226,6 @@
         cursor: pointer;
     }
     
-    .wrap-card .hover-card{
-        display: none;
-        position: relative;
-    }
-
     .wrap-card .hover-card{
         display: none;
         position: relative;

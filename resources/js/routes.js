@@ -6,6 +6,7 @@ import CounterStyleDeck from './pages/CounterStyleDeck.vue';
 import CounterStyleDetail from './pages/CounterStyle/CounterStyleDetail.vue';
 import CreateCounterStyleDeck from './pages/CounterStyle/CreateCounterStyleDeck.vue';
 import PlayStyleDeck from './pages/PlayStyleDeck.vue';
+import LoginRegister from './pages/LoginRegister.vue';
 
 
 
@@ -22,6 +23,8 @@ const router = createRouter({
         { path: '/counter-style-deck/:slug/edit', component: CreateCounterStyleDeck },
         { path: '/play-style-deck', component: PlayStyleDeck },
         { path: '/play-style-deck', component: PlayStyleDeck },
+        { path: '/login', component: LoginRegister },
+        { path: '/register', component: LoginRegister },
     ]
   });
   

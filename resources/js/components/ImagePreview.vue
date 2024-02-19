@@ -40,13 +40,13 @@
                                     </span>
                                 </div>
                                 <div class="mb-2">
-                                    <span><b>[ {{ dataHasSelected?.race }} / {{ textTypeMonster(dataHasSelected?.frameType) }} {{textEffectMonster(dataHasSelected?.frameType)}} ]</b></span>
+                                    <span><b>[ {{ dataHasSelected?.race }} / {{ utilize.textTypeMonster(dataHasSelected?.frameType) }} {{utilize.textEffectMonster(dataHasSelected?.frameType)}} ]</b></span>
                                 </div>
                                 <div class="mb-2">
-                                    {{ decodeHTML(dataHasSelected.desc) }} 
+                                    {{ utilize.decodeHTML(dataHasSelected.desc) }} 
                                 </div>
                                 <div class="mb-1">
-                                    <span><b>ATK/</b>{{ dataHasSelected?.atk }} <span :innerHTML="textDef(dataHasSelected?.frameType, dataHasSelected?.def)"></span></span>   
+                                    <span><b>ATK/</b>{{ dataHasSelected?.atk }} <span :innerHTML="utilize.textDef(dataHasSelected?.frameType, dataHasSelected?.def)"></span></span>   
                                 </div>
                                 <div class="released-card mb-2">
                                     <span>Released on Card Set  {{dataHasSelected?.card_sets[0]?.set_name}}</span>
@@ -73,11 +73,11 @@
                                         <span> <b>{{ dataHasSelected.name }}</b></span>
                                     </div>
                                     <div class="col-4 ml-auto ">
-                                        <span class="mr-1"> <b>{{ textTypeMonster(dataHasSelected.frameType)}} - {{ dataHasSelected.race }}</b></span>
+                                        <span class="mr-1"> <b>{{ utilize.textTypeMonster(dataHasSelected.frameType)}} - {{ dataHasSelected.race }}</b></span>
                                     </div>
                                 </div>
                                 <div class="mb-2">
-                                    {{ decodeHTML(dataHasSelected.desc) }} 
+                                    {{ utilize.decodeHTML(dataHasSelected.desc) }} 
                                 </div>
                                 <div class="released-card mb-2">
                                     <span>Released on Card Set  {{dataHasSelected.card_sets[0].set_name}}</span>
@@ -91,7 +91,8 @@
     </div>
 </template>
 <script setup>
-    import { ref, reactive, computed, onMounted, defineProps, defineEmits } from 'vue'
+    import { ref, reactive, computed, onMounted, defineProps, defineEmits } from 'vue';
+    import {utilize} from '../utilize/utilize';
 
     const props = defineProps([
         'openModal',
@@ -114,32 +115,6 @@
     function openModalCard (value, index=0) {
         emit('dataModalCardPreview',value)
     }
-
-    //  ********** formation name text reusable
-    function textTypeMonster(data){
-        if( data === 'link' || data === 'xyz' ){
-            return data.toUpperCase();
-        } else {
-            return data[0].toUpperCase()+data.substr(1).toLowerCase();
-        }
-     }
-
-     function textEffectMonster(data){
-        return data !== 'effect' ? '/ Effect' : ''
-     }
-
-     function decodeHTML(htmlText){
-        let txt = document.createElement("textarea");
-        txt.innerHTML = htmlText;
-        return txt.value;
-     }
-
-     function textDef(type,def=0){
-        let txt = document.createElement("textarea");
-        let htmlText = type === 'link' ? '' : `<b>DEF/</b>${def}`
-        txt.innerHTML = htmlText;
-        return txt.value;
-     }
 </script>
 <style scoped>
     .modal-wrapper-none{

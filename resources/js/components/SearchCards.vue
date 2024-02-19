@@ -29,7 +29,7 @@
                 aria-describedby="Search"
                 placeholder="Search Cards..."
                 v-model="inputSearch"
-                @change="searching($event)"
+                @keyup="searching($event)"
               />
             </div>
           </div>
@@ -174,7 +174,8 @@
    const valueSearch = ref('');
    const imagePosition = ref(null);
    const positionInformation = ref(null);
-   const hoverCardTemplate = ref(null)
+   const hoverCardTemplate = ref(null);
+   let searchTimeout;
 
    const state = reactive([
         'inputSearch',
@@ -193,10 +194,12 @@
    })
   
    onMounted(()=>{
-    console.log('data baru')
+
    })
   
   function searching(event){
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(()=>{  
       const input = event.target.value;
       state.inputSearch = input;
       state.offset = 0;
@@ -204,11 +207,10 @@
       if(input){
           store.state.dataSearchCard = {}
           valueSearch.value = utilize.characterEncodingUrl(input);
-          setTimeout(()=>{              
-            triggerSearchGlobal()
-          }, 700)
+            triggerSearchGlobal();
       }
       event.preventDefault();
+    }, 800)
   }
   
   function openModalCard (value) {

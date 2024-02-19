@@ -16,7 +16,7 @@
                                 search
                             </span>
                         </a>
-                        <a class="nav-link text-white" href="#">
+                        <a class="nav-link text-white" href="/login">
                             <button type="button" class="btn btn-light">Login</button>
                         </a>
                     </div>

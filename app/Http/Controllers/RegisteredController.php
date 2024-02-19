@@ -14,9 +14,9 @@ class RegisteredController extends Controller
 
     public function register(Request $request){
         $rules =[
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:users',
             'user_name' => 'required',
-            'email'=> 'required|email',
+            'email'=> 'required|email|unique:users',
             'password'=> 'required|min:8|max:32',
             'position'=>'required'
         ];
@@ -24,9 +24,11 @@ class RegisteredController extends Controller
         $messages =[
             'name.required' => 'isi name sekarang',
             'name.max'=> 'nama hanya dapat berisi kurang dari 255 karakter',
+            'name.unique'=> 'name sudah ada, coba ganti lain',
             'user_name.required'=> 'isi user name sekarang',
             'email.required'=> 'isi email salah',
             'email.email'=> 'format email salah',
+            'email.unique'=> 'email sudah ada, coba ganti lain',
             'password.required'=> 'isi password sekarang',
             'password.min'=> 'password minimal 8 karakter',
             'password.max'=> 'password maximal 32 karakter',
@@ -47,8 +49,13 @@ class RegisteredController extends Controller
             ]; 
             $dataRegistered['password'] = Hash::make($dataRegistered['password']);
             $user = User::create($dataRegistered); 
-            $success['token'] = $user->createToken('auth_token')->plainTextToken;
-            $success['name'] = $user->name;
+            $success = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'user_name' => $user->user_name,
+                'position' => $user->position,
+                'token' => $user->createToken('auth_token')->plainTextToken,
+            ];
             return response()->json(['status'=>true, 'message'=>'User berhasil disimpan !!!', 'data'=>$success]);
         }
     }
@@ -60,7 +67,7 @@ class RegisteredController extends Controller
         ];
 
         $messages =[
-            'email.required'=> 'isi email salah',
+            'email.required'=> 'isi email sekarang',
             'email.email'=> 'format email salah',
             'password.required'=> 'isi password sekarang',
             'password.min'=> 'password minimal 8 karakter',
@@ -76,10 +83,15 @@ class RegisteredController extends Controller
                 'password'=>$request->password
             ];
             if(Auth::attempt($dataUserLogin)){
-                $auth = Auth::user();
-                $success['token'] = $auth->createToken('auth_token')->plainTextToken;
-                $success['name'] = $auth->name;
-                return response()->json(['status'=>true, 'message'=>'User berhasil disimpan !!!', 'data'=>$success]);
+                $user = Auth::user();
+                $success = [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'user_name' => $user->user_name,
+                    'position' => $user->position,
+                    'token' => $user->createToken('auth_token')->plainTextToken,
+                ];
+                return response()->json(['status'=>true, 'message'=>'User berhasil login !!!', 'data'=>$success]);
             } else {
                 return response()->json(['status'=>false, 'message'=> 'Email dan password salah']);
             }

@@ -26,6 +26,8 @@ const store = createStore({
     error: '',
     dataDummyCards: dataDummyCards.data,
     dataSearchCard: {},
+    //********** */ login, register, logout need explode file
+    responseAuth:{},
     //********** */ counter style
     listCounterStyle: {},
     detailCounterStyle: {},
@@ -47,6 +49,11 @@ const store = createStore({
       state.dataSearchCard = payload;
     },
 
+    //********** */ login, register, logout need explode file
+    mutateResponsAuth(state, payload){
+      state.responseAuth = payload;
+    },
+
     //********** */ counter style need explode file
     mutateListCounterStyle(state,payload){
       state.listCounterStyle = payload;
@@ -65,7 +72,7 @@ const store = createStore({
     }, 
     mutateRemoveDataListChips(state, payload){
       return state.dataListChips.splice(payload,1); 
-    }
+    },
   },
   actions: {
     getListTodoList({commit},state){
@@ -102,6 +109,61 @@ const store = createStore({
           rootState.loading = false;
       })
       
+    },
+
+    //********** */ login, register, logout need explode file
+    register({dispatch}, payload){
+      dispatch('auth',{
+        data: payload,
+        mode: 'register'
+      })
+    },
+
+    login({dispatch}, payload){
+      dispatch('auth',{
+        data: payload,
+        mode: 'login'
+      })
+    },
+    logout({commit, rootState}){
+
+    },
+    auth({commit, rootState}, payload){
+      rootState.loading = true;
+      let urlAuth = '';
+      if (payload.mode === 'login'){
+        urlAuth= `${collectionUrl.baseUrlApi}login`;
+      } else if(payload.mode === 'register'){
+        urlAuth= `${collectionUrl.baseUrlApi}register`;
+      }
+
+      axios({
+          method: 'post',
+          url: urlAuth,
+          data: payload.data,
+      })
+      .then(function(response){
+          commit('mutateResponsAuth',response.data);
+          rootState.loading = false;
+
+          if (payload.mode === 'login'){
+            const itemSave = {
+              name: response.data.data.name,
+              user_name: response.data.data.user_name,
+              email:response.data.data.email,
+              position: response.data.data.position,
+              token: response.data.data.token
+            }
+            localStorage.setItem('user', JSON.stringify(itemSave));
+            router.push('/tier-list');
+          } else if(payload.mode === 'register'){
+            router.push('/login');
+          }
+      })
+      .catch(function(error) {
+        commit('mutateResponsAuth', error.message); 
+        rootState.loading = false;
+      })
     },
 
     //********** */ counter style need explode file
@@ -265,6 +327,11 @@ const store = createStore({
     getterStateLoading(state){
       return state.loading;
     },
+    //********** */ login, register, logout need explode file
+    getterResponseAuth(state){
+      return state.responseAuth;
+    }, 
+
     //********** */ counter style need explode file
     getterListCounterStyle(state){
       return state.listCounterStyle;

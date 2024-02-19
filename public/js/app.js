@@ -21606,7 +21606,7 @@ __webpack_require__.r(__webpack_exports__);
       searchTimeout = setTimeout(function () {
         var input = event.target.value;
         state.inputSearch = input;
-        state.offset = 0;
+        offset.value = 0;
         if (input) {
           store.state.dataSearchCard = {};
           valueSearch.value = _utilize_utilize__WEBPACK_IMPORTED_MODULE_1__.utilize.characterEncodingUrl(input);
@@ -22435,7 +22435,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var _components_LoadingAndAlert_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/LoadingAndAlert.vue */ "./resources/js/components/LoadingAndAlert.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -22443,33 +22447,95 @@ __webpack_require__.r(__webpack_exports__);
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose;
     __expose();
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_1__.useStore)();
-    var text = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
+    var name = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('Nico Ready');
     var username = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var email = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var password = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var position = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('default');
-    var loginOrNot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
-    var responseGeneral = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      var _store$state;
-      return store === null || store === void 0 || (_store$state = store.state) === null || _store$state === void 0 ? void 0 : _store$state.responseGeneral;
-    });
+    var password = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('nicoready');
+    var position = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)([]);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
+    var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters.getterStateLoading;
+    });
+    var responseGeneral = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters.getterResponseAuth;
+    });
+    var loginOrNotChecked = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      var _router$currentRoute;
+      if (router !== null && router !== void 0 && (_router$currentRoute = router.currentRoute) !== null && _router$currentRoute !== void 0 && _router$currentRoute.value) {
+        var _router$currentRoute2, _router$currentRoute3;
+        if (router !== null && router !== void 0 && (_router$currentRoute2 = router.currentRoute) !== null && _router$currentRoute2 !== void 0 && (_router$currentRoute2 = _router$currentRoute2.value) !== null && _router$currentRoute2 !== void 0 && _router$currentRoute2.path.includes('/register')) {
+          return false;
+        } else if (router !== null && router !== void 0 && (_router$currentRoute3 = router.currentRoute) !== null && _router$currentRoute3 !== void 0 && (_router$currentRoute3 = _router$currentRoute3.value) !== null && _router$currentRoute3 !== void 0 && _router$currentRoute3.path.includes('/login')) {
+          return true;
+        }
+      }
+    });
+    function submit() {
+      var formData = new FormData();
+      if (loginOrNotChecked) {
+        var payload = {
+          'email': email.value,
+          'password': password.value
+        };
+        for (var key in payload) {
+          formData.append(key, payload[key]);
+        }
+        store.dispatch('login', formData);
+      } else {
+        var _payload = {
+          'name': name.value,
+          'user_name': username.value,
+          'email': email.value,
+          'password': password.value,
+          'position': position.value
+        };
+        for (var _key in _payload) {
+          formData.append(_key, _payload[_key]);
+        }
+        store.dispatch('register', formData);
+      }
+    }
+    function createPayload() {
+      if (!loginOrNotChecked) {
+        username.value = 'Nico Ready';
+        email.value = 'nicoready@gmail.com';
+        password.value = 'nicoready';
+        position.value = 'admin';
+        name.value = 'Nico Ready';
+        // ********* kenapa name dan password tidak terupdate seumpurna ?
+      } else if (loginOrNotChecked) {
+        username.value = 'Nico Ready';
+        email.value = 'nicoready@gmail.com';
+      }
+    }
     var __returned__ = {
       store: store,
-      text: text,
+      router: router,
+      name: name,
       username: username,
       email: email,
       password: password,
       position: position,
-      loginOrNot: loginOrNot,
+      state: state,
+      loading: loading,
       responseGeneral: responseGeneral,
+      loginOrNotChecked: loginOrNotChecked,
+      submit: submit,
+      createPayload: createPayload,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
+      onBeforeMount: vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount,
+      LoadingAndAlert: _components_LoadingAndAlert_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       get useStore() {
-        return vuex__WEBPACK_IMPORTED_MODULE_1__.useStore;
+        return vuex__WEBPACK_IMPORTED_MODULE_2__.useStore;
+      },
+      get useRouter() {
+        return vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter;
       }
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -23434,9 +23500,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, null, 8 /* PROPS */, _hoisted_13)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(card.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_17, "Update: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs(card.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])])])])], 8 /* PROPS */, _hoisted_10)])]);
   }), 128 /* KEYED_FRAGMENT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [].concat(_hoisted_20)))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: $setup.loading,
-    responseGeneral: _ctx.responseGeneral,
-    onConfirm: _ctx.confirm
-  }, null, 8 /* PROPS */, ["loading", "responseGeneral", "onConfirm"])]);
+    responseGeneral: _ctx.responseGeneral
+  }, null, 8 /* PROPS */, ["loading", "responseGeneral"])]);
 }
 
 /***/ }),
@@ -23781,6 +23846,7 @@ var _hoisted_5 = {
   "class": "col-6"
 };
 var _hoisted_6 = {
+  key: 0,
   "class": "form-group"
 };
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -23791,6 +23857,7 @@ var _hoisted_8 = {
   "class": "form-text invalid-feedback"
 };
 var _hoisted_9 = {
+  key: 1,
   "class": "form-group"
 };
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -23804,58 +23871,70 @@ var _hoisted_12 = {
   "class": "form-group"
 };
 var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "name"
+  "for": "email"
 }, "Email", -1 /* HOISTED */);
 var _hoisted_14 = {
+  key: 0,
+  "class": "form-text invalid-feedback"
+};
+var _hoisted_15 = {
   "class": "form-group"
 };
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "name"
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "password"
 }, "Password", -1 /* HOISTED */);
-var _hoisted_16 = ["disabled"];
 var _hoisted_17 = {
   key: 0,
+  "class": "form-text invalid-feedback"
+};
+var _hoisted_18 = {
+  key: 2,
   "class": "form-group"
 };
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "position"
 }, "Position", -1 /* HOISTED */);
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  disabled: "",
-  value: "default"
-}, "Open this select menu", -1 /* HOISTED */);
 var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  disabled: "",
+  selected: "",
+  value: ""
+}, "Pilih position user", -1 /* HOISTED */);
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "admin"
 }, "Admin", -1 /* HOISTED */);
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "player"
 }, "Player", -1 /* HOISTED */);
-var _hoisted_22 = [_hoisted_19, _hoisted_20, _hoisted_21];
-var _hoisted_23 = {
+var _hoisted_23 = [_hoisted_20, _hoisted_21, _hoisted_22];
+var _hoisted_24 = {
+  key: 0,
+  "class": "form-text invalid-feedback"
+};
+var _hoisted_25 = {
   "class": "row justify-content-center"
 };
-var _hoisted_24 = {
+var _hoisted_26 = {
   "class": "col-6"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$setup$responseGener, _$setup$responseGener2, _$setup$responseGener3, _$setup$responseGener4, _$setup$responseGener5, _$setup$responseGener6, _$setup$responseGener7, _$setup$responseGener8, _$setup$responseGener9, _$setup$responseGener10;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.loginOrNot ? 'Login' : 'Register') + " Form", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  var _$setup$responseGener, _$setup$responseGener2, _$setup$responseGener3, _$setup$responseGener4, _$setup$responseGener5, _$setup$responseGener6, _$setup$responseGener7, _$setup$responseGener8, _$setup$responseGener9, _$setup$responseGener10, _$setup$responseGener11, _$setup$responseGener12, _$setup$responseGener13, _$setup$responseGener14, _$setup$responseGener15, _$setup$responseGener16, _$setup$responseGener17, _$setup$responseGener18, _$setup$responseGener19, _$setup$responseGener20;
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.loginOrNotChecked ? 'Login' : 'Register') + " Form", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [!$setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener = $setup.responseGeneral) !== null && _$setup$responseGener !== void 0 && (_$setup$responseGener = _$setup$responseGener.message) !== null && _$setup$responseGener !== void 0 && _$setup$responseGener.title ? 'is-invalid' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener = $setup.responseGeneral) !== null && _$setup$responseGener !== void 0 && (_$setup$responseGener = _$setup$responseGener.message) !== null && _$setup$responseGener !== void 0 && _$setup$responseGener.name ? 'is-invalid' : '']),
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return _ctx.title = $event;
+      return $setup.name = $event;
     }),
     id: "name",
     "aria-describedby": "name"
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.title]]), !((_$setup$responseGener2 = $setup.responseGeneral) !== null && _$setup$responseGener2 !== void 0 && _$setup$responseGener2.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener3 = $setup.responseGeneral) !== null && _$setup$responseGener3 !== void 0 && (_$setup$responseGener3 = _$setup$responseGener3.message) !== null && _$setup$responseGener3 !== void 0 && _$setup$responseGener3.title ? (_$setup$responseGener4 = $setup.responseGeneral) === null || _$setup$responseGener4 === void 0 || (_$setup$responseGener4 = _$setup$responseGener4.message) === null || _$setup$responseGener4 === void 0 ? void 0 : _$setup$responseGener4.title[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.name]]), !((_$setup$responseGener2 = $setup.responseGeneral) !== null && _$setup$responseGener2 !== void 0 && _$setup$responseGener2.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener3 = $setup.responseGeneral) !== null && _$setup$responseGener3 !== void 0 && (_$setup$responseGener3 = _$setup$responseGener3.message) !== null && _$setup$responseGener3 !== void 0 && _$setup$responseGener3.name ? (_$setup$responseGener4 = $setup.responseGeneral) === null || _$setup$responseGener4 === void 0 || (_$setup$responseGener4 = _$setup$responseGener4.message) === null || _$setup$responseGener4 === void 0 ? void 0 : _$setup$responseGener4.name[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener5 = $setup.responseGeneral) !== null && _$setup$responseGener5 !== void 0 && (_$setup$responseGener5 = _$setup$responseGener5.message) !== null && _$setup$responseGener5 !== void 0 && _$setup$responseGener5.username ? 'is-invalid' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener5 = $setup.responseGeneral) !== null && _$setup$responseGener5 !== void 0 && (_$setup$responseGener5 = _$setup$responseGener5.message) !== null && _$setup$responseGener5 !== void 0 && _$setup$responseGener5.user_name ? 'is-invalid' : '']),
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $setup.username = $event;
     }),
     id: "username",
     "aria-describedby": "username"
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.username]]), !((_$setup$responseGener6 = $setup.responseGeneral) !== null && _$setup$responseGener6 !== void 0 && _$setup$responseGener6.username) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener7 = $setup.responseGeneral) !== null && _$setup$responseGener7 !== void 0 && (_$setup$responseGener7 = _$setup$responseGener7.message) !== null && _$setup$responseGener7 !== void 0 && _$setup$responseGener7.username ? (_$setup$responseGener8 = $setup.responseGeneral) === null || _$setup$responseGener8 === void 0 || (_$setup$responseGener8 = _$setup$responseGener8.message) === null || _$setup$responseGener8 === void 0 ? void 0 : _$setup$responseGener8.username[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.username]]), !((_$setup$responseGener6 = $setup.responseGeneral) !== null && _$setup$responseGener6 !== void 0 && _$setup$responseGener6.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener7 = $setup.responseGeneral) !== null && _$setup$responseGener7 !== void 0 && (_$setup$responseGener7 = _$setup$responseGener7.message) !== null && _$setup$responseGener7 !== void 0 && _$setup$responseGener7.user_name ? (_$setup$responseGener8 = $setup.responseGeneral) === null || _$setup$responseGener8 === void 0 || (_$setup$responseGener8 = _$setup$responseGener8.message) === null || _$setup$responseGener8 === void 0 ? void 0 : _$setup$responseGener8.user_name[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "email",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener9 = $setup.responseGeneral) !== null && _$setup$responseGener9 !== void 0 && (_$setup$responseGener9 = _$setup$responseGener9.message) !== null && _$setup$responseGener9 !== void 0 && _$setup$responseGener9.email ? 'is-invalid' : '']),
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
@@ -23863,28 +23942,36 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     id: "email",
     "aria-describedby": "email"
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.email]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.email]]), !((_$setup$responseGener10 = $setup.responseGeneral) !== null && _$setup$responseGener10 !== void 0 && _$setup$responseGener10.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener11 = $setup.responseGeneral) !== null && _$setup$responseGener11 !== void 0 && (_$setup$responseGener11 = _$setup$responseGener11.message) !== null && _$setup$responseGener11 !== void 0 && _$setup$responseGener11.email ? (_$setup$responseGener12 = $setup.responseGeneral) === null || _$setup$responseGener12 === void 0 || (_$setup$responseGener12 = _$setup$responseGener12.message) === null || _$setup$responseGener12 === void 0 ? void 0 : _$setup$responseGener12.email[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "password",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener10 = $setup.responseGeneral) !== null && _$setup$responseGener10 !== void 0 && (_$setup$responseGener10 = _$setup$responseGener10.message) !== null && _$setup$responseGener10 !== void 0 && _$setup$responseGener10.password ? 'is-invalid' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener13 = $setup.responseGeneral) !== null && _$setup$responseGener13 !== void 0 && (_$setup$responseGener13 = _$setup$responseGener13.message) !== null && _$setup$responseGener13 !== void 0 && _$setup$responseGener13.password ? 'is-invalid' : '']),
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $setup.password = $event;
     }),
     id: "password",
-    "aria-describedby": "password",
-    disabled: _ctx.editOrNot ? '' : _ctx.disabled
-  }, null, 10 /* CLASS, PROPS */, _hoisted_16), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.password]])]), !$setup.loginOrNot ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    "class": "custom-select custom-select-lg mb-3",
+    "aria-describedby": "password"
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.password]]), !((_$setup$responseGener14 = $setup.responseGeneral) !== null && _$setup$responseGener14 !== void 0 && _$setup$responseGener14.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener15 = $setup.responseGeneral) !== null && _$setup$responseGener15 !== void 0 && (_$setup$responseGener15 = _$setup$responseGener15.message) !== null && _$setup$responseGener15 !== void 0 && _$setup$responseGener15.password ? (_$setup$responseGener16 = $setup.responseGeneral) === null || _$setup$responseGener16 === void 0 || (_$setup$responseGener16 = _$setup$responseGener16.message) === null || _$setup$responseGener16 === void 0 ? void 0 : _$setup$responseGener16.password[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), !$setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [_hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["custom-select custom-select-lg mb-3", (_$setup$responseGener17 = $setup.responseGeneral) !== null && _$setup$responseGener17 !== void 0 && (_$setup$responseGener17 = _$setup$responseGener17.message) !== null && _$setup$responseGener17 !== void 0 && _$setup$responseGener17.position ? 'is-invalid' : '']),
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $setup.position = $event;
     }),
     id: "position"
-  }, [].concat(_hoisted_22), 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.position]])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, [].concat(_hoisted_23), 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.position]]), !((_$setup$responseGener18 = $setup.responseGeneral) !== null && _$setup$responseGener18 !== void 0 && _$setup$responseGener18.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener19 = $setup.responseGeneral) !== null && _$setup$responseGener19 !== void 0 && (_$setup$responseGener19 = _$setup$responseGener19.message) !== null && _$setup$responseGener19 !== void 0 && _$setup$responseGener19.position ? (_$setup$responseGener20 = $setup.responseGeneral) === null || _$setup$responseGener20 === void 0 || (_$setup$responseGener20 = _$setup$responseGener20.message) === null || _$setup$responseGener20 === void 0 ? void 0 : _$setup$responseGener20.position[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-success",
     onClick: _cache[5] || (_cache[5] = function ($event) {
-      return _ctx.submit();
+      return $setup.submit();
     })
-  }, "Submit")])])]);
+  }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-warning",
+    onClick: _cache[6] || (_cache[6] = function ($event) {
+      return $setup.createPayload();
+    })
+  }, "Create Payload")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
+    loading: $setup.loading,
+    responseGeneral: $setup.responseGeneral
+  }, null, 8 /* PROPS */, ["loading", "responseGeneral"])]);
 }
 
 /***/ }),
@@ -26333,6 +26420,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
     error: '',
     dataDummyCards: _DummyDataCard__WEBPACK_IMPORTED_MODULE_3__.dataDummyCards.data,
     dataSearchCard: {},
+    //********** */ login, register, logout need explode file
+    responseAuth: {},
     //********** */ counter style
     listCounterStyle: {},
     detailCounterStyle: {},
@@ -26352,6 +26441,10 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
     },
     mutateSearchCards: function mutateSearchCards(state, payload) {
       state.dataSearchCard = payload;
+    },
+    //********** */ login, register, logout need explode file
+    mutateResponsAuth: function mutateResponsAuth(state, payload) {
+      state.responseAuth = payload;
     },
     //********** */ counter style need explode file
     mutateListCounterStyle: function mutateListCounterStyle(state, payload) {
@@ -26407,10 +26500,64 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
+    //********** */ login, register, logout need explode file
+    register: function register(_ref3, payload) {
+      var dispatch = _ref3.dispatch;
+      dispatch('auth', {
+        data: payload,
+        mode: 'register'
+      });
+    },
+    login: function login(_ref4, payload) {
+      var dispatch = _ref4.dispatch;
+      dispatch('auth', {
+        data: payload,
+        mode: 'login'
+      });
+    },
+    logout: function logout(_ref5) {
+      var commit = _ref5.commit,
+        rootState = _ref5.rootState;
+    },
+    auth: function auth(_ref6, payload) {
+      var commit = _ref6.commit,
+        rootState = _ref6.rootState;
+      rootState.loading = true;
+      var urlAuth = '';
+      if (payload.mode === 'login') {
+        urlAuth = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApi, "login");
+      } else if (payload.mode === 'register') {
+        urlAuth = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApi, "register");
+      }
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        method: 'post',
+        url: urlAuth,
+        data: payload.data
+      }).then(function (response) {
+        commit('mutateResponsAuth', response.data);
+        rootState.loading = false;
+        if (payload.mode === 'login') {
+          var itemSave = {
+            name: response.data.data.name,
+            user_name: response.data.data.user_name,
+            email: response.data.data.email,
+            position: response.data.data.position,
+            token: response.data.data.token
+          };
+          localStorage.setItem('user', JSON.stringify(itemSave));
+          _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/tier-list');
+        } else if (payload.mode === 'register') {
+          _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/login');
+        }
+      })["catch"](function (error) {
+        commit('mutateResponsAuth', error.message);
+        rootState.loading = false;
+      });
+    },
     //********** */ counter style need explode file
-    getListCounterStyle: function getListCounterStyle(_ref3) {
-      var commit = _ref3.commit,
-        rootState = _ref3.rootState;
+    getListCounterStyle: function getListCounterStyle(_ref7) {
+      var commit = _ref7.commit,
+        rootState = _ref7.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26426,9 +26573,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    createCounterStyle: function createCounterStyle(_ref4, payload) {
-      var commit = _ref4.commit,
-        rootState = _ref4.rootState;
+    createCounterStyle: function createCounterStyle(_ref8, payload) {
+      var commit = _ref8.commit,
+        rootState = _ref8.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'post',
@@ -26447,9 +26594,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    detailCounterStyle: function detailCounterStyle(_ref5, payload) {
-      var commit = _ref5.commit,
-        rootState = _ref5.rootState;
+    detailCounterStyle: function detailCounterStyle(_ref9, payload) {
+      var commit = _ref9.commit,
+        rootState = _ref9.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26462,9 +26609,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getEditCounterStyle: function getEditCounterStyle(_ref6, payload) {
-      var commit = _ref6.commit,
-        rootState = _ref6.rootState;
+    getEditCounterStyle: function getEditCounterStyle(_ref10, payload) {
+      var commit = _ref10.commit,
+        rootState = _ref10.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26477,9 +26624,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    editCounterStyle: function editCounterStyle(_ref7, payload) {
-      var commit = _ref7.commit,
-        rootState = _ref7.rootState;
+    editCounterStyle: function editCounterStyle(_ref11, payload) {
+      var commit = _ref11.commit,
+        rootState = _ref11.rootState;
       var dataForm = payload.form;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -26499,9 +26646,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    deleteCounterStyle: function deleteCounterStyle(_ref8, payload) {
-      var commit = _ref8.commit,
-        rootState = _ref8.rootState;
+    deleteCounterStyle: function deleteCounterStyle(_ref12, payload) {
+      var commit = _ref12.commit,
+        rootState = _ref12.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'delete',
@@ -26522,9 +26669,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getDataListChips: function getDataListChips(_ref9, payload) {
-      var commit = _ref9.commit,
-        rootState = _ref9.rootState;
+    getDataListChips: function getDataListChips(_ref13, payload) {
+      var commit = _ref13.commit,
+        rootState = _ref13.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26537,9 +26684,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getSearchStyleDeck: function getSearchStyleDeck(_ref10, payload) {
-      var commit = _ref10.commit,
-        rootState = _ref10.rootState;
+    getSearchStyleDeck: function getSearchStyleDeck(_ref14, payload) {
+      var commit = _ref14.commit,
+        rootState = _ref14.rootState;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
         url: "".concat(urlCounterStyle, "/search/").concat(payload)
@@ -26559,6 +26706,10 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
     // it need getter for loading because when read action "getListCounterStyle()" always true not false
     getterStateLoading: function getterStateLoading(state) {
       return state.loading;
+    },
+    //********** */ login, register, logout need explode file
+    getterResponseAuth: function getterResponseAuth(state) {
+      return state.responseAuth;
     },
     //********** */ counter style need explode file
     getterListCounterStyle: function getterListCounterStyle(state) {

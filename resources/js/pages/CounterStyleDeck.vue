@@ -40,18 +40,18 @@
                 </div>
             </template>
         </div>
-        <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
+        <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral"></LoadingAndAlert>
     </div>
 </template>
 
 <script setup>
 
 import { computed, ref, onMounted, onBeforeMount, onBeforeUpdate } from 'vue';
-import { useRouter } from 'vue-router'
-import {collectionUrl} from '../urlCollect'
-import LoadingAndAlert from '../components/LoadingAndAlert.vue'
-import { useStore } from 'vuex'
-const dayjs = require('dayjs')
+import { useRouter } from 'vue-router';
+import {collectionUrl} from '../urlCollect';
+import LoadingAndAlert from '../components/LoadingAndAlert.vue';
+import { useStore } from 'vuex';
+const dayjs = require('dayjs');
 
 const store = useStore();
 const router = useRouter();

@@ -202,7 +202,7 @@
     searchTimeout = setTimeout(()=>{  
       const input = event.target.value;
       state.inputSearch = input;
-      state.offset = 0;
+      offset.value = 0;
 
       if(input){
           store.state.dataSearchCard = {}

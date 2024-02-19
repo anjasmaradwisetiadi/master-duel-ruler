@@ -6,7 +6,7 @@
       <div class="card-search-cards">
         <div class="content-card-search-cards">
           <div class="container">
-            <div class="row align-items-center mb-3 pb-1 header-card">
+            <div class="row align-items-center mb-3 py-1 header-card">
               <div class="col justify-content-start">
                 <h5>Cards</h5>
               </div>
@@ -19,6 +19,7 @@
               </div>
             </div>
           </div>
+          <p>{{positionInformation}}</p>
           <div class="row mb-2">
             <div class="col">
               <input
@@ -27,113 +28,133 @@
                 id="Search"
                 aria-describedby="Search"
                 placeholder="Search Cards..."
+                v-model="inputSearch"
                 @change="searching($event)"
               />
             </div>
           </div>
-          <div class="container">
+          <div class="container mb-2">
             <div class="row">
-            <div class="col background-image">
-                <div class="d-flex flex-wrap ml-2 scroller-cards-collect" id="scrollbar1" 
-                    v-if="getDataYgoProDeck.length">
-                    <div
-                        v-for="(urlImage,index) in getDataYgoProDeck" 
-                        :key="index" 
-                        class="wrap-card" 
-                        :style="hoverFunctionCard"
-                    >
-                        <img 
-                            :src="urlImage.card_images[0].image_url" 
-                            :alt="urlImage.name"
-                            @mouseover=" displayCard(index,true)" 
-                            @mouseleave=" displayCard(index,false)"
-                            @click="openModalCard(true, index)" 
-                            class="image-style"
+                <div class="col background-image">
+                    <div class="d-flex flex-wrap ml-2 scroller-cards-collect" id="scrollbar1" 
+                        v-if="getDataYgoProDeck.length">
+                        <div
+                            v-for="(urlImage,index) in getDataYgoProDeck" 
+                            :key="index" 
+                            class="wrap-card-search-global" 
+                            :style="hoverFunctionCard"
                         >
-                        <div class="hover-card">
-                            <template v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'">
-                                <div class="d-flex card-monster">
-                                    <div class="image-section">
-                                        <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
-                                    </div>
-                                    <div class="information-section">
-                                        <div class="row mb-2">
-                                            <div class="col-8 mr-auto">
-                                                <span> <b>{{ urlImage.name }}</b></span>
+                            <img 
+                                :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url :'' " 
+                                :alt="urlImage.name"
+                                @mouseover=" displayCard($event,index,true)" 
+                                @mouseleave=" displayCard($event,index,false)"
+                                @click="openModalCard(true, index)" 
+                                class="image-style"
+                                ref="imagePosition"
+                            >
+                            <div class="hover-card" ref="hoverCardTemplate">
+                                <template v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'">
+                                    <div class="d-flex card-monster">
+                                        <div class="image-section">
+                                            <img :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url :''" :alt="urlImage.name" >
+                                        </div>
+                                        <div class="information-section">
+                                            <div class="row mb-2">
+                                                <div class="col-8 mr-auto">
+                                                    <span> <b>{{ urlImage.name }}</b></span>
+                                                </div>
+                                                <div class="col-4 ml-auto ">
+                                                    <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
+                                                    <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
+                                                        <img src="../../assets/image/rank-icon.webp" alt="rank">
+                                                        <span>{{ urlImage.level }}</span>
+                                                    </span>
+                                                    <span class="wrap-star" v-else-if="urlImage.frameType === 'link'">
+                                                        Link - 
+                                                        <span>{{ urlImage.linkval }}</span>
+                                                    </span>
+                                                    <span class="wrap-star" v-else>
+                                                        <img src="../../assets/image/star-icon.webp" alt="star">
+                                                        <span>{{ urlImage.level }}</span>
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="col-4 ml-auto ">
-                                                <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
-                                                <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
-                                                    <img src="../../assets/image/rank-icon.webp" alt="rank">
-                                                    <span>{{ urlImage.level }}</span>
-                                                </span>
-                                                <span class="wrap-star" v-else-if="urlImage.frameType === 'link'">
-                                                    Link - 
-                                                    <span>{{ urlImage.linkval }}</span>
-                                                </span>
-                                                <span class="wrap-star" v-else>
-                                                    <img src="../../assets/image/star-icon.webp" alt="star">
-                                                    <span>{{ urlImage.level }}</span>
-                                                </span>
+                                            <div class="mb-2">
+                                                <span><b>[ {{ urlImage.race }} / {{ textTypeMonster(urlImage.frameType) }} {{textEffectMonster(urlImage.frameType)}} ]</b></span>
                                             </div>
-                                        </div>
-                                        <div class="mb-2">
-                                            <span><b>[ {{ urlImage.race }} / {{ textTypeMonster(urlImage.frameType) }} {{textEffectMonster(urlImage.frameType)}} ]</b></span>
-                                        </div>
-                                        <div class="mb-2">
-                                            {{ decodeHTML(urlImage.desc) }} 
-                                        </div>
-                                        <div class="mb-2">
-                                            <span><b>ATK/</b>{{ urlImage.atk }} <span :innerHTML="textDef(urlImage.frameType, urlImage.def)"></span></span>   
-                                        </div>
-                                        <div class="released-card">
-                                            <span>Released on Card Set  {{urlImage.card_sets[0].set_name}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </template>
-                            <template v-if="urlImage.frameType === 'trap' || urlImage.frameType === 'spell'">
-                                <div class="d-flex card-trap-spell">
-                                    <div class="image-section">
-                                        <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
-                                    </div>
-                                    <div class="information-section">
-                                        <div class="row mb-2">
-                                            <div class="col-8 mr-auto">
-                                                <span> <b>{{ urlImage.name }}</b></span>
+                                            <div class="mb-2">
+                                                {{ decodeHTML(urlImage.desc) }} 
                                             </div>
-                                            <div class="col-4 ml-auto ">
-                                                <span class="mr-1"> <b>{{ textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
+                                            <div class="mb-2">
+                                                <span><b>ATK/</b>{{ urlImage.atk }} <span :innerHTML="textDef(urlImage.frameType, urlImage.def)"></span></span>   
+                                            </div>
+                                            <div class="released-card">
+                                                <span>Released on Card Set  {{urlImage.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span>
                                             </div>
                                         </div>
-                                        <div class="mb-2">
-                                            {{ decodeHTML(urlImage.desc) }} 
+                                    </div>
+                                </template>
+                                <template v-if="urlImage.frameType === 'trap' || urlImage.frameType === 'spell'">
+                                    <div class="d-flex card-trap-spell">
+                                        <div class="image-section">
+                                            <img :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url :''" :alt="urlImage.name" >
                                         </div>
-                                        <div class="released-card">
-                                            <span>Released on Card Set  {{urlImage.card_sets[0].set_name}}</span>
+                                        <div class="information-section">
+                                            <div class="row mb-2">
+                                                <div class="col-8 mr-auto">
+                                                    <span> <b>{{ urlImage.name }}</b></span>
+                                                </div>
+                                                <div class="col-4 ml-auto ">
+                                                    <span class="mr-1"> <b>{{ textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
+                                                </div>
+                                            </div>
+                                            <div class="mb-2">
+                                                {{ decodeHTML(urlImage.desc) }} 
+                                            </div>
+                                            <div class="released-card">
+                                                <span>Released on Card Set  {{urlImage.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </template>
+                                </template>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div 
-                    class="d-flex justify-content-center"
-                    v-if="!getDataYgoProDeck.length"
-                >
-                    <span>Tidak ada kartu yang ke record</span>
+                    <div 
+                        class="d-flex justify-content-center"
+                        v-if="!getDataYgoProDeck.length"
+                    >
+                        <span>Tidak ada kartu yang ke record</span>
+                    </div>
                 </div>
             </div>
           </div>
+          <div class="row" v-if="getDataYgoProDeck.length">
+            <div class="col d-flex justify-content-start">
+                <div class="mr-4">
+                    <button class="btn btn-warning mr-2" 
+                        @click="nextPage()" 
+                        :disabled="!infoPage?.next_page_offset ? '':disabled"> > </button>
+                    <button class="btn btn-warning" 
+                        @click="backPage()" 
+                        :disabled="infoPage.previous_page_offset === undefined  ? '':disabled"> < </button>
+                </div>
+                <div>
+                    <span> {{infoPage?.total_rows - infoPage?.rows_remaining}} of {{infoPage?.total_rows}}</span> 
+                </div>
+            </div>
           </div>
         </div>
       </div>
+
+      <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
     </div>
   </template>
   <script setup>
-   import { reactive, ref, computed, onMounted, defineProps, defineEmits } from 'vue'
-   import { useStore } from 'vuex'
+   import { reactive, ref, computed, onMounted, defineProps, defineEmits } from 'vue';
+   import { useStore } from 'vuex';
+   import {utilize} from '../utilize/utilize';
    const store = useStore();
 
    const props = defineProps([
@@ -146,59 +167,107 @@
    ]);
 
    const hoverConditionIndex = ref(0);
-     const hoverCondition = ref(false);
+   const hoverCondition = ref(false);
+   const inputSearch = ref('');
+   const num = ref(40);
+   const offset = ref(0);
+   const valueSearch = ref('');
+   const imagePosition = ref(null);
+   const positionInformation = ref(null);
+   const hoverCardTemplate = ref(null)
+
+   const state = reactive([
+        'inputSearch',
+   ])
 
    const getDataYgoProDeck = computed(()=>{
-    return store.getters.getterDummyData;
+    return store?.state?.dataSearchCard?.data ? store?.state?.dataSearchCard?.data : [];
+   })
+
+   const infoPage = computed(()=>{
+    return store?.state?.dataSearchCard?.meta
+   })
+
+   const responseGeneral = computed(()=>{
+    return store.state.responseGeneral
    })
   
    onMounted(()=>{
-  
+    console.log('data baru')
    })
   
   function searching(event){
       const input = event.target.value;
+      state.inputSearch = input;
+      state.offset = 0;
+
       if(input){
-          setTimeout(()=>{
-              console.log("input = ")
-              console.log(input);
-              // store.dispatch('getSearchStyleDeck', input)
-          }, 800)
-      } else {
-          // store.dispatch('getListCounterStyle')
+          store.state.dataSearchCard = {}
+          valueSearch.value = utilize.characterEncodingUrl(input);
+          setTimeout(()=>{              
+            triggerSearchGlobal()
+          }, 700)
       }
+      event.preventDefault();
   }
   
   function openModalCard (value) {
       emit('dataModalCard',value)
   }
 
-  function displayCard(index, condition ){
+  function displayCard($event, index, condition ){
         hoverCondition.value = condition;
         hoverConditionIndex.value  = index;
-        createdStyleCardHover(index, condition)
+        createdStyleCardHover($event, index, condition)
   };
 
-  function createdStyleCardHover(index, condition){
+  function createdStyleCardHover($event, index, condition){
+        // ********** get data position image 
+        const { top, right, bottom, left } = imagePosition.value[index].getBoundingClientRect();
+        const detectWidthMonitor = window.innerWidth;
+        let positionLeft = 0;
+        let positionTop =  0;
         const data = index+1;
-        let listCardSelector = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card`);
+        let listCardSelector = document.querySelector(`.wrap-card-search-global:nth-child(${data}) .hover-card`);
         // trial add before
         // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
         if (condition){
-            listCardSelector.style.maxWidth= '550px';
-            listCardSelector.style.minWidth= '550px';
+            if(detectWidthMonitor >= 1910){            
+                positionLeft = left-606;
+                positionTop =  top-206;
+            } else if (detectWidthMonitor >= 1200 && detectWidthMonitor<1910){
+                positionLeft = left-413;
+                positionTop =  top-196;
+            }
+
+            //********* */ try to fixing when i scroll on botom scroll can display hover on top 
+            // if(detectHeightMonitor < 752 &&  $event.clientY > 530){
+            //     const getHeightElementCardHover = hoverCardTemplate.value[index].offsetHeight;
+            //     console.log("getHeightElementCardHover = ");
+            //     console.log(getHeightElementCardHover);
+            //     positionTop = positionTop - 234;
+            //     listCardSelector.style.top = `${positionTop}px`;
+
+            // } else {
+            //     listCardSelector.style.left = `${positionLeft}px`;
+            //     listCardSelector.style.top = `${positionTop}px`;
+            // }
+
+            listCardSelector.style.maxWidth= '500px';
+            listCardSelector.style.minWidth= '500px';
             listCardSelector.style.padding= '8px';
             listCardSelector.style.borderRadius= '8px';
             listCardSelector.style.backgroundColor= 'rgba(0, 0, 0, 0.85)';
             listCardSelector.style.zIndex='99';
+            listCardSelector.style.left = `${positionLeft}px`;
+            listCardSelector.style.top = `${positionTop}px`;
             listCardSelector.style.position='absolute';
             listCardSelector.style.marginRight = '12px';
-            // listCardSelector.style.top = '-53px';
             listCardSelector.style.display = 'block';
             listCardSelector.style.color = 'white';
             listCardSelector.style.fontSize = '13px';
 
-            // trial add before
+            //********* */ trial add before
             // listCardSelectorBefore.style.left = 'auto';
             // listCardSelectorBefore.style.right = '0';
             // listCardSelectorBefore.style.borderRight = 'none'
@@ -210,14 +279,39 @@
             listCardSelector.style.position='relative';
             listCardSelector.style.display = 'none';
         }
-     }
+    }
+
+    function nextPage(){
+        // state.inputSearch = inputSearch.value;
+        offset.value = offset.value+40;
+        triggerSearchGlobal();
+    }
+
+    function backPage(){
+        // state.inputSearch = inputSearch.value;
+        offset.value = offset.value-40;
+        triggerSearchGlobal();
+    }
+
+    function triggerSearchGlobal(){
+        const payload = {
+            name: valueSearch.value,
+            num: num.value,
+            offset: offset.value
+        }
+        store.dispatch('getSearchCards', payload)
+    }
+
+    const loading = computed(()=>{
+        return store.getters.getterStateLoading
+    })
 
     //  ********** formation name reusable
     function textTypeMonster(data){
         if( data === 'link' || data === 'xyz' ){
             return data.toUpperCase();
         } else {
-            return data[0].toUpperCase()+data.substr(1).toLowerCase();
+            return data ? data[0].toUpperCase()+data.substr(1).toLowerCase() : '';
         }
      }
 
@@ -283,6 +377,7 @@
   .content-card-search-cards {
     margin-top: 1.5rem;
     width: 530px;
+    height: 100%;
     padding: 6px;
     background-color: #0b365e;
     border-radius: 8px;
@@ -293,7 +388,7 @@
     border-bottom: solid 3px #385979;
   }
 
-  .wrap-card .hover-card{
+  .wrap-card-search-global .hover-card{
     display: none;
     position: relative;
   }
@@ -309,32 +404,38 @@
         cursor: pointer;
     }
 
-    .wrap-card .hover-card{
+    .wrap-card-search-global .hover-card{
         display: none;
         position: relative;
     }
 
-    .wrap-card .non-hover-card{
+    .wrap-card-search-global .non-hover-card{
         display: none;
     }
     .image-style{
         max-width: 92px;
         padding-right: 6px;
+        padding-top:4px;
         cursor: pointer;
     }
 
-    .wrap-card .hover-card{
+    .wrap-card-search-global .hover-card{
         display: none;
         position: relative;
     }
 
-    .wrap-card .non-hover-card{
+    .wrap-card-search-global .non-hover-card{
         display: none;
     }
 
     .hover-card .image-section img{
         width: 160px !important;
+        height: 230px;
         margin-right: 0.75rem;
+    }
+
+    .information-section{
+        max-width: 320px;
     }
 
     .hover-card .information-section .wrap-star img{
@@ -352,7 +453,7 @@
     }
 
     .scroller-cards-collect{
-        max-height: 500px;
+        max-height: 32rem;
         overflow: auto;
     }
 

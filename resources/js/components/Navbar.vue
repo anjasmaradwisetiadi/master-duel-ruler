@@ -25,7 +25,7 @@
             </div>
         </nav>
         <!-- perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain -->
-        <!-- <SearchCards :openModal="openModal" @dataModalCard="dataModalCard" ></SearchCards> -->
+        <SearchCards :openModal="openModal" @dataModalCard="dataModalCard" ></SearchCards>
     </div>
 </template>
 
@@ -33,7 +33,7 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-// import SearchCards from './SearchCards.vue'
+import SearchCards from './SearchCards.vue'
 const router = useRouter();
 const store = useStore();
 
@@ -61,8 +61,7 @@ function searchCards(){
     //     offset: 0
     // }
     // store.dispatch('getSearchCards', payload)
-    state.openModal = true
-
+    state.openModal = true;
 }
 
 function dataModalCard($event){

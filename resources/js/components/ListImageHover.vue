@@ -124,25 +124,20 @@
 
 
      function displayCard($event, index, condition ){
-        if(condition){
-            // console.log("$event.clientX = ")
-            // console.log($event.clientX)
-            // console.log("$event.clientY = ")
-            // console.log($event.clientY)
-        }
         hoverCondition.value = condition;
         hoverConditionIndex.value  = index;
-        createdStyleCardHover(index, condition)
+        createdStyleCardHover($event, index, condition);
      };
 
-     function createdStyleCardHover(index, condition){
+     function createdStyleCardHover($event, index, condition){
         const data = index+1;
         let listCardSelector = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card`);
         // trial add before
         // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
         if (condition){
-            listCardSelector.style.maxWidth= '550px';
-            listCardSelector.style.minWidth= '550px';
+            const clientY = $event.clientY - 470;
+            listCardSelector.style.maxWidth= '500px';
+            listCardSelector.style.minWidth= '500px';
             listCardSelector.style.padding= '8px';
             listCardSelector.style.borderRadius= '8px';
             listCardSelector.style.backgroundColor= 'rgba(0, 0, 0, 0.85)';
@@ -150,7 +145,7 @@
             listCardSelector.style.position='absolute';
             listCardSelector.style.marginRight = '12px';
             //********** it need add position with cordinate flexible  */
-            listCardSelector.style.top = '-53px';
+            listCardSelector.style.top = `${clientY}px`;
             listCardSelector.style.display = 'inline';
             listCardSelector.style.color = 'white';
             listCardSelector.style.fontSize = '13px';

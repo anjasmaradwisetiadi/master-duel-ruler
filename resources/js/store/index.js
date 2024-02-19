@@ -25,6 +25,7 @@ const store = createStore({
     loading: false,
     error: '',
     dataDummyCards: dataDummyCards.data,
+    dataSearchCard: {},
     //********** */ counter style
     listCounterStyle: {},
     detailCounterStyle: {},
@@ -41,6 +42,9 @@ const store = createStore({
     },
     mutateTodoList: (state, payload)=>{
       state.todoList = payload;
+    },
+    mutateSearchCards(state, payload){
+      state.dataSearchCard = payload;
     },
 
     //********** */ counter style need explode file
@@ -90,7 +94,7 @@ const store = createStore({
       .then(function(response){
           console.log("getSeacrh Cards = ")
           console.log(response.data);
-          // commit('mutateListCounterStyle',response.data);
+          commit('mutateSearchCards',response.data);
           rootState.loading = false;
       })
       .catch(function(error) {

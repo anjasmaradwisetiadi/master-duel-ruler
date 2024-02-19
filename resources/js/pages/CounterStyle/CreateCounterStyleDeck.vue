@@ -270,7 +270,9 @@
         for (let dataListChip of listChips) {
             if(dataListChip.includes('&')){
                 dataListChip = dataListChip.replaceAll('&','%26')
-            }
+            } if(dataListChip.includes(`"`)){
+                dataListChip = dataListChip.replaceAll('&','%22')
+            }  
         store.dispatch("getDataListChips",dataListChip);
         }
     }

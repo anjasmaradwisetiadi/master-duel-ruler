@@ -56,7 +56,7 @@
         <div class="row justify-content-center">
             <div class="col-6">
                 <button type="button" class="btn btn-success" @click="submit()">Submit</button>
-                <button type="button" class="btn btn-warning" @click="createPayload()">Create Payload</button>
+                <!-- <button type="button" class="btn btn-warning" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>
         <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral"></LoadingAndAlert>
@@ -130,17 +130,17 @@
      }
 
      function createPayload(){
-        if(!loginOrNotChecked){
-            username.value = 'Nico Ready';
-            email.value = 'nicoready@gmail.com';
-            password.value = 'nicoready';
-            position.value = 'admin';
-            name.value = 'Nico Ready'; 
-            // ********* kenapa name dan password tidak terupdate seumpurna ?
-        } else if(loginOrNotChecked) {
-            username.value = 'Nico Ready';
-            email.value = 'nicoready@gmail.com';
-        }
+        // if(!loginOrNotChecked){
+        //     username.value = 'Nico Ready';
+        //     email.value = 'nicoready@gmail.com';
+        //     password.value = 'nicoready';
+        //     position.value = 'admin';
+        //     name.value = 'Nico Ready'; 
+        //     // ********* kenapa name dan password tidak terupdate seumpurna  menggunakan ref ? perlu state ?
+        // } else if(loginOrNotChecked) {
+        //     username.value = 'Nico Ready';
+        //     email.value = 'nicoready@gmail.com';
+        // }
      }
 
 

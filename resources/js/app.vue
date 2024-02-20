@@ -7,10 +7,17 @@
 
 <script>
 import Navbar from './components/Navbar.vue';
+
 export default {
+    data() {
+        return {
+        count: 0
+        }
+    },
     components: {
         Navbar
-    }   
+    },
+
 }
 </script>
 <style>

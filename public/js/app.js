@@ -21480,9 +21480,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var _SearchCards_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchCards.vue */ "./resources/js/components/SearchCards.vue");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 
@@ -21492,13 +21495,19 @@ __webpack_require__.r(__webpack_exports__);
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose;
     __expose();
-    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_2__.useRouter)();
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
     var openModal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       openModal: openModal
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
+    var responseAuth = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      var _store$getters;
+      return store === null || store === void 0 || (_store$getters = store.getters) === null || _store$getters === void 0 || (_store$getters = _store$getters.getterResponseAuth) === null || _store$getters === void 0 ? void 0 : _store$getters.token;
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      store.dispatch('tryAutoLogin');
+    });
     var activeLink = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       if (router.currentRoute.value.path.includes('/tier-list')) {
         return 'tier-list';
@@ -21509,36 +21518,45 @@ __webpack_require__.r(__webpack_exports__);
       }
     });
     function searchCards() {
-      // const payload = {
-      //     name: 'floowandere',
-      //     num: 5,
-      //     offset: 0
-      // }
-      // store.dispatch('getSearchCards', payload)
       state.openModal = true;
     }
     function dataModalCard($event) {
       state.openModal = $event;
+    }
+    function logout() {
+      localStorage.removeItem('user');
+      store.state.responseAuth = {};
+      router.push('/login');
+      sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+        title: "Sukses!!!",
+        text: "Anda telah berhasil logout",
+        icon: "success"
+      });
     }
     var __returned__ = {
       router: router,
       store: store,
       openModal: openModal,
       state: state,
+      responseAuth: responseAuth,
       activeLink: activeLink,
       searchCards: searchCards,
       dataModalCard: dataModalCard,
+      logout: logout,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       get useRouter() {
-        return vue_router__WEBPACK_IMPORTED_MODULE_2__.useRouter;
+        return vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter;
       },
       get useStore() {
-        return vuex__WEBPACK_IMPORTED_MODULE_3__.useStore;
+        return vuex__WEBPACK_IMPORTED_MODULE_4__.useStore;
       },
-      SearchCards: _SearchCards_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+      SearchCards: _SearchCards_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      get Swal() {
+        return (sweetalert2__WEBPACK_IMPORTED_MODULE_2___default());
+      }
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -23113,13 +23131,18 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_9 = {
   "class": "nav-link text-white align-self-center ml-2 pointer"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_10 = {
   "class": "nav-link text-white",
   href: "/login"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+};
+var _hoisted_11 = {
+  key: 0,
   type: "button",
   "class": "btn btn-light"
-}, "Login")], -1 /* HOISTED */);
+};
+var _hoisted_12 = {
+  "class": "nav-link text-white"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-link text-white align-self-center ml-2", [$setup.activeLink === 'tier-list' ? 'text-active' : '']]),
@@ -23135,7 +23158,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.searchCards();
     })
-  }, " search ")]), _hoisted_10])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SearchCards"], {
+  }, " search ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_10, [!$setup.responseAuth ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_11, "Login")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_12, [$setup.responseAuth ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    key: 0,
+    type: "button",
+    "class": "btn btn-danger",
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $setup.logout();
+    })
+  }, "Logout")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SearchCards"], {
     openModal: $setup.openModal,
     onDataModalCard: $setup.dataModalCard
   }, null, 8 /* PROPS */, ["openModal"])]);
@@ -26289,7 +26319,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _components_ExampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue");
 /* harmony import */ var _pages_TierList_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/TierList.vue */ "./resources/js/pages/TierList.vue");
 /* harmony import */ var _pages_CounterStyleDeck_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/CounterStyleDeck.vue */ "./resources/js/pages/CounterStyleDeck.vue");
@@ -26297,6 +26327,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_CounterStyle_CreateCounterStyleDeck_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/CounterStyle/CreateCounterStyleDeck.vue */ "./resources/js/pages/CounterStyle/CreateCounterStyleDeck.vue");
 /* harmony import */ var _pages_PlayStyleDeck_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/PlayStyleDeck.vue */ "./resources/js/pages/PlayStyleDeck.vue");
 /* harmony import */ var _pages_LoginRegister_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/LoginRegister.vue */ "./resources/js/pages/LoginRegister.vue");
+/* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/store/index.js");
 
 
 
@@ -26305,44 +26336,97 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.createWebHistory)(),
+
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_8__.createWebHistory)(),
   routes: [{
     path: '/',
     redirect: '/tier-list'
   }, {
     path: '/dashboard',
-    component: _components_ExampleComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue"));
+    }
   }, {
     path: '/tier-list',
-    component: _pages_TierList_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/TierList.vue */ "./resources/js/pages/TierList.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/counter-style-deck',
-    component: _pages_CounterStyleDeck_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/CounterStyleDeck.vue */ "./resources/js/pages/CounterStyleDeck.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
   },
   // { path: '/counter-style-deck/detail', component: CounterStyleDetail },
   {
     path: '/counter-style-deck/:slug',
-    component: _pages_CounterStyle_CounterStyleDetail_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/CounterStyle/CounterStyleDetail.vue */ "./resources/js/pages/CounterStyle/CounterStyleDetail.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/counter-style-deck/create',
-    component: _pages_CounterStyle_CreateCounterStyleDeck_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/CounterStyle/CreateCounterStyleDeck.vue */ "./resources/js/pages/CounterStyle/CreateCounterStyleDeck.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/counter-style-deck/:slug/edit',
-    component: _pages_CounterStyle_CreateCounterStyleDeck_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/CounterStyle/CreateCounterStyleDeck.vue */ "./resources/js/pages/CounterStyle/CreateCounterStyleDeck.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/play-style-deck',
-    component: _pages_PlayStyleDeck_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }, {
-    path: '/play-style-deck',
-    component: _pages_PlayStyleDeck_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/PlayStyleDeck.vue */ "./resources/js/pages/PlayStyleDeck.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/login',
-    component: _pages_LoginRegister_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/LoginRegister.vue */ "./resources/js/pages/LoginRegister.vue"));
+    },
+    meta: {
+      requiresUnauth: true
+    }
   }, {
     path: '/register',
-    component: _pages_LoginRegister_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: function component() {
+      return Promise.resolve(/*! import() */).then(__webpack_require__.bind(__webpack_require__, /*! ./pages/LoginRegister.vue */ "./resources/js/pages/LoginRegister.vue"));
+    },
+    meta: {
+      requiresUnauth: true
+    }
   }]
+});
+router.beforeEach(function (to, _, next) {
+  var _store$getters;
+  var getToken = _store_index_js__WEBPACK_IMPORTED_MODULE_7__["default"] === null || _store_index_js__WEBPACK_IMPORTED_MODULE_7__["default"] === void 0 || (_store$getters = _store_index_js__WEBPACK_IMPORTED_MODULE_7__["default"].getters) === null || _store$getters === void 0 || (_store$getters = _store$getters.getterResponseAuth) === null || _store$getters === void 0 ? void 0 : _store$getters.token;
+  var auth = to.meta.requiresAuth;
+  var unauth = to.meta.requiresUnauth;
+  if (auth && !getToken) {
+    next('/login');
+  } else if (unauth && getToken) {
+    next('/tier-list');
+  } else {
+    next();
+  }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
@@ -26480,7 +26564,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       var commit = _ref2.commit,
         rootState = _ref2.rootState;
       rootState.loading = true;
-      var url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=metal%20raiders&num=5&offset=0";
       var nameCard = payload.name;
       var count = payload.num;
       var page = payload.offset;
@@ -26491,8 +26574,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
           'Content-Type': "multipart/form-data"
         }
       }).then(function (response) {
-        console.log("getSeacrh Cards = ");
-        console.log(response.data);
         commit('mutateSearchCards', response.data);
         rootState.loading = false;
       })["catch"](function (error) {
@@ -26534,7 +26615,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         url: urlAuth,
         data: payload.data
       }).then(function (response) {
-        commit('mutateResponsAuth', response.data);
         rootState.loading = false;
         if (payload.mode === 'login') {
           var itemSave = {
@@ -26544,6 +26624,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
             position: response.data.data.position,
             token: response.data.data.token
           };
+          commit('mutateResponsAuth', itemSave);
           localStorage.setItem('user', JSON.stringify(itemSave));
           _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/tier-list');
         } else if (payload.mode === 'register') {
@@ -26554,10 +26635,18 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
+    tryAutoLogin: function tryAutoLogin(_ref7) {
+      var commit = _ref7.commit;
+      var getUser = localStorage.getItem('user');
+      if (getUser) {
+        var getUserParse = JSON.parse(getUser);
+        commit('mutateResponsAuth', getUserParse);
+      }
+    },
     //********** */ counter style need explode file
-    getListCounterStyle: function getListCounterStyle(_ref7) {
-      var commit = _ref7.commit,
-        rootState = _ref7.rootState;
+    getListCounterStyle: function getListCounterStyle(_ref8) {
+      var commit = _ref8.commit,
+        rootState = _ref8.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26573,9 +26662,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    createCounterStyle: function createCounterStyle(_ref8, payload) {
-      var commit = _ref8.commit,
-        rootState = _ref8.rootState;
+    createCounterStyle: function createCounterStyle(_ref9, payload) {
+      var commit = _ref9.commit,
+        rootState = _ref9.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'post',
@@ -26594,9 +26683,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    detailCounterStyle: function detailCounterStyle(_ref9, payload) {
-      var commit = _ref9.commit,
-        rootState = _ref9.rootState;
+    detailCounterStyle: function detailCounterStyle(_ref10, payload) {
+      var commit = _ref10.commit,
+        rootState = _ref10.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26609,9 +26698,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getEditCounterStyle: function getEditCounterStyle(_ref10, payload) {
-      var commit = _ref10.commit,
-        rootState = _ref10.rootState;
+    getEditCounterStyle: function getEditCounterStyle(_ref11, payload) {
+      var commit = _ref11.commit,
+        rootState = _ref11.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26624,9 +26713,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    editCounterStyle: function editCounterStyle(_ref11, payload) {
-      var commit = _ref11.commit,
-        rootState = _ref11.rootState;
+    editCounterStyle: function editCounterStyle(_ref12, payload) {
+      var commit = _ref12.commit,
+        rootState = _ref12.rootState;
       var dataForm = payload.form;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -26646,9 +26735,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    deleteCounterStyle: function deleteCounterStyle(_ref12, payload) {
-      var commit = _ref12.commit,
-        rootState = _ref12.rootState;
+    deleteCounterStyle: function deleteCounterStyle(_ref13, payload) {
+      var commit = _ref13.commit,
+        rootState = _ref13.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'delete',
@@ -26669,9 +26758,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getDataListChips: function getDataListChips(_ref13, payload) {
-      var commit = _ref13.commit,
-        rootState = _ref13.rootState;
+    getDataListChips: function getDataListChips(_ref14, payload) {
+      var commit = _ref14.commit,
+        rootState = _ref14.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -26684,9 +26773,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getSearchStyleDeck: function getSearchStyleDeck(_ref14, payload) {
-      var commit = _ref14.commit,
-        rootState = _ref14.rootState;
+    getSearchStyleDeck: function getSearchStyleDeck(_ref15, payload) {
+      var commit = _ref15.commit,
+        rootState = _ref15.rootState;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
         url: "".concat(urlCounterStyle, "/search/").concat(payload)

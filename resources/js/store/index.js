@@ -87,7 +87,6 @@ const store = createStore({
 
     getSearchCards({commit, rootState}, payload){
       rootState.loading = true;
-      const url = "https://db.ygoprodeck.com/api/v7/cardinfo.php?fname=metal%20raiders&num=5&offset=0";
       const nameCard = payload.name
       const count = payload.num;
       const page = payload.offset;
@@ -99,8 +98,6 @@ const store = createStore({
           }
       })
       .then(function(response){
-          console.log("getSeacrh Cards = ")
-          console.log(response.data);
           commit('mutateSearchCards',response.data);
           rootState.loading = false;
       })
@@ -143,7 +140,6 @@ const store = createStore({
           data: payload.data,
       })
       .then(function(response){
-          commit('mutateResponsAuth',response.data);
           rootState.loading = false;
 
           if (payload.mode === 'login'){
@@ -154,6 +150,7 @@ const store = createStore({
               position: response.data.data.position,
               token: response.data.data.token
             }
+            commit('mutateResponsAuth', itemSave);
             localStorage.setItem('user', JSON.stringify(itemSave));
             router.push('/tier-list');
           } else if(payload.mode === 'register'){
@@ -165,6 +162,15 @@ const store = createStore({
         rootState.loading = false;
       })
     },
+
+    tryAutoLogin({commit}){
+      const getUser = localStorage.getItem('user');
+      if(getUser){
+        const getUserParse = JSON.parse(getUser);
+        commit('mutateResponsAuth', getUserParse); 
+      }
+    },
+
 
     //********** */ counter style need explode file
     getListCounterStyle({commit, rootState}){

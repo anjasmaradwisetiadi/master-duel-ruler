@@ -17,7 +17,13 @@
                             </span>
                         </a>
                         <a class="nav-link text-white" href="/login">
-                            <button type="button" class="btn btn-light">Login</button>
+                            <button type="button" class="btn btn-light" 
+                                v-if="!responseAuth">Login</button>
+                        </a>
+                        <a class="nav-link text-white">
+                            <button type="button" class="btn btn-danger" 
+                                @click="logout()" 
+                                v-if="responseAuth">Logout</button>
                         </a>
                     </div>
                 </div>
@@ -33,7 +39,8 @@
 import { computed, onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import SearchCards from './SearchCards.vue'
+import SearchCards from './SearchCards.vue';
+import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
 
@@ -42,7 +49,13 @@ const openModal = ref(false);
 const state = reactive({
     openModal,
 })
+
+const responseAuth = computed(()=>{
+    return store?.getters?.getterResponseAuth?.token;
+})
+
 onMounted(()=>{
+    store.dispatch('tryAutoLogin');
 })
 const activeLink = computed(()=>{
     if(router.currentRoute.value.path.includes('/tier-list')){
@@ -55,17 +68,22 @@ const activeLink = computed(()=>{
 })
     
 function searchCards(){
-    // const payload = {
-    //     name: 'floowandere',
-    //     num: 5,
-    //     offset: 0
-    // }
-    // store.dispatch('getSearchCards', payload)
     state.openModal = true;
 }
 
 function dataModalCard($event){
     state.openModal = $event
+}
+
+function logout(){
+    localStorage.removeItem('user');
+    store.state.responseAuth = {};
+    router.push('/login');
+    Swal.fire({
+        title: "Sukses!!!",
+        text: "Anda telah berhasil logout",
+        icon: "success"
+    });
 }
 
 </script>

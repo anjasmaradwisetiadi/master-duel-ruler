@@ -128,10 +128,10 @@ __webpack_require__.r(__webpack_exports__);
     __expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
-    var name = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('Nico Ready');
+    var name = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var username = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var email = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var password = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('nicoready');
+    var password = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var position = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)([]);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
@@ -139,7 +139,8 @@ __webpack_require__.r(__webpack_exports__);
       return store.getters.getterStateLoading;
     });
     var responseGeneral = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return store.getters.getterResponseAuth;
+      var _store$getters;
+      return store === null || store === void 0 || (_store$getters = store.getters) === null || _store$getters === void 0 ? void 0 : _store$getters.getterResponseAuth;
     });
     var loginOrNotChecked = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var _router$currentRoute;
@@ -177,6 +178,9 @@ __webpack_require__.r(__webpack_exports__);
         store.dispatch('register', formData);
       }
     }
+    function back() {
+      router.push('/login');
+    }
     function createPayload() {
       // if(!loginOrNotChecked){
       //     username.value = 'Nico Ready';
@@ -203,6 +207,7 @@ __webpack_require__.r(__webpack_exports__);
       responseGeneral: responseGeneral,
       loginOrNotChecked: loginOrNotChecked,
       submit: submit,
+      back: back,
       createPayload: createPayload,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
@@ -301,7 +306,7 @@ var _hoisted_1 = {
   "class": "mt-4"
 };
 var _hoisted_2 = {
-  "class": "row justify-content-center"
+  "class": "row justify-content-center mb-3"
 };
 var _hoisted_3 = {
   "class": "col-6 text-center"
@@ -383,9 +388,62 @@ var _hoisted_25 = {
 var _hoisted_26 = {
   "class": "col-6"
 };
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "row justify-content-center mb-4"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "col-6 text-center"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, " Anda tidak memiliki hak akses ke page ini, coba hubungi admin jika ingin melakukan register !!!")])], -1 /* HOISTED */);
+var _hoisted_28 = {
+  "class": "row justify-content-center"
+};
+var _hoisted_29 = {
+  "class": "col text-center"
+};
+var _hoisted_30 = {
+  "class": "row mb-3 justify-content-center"
+};
+var _hoisted_31 = {
+  "class": "col-6"
+};
+var _hoisted_32 = {
+  "class": "form-group"
+};
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "email"
+}, "Email", -1 /* HOISTED */);
+var _hoisted_34 = {
+  key: 0,
+  "class": "form-text invalid-feedback"
+};
+var _hoisted_35 = {
+  "class": "form-group"
+};
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "password"
+}, "Password", -1 /* HOISTED */);
+var _hoisted_37 = {
+  key: 0,
+  "class": "form-text invalid-feedback"
+};
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Jika tidak memiliki account bisa "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "/register",
+  style: {
+    "text-transform": "underline"
+  }
+}, "register"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" dulu !!! ")], -1 /* HOISTED */);
+var _hoisted_39 = {
+  "class": "row justify-content-center"
+};
+var _hoisted_40 = {
+  "class": "col-6"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$setup$responseGener, _$setup$responseGener2, _$setup$responseGener3, _$setup$responseGener4, _$setup$responseGener5, _$setup$responseGener6, _$setup$responseGener7, _$setup$responseGener8, _$setup$responseGener9, _$setup$responseGener10, _$setup$responseGener11, _$setup$responseGener12, _$setup$responseGener13, _$setup$responseGener14, _$setup$responseGener15, _$setup$responseGener16, _$setup$responseGener17, _$setup$responseGener18, _$setup$responseGener19, _$setup$responseGener20;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.loginOrNotChecked ? 'Login' : 'Register') + " Form", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [!$setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  var _$setup$responseGener, _$setup$responseGener2, _$setup$responseGener3, _$setup$responseGener4, _$setup$responseGener5, _$setup$responseGener6, _$setup$responseGener7, _$setup$responseGener8, _$setup$responseGener9, _$setup$responseGener10, _$setup$responseGener11, _$setup$responseGener12, _$setup$responseGener13, _$setup$responseGener14, _$setup$responseGener15, _$setup$responseGener16, _$setup$responseGener17, _$setup$responseGener18, _$setup$responseGener19, _$setup$responseGener20, _$setup$responseGener21, _$setup$responseGener22, _$setup$responseGener23, _$setup$responseGener24, _$setup$responseGener25, _$setup$responseGener26, _$setup$responseGener27, _$setup$responseGener28;
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.loginOrNotChecked ? 'Login' : 'Register') + " Form", 1 /* TEXT */)])]), !$setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, [$setup.responseGeneral.position === 'admin' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [!$setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener = $setup.responseGeneral) !== null && _$setup$responseGener !== void 0 && (_$setup$responseGener = _$setup$responseGener.message) !== null && _$setup$responseGener !== void 0 && _$setup$responseGener.name ? 'is-invalid' : '']),
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
@@ -429,7 +487,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $setup.submit();
     })
-  }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-warning\" @click=\"createPayload()\">Create Payload</button> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
+  }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-warning\" @click=\"createPayload()\">Create Payload</button> ")])])], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.responseGeneral.position !== 'admin' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 1
+  }, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-warning",
+    onClick: _cache[6] || (_cache[6] = function ($event) {
+      return $setup.back();
+    })
+  }, " Kembali ")])])], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 1
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "email",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener21 = $setup.responseGeneral) !== null && _$setup$responseGener21 !== void 0 && (_$setup$responseGener21 = _$setup$responseGener21.message) !== null && _$setup$responseGener21 !== void 0 && _$setup$responseGener21.email ? 'is-invalid' : '']),
+    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+      return $setup.email = $event;
+    }),
+    id: "email",
+    "aria-describedby": "email"
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.email]]), !((_$setup$responseGener22 = $setup.responseGeneral) !== null && _$setup$responseGener22 !== void 0 && _$setup$responseGener22.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener23 = $setup.responseGeneral) !== null && _$setup$responseGener23 !== void 0 && (_$setup$responseGener23 = _$setup$responseGener23.message) !== null && _$setup$responseGener23 !== void 0 && _$setup$responseGener23.email ? (_$setup$responseGener24 = $setup.responseGeneral) === null || _$setup$responseGener24 === void 0 || (_$setup$responseGener24 = _$setup$responseGener24.message) === null || _$setup$responseGener24 === void 0 ? void 0 : _$setup$responseGener24.email[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "password",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener25 = $setup.responseGeneral) !== null && _$setup$responseGener25 !== void 0 && (_$setup$responseGener25 = _$setup$responseGener25.message) !== null && _$setup$responseGener25 !== void 0 && _$setup$responseGener25.password ? 'is-invalid' : '']),
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+      return $setup.password = $event;
+    }),
+    id: "password",
+    "aria-describedby": "password"
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.password]]), !((_$setup$responseGener26 = $setup.responseGeneral) !== null && _$setup$responseGener26 !== void 0 && _$setup$responseGener26.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener27 = $setup.responseGeneral) !== null && _$setup$responseGener27 !== void 0 && (_$setup$responseGener27 = _$setup$responseGener27.message) !== null && _$setup$responseGener27 !== void 0 && _$setup$responseGener27.password ? (_$setup$responseGener28 = $setup.responseGeneral) === null || _$setup$responseGener28 === void 0 || (_$setup$responseGener28 = _$setup$responseGener28.message) === null || _$setup$responseGener28 === void 0 ? void 0 : _$setup$responseGener28.password[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_38])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-success",
+    onClick: _cache[9] || (_cache[9] = function ($event) {
+      return $setup.submit();
+    })
+  }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-warning\" @click=\"createPayload()\">Create Payload</button> ")])])], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: $setup.loading,
     responseGeneral: $setup.responseGeneral
   }, null, 8 /* PROPS */, ["loading", "responseGeneral"])]);

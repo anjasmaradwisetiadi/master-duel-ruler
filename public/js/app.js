@@ -24363,16 +24363,20 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       }).then(function (response) {
         rootState.loading = false;
         if (payload.mode === 'login') {
-          var itemSave = {
-            name: response.data.data.name,
-            user_name: response.data.data.user_name,
-            email: response.data.data.email,
-            position: response.data.data.position,
-            token: response.data.data.token
-          };
-          commit('mutateResponsAuth', itemSave);
-          localStorage.setItem('user', JSON.stringify(itemSave));
-          _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/tier-list');
+          if (response.data.status) {
+            var itemSave = {
+              name: response.data.data.name,
+              user_name: response.data.data.user_name,
+              email: response.data.data.email,
+              position: response.data.data.position,
+              token: response.data.data.token
+            };
+            commit('mutateResponsAuth', itemSave);
+            localStorage.setItem('user', JSON.stringify(itemSave));
+            _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/tier-list');
+          } else {
+            commit('mutateResponsAuth', response.data);
+          }
         } else if (payload.mode === 'register') {
           _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/login');
         }

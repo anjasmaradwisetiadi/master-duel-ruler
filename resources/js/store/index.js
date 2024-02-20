@@ -143,16 +143,20 @@ const store = createStore({
           rootState.loading = false;
 
           if (payload.mode === 'login'){
-            const itemSave = {
-              name: response.data.data.name,
-              user_name: response.data.data.user_name,
-              email:response.data.data.email,
-              position: response.data.data.position,
-              token: response.data.data.token
+            if(response.data.status){
+              const itemSave = {
+                name: response.data.data.name,
+                user_name: response.data.data.user_name,
+                email:response.data.data.email,
+                position: response.data.data.position,
+                token: response.data.data.token
+              }
+              commit('mutateResponsAuth', itemSave);
+              localStorage.setItem('user', JSON.stringify(itemSave));
+              router.push('/tier-list');
+            } else {
+              commit('mutateResponsAuth', response.data);
             }
-            commit('mutateResponsAuth', itemSave);
-            localStorage.setItem('user', JSON.stringify(itemSave));
-            router.push('/tier-list');
           } else if(payload.mode === 'register'){
             router.push('/login');
           }

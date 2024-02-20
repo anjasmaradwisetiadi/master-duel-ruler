@@ -49,7 +49,7 @@
                                 :alt="urlImage.name"
                                 @mouseover=" displayCard($event,index,true)" 
                                 @mouseleave=" displayCard($event,index,false)"
-                                @click="openModalCard(true, index)" 
+                                @click="selectedCard(urlImage)"
                                 class="image-style"
                                 ref="imagePosition"
                             >
@@ -81,13 +81,13 @@
                                                 </div>
                                             </div>
                                             <div class="mb-2">
-                                                <span><b>[ {{ urlImage.race }} / {{ textTypeMonster(urlImage.frameType) }} {{textEffectMonster(urlImage.frameType)}} ]</b></span>
+                                                <span><b>[ {{ urlImage.race }} / {{ utilize.textTypeMonster(urlImage.frameType) }} {{utilize.textEffectMonster(urlImage.frameType)}} ]</b></span>
                                             </div>
                                             <div class="mb-2">
-                                                {{ decodeHTML(urlImage.desc) }} 
+                                                {{ utilize.decodeHTML(urlImage.desc) }} 
                                             </div>
                                             <div class="mb-2">
-                                                <span><b>ATK/</b>{{ urlImage.atk }} <span :innerHTML="textDef(urlImage.frameType, urlImage.def)"></span></span>   
+                                                <span><b>ATK/</b>{{ urlImage.atk }} <span :innerHTML="utilize.textDef(urlImage.frameType, urlImage.def)"></span></span>   
                                             </div>
                                             <div class="released-card">
                                                 <span>Released on Card Set  {{urlImage.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span>
@@ -106,11 +106,11 @@
                                                     <span> <b>{{ urlImage.name }}</b></span>
                                                 </div>
                                                 <div class="col-4 ml-auto ">
-                                                    <span class="mr-1"> <b>{{ textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
+                                                    <span class="mr-1"> <b>{{ utilize.textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
                                                 </div>
                                             </div>
                                             <div class="mb-2">
-                                                {{ decodeHTML(urlImage.desc) }} 
+                                                {{ utilize.decodeHTML(urlImage.desc) }} 
                                             </div>
                                             <div class="released-card">
                                                 <span>Released on Card Set  {{urlImage.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span>
@@ -154,6 +154,7 @@
   <script setup>
    import { reactive, ref, computed, onMounted, defineProps, defineEmits } from 'vue';
    import { useStore } from 'vuex';
+   import router from '../routes';
    import {utilize} from '../utilize/utilize';
    const store = useStore();
 
@@ -308,30 +309,9 @@
         return store.getters.getterStateLoading
     })
 
-    //  ********** formation name reusable
-    function textTypeMonster(data){
-        if( data === 'link' || data === 'xyz' ){
-            return data.toUpperCase();
-        } else {
-            return data ? data[0].toUpperCase()+data.substr(1).toLowerCase() : '';
-        }
-     }
-
-     function textEffectMonster(data){
-        return data !== 'effect' ? '/ Effect' : ''
-     }
-
-     function decodeHTML(htmlText){
-        let txt = document.createElement("textarea");
-        txt.innerHTML = htmlText;
-        return txt.value;
-     }
-
-     function textDef(type,def=0){
-        let txt = document.createElement("textarea");
-        let htmlText = type === 'link' ? '' : `<b>DEF/</b>${def}`
-        txt.innerHTML = htmlText;
-        return txt.value;
+     function selectedCard(data){
+        const urlParameters= utilize.characterEncodingUrl(data.name);
+        router.push(`/detail-one-card/${urlParameters}`)
      }
 
   </script>

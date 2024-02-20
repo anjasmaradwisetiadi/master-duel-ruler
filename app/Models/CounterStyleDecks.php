@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class CounterStyleDecks extends Model
@@ -22,10 +23,10 @@ class CounterStyleDecks extends Model
     //         return $query->where('title','like','%'. request('search').'%');
     //     }
     // }
-
-    // protected $fillable=[
-    //     'title','slug','image','information','list_chips'
-    // ];
+    
+    public function user(){
+        return $this -> belongsTo(User::class, 'user_id', 'id');
+    }
 
     // protected function data(): Attribute
     // {

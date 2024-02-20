@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-2">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+                <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>
             </div>
         </div>
         <div class="form-create">
@@ -69,7 +69,7 @@
                 <label for="chips">Chips File</label>
                 <div id="chips" aria-describedby="chips">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-secondary" @click="generateChips()"><a class="add-new-counter-link">Generate Chips File</a></button>
+                        <button type="button" class="btn btn-secondary" @click="generateChips()">Generate Chips File</button>
                     </div>
                     <div v-if="listChips.length" class="row">
                         <div class="col">
@@ -87,7 +87,7 @@
             </div> 
             <div>
                 <button type="button" class="btn btn-success" @click="submit()">Submit</button>
-                <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button>
+                <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>
         <!-- modal image previews -->

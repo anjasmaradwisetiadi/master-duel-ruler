@@ -23,7 +23,7 @@ Route::post("/todolist/update/{id}", [ApiTodoListController::class, 'postUpdate'
 Route::post("/todolist/create", [ApiTodoListController::class, 'postCreate']);
 Route::get("/todolist/list", [ApiTodoListController::class, 'getList']);
 
-Route::resource('/counter-style-deck-api', CounterStyleDeckController::class);
+Route::middleware('auth:sanctum')->resource('/counter-style-deck-api', CounterStyleDeckController::class);
 Route::get('/counter-style-deck-api/search/{title}', [CounterStyleDeckController::class, 'seacrhing']);
 Route::post('/register',[RegisteredController::class, 'register']);
 Route::post('/login',[RegisteredController::class, 'login']);

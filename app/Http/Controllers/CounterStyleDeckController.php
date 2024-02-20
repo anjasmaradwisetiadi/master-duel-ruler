@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\CounterStyleDecks;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 
 class CounterStyleDeckController extends Controller
@@ -18,7 +19,7 @@ class CounterStyleDeckController extends Controller
     public function index()
     {   
         // $results = CounterStyleDecks::orderBy('id')->get();
-        $results = CounterStyleDecks::latest()->get();
+        $results = CounterStyleDecks::where('user_id', auth()->user()->id)->latest()->get();
         for ($index=0; $index<count($results); $index++) {
             $results[$index]->list_chips = json_decode($results[$index]->list_chips);
         };
@@ -76,7 +77,8 @@ class CounterStyleDeckController extends Controller
                 'slug' => $request->slug,
                 'image' => $imagePost,
                 'information' => $request->information,
-                'list_chips' => json_encode($list_chips_convert)
+                'list_chips' => json_encode($list_chips_convert),
+                'user_id'=> auth()->user()->id
             ]);
             return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
         }
@@ -118,7 +120,6 @@ class CounterStyleDeckController extends Controller
     public function update(Request $request, $id)
     {
         $findData = CounterStyleDecks::where('slug','=',$id)->firstOrFail(); 
-
         $imagePost = '';
         $imagePosition = '';
         $validator = $this->validatorInputCounterStyle($request, 'edited');
@@ -162,9 +163,10 @@ class CounterStyleDeckController extends Controller
                 'slug' => $request->slug,
                 'image' => $imagePost,
                 'information' => $request->information,
-                'list_chips' => json_encode($list_chips_convert)
+                'list_chips' => json_encode($list_chips_convert),
+                'user_id'=> auth()->user()->id
             ]);
-    
+            
             return response()->json(['status'=>true, 'message'=>'Data berhasil diUpdate !!!']);
         }
     }

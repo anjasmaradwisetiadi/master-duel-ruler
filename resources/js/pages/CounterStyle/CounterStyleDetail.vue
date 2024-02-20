@@ -11,7 +11,7 @@
                 <button type="button" class="btn btn-danger" @click="deleteCounterStyle()">Delete Counter Style</button>
             </div>
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+                <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>
             </div>
         </div>
         <div class="row">

@@ -15,6 +15,7 @@ class CreateCounterStyleDecksTable extends Migration
     {
         Schema::create('counter_style_decks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('image')->nullable();

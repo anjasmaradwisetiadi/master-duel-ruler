@@ -11,6 +11,7 @@ const router = createRouter({
         { path: '/counter-style-deck/:slug', component: () => import('./pages/CounterStyle/CounterStyleDetail.vue'), meta: {requiresAuth: true} },
         { path: '/counter-style-deck/create', component: () => import('./pages/CounterStyle/CreateCounterStyleDeck.vue'), meta: {requiresAuth: true} },
         { path: '/counter-style-deck/:slug/edit', component: () => import('./pages/CounterStyle/CreateCounterStyleDeck.vue'), meta: {requiresAuth: true} },
+        { path: '/detail-one-card/:name', component: () => import('./pages/DetailOneCard/DetailOneCard.vue'), meta: {requiresAuth: true} },
         { path: '/play-style-deck', component: () => import('./pages/PlayStyleDeck.vue'), meta: {requiresAuth: true} },
         { path: '/login', component: () => import('./pages/LoginRegister.vue'),  meta: {requiresUnauth: true} },
         { path: '/register', component: () => import('./pages/LoginRegister.vue'), meta: {requiresUnauth: true}  },

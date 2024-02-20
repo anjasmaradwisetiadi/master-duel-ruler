@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 // import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
 const urlCounterStyle = `${collectionUrl.baseUrlApi}counter-style-deck-api`
+let getLocalStorage = {};
 
 // Create a new store instance.
 const store = createStore({
@@ -171,6 +172,7 @@ const store = createStore({
       const getUser = localStorage.getItem('user');
       if(getUser){
         const getUserParse = JSON.parse(getUser);
+        getLocalStorage = getUserParse;
         commit('mutateResponsAuth', getUserParse); 
       }
     },
@@ -183,8 +185,9 @@ const store = createStore({
           method: 'get',
           url: `${urlCounterStyle}`,
           headers:{
-            'Content-Type': "multipart/form-data"
-          }
+            'Content-Type': "multipart/form-data",
+            'Authorization': `Bearer ${getLocalStorage.token}`
+          },
       })
       .then(function(response){
           commit('mutateListCounterStyle',response.data);
@@ -201,10 +204,9 @@ const store = createStore({
       axios({
           method: 'post',
           url: `${urlCounterStyle}`,
-          config:{
-            headers:{
-              'Content-Type': 'multipart/form-data'
-            },
+          headers:{
+            'Authorization': `Bearer ${getLocalStorage.token}`,
+            'Content-Type': 'multipart/form-data',
           },
           data:payload
       })
@@ -223,6 +225,9 @@ const store = createStore({
       axios({
           method: 'get',
           url: `${urlCounterStyle}/${payload}`,
+          headers:{
+            'Authorization': `Bearer ${getLocalStorage.token}`
+          }
       })
       .then(function(response){
           commit('mutateDetailCounterStyle',response.data);
@@ -239,6 +244,9 @@ const store = createStore({
       axios({
           method: 'get',
           url: `${urlCounterStyle}/${payload}/edit`,
+          headers:{
+            'Authorization': `Bearer ${getLocalStorage.token}`
+          }
       })
       .then(function(response){
           commit('mutateGetEditCounterStyle',response.data);
@@ -256,10 +264,9 @@ const store = createStore({
       axios({
           method: 'post',
           url: `${urlCounterStyle}/${payload.slug}`,
-          config:{
-            headers:{
-              'Content-Type': 'multipart/form-data'
-            },
+          headers:{
+            'Authorization': `Bearer ${getLocalStorage.token}`,
+            'Content-Type': 'multipart/form-data',
           },
           data:dataForm
       })
@@ -278,8 +285,11 @@ const store = createStore({
       axios({
           method: 'delete',
           url: `${urlCounterStyle}/${payload}`,
+          headers:{
+            'Authorization': `Bearer ${getLocalStorage.token}`
+          }
       })
-      .then(function(response){
+      .then(function(){
           Swal.fire({
             title: "Success Delete ",
             icon: "success"
@@ -317,6 +327,9 @@ const store = createStore({
       axios({
           method: 'get',
           url: `${urlCounterStyle}/search/${payload}`,
+          headers:{
+            'Authorization': `Bearer ${getLocalStorage.token}`
+          }
       })
       .then(function(response){
           commit('mutateListCounterStyle', response.data); 

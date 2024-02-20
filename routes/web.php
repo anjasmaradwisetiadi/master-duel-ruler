@@ -22,6 +22,7 @@ Route::get('/counter-style-deck', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck/{CounterStyleDecks:slug}', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck/{CounterStyleDecks:slug}/edit', [DashboardController::class, 'index']);
 Route::get('/counter-style-deck/create', [DashboardController::class, 'index']);
+Route::get('/detail-one-card/{name}', [DashboardController::class, 'index']);
 Route::get('/play-style-deck', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);
 Route::get('/login', [TodoListController::class, 'index']);

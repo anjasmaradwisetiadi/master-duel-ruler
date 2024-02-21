@@ -45,7 +45,7 @@
                             :style="hoverFunctionCard"
                         >
                             <img 
-                                :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url :'' " 
+                                :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' " 
                                 :alt="urlImage.name"
                                 @mouseover=" displayCard($event,index,true)" 
                                 @mouseleave=" displayCard($event,index,false)"
@@ -57,7 +57,7 @@
                                 <template v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'">
                                     <div class="d-flex card-monster">
                                         <div class="image-section">
-                                            <img :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url :''" :alt="urlImage.name" >
+                                            <img :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small:''" :alt="urlImage.name" >
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">
@@ -83,7 +83,7 @@
                                             <div class="mb-2">
                                                 <span><b>[ {{ urlImage.race }} / {{ utilize.textTypeMonster(urlImage.frameType) }} {{utilize.textEffectMonster(urlImage.frameType)}} ]</b></span>
                                             </div>
-                                            <div class="mb-2">
+                                            <div class="mb-2 description-card">
                                                 {{ utilize.decodeHTML(urlImage.desc) }} 
                                             </div>
                                             <div class="mb-2">
@@ -98,7 +98,7 @@
                                 <template v-if="urlImage.frameType === 'trap' || urlImage.frameType === 'spell'">
                                     <div class="d-flex card-trap-spell">
                                         <div class="image-section">
-                                            <img :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url :''" :alt="urlImage.name" >
+                                            <img :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :''" :alt="urlImage.name" >
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">
@@ -109,7 +109,7 @@
                                                     <span class="mr-1"> <b>{{ utilize.textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
                                                 </div>
                                             </div>
-                                            <div class="mb-2">
+                                            <div class="mb-2 description-card">
                                                 {{ utilize.decodeHTML(urlImage.desc) }} 
                                             </div>
                                             <div class="released-card">
@@ -138,7 +138,7 @@
                         :disabled="!infoPage?.next_page_offset ? '':disabled"> > </button>
                     <button class="btn btn-warning" 
                         @click="backPage()" 
-                        :disabled="infoPage.previous_page_offset === undefined  ? '':disabled"> < </button>
+                        :disabled="infoPage?.previous_page_offset === undefined  ? '':disabled"> < </button>
                 </div>
                 <div>
                     <span> {{infoPage?.total_rows - infoPage?.rows_remaining}} of {{infoPage?.total_rows}}</span> 
@@ -154,8 +154,8 @@
   <script setup>
    import { reactive, ref, computed, onMounted, defineProps, defineEmits } from 'vue';
    import { useStore } from 'vuex';
-   import router from '../routes';
    import {utilize} from '../utilize/utilize';
+   import {collectionUrl} from '../urlCollect';
    const store = useStore();
 
    const props = defineProps([
@@ -298,6 +298,7 @@
 
     function triggerSearchGlobal(){
         const payload = {
+            mode: 'all-search',
             name: valueSearch.value,
             num: num.value,
             offset: offset.value
@@ -311,7 +312,7 @@
 
      function selectedCard(data){
         const urlParameters= utilize.characterEncodingUrl(data.name);
-        router.push(`/detail-one-card/${urlParameters}`)
+        window.open(`${collectionUrl.baseUrlHead}detail-one-card/${urlParameters}`);
      }
 
   </script>
@@ -437,6 +438,10 @@
     .scroller-cards-collect{
         max-height: 32rem;
         overflow: auto;
+    }
+    .description-card{
+        min-height: 230px;
+        text-align: justify;
     }
 
 

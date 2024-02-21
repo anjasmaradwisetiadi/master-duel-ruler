@@ -22,7 +22,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="image-section">
-                                <img :src="dataHasSelected?.card_images[0]?.image_url" :alt="dataHasSelected?.name" >
+                                <img :src="dataHasSelected?.card_images[0]?.image_url_small" :alt="dataHasSelected?.name" >
                             </div>
                             <div class="information-section">
                                 <div class="mb-2 d-flex">
@@ -42,7 +42,7 @@
                                 <div class="mb-2">
                                     <span><b>[ {{ dataHasSelected?.race }} / {{ utilize.textTypeMonster(dataHasSelected?.frameType) }} {{utilize.textEffectMonster(dataHasSelected?.frameType)}} ]</b></span>
                                 </div>
-                                <div class="mb-2">
+                                <div class="mb-2 description-card">
                                     {{ utilize.decodeHTML(dataHasSelected.desc) }} 
                                 </div>
                                 <div class="mb-1">
@@ -65,7 +65,7 @@
                         </div>
                         <div class="d-flex">
                             <div class="image-section">
-                                <img :src="dataHasSelected?.card_images[0]?.image_url" :alt="dataHasSelected?.name" >
+                                <img :src="dataHasSelected?.card_images[0]?.image_url_small" :alt="dataHasSelected?.name" >
                             </div>
                             <div class="information-section">
                                 <div class="row mb-2">
@@ -76,7 +76,7 @@
                                         <span class="mr-1"> <b>{{ utilize.textTypeMonster(dataHasSelected.frameType)}} - {{ dataHasSelected.race }}</b></span>
                                     </div>
                                 </div>
-                                <div class="mb-2">
+                                <div class="mb-2 description-card">
                                     {{ utilize.decodeHTML(dataHasSelected.desc) }} 
                                 </div>
                                 <div class="released-card mb-2">
@@ -162,6 +162,10 @@
         padding: 8px;
         background-color: #175188;
         border-radius: 10px;
+    }
+    .information-section .description-card{
+        min-height: 230px;
+        text-align: justify;
     }
 
     .released-card {

@@ -27,6 +27,7 @@ const store = createStore({
     error: '',
     dataDummyCards: dataDummyCards.data,
     dataSearchCard: {},
+    oneCardSelected:{},
     //********** */ login, register, logout need explode file
     responseAuth:{},
     //********** */ counter style
@@ -53,6 +54,9 @@ const store = createStore({
     //********** */ login, register, logout need explode file
     mutateResponsAuth(state, payload){
       state.responseAuth = payload;
+    },
+    mutateOnePageSelected(state, payload){
+      state.oneCardSelected = payload;
     },
 
     //********** */ counter style need explode file
@@ -88,22 +92,43 @@ const store = createStore({
 
     getSearchCards({commit, rootState}, payload){
       rootState.loading = true;
-      const nameCard = payload.name
-      const count = payload.num;
-      const page = payload.offset;
+      let nameCard = '';
+      let count = '';
+      let page = '';
+      let urlApiYugioh = '';
+
+      if(payload.mode === 'all-search'){
+         nameCard = payload.name
+         count = payload.num;
+         page = payload.offset;
+         urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}fname=${nameCard}&num=${count}&offset=${page}`
+      } else if (payload.mode === 'one-search') {
+         nameCard = payload.name;
+         urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`
+      }
+
       axios({
           method: 'get',
-          url: `${collectionUrl.baseUrlApiYgoProDeck}fname=${nameCard}&num=${count}&offset=${page}`,
+          url: urlApiYugioh,
           headers:{
             'Content-Type': "multipart/form-data"
           }
       })
       .then(function(response){
-          commit('mutateSearchCards',response.data);
+          if(payload.mode === 'all-search'){
+            commit('mutateSearchCards',response.data);
+          } else if(payload.mode === 'one-search'){
+            commit('mutateOnePageSelected',response.data);
+          }
+
           rootState.loading = false;
       })
       .catch(function(error) {
-        commit('mutateResponsGeneral', error.message); 
+          if(payload.mode === 'all-search'){
+            commit('mutateSearchCards',error.message);
+          } else if(payload.mode === 'one-search'){
+            commit('mutateOnePageSelected',error.message);
+          }
           rootState.loading = false;
       })
       

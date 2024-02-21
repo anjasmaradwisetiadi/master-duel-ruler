@@ -95,17 +95,18 @@ function searching(event){
         color: black;
     }
     .card-style {
-        border: 2px solid #385979;
+        border: 3px solid #385979;
         max-height: 90px;
         min-height: 90px;
         cursor: pointer;
+        background-color: #eff0f1;
         
     }
     .image-crop-resize{
         max-width: 90px;
-        max-height: 88px;
-        min-height: 88px;
-        border-right: 2px solid #385979;
+        max-height: 86px;
+        min-height: 86px;
+        border-right: 3px solid #385979;
     }
     h4{
         font-weight: 600 !important;

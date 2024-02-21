@@ -48,7 +48,7 @@
                                             <div class="mb-2">
                                                 <span><b>[ {{ urlImage.race }} / {{ utilize.textTypeMonster(urlImage.frameType) }} {{utilize.textEffectMonster(urlImage.frameType)}} ]</b></span>
                                             </div>
-                                            <div class="mb-2">
+                                            <div class="mb-2 description-card">
                                                 {{ utilize.decodeHTML(urlImage.desc) }} 
                                             </div>
                                             <div class="mb-2">
@@ -74,7 +74,7 @@
                                                     <span class="mr-1"> <b>{{ utilize.textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
                                                 </div>
                                             </div>
-                                            <div class="mb-2">
+                                            <div class="mb-2 description-card">
                                                 {{ utilize.decodeHTML(urlImage.desc) }} 
                                             </div>
                                             <div class="released-card">
@@ -215,6 +215,10 @@
         height: 16px;
         margin-right: 4px;
         margin-top:-4px;
+    }
+
+    .description-card{
+        text-align: justify;
     }
 
     .middle-notice{

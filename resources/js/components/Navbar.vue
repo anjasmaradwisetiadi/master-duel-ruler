@@ -11,6 +11,7 @@
                         <a class="nav-link text-white align-self-center ml-2" :class="[activeLink === 'tier-list'?'text-active':''] " href="/tier-list">Tier List <span class="sr-only">(current)</span></a>
                         <a class="nav-link text-white align-self-center ml-2" :class="[activeLink === 'play-style-deck'?'text-active':'']" href="/play-style-deck">Play Style Deck</a>
                         <a class="nav-link text-white align-self-center ml-2" :class="[activeLink === 'counter-style-deck'?'text-active':'']" href="/counter-style-deck">Counter Style Deck</a>
+                        <a class="nav-link text-white align-self-center ml-2" :class="[activeLink === 'about'?'text-active':'']" href="/about">About</a>
                         <a class="nav-link text-white align-self-center ml-2 pointer" > 
                             <span class="material-icons" @click="searchCards()">
                                 search
@@ -64,6 +65,8 @@ const activeLink = computed(()=>{
         return 'counter-style-deck'
     } else if(router.currentRoute.value.path.includes('/play-style-deck')){
         return 'play-style-deck'
+    } else if(router.currentRoute.value.path.includes('/about')){
+        return 'about'
     }
 })
     

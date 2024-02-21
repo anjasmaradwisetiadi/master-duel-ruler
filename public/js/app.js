@@ -21158,6 +21158,8 @@ __webpack_require__.r(__webpack_exports__);
         return 'counter-style-deck';
       } else if (router.currentRoute.value.path.includes('/play-style-deck')) {
         return 'play-style-deck';
+      } else if (router.currentRoute.value.path.includes('/about')) {
+        return 'about';
       }
     });
     function searchCards() {
@@ -21522,7 +21524,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, "Play Style Deck", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-link text-white align-self-center ml-2", [$setup.activeLink === 'counter-style-deck' ? 'text-active' : '']]),
     href: "/counter-style-deck"
-  }, "Counter Style Deck", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  }, "Counter Style Deck", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-link text-white align-self-center ml-2", [$setup.activeLink === 'about' ? 'text-active' : '']]),
+    href: "/about"
+  }, "About", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "material-icons",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.searchCards();
@@ -24135,6 +24140,14 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
     path: '/play-style-deck',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_pages_PlayStyleDeck_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/PlayStyleDeck.vue */ "./resources/js/pages/PlayStyleDeck.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/about',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_pages_About_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/About.vue */ "./resources/js/pages/About.vue"));
     },
     meta: {
       requiresAuth: true
@@ -54625,7 +54638,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_ExampleComponent_vue":1,"resources_js_pages_TierList_vue":1,"resources_js_pages_CounterStyleDeck_vue":1,"resources_js_pages_CounterStyle_CounterStyleDetail_vue":1,"resources_js_pages_CounterStyle_CreateCounterStyleDeck_vue":1,"resources_js_pages_DetailOneCard_DetailOneCard_vue":1,"resources_js_pages_PlayStyleDeck_vue":1,"resources_js_pages_LoginRegister_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_ExampleComponent_vue":1,"resources_js_pages_TierList_vue":1,"resources_js_pages_CounterStyleDeck_vue":1,"resources_js_pages_CounterStyle_CounterStyleDetail_vue":1,"resources_js_pages_CounterStyle_CreateCounterStyleDeck_vue":1,"resources_js_pages_DetailOneCard_DetailOneCard_vue":1,"resources_js_pages_PlayStyleDeck_vue":1,"resources_js_pages_About_vue":1,"resources_js_pages_LoginRegister_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

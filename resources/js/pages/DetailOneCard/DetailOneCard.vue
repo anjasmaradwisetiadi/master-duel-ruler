@@ -16,18 +16,22 @@
                             </div>
                             <div class="information-section">
                                 <div class="mb-2 d-flex">
-                                    <span class="mr-3"> <b>{{ getDataOneCard?.attribute }}</b></span>
-                                    <span class="wrap-star" v-if="getDataOneCard?.frameType === 'xyz'">
-                                        <img src="../../../assets/image/rank-icon.webp" alt="rank">
+                                    <div class="d-flex mr-auto">
+                                        <span class="mr-3"> <b>{{ getDataOneCard?.attribute }}</b></span>
+                                    </div>
+                                    <div class="d-flex ml-auto">
+                                        <span class="wrap-star" v-if="getDataOneCard?.frameType === 'xyz'">
+                                            <img src="../../../assets/image/rank-icon.webp" alt="rank">
                                         <span>{{ getDataOneCard?.level }}</span>
-                                    </span>
-                                    <span class="wrap-star" v-else-if="getDataOneCard?.frameType === 'link'">
-                                        <span>Link - {{ getDataOneCard?.linkval }}</span>
-                                    </span>
-                                    <span class="wrap-star" v-else>
-                                        <img src="../../../assets/image/star-icon.webp" alt="star">
-                                        <span>{{ getDataOneCard?.level }}</span>
-                                    </span>
+                                        </span>
+                                        <span class="wrap-star" v-else-if="getDataOneCard?.frameType === 'link'">
+                                            <span>Link - {{ getDataOneCard?.linkval }}</span>
+                                        </span>
+                                        <span class="wrap-star" v-else>
+                                            <img src="../../../assets/image/star-icon.webp" alt="star">
+                                            <span>{{ getDataOneCard?.level }}</span>
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="mb-2">
                                     <span><b>[ {{ getDataOneCard?.race }} / {{ utilize.textTypeMonster(getDataOneCard?.frameType) }} {{utilize.textEffectMonster(getDataOneCard?.frameType)}} ]</b></span>
@@ -35,13 +39,14 @@
                                 <div class="mb-2 description-card">
                                     {{ utilize.decodeHTML(getDataOneCard.desc) }} 
                                 </div>
-                                <div class="mb-1">
-                                    <span><b>ATK/</b>{{ getDataOneCard?.atk }} <span :innerHTML="utilize.textDef(getDataOneCard?.frameType, getDataOneCard?.def)"></span></span>   
+                                <div class="mb-1 d-flex">
+                                    <div class="d-flex mr-auto">
+                                        <span><b>ATK/</b>{{ getDataOneCard?.atk }} <span :innerHTML="utilize.textDef(getDataOneCard?.frameType, getDataOneCard?.def)"></span></span> 
+                                    </div>  
+                                    <div class="d-flex ml-auto">
+                                        <span>Released on Card Set  {{getDataOneCard?.card_sets[0]?.set_name}}</span>
+                                    </div>
                                 </div>
-                                <div class="released-card mb-2">
-                                    <span>Released on Card Set  {{getDataOneCard?.card_sets[0]?.set_name}}</span>
-                                </div>
-
                             </div>
                         </div>
                     </div>  
@@ -61,7 +66,7 @@
                                 <div class="mb-2 description-card">
                                     {{ utilize.decodeHTML(getDataOneCard.desc) }} 
                                 </div>
-                                <div class="released-card mb-2">
+                                <div class="released-card">
                                     <span>Released on Card Set  {{getDataOneCard.card_sets[0].set_name}}</span>
                                 </div>
                             </div>
@@ -118,7 +123,7 @@
     }
 
     .information-section .description-card{
-        min-height: 230px;
+        min-height: 15.3rem;
         text-align: justify;
     }
 

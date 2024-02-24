@@ -15,6 +15,7 @@ class CreateDeckBuildersTable extends Migration
     {
         Schema::create('deck_builders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('play_style_id');
             $table->string('title');
             $table->string('slug');
             $table->json('engines')->nullable();

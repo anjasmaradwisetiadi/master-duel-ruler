@@ -59,7 +59,7 @@ class CounterStyleDeckController extends Controller
                     'image', 'tambakan image sekarang'
                 );
             }
-    });
+        });
         if($validator->fails()){
             return response()->json(['status'=>false, 'message'=> $validator->errors()]);
         } else if($validator){
@@ -218,16 +218,16 @@ class CounterStyleDeckController extends Controller
             ];
     
             $messages =[
-                'title.required' => 'isi title sekarang',
-                'slug.required'=> 'isi slug sekarang',
-                'slug.unique'=> 'slug unique',
-                'information.required'=> 'isi information sekarang'
+                'title.required' => 'Isi title sekarang',
+                'slug.required'=> 'Isi slug sekarang',
+                'slug.unique'=> 'Slug unique',
+                'information.required'=> 'Isi information sekarang'
             ];
             if ($request->file('image')){
                 $rules['image'] = 'required|file|max:1024';
-                $messages['image.required'] = 'isi image sekarang';
-                $messages['image.file'] = 'isi file tidak cocok';
-                $messages['image.max'] = 'file size terlalu besar >= 1024';
+                $messages['image.required'] = 'Isi image sekarang';
+                $messages['image.file'] = 'Isi file tidak cocok';
+                $messages['image.max'] = 'File size terlalu besar >= 1024';
             }
     
         } else if($from === 'edited') {
@@ -237,14 +237,14 @@ class CounterStyleDeckController extends Controller
             ];
     
             $messages =[
-                'title.required' => 'isi title sekarang',
-                'information.required'=> 'isi information sekarang'
+                'title.required' => 'Isi title sekarang',
+                'information.required'=> 'Isi information sekarang'
             ];
             if ($request->file('image')){
                 $rules['image'] = 'required|file|max:1024';
-                $messages['image.required'] = 'isi image sekarang';
-                $messages['image.file'] = 'isi file tidak cocok';
-                $messages['image.max'] = 'file size terlalu besar >= 1024';
+                $messages['image.required'] = 'Isi image sekarang';
+                $messages['image.file'] = 'Isi file tidak cocok';
+                $messages['image.max'] = 'File size terlalu besar >= 1024';
             }
     
         }

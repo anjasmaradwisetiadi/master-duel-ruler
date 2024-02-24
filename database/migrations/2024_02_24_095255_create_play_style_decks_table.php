@@ -16,7 +16,6 @@ class CreatePlayStyleDecksTable extends Migration
         Schema::create('play_style_decks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->foreignId('deck_builder_id');
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('image')->nullable();

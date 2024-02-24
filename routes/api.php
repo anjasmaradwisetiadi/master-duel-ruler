@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiTodoListController;
 use App\Http\Controllers\CounterStyleDeckController;
+use App\Http\Controllers\PlayStyleDeckController;
+use App\Http\Controllers\DeckBuilderController;
 use App\Http\Controllers\RegisteredController;
 
 
@@ -24,6 +26,8 @@ Route::post("/todolist/create", [ApiTodoListController::class, 'postCreate']);
 Route::get("/todolist/list", [ApiTodoListController::class, 'getList']);
 
 Route::middleware('auth:sanctum')->resource('/counter-style-deck-api', CounterStyleDeckController::class);
+Route::middleware('auth:sanctum')->resource('/play-style-deck-api', PlayStyleDeckController::class);
+Route::middleware('auth:sanctum')->resource('/deck-builder-api', DeckBuilderController::class);
 Route::get('/counter-style-deck-api/search/{title}', [CounterStyleDeckController::class, 'seacrhing']);
 Route::post('/register',[RegisteredController::class, 'register']);
 Route::post('/login',[RegisteredController::class, 'login']);

@@ -16,7 +16,7 @@ const store = createStore({
 
   modules: {
     // ******** still not working , because action another file (playStyleDeck) cannot read action
-    // playStyleDeck,
+    playStyleDeck,
     // counterStyleDeck
   },
 
@@ -147,9 +147,6 @@ const store = createStore({
         data: payload,
         mode: 'login'
       })
-    },
-    logout({commit, rootState}){
-
     },
     auth({commit, rootState}, payload){
       rootState.loading = true;

@@ -192,7 +192,7 @@ class CounterStyleDeckController extends Controller
         return response()->json(['status'=>true, 'message'=>'Data berhasil dihapus !!!']);
     }
 
-    public function seacrhing($title){
+    public function searching($title){
         if($title){
             $results = CounterStyleDecks::where('title','like','%'. $title.'%')->latest()->get();
             for ($index=0; $index<count($results); $index++) {

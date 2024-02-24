@@ -134,6 +134,22 @@ const store = createStore({
       
     },
 
+    getDataListChips({commit,rootState}, payload){
+      rootState.loading = true;
+      axios({
+          method: 'get',
+          url: `${collectionUrl.baseUrlApiYgoProDeck}name=${payload}`,
+      })
+      .then(function(response){
+          commit('mutateGetDataListChips', response.data.data[0]); 
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          commit('mutateResponsGeneral', error.message); 
+          rootState.loading = false;
+      })
+    },
+
     //********** */ login, register, logout need explode file
     register({dispatch}, payload){
       dispatch('auth',{
@@ -329,23 +345,7 @@ const store = createStore({
           rootState.loading = false;
       })
     },
-
-    getDataListChips({commit,rootState}, payload){
-      rootState.loading = true;
-      axios({
-          method: 'get',
-          url: `${collectionUrl.baseUrlApiYgoProDeck}name=${payload}`,
-      })
-      .then(function(response){
-          commit('mutateGetDataListChips', response.data.data[0]); 
-          rootState.loading = false;
-      })
-      .catch(function(error) {
-          commit('mutateResponsGeneral', error.message); 
-          rootState.loading = false;
-      })
-    },
-    getSearchStyleDeck({commit,rootState}, payload){
+    getSearchCounterStyleDeck({commit,rootState}, payload){
       axios({
           method: 'get',
           url: `${urlCounterStyle}/search/${payload}`,

@@ -24200,13 +24200,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var playStyleDeck = {
   state: {
-    getCard: {}
+    listPlayStyle: {},
+    detailPlayStyle: {},
+    getEditPlayStyle: {}
   },
   mutations: {
-    mutateGetCards: function mutateGetCards(state, payload) {
-      console.log("get mutate card = ");
-      console.log(payload);
-      state.getCard = payload;
+    mutateListPlayStyle: function mutateListPlayStyle(state, payload) {
+      state.listPlayStyle = payload;
+    },
+    mutateDetailPlayStyle: function mutateDetailPlayStyle(state, payload) {
+      state.detailPlayStyle = payload;
+    },
+    mutateGetEditPlayStyle: function mutateGetEditPlayStyle(state, payload) {
+      state.getEditPlayStyle = payload;
     }
   },
   action: {
@@ -24217,8 +24223,8 @@ var playStyleDeck = {
     }
   },
   getters: {
-    getterGetCard: function getterGetCard(state) {
-      return state.getCard;
+    getterListCounterStyle: function getterListCounterStyle(state) {
+      return state.listPlayStyle;
     }
   }
 };
@@ -24372,24 +24378,39 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
+    getDataListChips: function getDataListChips(_ref3, payload) {
+      var commit = _ref3.commit,
+        rootState = _ref3.rootState;
+      rootState.loading = true;
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        method: 'get',
+        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
+      }).then(function (response) {
+        commit('mutateGetDataListChips', response.data.data[0]);
+        rootState.loading = false;
+      })["catch"](function (error) {
+        commit('mutateResponsGeneral', error.message);
+        rootState.loading = false;
+      });
+    },
     //********** */ login, register, logout need explode file
-    register: function register(_ref3, payload) {
-      var dispatch = _ref3.dispatch;
+    register: function register(_ref4, payload) {
+      var dispatch = _ref4.dispatch;
       dispatch('auth', {
         data: payload,
         mode: 'register'
       });
     },
-    login: function login(_ref4, payload) {
-      var dispatch = _ref4.dispatch;
+    login: function login(_ref5, payload) {
+      var dispatch = _ref5.dispatch;
       dispatch('auth', {
         data: payload,
         mode: 'login'
       });
     },
-    auth: function auth(_ref5, payload) {
-      var commit = _ref5.commit,
-        rootState = _ref5.rootState;
+    auth: function auth(_ref6, payload) {
+      var commit = _ref6.commit,
+        rootState = _ref6.rootState;
       rootState.loading = true;
       var urlAuth = '';
       if (payload.mode === 'login') {
@@ -24426,8 +24447,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    tryAutoLogin: function tryAutoLogin(_ref6) {
-      var commit = _ref6.commit;
+    tryAutoLogin: function tryAutoLogin(_ref7) {
+      var commit = _ref7.commit;
       var getUser = localStorage.getItem('user');
       if (getUser) {
         var getUserParse = JSON.parse(getUser);
@@ -24436,9 +24457,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       }
     },
     //********** */ counter style need explode file
-    getListCounterStyle: function getListCounterStyle(_ref7) {
-      var commit = _ref7.commit,
-        rootState = _ref7.rootState;
+    getListCounterStyle: function getListCounterStyle(_ref8) {
+      var commit = _ref8.commit,
+        rootState = _ref8.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -24455,9 +24476,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    createCounterStyle: function createCounterStyle(_ref8, payload) {
-      var commit = _ref8.commit,
-        rootState = _ref8.rootState;
+    createCounterStyle: function createCounterStyle(_ref9, payload) {
+      var commit = _ref9.commit,
+        rootState = _ref9.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'post',
@@ -24475,9 +24496,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    detailCounterStyle: function detailCounterStyle(_ref9, payload) {
-      var commit = _ref9.commit,
-        rootState = _ref9.rootState;
+    detailCounterStyle: function detailCounterStyle(_ref10, payload) {
+      var commit = _ref10.commit,
+        rootState = _ref10.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -24493,9 +24514,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getEditCounterStyle: function getEditCounterStyle(_ref10, payload) {
-      var commit = _ref10.commit,
-        rootState = _ref10.rootState;
+    getEditCounterStyle: function getEditCounterStyle(_ref11, payload) {
+      var commit = _ref11.commit,
+        rootState = _ref11.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
@@ -24511,9 +24532,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    editCounterStyle: function editCounterStyle(_ref11, payload) {
-      var commit = _ref11.commit,
-        rootState = _ref11.rootState;
+    editCounterStyle: function editCounterStyle(_ref12, payload) {
+      var commit = _ref12.commit,
+        rootState = _ref12.rootState;
       var dataForm = payload.form;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
@@ -24532,9 +24553,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    deleteCounterStyle: function deleteCounterStyle(_ref12, payload) {
-      var commit = _ref12.commit,
-        rootState = _ref12.rootState;
+    deleteCounterStyle: function deleteCounterStyle(_ref13, payload) {
+      var commit = _ref13.commit,
+        rootState = _ref13.rootState;
       rootState.loading = true;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'delete',
@@ -24558,22 +24579,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getDataListChips: function getDataListChips(_ref13, payload) {
-      var commit = _ref13.commit,
-        rootState = _ref13.rootState;
-      rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
-        method: 'get',
-        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
-      }).then(function (response) {
-        commit('mutateGetDataListChips', response.data.data[0]);
-        rootState.loading = false;
-      })["catch"](function (error) {
-        commit('mutateResponsGeneral', error.message);
-        rootState.loading = false;
-      });
-    },
-    getSearchStyleDeck: function getSearchStyleDeck(_ref14, payload) {
+    getSearchCounterStyleDeck: function getSearchCounterStyleDeck(_ref14, payload) {
       var commit = _ref14.commit,
         rootState = _ref14.rootState;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({

@@ -1,14 +1,21 @@
 
 export const playStyleDeck = {
     state:{
-        getCard:{}
+        listPlayStyle: {},
+        detailPlayStyle: {},
+        getEditPlayStyle: {},
     },
     mutations: {
-        mutateGetCards(state, payload){
-            console.log("get mutate card = ")
-            console.log(payload)
-            state.getCard = payload;
-        }
+        mutateListPlayStyle(state, payload){
+            state.listPlayStyle = payload;
+        },
+        mutateDetailPlayStyle(state, payload){
+            state.detailPlayStyle = payload;
+        },
+        mutateGetEditPlayStyle(state,payload){
+            state.getEditPlayStyle = payload;
+        },
+
     }, 
     action:{
         // testing vuex
@@ -17,8 +24,8 @@ export const playStyleDeck = {
         }
     },
     getters:{
-        getterGetCard(state){
-            return state.getCard
-        }
+        getterListCounterStyle(state){
+            return state.listPlayStyle;
+        }, 
     }
 }

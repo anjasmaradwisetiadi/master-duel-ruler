@@ -25,7 +25,7 @@
     const submitCard = () =>{
         console.log("store = ");
         console.log(store);
-        playStyleDeckService.card();
+        playStyleDeckService.getListPlayStyle();
     }
 </script>
 <style>

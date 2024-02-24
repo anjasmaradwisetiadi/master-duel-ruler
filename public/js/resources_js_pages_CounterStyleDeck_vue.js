@@ -150,7 +150,7 @@ __webpack_require__.r(__webpack_exports__);
       var input = event.target.value;
       if (input) {
         setTimeout(function () {
-          store.dispatch('getSearchStyleDeck', input);
+          store.dispatch('getSearchCounterStyleDeck', input);
         }, 800);
       } else {
         store.dispatch('getListCounterStyle');

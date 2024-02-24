@@ -79,7 +79,7 @@ function searching(event){
     const input = event.target.value;
     if(input){
         setTimeout(()=>{
-            store.dispatch('getSearchStyleDeck', input)
+            store.dispatch('getSearchCounterStyleDeck', input)
         }, 800)        
     } else {
         store.dispatch('getListCounterStyle')

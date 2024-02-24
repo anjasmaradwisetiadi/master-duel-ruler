@@ -54,10 +54,13 @@ import { useStore } from 'vuex';
 const dayjs = require('dayjs');
 
 const store = useStore();
-const router = useRouter();
 
 const cardListCounterStyle = computed(()=>{
     return store.getters.getterListCounterStyle
+})
+
+const loading = computed(()=>{
+    return store.getters.getterStateLoading
 })
 
 let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create');
@@ -67,13 +70,8 @@ onBeforeMount(()=>{
 })
 
 onMounted(()=>{
-    // console.log("ini routing testing = ")
-    // console.log(router.currentRoute)
 })
 
-const loading = computed(()=>{
-    return store.getters.getterStateLoading
-})
 
 function searching(event){
     const input = event.target.value;
@@ -90,7 +88,7 @@ function searching(event){
 
 
 </script>
-<style>
+<style scoped>
     .card{
         color: black;
     }

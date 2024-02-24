@@ -190,6 +190,16 @@ class PlayStyleDeckController extends Controller
         return response()->json(['status'=>true, 'message'=>'Data berhasil dihapus !!!']);
     }
 
+    public function searching($title){
+        if($title){
+            $results = PlayStyleDecks::where('title','like','%'. $title.'%')->latest()->get();
+            for ($index=0; $index<count($results); $index++) {
+                $results[$index]->list_chips = json_decode($results[$index]->list_chips);
+            };
+            return response()->json($results);
+        }
+    }
+
     public function removeImageOld($request, $findData, $imagePosition){
         $imageReplace= str_replace(env('APP_URL').'storage/', "", $findData->image);
         if($imagePosition === 'new'){

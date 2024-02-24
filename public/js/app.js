@@ -24223,7 +24223,7 @@ var playStyleDeck = {
     }
   },
   getters: {
-    getterListCounterStyle: function getterListCounterStyle(state) {
+    getterListPlayStyle: function getterListPlayStyle(state) {
       return state.listPlayStyle;
     }
   }

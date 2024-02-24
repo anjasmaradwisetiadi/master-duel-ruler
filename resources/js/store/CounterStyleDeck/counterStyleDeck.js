@@ -22,8 +22,6 @@ export const counterStyleDeck = {
                 url: `${urlCounterStyle}`,
             })
             .then(function(response){
-                console.log(getListCounterStyle)
-                console.log(response.data)
                 rootState.loading = true;
                 commit('mutateListCounterStyle',response.data);
                 rootState.loading = false;
@@ -40,8 +38,6 @@ export const counterStyleDeck = {
                 url: `${urlCounterStyle}`,
             })
             .then(function(response){
-                console.log(getListCounterStyle)
-                console.log(response.data)
                 rootState.loading = true;
                 commit('mutateListCounterStyle',response.data);
                 rootState.loading = false;

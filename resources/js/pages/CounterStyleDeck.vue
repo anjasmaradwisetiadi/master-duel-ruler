@@ -3,7 +3,7 @@
         <div class="row justify-content-center mb-5">
             <div class="col-8 ">
                 <input type="text" class="form-control" id="Search" aria-describedby="Search" placeholder="Search..."
-                    @change="searching($event)"
+                    @keyup="searching($event)"
                 >
             </div>
         </div>
@@ -46,14 +46,14 @@
 
 <script setup>
 
-import { computed, ref, onMounted, onBeforeMount, onBeforeUpdate } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, ref, onMounted, onBeforeMount} from 'vue';
 import {collectionUrl} from '../urlCollect';
 import LoadingAndAlert from '../components/LoadingAndAlert.vue';
 import { useStore } from 'vuex';
 const dayjs = require('dayjs');
 
 const store = useStore();
+let searchTimeout;
 
 const cardListCounterStyle = computed(()=>{
     return store.getters.getterListCounterStyle
@@ -75,14 +75,14 @@ onMounted(()=>{
 
 function searching(event){
     const input = event.target.value;
-    if(input){
-        setTimeout(()=>{
-            store.dispatch('getSearchCounterStyleDeck', input)
-        }, 800)        
-    } else {
-        store.dispatch('getListCounterStyle')
-    }
-
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(()=>{
+        if(input){ 
+            store.dispatch('getSearchStyleDeck', input)    
+        } else {
+            store.dispatch('getListCounterStyle')
+        }
+    }, 800)   
 }
 
 

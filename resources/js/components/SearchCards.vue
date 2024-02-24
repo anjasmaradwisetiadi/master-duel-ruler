@@ -131,7 +131,7 @@
             </div>
           </div>
           <div class="row" v-if="getDataYgoProDeck.length">
-            <div class="col d-flex justify-content-start">
+            <div class="col d-flex justify-content-start align-items-center">
                 <div class="mr-4">
                     <button class="btn btn-warning mr-2" 
                         @click="nextPage()" 
@@ -361,7 +361,7 @@
     margin-top: 1.5rem;
     width: 530px;
     height: 100%;
-    padding: 6px;
+    padding: 6px 6px 0px 6px;
     background-color: #0b365e;
     border-radius: 8px;
     border: solid 1px #385979;
@@ -440,7 +440,7 @@
         overflow: auto;
     }
     .description-card{
-        min-height: 230px;
+        min-height: 9.4rem;
         text-align: justify;
     }
 

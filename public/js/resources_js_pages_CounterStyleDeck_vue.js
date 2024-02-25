@@ -115,11 +115,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../urlCollect */ "./resources/js/urlCollect.js");
 /* harmony import */ var _components_LoadingAndAlert_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/LoadingAndAlert.vue */ "./resources/js/components/LoadingAndAlert.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-
 
 
 
@@ -131,7 +129,7 @@ __webpack_require__.r(__webpack_exports__);
     __expose();
     var dayjs = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
-    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.useRouter)();
+    var searchTimeout;
     var cardListCounterStyle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterListCounterStyle;
     });
@@ -148,18 +146,24 @@ __webpack_require__.r(__webpack_exports__);
     });
     function searching(event) {
       var input = event.target.value;
-      if (input) {
-        setTimeout(function () {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function () {
+        if (input) {
           store.dispatch('getSearchStyleDeck', input);
-        }, 800);
-      } else {
-        store.dispatch('getListCounterStyle');
-      }
+        } else {
+          store.dispatch('getListCounterStyle');
+        }
+      }, 800);
     }
     var __returned__ = {
       dayjs: dayjs,
       store: store,
-      router: router,
+      get searchTimeout() {
+        return searchTimeout;
+      },
+      set searchTimeout(v) {
+        searchTimeout = v;
+      },
       cardListCounterStyle: cardListCounterStyle,
       get urlCreateDeck() {
         return urlCreateDeck;
@@ -173,10 +177,6 @@ __webpack_require__.r(__webpack_exports__);
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       onBeforeMount: vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount,
-      onBeforeUpdate: vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeUpdate,
-      get useRouter() {
-        return vue_router__WEBPACK_IMPORTED_MODULE_4__.useRouter;
-      },
       get collectionUrl() {
         return _urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl;
       },
@@ -326,7 +326,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "Search",
     "aria-describedby": "Search",
     placeholder: "Search...",
-    onChange: _cache[0] || (_cache[0] = function ($event) {
+    onKeyup: _cache[0] || (_cache[0] = function ($event) {
       return $setup.searching($event);
     })
   }, null, 32 /* NEED_HYDRATION */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {

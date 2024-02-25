@@ -13,6 +13,8 @@ export const playStyleDeck = {
             state.detailPlayStyle = payload;
         },
         mutateGetEditPlayStyle(state,payload){
+            console.log("mutate getEditPlayStyle = ");
+            console.log(payload);
             state.getEditPlayStyle = payload;
         },
 
@@ -31,5 +33,9 @@ export const playStyleDeck = {
         getterDetailPlayStyle(state){
             return state.detailPlayStyle;
         }, 
+
+        getterEditPlayStyle(state){
+            return state.getEditPlayStyle;
+        }
     }
 }

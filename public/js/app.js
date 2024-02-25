@@ -24236,6 +24236,8 @@ var playStyleDeck = {
       state.detailPlayStyle = payload;
     },
     mutateGetEditPlayStyle: function mutateGetEditPlayStyle(state, payload) {
+      console.log("mutate getEditPlayStyle = ");
+      console.log(payload);
       state.getEditPlayStyle = payload;
     }
   },
@@ -24252,6 +24254,9 @@ var playStyleDeck = {
     },
     getterDetailPlayStyle: function getterDetailPlayStyle(state) {
       return state.detailPlayStyle;
+    },
+    getterEditPlayStyle: function getterEditPlayStyle(state) {
+      return state.getEditPlayStyle;
     }
   }
 };
@@ -24627,6 +24632,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
   getters: {
     getterTodoList: function getterTodoList(state) {
       return state.todoList;
+    },
+    getterResponseGeneral: function getterResponseGeneral(state) {
+      return state.responseGeneral;
     },
     // it need getter for loading because when read action "getListCounterStyle()" always true not false
     getterStateLoading: function getterStateLoading(state) {

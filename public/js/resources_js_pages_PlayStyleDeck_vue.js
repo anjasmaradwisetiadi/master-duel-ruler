@@ -511,7 +511,7 @@ var playStyleDeckService = {
       }, _callee4);
     }))();
   },
-  editCounterStyle: function editCounterStyle(payload) {
+  editPlayStyle: function editPlayStyle(payload) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
       var tokenAuth, dataForm;
       return _regeneratorRuntime().wrap(function _callee5$(_context5) {

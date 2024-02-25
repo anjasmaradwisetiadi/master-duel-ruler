@@ -95,7 +95,7 @@ export const playStyleDeckService = {
         })
     },
 
-    async editCounterStyle(payload){
+    async editPlayStyle(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         const dataForm = payload.form
         store.state.loading =true;

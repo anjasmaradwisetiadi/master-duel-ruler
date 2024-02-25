@@ -368,6 +368,10 @@ const store = createStore({
     getterTodoList(state){
       return state.todoList;
     },
+
+    getterResponseGeneral(state){
+      return state.responseGeneral;
+    },
     // it need getter for loading because when read action "getListCounterStyle()" always true not false
     getterStateLoading(state){
       return state.loading;

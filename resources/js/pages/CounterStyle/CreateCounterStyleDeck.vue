@@ -139,6 +139,13 @@
         editOrNot
     })
 
+    onMounted(()=>{
+        decisionEditOrCreateRuler();
+        // let container = document.querySelector('.ql-container.ql-snow ');
+        // const toolbar = document.getElementsByClassName('ql-toolbar');
+        // container.style.border= '1px solid #dc3545 !important';
+    })
+
     const getDataEditCounterStyle = computed(()=>{
         const data = store.state.getEditCounterStyle
         if(data?.title){
@@ -179,13 +186,6 @@
         storeListCrad(newValue.list_chips); 
     })
 
-    onMounted(()=>{
-        decisionEditOrCreateRuler();
-        // let container = document.querySelector('.ql-container.ql-snow ');
-        // const toolbar = document.getElementsByClassName('ql-toolbar');
-        // container.style.border= '1px solid #dc3545 !important';
-    })
-
     function decisionEditOrCreateRuler(){
         const payload = router.currentRoute.value.params.slug
         state.paramsUrl = payload;
@@ -200,7 +200,7 @@
     function previewImage(event){
         let input = event.target;
         if (input.files) {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = (e) => {
                 state.preview = e.target.result;
             }
@@ -322,12 +322,12 @@
             }
             // add function spoofing because laravel not know about method Put, Patch, Delete
             formData.append('_method', 'PUT');
-            formData.append('old-slug', oldSlug.value)
+            formData.append('old-slug', oldSlug.value);
             const data ={
                 slug:slugCreated,
                 form:formData
             } 
-            store.dispatch('editCounterStyle', data)
+            store.dispatch('editCounterStyle', data);
             state.editOrNot = false
         }
     }
@@ -365,29 +365,7 @@
     }
 </script>
 
-<style>
-button {
-  font-weight: bold;
-}
-
-.ql-toolbar{
-    background-color: #e2e5e7;
-}
-
-.ql-editor.ql-blank::before{
-    color: rgba(226,229,231, 0.8);
-    content: attr(data-placeholder);
-    font-style: italic;
-    left: 15px;
-    pointer-events: none;
-    position: absolute;
-    right: 15px;
-}
-
-.ql-container {
-    min-height: 120px;
-}
-
+<style scoped>
 .image-preview-wrap {
     width: 200px;
 }
@@ -451,5 +429,28 @@ button {
     font-size: .875em;
     color: #dc3545;
 }
+</style>
 
+<style>
+button {
+  font-weight: bold;
+}
+
+.ql-toolbar{
+    background-color: #e2e5e7;
+}
+
+.ql-editor.ql-blank::before{
+    color: rgba(226,229,231, 0.8);
+    content: attr(data-placeholder);
+    font-style: italic;
+    left: 15px;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+}
+
+.ql-container {
+    min-height: 120px;
+}
 </style>

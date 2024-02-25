@@ -76,10 +76,12 @@
                 </div>
             </div>
         </template>
+        <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral"></LoadingAndAlert>
     </div>
 </template>
 <script setup>
-     import { reactive, computed, onMounted, onBeforeMount } from 'vue';
+     import { reactive, computed, onBeforeMount } from 'vue';
+     import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
      import { useStore } from 'vuex';
      import { useRouter } from 'vue-router';
      import {utilize} from '../../utilize/utilize';
@@ -89,6 +91,14 @@
      const getDataOneCard = computed(()=>{
         return store?.state?.oneCardSelected?.data ? store?.state?.oneCardSelected?.data[0] : {};
      })
+
+     const loading = computed(()=>{
+        return store.getters.getterStateLoading;
+     })
+
+     const responseGeneral = computed(()=>{
+        return store?.state?.responseGeneral;
+    })
 
      onBeforeMount(()=>{
         let nameCardOne = router.currentRoute.value.params.name;

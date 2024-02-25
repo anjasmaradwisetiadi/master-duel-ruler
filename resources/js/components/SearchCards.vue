@@ -307,7 +307,7 @@
     }
 
     const loading = computed(()=>{
-        return store.getters.getterStateLoading
+        return store.getters.getterStateLoading;
     })
 
      function selectedCard(data){

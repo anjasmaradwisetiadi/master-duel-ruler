@@ -23,7 +23,7 @@ const store = createStore({
   state: {
     counter: 1,
     todoList:[],
-    loading: false,
+    loading: true,
     error: '',
     dataDummyCards: dataDummyCards.data,
     dataSearchCard: {},

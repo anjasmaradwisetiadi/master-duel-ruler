@@ -76,6 +76,7 @@
                 </div>
             </div>
         </template>
+        <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral"></LoadingAndAlert>
     </div>
 </template>
 <script setup>
@@ -89,6 +90,14 @@
      const getDataOneCard = computed(()=>{
         return store?.state?.oneCardSelected?.data ? store?.state?.oneCardSelected?.data[0] : {};
      })
+
+     const loading = computed(()=>{
+        return store?.getters?.loading;
+     })
+
+     const responseGeneral = computed(()=>{
+        return store?.state?.responseGeneral;
+    })
 
      onBeforeMount(()=>{
         let nameCardOne = router.currentRoute.value.params.name;

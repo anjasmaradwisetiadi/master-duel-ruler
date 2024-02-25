@@ -80,7 +80,8 @@
     </div>
 </template>
 <script setup>
-     import { reactive, computed, onMounted, onBeforeMount } from 'vue';
+     import { reactive, computed, onBeforeMount } from 'vue';
+     import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
      import { useStore } from 'vuex';
      import { useRouter } from 'vue-router';
      import {utilize} from '../../utilize/utilize';
@@ -92,7 +93,7 @@
      })
 
      const loading = computed(()=>{
-        return store?.getters?.loading;
+        return store.getters.getterStateLoading;
      })
 
      const responseGeneral = computed(()=>{

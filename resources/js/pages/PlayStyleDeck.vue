@@ -16,7 +16,7 @@
             <template v-if="cardListPlayStyle.length">
                 <div v-for="(card,index) in cardListPlayStyle" :key="index" class="col-lg-3 col-md-4">
                     <div class="card mb-3 card-style">
-                        <a :href="collectionUrl.baseUrlHead+'counter-style-deck/'+card.slug" class="target-style text-black">
+                        <a :href="collectionUrl.baseUrlHead+'play-style-deck/'+card.slug" class="target-style text-black">
                             <div class="row no-gutters">
                             <div class="col-md-4 no-gutters">
                                 <img class="image-crop-resize" :src="card.image" :alt="card.name">
@@ -63,15 +63,11 @@ const loading = computed(()=>{
     return store.getters.getterStateLoading
 })
 
-let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create');
+let urlCreateDeck = ref(collectionUrl.baseUrlHead+'play-style-deck/create');
 
 onBeforeMount(()=>{
     playStyleDeckService.getListPlayStyle();
 })
-
-onMounted(()=>{
-})
-
 
 function searching(event){
     clearTimeout(searchTimeout);

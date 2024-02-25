@@ -54,6 +54,8 @@ export const playStyleDeckService = {
     },
 
     async detailPlayStyle(payload){
+        console.log("payload detailPlayStyle =");
+        console.log(payload);
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
         axios({

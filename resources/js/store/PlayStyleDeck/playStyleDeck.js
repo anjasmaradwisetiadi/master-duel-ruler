@@ -27,5 +27,9 @@ export const playStyleDeck = {
         getterListPlayStyle(state){
             return state.listPlayStyle;
         }, 
+
+        getterDetailPlayStyle(state){
+            return state.detailPlayStyle;
+        }, 
     }
 }

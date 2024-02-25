@@ -138,11 +138,10 @@ __webpack_require__.r(__webpack_exports__);
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterStateLoading;
     });
-    var urlCreateDeck = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlHead + 'counter-style-deck/create');
+    var urlCreateDeck = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlHead + 'play-style-deck/create');
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount)(function () {
       _store_PlayStyleDeck_playStyleDeckService__WEBPACK_IMPORTED_MODULE_3__.playStyleDeckService.getListPlayStyle();
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
     function searching(event) {
       clearTimeout(searchTimeout);
       var input = event.target.value;
@@ -347,7 +346,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: index,
       "class": "col-lg-3 col-md-4"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-      href: $setup.collectionUrl.baseUrlHead + 'counter-style-deck/' + card.slug,
+      href: $setup.collectionUrl.baseUrlHead + 'play-style-deck/' + card.slug,
       "class": "target-style text-black"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       "class": "image-crop-resize",
@@ -460,6 +459,8 @@ var playStyleDeckService = {
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) switch (_context3.prev = _context3.next) {
           case 0:
+            console.log("payload detailPlayStyle =");
+            console.log(payload);
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
             axios__WEBPACK_IMPORTED_MODULE_3___default()({
@@ -475,7 +476,7 @@ var playStyleDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 5:
           case "end":
             return _context3.stop();
         }

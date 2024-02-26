@@ -5,6 +5,7 @@ use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\DashboardController;
 use App\Models\CounterStyleDecks;
 use App\Models\PlayStyleDecks;
+use App\Models\DeckBuilders;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,7 @@ Route::get('/play-style-deck', [DashboardController::class, 'index']);
 Route::get('/play-style-deck/create', [DashboardController::class, 'index']);
 Route::get('/play-style-deck/{PlayStyleDecks:slug}', [DashboardController::class, 'index']);
 Route::get('/play-style-deck/{PlayStyleDecks:slug}/edit', [DashboardController::class, 'index']);
+Route::get('/builder-deck/{DeckBuilders:slug}', [DashboardController::class, 'index']);
 Route::get('/about', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);
 Route::get('/login', [TodoListController::class, 'index']);

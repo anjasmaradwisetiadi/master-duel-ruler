@@ -16,6 +16,7 @@ const router = createRouter({
         { path: '/play-style-deck/create', component: () => import('./pages/PlayStyle/CreatePlayStyleDeck.vue'), meta: {requiresAuth: true} },
         { path: '/play-style-deck/:slug', component: () => import('./pages/PlayStyle/PlayStyleDetail.vue'), meta: {requiresAuth: true} },
         { path: '/play-style-deck/:slug/edit', component: () => import('./pages/PlayStyle/CreatePlayStyleDeck.vue'), meta: {requiresAuth: true} },
+        { path: '/builder-deck/:slug', component: () => import('./pages/DeckBuilder/DeckBuilderDetail.vue'), meta: {requiresAuth: true} },
         { path: '/about', component: () => import('./pages/About.vue'), meta: {requiresAuth: true} },
         { path: '/login', component: () => import('./pages/LoginRegister.vue'),  meta: {requiresUnauth: true} },
         { path: '/register', component: () => import('./pages/LoginRegister.vue'), meta: {requiresUnauth: true}  },

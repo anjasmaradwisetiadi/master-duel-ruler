@@ -28,6 +28,8 @@
         <ListImageHover :getDataYgoProDeck='getDataYgoProDeck' @dataModalCard='dataModalCard' ></ListImageHover>
         <!-- modal image previews -->
         <ImagePreview :openModal="openModal" :dataSelectCards="dataSelectCards" @dataModalCardPreview="dataModalCardPreview"></ImagePreview>
+        <!-- Table list Deck Builder -->
+        <TableListDeckBuilder></TableListDeckBuilder>
         <LoadingAndAlert :loading="loading" :confirmDelete="confirmDelete" @confirm="methodConfirmDelete" ></LoadingAndAlert>
     </div>
 </template>
@@ -36,6 +38,7 @@ import { ref, reactive, watch, computed, onMounted, onBeforeMount } from 'vue';
 import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
 import ListImageHover from '../../components/ListImageHover.vue';
 import ImagePreview from '../../components/ImagePreview.vue';
+import TableListDeckBuilder from '../DeckBuilder/TableListDeckBuilder.vue'
 import {playStyleDeckService} from '../../store/PlayStyleDeck/playStyleDeckService';
 import {utilize} from '../../utilize/utilize';
 import { useStore } from 'vuex';

@@ -21818,7 +21818,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   dataDummyCards: () => (/* binding */ dataDummyCards)
+/* harmony export */   dataDummyCards: () => (/* binding */ dataDummyCards),
+/* harmony export */   dataDummyDeckBuilder: () => (/* binding */ dataDummyDeckBuilder)
 /* harmony export */ });
 var dataDummyCards = {
   "data": [{
@@ -24010,6 +24011,153 @@ var dataDummyCards = {
     }]
   }]
 };
+var dataDummyDeckBuilder = {
+  "data": [{
+    "id": "1",
+    "title": "Sinfull spoil one 7888763873571567376147346714634614634163143143",
+    "slug": "sinfull-spoil-one",
+    "play_style_id": "1",
+    "engines": ["https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg", "https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg", "https://images.ygoprodeck.com/images/cards_cropped/45112597.jpg"],
+    "price": {
+      "total_rarity_SR": 200,
+      "total_rarity_UR": 300
+    },
+    "total_card": {
+      "total_card_main_deck": 40,
+      "total_card_extra_deck": 15
+    },
+    "description": "text ini untuk belajar dan sebagian dengan varian deck baru akchuiecgecgeyc63287528e83eg2ut8d2dg87o36d82y7otd72tdo7td873dro8d8ro38d82dr367odo2rd6",
+    "deck_builder": [{
+      "name": "Infinite Impermanence",
+      "value": 2,
+      "rarity": "UR",
+      "column_deck": "main deck"
+    }, {
+      "name": "Droll & Lock Bird",
+      "value": 3,
+      "rarity": "SR",
+      "column_deck": "main deck"
+    }, {
+      "name": "Maxx \"C\"",
+      "value": 3,
+      "rarity": "UR",
+      "column_deck": "main deck"
+    }, {
+      "name": "Divine Arsenal AA-ZEUS - Sky Thunder",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }, {
+      "name": "Tri-Brigade Shuraig the Ominous Omen",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }, {
+      "name": "Worldsea Dragon Zealantis",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }],
+    "created_at": "2024-02-24 13:10:26",
+    "updated_at": "2024-02-24 13:10:26"
+  }, {
+    "id": "2",
+    "title": "Sinfull spoil two",
+    "slug": "sinfull-spoil-two",
+    "play_style_id": "1",
+    "engines": ["https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg", "https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg"],
+    "price": {
+      "total_rarity_SR": 200,
+      "total_rarity_UR": 300
+    },
+    "total_card": {
+      "total_card_main_deck": 40,
+      "total_card_extra_deck": 15
+    },
+    "description": "text ini untuk belajar dan sebagian dengan varian deck baru",
+    "deck_builder": [{
+      "name": "Snake-Eyes Flamberge Dragon",
+      "value": 2,
+      "rarity": "UR",
+      "column_deck": "main deck"
+    }, {
+      "name": "Snake-Eyes Poplar",
+      "value": 3,
+      "rarity": "UR",
+      "column_deck": "main deck"
+    }, {
+      "name": "Snake-Eye Oak",
+      "value": 3,
+      "rarity": "N",
+      "column_deck": "main deck"
+    }, {
+      "name": "Divine Arsenal AA-ZEUS - Sky Thunder",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }, {
+      "name": "Tri-Brigade Shuraig the Ominous Omen",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }, {
+      "name": "Worldsea Dragon Zealantis",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }],
+    "created_at": "2024-02-24 13:10:26",
+    "updated_at": "2024-02-24 13:10:26"
+  }, {
+    "id": "3",
+    "title": "Sinfull spoil three",
+    "slug": "sinfull-spoil-three",
+    "play_style_id": "2",
+    "engines": ["https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg", "https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg"],
+    "price": {
+      "total_rarity_SR": 200,
+      "total_rarity_UR": 300
+    },
+    "total_card": {
+      "total_card_main_deck": 40,
+      "total_card_extra_deck": 15
+    },
+    "description": "text ini untuk belajar dan sebagian dengan varian deck baru",
+    "deck_builder": [{
+      "name": "Snake-Eyes Flamberge Dragon",
+      "value": 2,
+      "rarity": "UR",
+      "column_deck": "main deck"
+    }, {
+      "name": "Snake-Eyes Poplar",
+      "value": 3,
+      "rarity": "UR",
+      "column_deck": "main deck"
+    }, {
+      "name": "Snake-Eye Oak",
+      "value": 3,
+      "rarity": "N",
+      "column_deck": "main deck"
+    }, {
+      "name": "Divine Arsenal AA-ZEUS - Sky Thunder",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }, {
+      "name": "Tri-Brigade Shuraig the Ominous Omen",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }, {
+      "name": "Worldsea Dragon Zealantis",
+      "value": 1,
+      "rarity": "UR",
+      "column_deck": "extra deck"
+    }],
+    "created_at": "2024-02-24 13:10:26",
+    "updated_at": "2024-02-24 13:10:26"
+  }]
+};
 
 /***/ }),
 
@@ -24164,6 +24312,14 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
     path: '/play-style-deck/:slug/edit',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_pages_PlayStyle_CreatePlayStyleDeck_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/PlayStyle/CreatePlayStyleDeck.vue */ "./resources/js/pages/PlayStyle/CreatePlayStyleDeck.vue"));
+    },
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/builder-deck/:slug',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_pages_DeckBuilder_DeckBuilderDetail_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/DeckBuilder/DeckBuilderDetail.vue */ "./resources/js/pages/DeckBuilder/DeckBuilderDetail.vue"));
     },
     meta: {
       requiresAuth: true
@@ -54688,7 +54844,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_ExampleComponent_vue":1,"resources_js_pages_TierList_vue":1,"resources_js_pages_CounterStyleDeck_vue":1,"resources_js_pages_CounterStyle_CounterStyleDetail_vue":1,"resources_js_pages_CounterStyle_CreateCounterStyleDeck_vue":1,"resources_js_pages_DetailOneCard_DetailOneCard_vue":1,"resources_js_pages_PlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_CreatePlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_PlayStyleDetail_vue":1,"resources_js_pages_About_vue":1,"resources_js_pages_LoginRegister_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_ExampleComponent_vue":1,"resources_js_pages_TierList_vue":1,"resources_js_pages_CounterStyleDeck_vue":1,"resources_js_pages_CounterStyle_CounterStyleDetail_vue":1,"resources_js_pages_CounterStyle_CreateCounterStyleDeck_vue":1,"resources_js_pages_DetailOneCard_DetailOneCard_vue":1,"resources_js_pages_PlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_CreatePlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_PlayStyleDetail_vue":1,"resources_js_pages_DeckBuilder_DeckBuilderDetail_vue":1,"resources_js_pages_About_vue":1,"resources_js_pages_LoginRegister_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

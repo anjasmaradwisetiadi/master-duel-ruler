@@ -14,9 +14,9 @@
                 <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-2 mt-4">
             <div class="col">
-                <h5>Information: </h5>
+                <h5>Information </h5>
                 <div class="card">
                     <div class="card-body" >
                         <div class="information-html" v-html="getDataPlayStyleDeck?.information"></div>
@@ -29,7 +29,15 @@
         <!-- modal image previews -->
         <ImagePreview :openModal="openModal" :dataSelectCards="dataSelectCards" @dataModalCardPreview="dataModalCardPreview"></ImagePreview>
         <!-- Table list Deck Builder -->
-        <TableListDeckBuilder></TableListDeckBuilder>
+        <div class="btn btn-secondary mt-2" @click="createDeckBuilder()">
+            Add New Deck Builder
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <h5>Deck Builder </h5>
+                <TableListDeckBuilder></TableListDeckBuilder>
+            </div>
+        </div>
         <LoadingAndAlert :loading="loading" :confirmDelete="confirmDelete" @confirm="methodConfirmDelete" ></LoadingAndAlert>
     </div>
 </template>

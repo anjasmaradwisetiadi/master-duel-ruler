@@ -1,5 +1,5 @@
 <template>
-    <div id="TableListDeckBuilder" class="mt-4">
+    <div id="TableListDeckBuilder">
         <div class="row">
             <div class="col">
                 <table class="table">

@@ -144,7 +144,7 @@ class DatabaseSeeder extends Seeder
                 'total_card_main_deck' => 40,
                 'total_card_extra_deck' => 15,
             )),
-            'description'=> 'text ini untuk belajar dan sebagian dengan varian deck baru',
+            'description'=> '<p>text ini untuk belajar dan sebagian dengan varian deck baru </p>',
             'deck_builder'=> json_encode(array(
                 array (
                     'column_deck'=> 'main deck',  
@@ -201,7 +201,7 @@ class DatabaseSeeder extends Seeder
                 'total_card_main_deck' => 40,
                 'total_card_extra_deck' => 15,
             )),
-            'description'=> 'text ini untuk belajar dan sebagian dengan varian deck baru',
+            'description'=> '<p>text ini untuk belajar dan sebagian dengan varian deck baru </p>',
             'deck_builder'=>json_encode(array(
                 array(
                     'column_deck'=> 'main deck',  
@@ -258,7 +258,7 @@ class DatabaseSeeder extends Seeder
                 'total_card_main_deck' => 40,
                 'total_card_extra_deck' => 15,
             )),
-            'description'=> 'text ini untuk belajar dan sebagian dengan varian deck baru',
+            'description'=> '<p> text ini untuk belajar dan sebagian dengan varian deck baru </p>',
             'deck_builder'=>json_encode(array(
                 array(
                     'column_deck'=> 'main deck',  

@@ -929,8 +929,7 @@ var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-e28d5228"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
 var _hoisted_1 = {
-  id: "TableListDeckBuilder",
-  "class": "mt-4"
+  id: "TableListDeckBuilder"
 };
 var _hoisted_2 = {
   "class": "row"
@@ -1075,13 +1074,13 @@ var _hoisted_6 = {
   "class": "col d-flex justify-content-end"
 };
 var _hoisted_7 = {
-  "class": "row"
+  "class": "row mb-2 mt-4"
 };
 var _hoisted_8 = {
   "class": "col"
 };
 var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Information: ", -1 /* HOISTED */);
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Information ", -1 /* HOISTED */);
 });
 var _hoisted_10 = {
   "class": "card"
@@ -1090,6 +1089,15 @@ var _hoisted_11 = {
   "class": "card-body"
 };
 var _hoisted_12 = ["innerHTML"];
+var _hoisted_13 = {
+  "class": "row mt-2"
+};
+var _hoisted_14 = {
+  "class": "col"
+};
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Deck Builder ", -1 /* HOISTED */);
+});
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$setup$getDataPlaySt, _$setup$getDataPlaySt3;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$getDataPlaySt = $setup.getDataPlayStyleDeck) === null || _$setup$getDataPlaySt === void 0 || (_$setup$getDataPlaySt = _$setup$getDataPlaySt.title) === null || _$setup$getDataPlaySt === void 0 ? void 0 : _$setup$getDataPlaySt.toUpperCase()), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -1121,7 +1129,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     openModal: $setup.openModal,
     dataSelectCards: $setup.dataSelectCards,
     onDataModalCardPreview: $setup.dataModalCardPreview
-  }, null, 8 /* PROPS */, ["openModal", "dataSelectCards"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table list Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableListDeckBuilder"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
+  }, null, 8 /* PROPS */, ["openModal", "dataSelectCards"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table list Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "btn btn-secondary mt-2",
+    onClick: _cache[3] || (_cache[3] = function ($event) {
+      return _ctx.createDeckBuilder();
+    })
+  }, " Add New Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableListDeckBuilder"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: $setup.loading,
     confirmDelete: $setup.confirmDelete,
     onConfirm: $setup.methodConfirmDelete
@@ -1348,20 +1361,31 @@ var playStyleDeckService = {
     }))();
   },
   getSearchPlayStyleDeck: function getSearchPlayStyleDeck(payload) {
-    var tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
-    axios__WEBPACK_IMPORTED_MODULE_3___default()({
-      method: 'get',
-      url: "".concat(urlPlayStyle, "/search/").concat(payload),
-      headers: {
-        'Authorization': "Bearer ".concat(tokenAuth)
-      }
-    }).then(function (response) {
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateListPlayStyle', response.data);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    })["catch"](function (error) {
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    });
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'get',
+              url: "".concat(urlPlayStyle, "/search/").concat(payload),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth)
+              }
+            }).then(function (response) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateListPlayStyle', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 2:
+          case "end":
+            return _context7.stop();
+        }
+      }, _callee7);
+    }))();
   }
 };
 

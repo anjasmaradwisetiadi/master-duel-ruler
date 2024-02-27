@@ -1,10 +1,10 @@
-import {collectionUrl} from '../../urlCollect'
-import {dataDummyCards} from '../../DummyDataCard'
+import {collectionUrl} from '../../urlCollect';
+import {dataDummyCards} from '../../DummyDataCard';
 // import { useStore } from 'vuex';
 // import * as dataVuex from 'vuex';
-import store from '../index'
+import store from '../index';
 import axios from 'axios';
-import router from '../../routes'
+import router from '../../routes';
 import Swal from 'sweetalert2';
 
 const urlPlayStyle = `${collectionUrl.baseUrlApi}play-style-deck-api`
@@ -146,7 +146,8 @@ export const playStyleDeckService = {
             store.state.loading = false;
         })
     },
-    getSearchPlayStyleDeck(payload){
+    
+    async getSearchPlayStyleDeck(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         axios({
             method: 'get',
@@ -163,5 +164,5 @@ export const playStyleDeckService = {
             store.commit('mutateResponsGeneral', error.message); 
             store.state.loading = false;
         })
-      }
+    }
 }

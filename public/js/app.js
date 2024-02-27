@@ -24367,6 +24367,54 @@ router.beforeEach(function (to, _, next) {
 
 /***/ }),
 
+/***/ "./resources/js/store/BuilderDeck/builderDeck.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/store/BuilderDeck/builderDeck.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   builderDeck: () => (/* binding */ builderDeck)
+/* harmony export */ });
+/* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../urlCollect */ "./resources/js/urlCollect.js");
+
+var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApi, ",counter-style-deck-api");
+var builderDeck = {
+  state: {
+    dataDeckBuilder: []
+  },
+  mutations: {
+    mutateDataDeckBuilder: function mutateDataDeckBuilder(state, payload) {
+      payload.forEach(function (element, index) {
+        return state.dataDeckBuilder.push(element);
+      });
+    }
+  },
+  action: {},
+  getters: {
+    getterdataDeckBuilderMainDeck: function getterdataDeckBuilderMainDeck(state) {
+      var mainDeckCollect = state.dataDeckBuilder.filter(function (element) {
+        if (element.column_deck === 'main deck') {
+          return element;
+        }
+      });
+      return mainDeckCollect;
+    },
+    getterdataDeckBuilderExtraDeck: function getterdataDeckBuilderExtraDeck(state) {
+      var extraDeckCollect = state.dataDeckBuilder.filter(function (element) {
+        if (element.column_deck === 'extra deck') {
+          return element;
+        }
+      });
+      return extraDeckCollect;
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/PlayStyleDeck/playStyleDeck.js":
 /*!***********************************************************!*\
   !*** ./resources/js/store/PlayStyleDeck/playStyleDeck.js ***!
@@ -24430,12 +24478,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../urlCollect */ "./resources/js/urlCollect.js");
-/* harmony import */ var _DummyDataCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../DummyDataCard */ "./resources/js/DummyDataCard.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../urlCollect */ "./resources/js/urlCollect.js");
+/* harmony import */ var _DummyDataCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../DummyDataCard */ "./resources/js/DummyDataCard.js");
+/* harmony import */ var _BuilderDeck_builderDeck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BuilderDeck/builderDeck */ "./resources/js/store/BuilderDeck/builderDeck.js");
 /* harmony import */ var _PlayStyleDeck_playStyleDeck__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PlayStyleDeck/playStyleDeck */ "./resources/js/store/PlayStyleDeck/playStyleDeck.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../routes */ "./resources/js/routes.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
@@ -24450,22 +24498,23 @@ __webpack_require__.r(__webpack_exports__);
 
 // import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
-var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApi, "counter-style-deck-api");
+var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApi, "counter-style-deck-api");
 var getLocalStorage = {};
 
 // Create a new store instance.
 var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
   modules: {
     // ******** still not working , because action another file (playStyleDeck) cannot read action
-    playStyleDeck: _PlayStyleDeck_playStyleDeck__WEBPACK_IMPORTED_MODULE_4__.playStyleDeck
     // counterStyleDeck
+    playStyleDeck: _PlayStyleDeck_playStyleDeck__WEBPACK_IMPORTED_MODULE_4__.playStyleDeck,
+    builderDeck: _BuilderDeck_builderDeck__WEBPACK_IMPORTED_MODULE_3__.builderDeck
   },
   state: {
     counter: 1,
     todoList: [],
     loading: true,
     error: '',
-    dataDummyCards: _DummyDataCard__WEBPACK_IMPORTED_MODULE_3__.dataDummyCards.data,
+    dataDummyCards: _DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyCards.data,
     dataSearchCard: {},
     oneCardSelected: {},
     //********** */ login, register, logout need explode file
@@ -24520,9 +24569,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
   actions: {
     getListTodoList: function getListTodoList(_ref, state) {
       var commit = _ref.commit;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
-        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrl, "list")
+        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrl, "list")
       }).then(function (response) {
         commit('mutateTodoList', response.data);
       });
@@ -24539,17 +24588,17 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         nameCard = payload.name;
         count = payload.num;
         page = payload.offset;
-        urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "fname=").concat(nameCard, "&num=").concat(count, "&offset=").concat(page);
+        urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApiYgoProDeck, "fname=").concat(nameCard, "&num=").concat(count, "&offset=").concat(page);
       } else if (payload.mode === 'one-search') {
         nameCard = payload.name;
-        urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+        urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
       }
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
-        url: urlApiYugioh,
-        headers: {
-          'Content-Type': "multipart/form-data"
-        }
+        url: urlApiYugioh
+        // headers:{
+        //   'Content-Type': "multipart/form-data"
+        // }
       }).then(function (response) {
         if (payload.mode === 'all-search') {
           commit('mutateSearchCards', response.data);
@@ -24570,9 +24619,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       var commit = _ref3.commit,
         rootState = _ref3.rootState;
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
-        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
+        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
       }).then(function (response) {
         commit('mutateGetDataListChips', response.data.data[0]);
         rootState.loading = false;
@@ -24602,11 +24651,11 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       rootState.loading = true;
       var urlAuth = '';
       if (payload.mode === 'login') {
-        urlAuth = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApi, "login");
+        urlAuth = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApi, "login");
       } else if (payload.mode === 'register') {
-        urlAuth = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApi, "register");
+        urlAuth = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApi, "register");
       }
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'post',
         url: urlAuth,
         data: payload.data
@@ -24649,7 +24698,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       var commit = _ref8.commit,
         rootState = _ref8.rootState;
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
         url: "".concat(urlCounterStyle),
         headers: {
@@ -24668,7 +24717,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       var commit = _ref9.commit,
         rootState = _ref9.rootState;
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'post',
         url: "".concat(urlCounterStyle),
         headers: {
@@ -24688,7 +24737,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       var commit = _ref10.commit,
         rootState = _ref10.rootState;
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
         url: "".concat(urlCounterStyle, "/").concat(payload),
         headers: {
@@ -24706,7 +24755,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       var commit = _ref11.commit,
         rootState = _ref11.rootState;
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
         url: "".concat(urlCounterStyle, "/").concat(payload, "/edit"),
         headers: {
@@ -24725,7 +24774,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState = _ref12.rootState;
       var dataForm = payload.form;
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'post',
         url: "".concat(urlCounterStyle, "/").concat(payload.slug),
         headers: {
@@ -24745,7 +24794,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       var commit = _ref13.commit,
         rootState = _ref13.rootState;
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'delete',
         url: "".concat(urlCounterStyle, "/").concat(payload),
         headers: {
@@ -24770,7 +24819,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
     getSearchCounterStyleDeck: function getSearchCounterStyleDeck(_ref14, payload) {
       var commit = _ref14.commit,
         rootState = _ref14.rootState;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
         url: "".concat(urlCounterStyle, "/search/").concat(payload),
         headers: {

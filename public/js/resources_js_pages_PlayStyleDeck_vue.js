@@ -579,20 +579,31 @@ var playStyleDeckService = {
     }))();
   },
   getSearchPlayStyleDeck: function getSearchPlayStyleDeck(payload) {
-    var tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
-    axios__WEBPACK_IMPORTED_MODULE_3___default()({
-      method: 'get',
-      url: "".concat(urlPlayStyle, "/search/").concat(payload),
-      headers: {
-        'Authorization': "Bearer ".concat(tokenAuth)
-      }
-    }).then(function (response) {
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateListPlayStyle', response.data);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    })["catch"](function (error) {
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    });
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'get',
+              url: "".concat(urlPlayStyle, "/search/").concat(payload),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth)
+              }
+            }).then(function (response) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateListPlayStyle', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 2:
+          case "end":
+            return _context7.stop();
+        }
+      }, _callee7);
+    }))();
   }
 };
 

@@ -119,6 +119,10 @@ function dataModalCard($event){
     openModal.value = $event.openModal;
 }
 
+function createDeckBuilder(){
+    router.push('/builder-deck/create');
+}
+
 </script>
 <style scoped>
     .card{

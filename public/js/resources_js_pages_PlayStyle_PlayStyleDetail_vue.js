@@ -308,7 +308,7 @@ __webpack_require__.r(__webpack_exports__);
     var dataDeckBuilders = _DummyDataCard__WEBPACK_IMPORTED_MODULE_1__.dataDummyDeckBuilder.data;
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
     function redirectDetailDeckBuilder(slug) {
-      window.open("".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlHead, "builder-deck/").concat(slug));
+      router.push("/builder-deck/".concat(slug));
     }
     var __returned__ = {
       dayjs: dayjs,
@@ -458,6 +458,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       dataSelectCards.value = $event.dataSelectCards;
       openModal.value = $event.openModal;
     }
+    function createDeckBuilder() {
+      router.push('/builder-deck/create');
+    }
     var __returned__ = {
       store: store,
       router: router,
@@ -475,6 +478,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       getDataYgoProDeck: getDataYgoProDeck,
       dataModalCardPreview: dataModalCardPreview,
       dataModalCard: dataModalCard,
+      createDeckBuilder: createDeckBuilder,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
@@ -1132,7 +1136,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, ["openModal", "dataSelectCards"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table list Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "btn btn-secondary mt-2",
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return _ctx.createDeckBuilder();
+      return $setup.createDeckBuilder();
     })
   }, " Add New Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["TableListDeckBuilder"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: $setup.loading,

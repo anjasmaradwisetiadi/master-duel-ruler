@@ -178,7 +178,7 @@ onBeforeMount(()=>{
 })
 
 function editPlayStyle(slug){
-    // router.push(`/play-style-deck/${slug}/edit`);
+    router.push(`/builder-deck/${slug}/edit`);
 }
 
 function deletePlayStyle(){
@@ -190,7 +190,7 @@ function createDeckBuilder(){
 }
 
 function backRoute(){
-    // router.back();
+    router.back();
 }
 
 

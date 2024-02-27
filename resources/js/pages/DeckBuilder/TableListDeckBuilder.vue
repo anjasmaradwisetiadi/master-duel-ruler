@@ -88,7 +88,7 @@ onMounted(()=>{
 })
 
 function redirectDetailDeckBuilder(slug){
-    window.open(`${collectionUrl.baseUrlHead}builder-deck/${slug}`);
+    router.push(`/builder-deck/${slug}`)
 }
 </script>
 <style scoped>

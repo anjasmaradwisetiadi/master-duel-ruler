@@ -209,7 +209,7 @@ __webpack_require__.r(__webpack_exports__);
       _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
     });
     function editPlayStyle(slug) {
-      // router.push(`/play-style-deck/${slug}/edit`);
+      router.push("/builder-deck/".concat(slug, "/edit"));
     }
     function deletePlayStyle() {
       // state.confirmDelete = true;
@@ -218,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log("create deckBuilder = ");
     }
     function backRoute() {
-      // router.back();
+      router.back();
     }
     var __returned__ = {
       dayjs: dayjs,

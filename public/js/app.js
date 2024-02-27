@@ -24510,7 +24510,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
   state: {
     counter: 1,
     todoList: [],
-    loading: true,
+    loading: false,
     error: '',
     dataDummyCards: _DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyCards.data,
     dataSearchCard: {},

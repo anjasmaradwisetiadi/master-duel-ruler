@@ -19,7 +19,6 @@
               </div>
             </div>
           </div>
-          <p>{{positionInformation}}</p>
           <div class="row mb-2">
             <div class="col">
               <input
@@ -174,7 +173,6 @@
    const offset = ref(0);
    const valueSearch = ref('');
    const imagePosition = ref(null);
-   const positionInformation = ref(null);
    const hoverCardTemplate = ref(null);
    let searchTimeout;
 
@@ -282,7 +280,7 @@
             listCardSelector.style.position='relative';
             listCardSelector.style.display = 'none';
         }
-    }
+  }
 
     function nextPage(){
         // state.inputSearch = inputSearch.value;
@@ -326,18 +324,18 @@
     width: 6px;
   }
 
-    #scrollbar1::-webkit-scrollbar-track {
+  #scrollbar1::-webkit-scrollbar-track {
         border-radius: 4px;
         background-color: #0C345A;
         border: 2px solid #0C345A;
-    }
+  }
 
-    #scrollbar1::-webkit-scrollbar-thumb {
-        border-radius: 4px;
-        border: 2px solid transparent;
-        background-clip: content-box;
-        background-color: #194773;
-    }
+#scrollbar1::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    background-color: #194773;
+}
   .modal-wrapper-none {
     display: none;
   }
@@ -379,25 +377,12 @@
   .background-image{
         background-color: #03182c;
         border-radius: 10px;
-        padding: 10px;
+        padding: 10px 0px 10px;
     }
     .background-image .image-style{
         max-width: 95px;
         padding-right: 8px;
         cursor: pointer;
-    }
-
-    .wrap-card-search-global .hover-card{
-        display: none;
-        position: relative;
-    }
-
-    .wrap-card-search-global .non-hover-card{
-        display: none;
-    }
-    .image-style{
-        max-width: 92px;
-        padding-right: 6px;
         padding-top:4px;
         cursor: pointer;
     }
@@ -406,7 +391,7 @@
         display: none;
         position: relative;
     }
-
+    
     .wrap-card-search-global .non-hover-card{
         display: none;
     }

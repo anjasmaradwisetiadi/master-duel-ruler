@@ -33,12 +33,106 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <MainExtraDeck 
-                    :data-deck-builder-length="dataDeckBuilderLength" 
-                    :data-deck-builder="dataDeckBuilder"
-                ></MainExtraDeck>
+                <div>
+                    <MainExtraDeck 
+                        :data-deck-builder-length="dataDeckBuilderLength" 
+                        :data-deck-builder="dataDeckBuilder"
+                        v-model:mainDeckCards="mainDeckCards"
+                        v-model:card-selected="cardSelected"
+                        :deck-type="deckTypeMain"
+                    ></MainExtraDeck>
+                </div>
+                <div class="mt-4">
+                    <MainExtraDeck 
+                        :data-deck-builder-length="dataDeckBuilderLength" 
+                        :data-deck-builder="dataDeckBuilder"
+                        v-model:mainDeckCards="extraDeckCards"
+                        v-model:card-selected="cardSelected"
+                        :deck-type="deckTypeExtra"
+                    ></MainExtraDeck>
+                </div>
             </div>
             <div class="col-6">
+                <!-- --- style card selected -->
+                <div v-if="dataHasSelected?.name" class="content-section">
+                    <template v-if="dataHasSelected?.frameType !== 'trap' && dataHasSelected?.frameType !== 'spell'">
+                        <div class="card-monster-preview wrap-card-currently">
+                            <div class="d-flex justify-content-center">
+                                <div class="mb-3">
+                                        <h4 class=" name-card"> <b>{{ dataHasSelected?.name }}</b></h4>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="image-section">
+                                    <img :src="dataHasSelected?.card_images ? dataHasSelected?.card_images[0]?.image_url_small: ''" :alt="dataHasSelected?.name" >
+                                </div>
+                                <div class="information-section">
+                                    <div class="row mb-2 ">
+                                        <div class="col-7 mr-auto">
+                                            <szpan class="mr-1"> <b>{{ dataHasSelected?.attribute }}</b></szpan>
+                                        </div>
+                                        <div class="col-5 d-flex justify-content-end">
+                                            <span class="wrap-star" v-if="dataHasSelected?.frameType === 'xyz'">
+                                                <img src="../../../assets/image/rank-icon.webp" alt="rank">
+                                                <span>{{ dataHasSelected?.level }}</span>
+                                            </span>
+                                            <span class="wrap-star" v-else-if="dataHasSelected?.frameType === 'link'">
+                                                <span>Link - {{ dataHasSelected?.linkval }}</span>
+                                            </span>
+                                            <span class="wrap-star" v-else>
+                                                <img src="../../../assets/image/star-icon.webp" alt="star">
+                                                <span>{{ dataHasSelected?.level }}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span><b>[ {{ dataHasSelected?.race }} / {{ utilize.textTypeMonster(dataHasSelected?.frameType ? dataHasSelected?.frameType: ' ') }} {{utilize.textEffectMonster(dataHasSelected?.frameType)}} ]</b></span>
+                                    </div>
+                                    <div class="mb-2 description-card">
+                                        {{ utilize.decodeHTML(dataHasSelected?.desc) }} 
+                                    </div>
+                                    <div class="mb-1">
+                                        <span><b>ATK/</b>{{ dataHasSelected?.atk }} <span :innerHTML="utilize.textDef(dataHasSelected?.frameType, dataHasSelected?.def)"></span></span>   
+                                    </div>
+                                    <div class="released-card mb-2">
+                                        <span>Released on Card Set  {{dataHasSelected?.card_sets ? dataHasSelected?.card_sets[0]?.set_name : ' '}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>  
+                    </template>  
+                    <template v-if="dataHasSelected?.frameType === 'trap' || dataHasSelected?.frameType === 'spell'">
+                        <div class="card-trap-spell-preview wrap-card-currently">
+                            <div class="d-flex justify-content-center">
+                                <div class="mb-3">
+                                        <h3 class=" name-card"> <b>{{ dataHasSelected?.name }}</b></h3>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="image-section">
+                                    <img :src="dataHasSelected?.card_images ? dataHasSelected?.card_images[0]?.image_url_small: ' '" :alt="dataHasSelected?.name" >
+                                </div>
+                                <div class="information-section">
+                                    <div class="row mb-2">
+                                        <div class="col-7 mr-auto">
+                                            <span> <b>{{ dataHasSelected.name }}</b></span>
+                                        </div>
+                                        <div class="col-5 text-right">
+                                            <span class="mr-1"> <b>{{ utilize.textTypeMonster(dataHasSelected?.frameType ? dataHasSelected?.frameType: ' ')}} - {{ dataHasSelected.race }}</b></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-2 description-card">
+                                        {{ utilize.decodeHTML(dataHasSelected?.desc) }} 
+                                    </div>
+                                    <div class="released-card mb-2">
+                                        <span>Released on Card Set  {{dataHasSelected?.card_sets ? dataHasSelected?.card_sets[0]?.set_name : ''}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </template>  
+                </div>
             </div>
         </div>
     </div>
@@ -46,7 +140,7 @@
 <script setup>
 import { ref, reactive, watch, computed, onMounted, onBeforeMount } from 'vue';
 import { builderDeckService } from '../../store/BuilderDeck/builderDeckService';
-import {dataDummyDeckBuilder} from '../../DummyDataCard';
+import {dataDummyDeckBuilder, dataDummyCards} from '../../DummyDataCard';
 import MainExtraDeck from '../../components/MainExtraDeck.vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
@@ -57,12 +151,30 @@ const dayjs = require('dayjs');
 const store = useStore();
 const router = useRouter();
 
-const dataDeckBuilderLength = dataDummyDeckBuilder.data;
-const dataDeckBuilder = dataDummyDeckBuilder.data[1];
 
+// const dataHasSelected = dataDummyCards.data[4];
+const dataDeckBuilderLength = ref(dataDummyDeckBuilder.data);
+const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
+const cardSelected = ref(null);
+const deckTypeMain = ref('main-deck');
+const deckTypeExtra = ref('extra-deck')
+
+
+const dataHasSelected = computed(()=>{
+    return cardSelected.value;
+})
+
+const mainDeckCards = computed(()=>{
+    // return store.state.dataDummyCards;
+    return store.getters.getterdataDeckBuilderMainDeck;
+})
+const extraDeckCards = computed(()=>{
+    // return store.state.dataDummyCards;
+    return store.getters.getterdataDeckBuilderExtraDeck;
+})
 
 onBeforeMount(()=>{
-    builderDeckService.getDataDeckBuilder(dataDeckBuilder.deck_builder);
+    builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
 })
 
 function editPlayStyle(slug){
@@ -87,6 +199,53 @@ function backRoute(){
     .card{
         color: black;
     }
+    /*--- style card selected */
+    .wrap-card-currently {
+        background-color: #0D2F4E;
+        padding: 8px;
+        border-radius: 10px;
+        border: 3px solid #385979;
+    }
+
+    .content-section{
+        margin-top: 2.5rem;
+    }
+
+    .image-section img{
+        width: 170px;
+        margin-right: 0.75rem;
+    }
+
+    .information-section .wrap-star {
+        display: flex;
+        align-items: center;
+    }
+
+    .information-section .wrap-star span{
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+    }
+    
+    
+    .information-section .wrap-star img{
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+    }
+
+    .information-section .description-card{
+        min-height: 220px;
+        text-align: justify;
+        font-size: 14px;
+    }
+
+    .released-card {
+        display: flex;
+        justify-content: end;
+    }
+    /*--- end card selected */
+
 </style>
 
 <style>

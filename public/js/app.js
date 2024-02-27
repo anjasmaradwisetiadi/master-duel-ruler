@@ -21630,10 +21630,10 @@ var _hoisted_20 = {
   "class": "row mb-2"
 };
 var _hoisted_21 = {
-  "class": "col-8 mr-auto"
+  "class": "col-7 mr-auto"
 };
 var _hoisted_22 = {
-  "class": "col-4 ml-auto"
+  "class": "col-5 d-flex justify-content-end"
 };
 var _hoisted_23 = {
   "class": "mr-1"
@@ -21693,10 +21693,10 @@ var _hoisted_39 = {
   "class": "row mb-2"
 };
 var _hoisted_40 = {
-  "class": "col-8 mr-auto"
+  "class": "col-7 mr-auto"
 };
 var _hoisted_41 = {
-  "class": "col-4 ml-auto"
+  "class": "col-5 d-flex justify-content-end"
 };
 var _hoisted_42 = {
   "class": "mr-1"
@@ -24911,7 +24911,7 @@ var utilize = {
     if (data === 'link' || data === 'xyz') {
       return data.toUpperCase();
     } else {
-      return data[0].toUpperCase() + data.substr(1).toLowerCase();
+      return data ? data[0].toUpperCase() + data.substr(1).toLowerCase() : data;
     }
   },
   textEffectMonster: function textEffectMonster(data) {

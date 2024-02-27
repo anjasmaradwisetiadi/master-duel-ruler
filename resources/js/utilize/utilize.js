@@ -13,7 +13,7 @@ export const utilize = {
         if( data === 'link' || data === 'xyz' ){
             return data.toUpperCase();
         } else {
-            return data[0].toUpperCase()+data.substr(1).toLowerCase();
+            return data ? data[0].toUpperCase()+data.substr(1).toLowerCase() : data;
         }
      },
 

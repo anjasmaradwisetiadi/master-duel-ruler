@@ -164,7 +164,7 @@
         border-radius: 10px;
     }
     .information-section .description-card{
-        min-height: 230px;
+        min-height: 220px;
         text-align: justify;
     }
 
@@ -178,9 +178,6 @@
         align-items: center;
     }
 
-    .modal-wrapper .information-section .name-card {
-        font-size: 22px;
-    }
     .modal-wrapper .information-section .wrap-star img{
         width: 20px;
         height: 20px;

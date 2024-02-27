@@ -60,10 +60,10 @@
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">
-                                                <div class="col-8 mr-auto">
+                                                <div class="col-7 mr-auto">
                                                     <span> <b>{{ urlImage.name }}</b></span>
                                                 </div>
-                                                <div class="col-4 ml-auto ">
+                                                <div class="col-5  d-flex justify-content-end ">
                                                     <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
                                                     <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
                                                         <img src="../../assets/image/rank-icon.webp" alt="rank">
@@ -101,10 +101,10 @@
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">
-                                                <div class="col-8 mr-auto">
+                                                <div class="col-7 mr-auto">
                                                     <span> <b>{{ urlImage.name }}</b></span>
                                                 </div>
-                                                <div class="col-4 ml-auto ">
+                                                <div class="col-5  d-flex justify-content-end ">
                                                     <span class="mr-1"> <b>{{ utilize.textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
                                                 </div>
                                             </div>

@@ -4,13 +4,12 @@
             <!-- head list deck builder -->
             <div class="row mt-2">
                 <div class="col-4 mr-auto">
-                    <h5>Main Deck</h5>
+                    <h5>{{deckType === 'main-deck' ? 'Main Deck' : 'Extra Deck'}}</h5>
                 </div>
                 <div class="col-4 text-center">
-                    <template v-if="dataDeckBuilder?.price.total_rarity_UR">
+                    <template v-if="dataDeckBuilder?.price.total_rarity_UR && deckType === 'main-deck'">
                         <div class=" d-flex price-wrap">
                             <div class="d-flex align-items-center">
-
                                 <img class="image-rarity" src="../../assets/image/cp-ur-rarity.webp" alt="cp-ur-rarity">
                                 <span class="ml-2">
                                     {{dataDeckBuilder.price.total_rarity_UR}}
@@ -34,7 +33,7 @@
                     </template>
                 </div>
                 <div class="col-4 text-right">
-                    {{ dataDeckBuilder.total_card.total_card_main_deck }} Cards
+                    {{ deckType === 'main-deck' ? dataDeckBuilder.total_card.total_card_main_deck :  dataDeckBuilder.total_card.total_card_extra_deck}} Cards
                 </div>
             </div>
             <!-- column list deck builder -->
@@ -136,47 +135,21 @@
                     </div>
                 </div>
             </div>
-
-            <!-- extra deck -->
-            <!-- head list deck builder -->
-            <div class="row mt-4">
-                <div class="col-6 mr-auto">
-                    <h5>Extra Deck</h5>
-                </div>
-                <div class="col-6 text-right">
-                    {{ dataDeckBuilder.total_card.total_card_extra_deck }} Cards
-                </div>
-            </div>
-            <div class="row"> 
-                <div class="col">
-                    <div class="background-image">
-                        <div class="d-flex flex-wrap "
-                            v-if="dataDeckBuilderLength.length"
-                        >
-                            <div v-for="(extraDeck, index) of extraDeckCards" :key="index">
-                                {{extraDeck?.name}}, 
-                            </div>
-                        </div>
-
-                        <div class="d-flex justify-content-center"
-                            v-if="!dataDeckBuilderLength.length"
-                        >
-                            <span>Tidak ada kartu yang ke record</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
     </div>
 </template>
 <script setup>
-import { ref, computed, onMounted, defineProps, defineEmits } from 'vue';
+import { ref, computed, onMounted, defineProps, defineEmits, defineModel } from 'vue';
 import { useStore } from 'vuex'
 import {utilize} from '../utilize/utilize';
 const store = useStore();
 const props = defineProps([
     'dataDeckBuilder',
     'dataDeckBuilderLength',
+    'deckType'
 ])
+
+const cardSelected = defineModel('cardSelected');
+const mainDeckCards = defineModel('mainDeckCards');
 
 const hoverCardTemplate = ref(null);
 const hoverConditionIndex = ref(0);
@@ -188,17 +161,7 @@ const valueSearch = ref('');
 const imagePosition = ref(null);
 
 onMounted(()=>{
-    // console.log("mainDeckCards = ");
-    // console.log(mainDeckCards);
-})
 
-const mainDeckCards = computed(()=>{
-    return store.state.dataDummyCards;
-    // return store.getters.getterdataDeckBuilderMainDeck;
-})
-const extraDeckCards = computed(()=>{
-    return store.state.dataDummyCards;
-    // return store.getters.getterdataDeckBuilderExtraDeck;
 })
 
 function displayCard($event, index, condition ){
@@ -219,10 +182,10 @@ function createdStyleCardHover($event, index, condition){
     // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
     if (condition){
         if(detectWidthMonitor >= 1910){            
-            positionLeft = left-297;
+            positionLeft = left-310;
             positionTop =  top-292;
         } else if (detectWidthMonitor >= 1200 && detectWidthMonitor<1910){
-            positionLeft = left-104;
+            positionLeft = left-120;
             positionTop =  top-282;
         }
 
@@ -267,13 +230,12 @@ function createdStyleCardHover($event, index, condition){
 }
 }
 function selectedCard(data){
-    const urlParameters= utilize.characterEncodingUrl(data.name);
-    window.open(`${collectionUrl.baseUrlHead}detail-one-card/${urlParameters}`);
+    cardSelected.value = data;
 }
 </script>
 <style scoped>
     #MainExtraDeck{
-        min-height: 20rem;
+        min-height: 8rem;
     }
 
     #scrollbar1::-webkit-scrollbar {

@@ -24304,7 +24304,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       state.responseGeneral = payload;
     },
     mutateGetDataListChips: function mutateGetDataListChips(state, payload) {
-      state.dataListChips.push(payload);
+      state.dataListChips = payload;
     },
     mutateRemoveDataListChips: function mutateRemoveDataListChips(state, payload) {
       return state.dataListChips.splice(payload, 1);
@@ -24557,7 +24557,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         method: 'get',
         url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
       }).then(function (response) {
-        commit('mutateGetDataListChips', response.data.data[0]);
+        commit('mutateGetDataListChips', response.data.data);
         rootState.loading = false;
       })["catch"](function (error) {
         commit('mutateResponsGeneral', error.message);

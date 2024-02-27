@@ -70,7 +70,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col text-center">
-                        <button type="button" class="btn btn-warning" @click="back()"> Kembali </button>
+                        <button type="button" class="btn btn-warning" @click="back()"> Back </button>
                     </div>
                 </div>
             </template>

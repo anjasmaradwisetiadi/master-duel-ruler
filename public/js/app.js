@@ -21276,7 +21276,16 @@ __webpack_require__.r(__webpack_exports__);
     var responseGeneral = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.state.responseGeneral;
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      //******* it make be default search but when app ready to use */
+      // const payload = {
+      //     mode: 'all-search',
+      //     name: 'inf',
+      //     num: num.value,
+      //     offset: offset.value
+      // }
+      // store.dispatch('getSearchCards', payload);
+    });
     function searching(event) {
       clearTimeout(searchTimeout);
       searchTimeout = setTimeout(function () {

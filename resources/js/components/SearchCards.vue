@@ -192,7 +192,14 @@
    })
   
    onMounted(()=>{
-
+    //******* it make be default search but when app ready to use */
+    // const payload = {
+    //     mode: 'all-search',
+    //     name: 'inf',
+    //     num: num.value,
+    //     offset: offset.value
+    // }
+    // store.dispatch('getSearchCards', payload);
    })
   
   function searching(event){

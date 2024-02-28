@@ -78,12 +78,14 @@ const getDataPlayStyleDeck = computed(()=>{
 
 
 watch(getDataPlayStyleDeck, async (newValue, oldValue)=>{
+    let collectListChips = '';
     const dataListChips= newValue.list_chips;
     store.state.dataListChips = [];
     for (let dataListChip of dataListChips) {
         dataListChip = utilize.characterEncodingUrl(dataListChip);
-        store.dispatch("getDataListChips", dataListChip);
+        collectListChips += `|${dataListChip}`;
     }
+    store.dispatch("getDataListChips",collectListChips);
 })
 
 const loading = computed(()=>{
@@ -95,7 +97,10 @@ function editPlayStyle(slug){
 }
 
 function methodConfirmDelete($event){
-    playStyleDeckService.deletePlayStyle(paramsUrl.value);
+    if($event){
+        store.dispatch('deleteCounterStyle', paramsUrl.value);   
+    }
+    state.confirmDelete = false;
 }
 
 function deletePlayStyle(){

@@ -377,7 +377,7 @@
   .background-image{
         background-color: #03182c;
         border-radius: 10px;
-        padding: 10px 0px 10px;
+        padding: 10px;
     }
     .background-image .image-style{
         max-width: 95px;

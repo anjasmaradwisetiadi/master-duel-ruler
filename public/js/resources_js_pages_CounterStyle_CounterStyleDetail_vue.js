@@ -291,15 +291,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LoadingAndAlert_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/LoadingAndAlert.vue */ "./resources/js/components/LoadingAndAlert.vue");
 /* harmony import */ var _components_ListImageHover_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/ListImageHover.vue */ "./resources/js/components/ListImageHover.vue");
 /* harmony import */ var _components_ImagePreview_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/ImagePreview.vue */ "./resources/js/components/ImagePreview.vue");
-<<<<<<< HEAD
 /* harmony import */ var _utilize_utilize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utilize/utilize */ "./resources/js/utilize/utilize.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-=======
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _utilize_utilize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utilize/utilize */ "./resources/js/utilize/utilize.js");
->>>>>>> master
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
@@ -363,11 +357,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 for (_iterator.s(); !(_step = _iterator.n()).done;) {
                   dataListChip = _step.value;
                   dataListChip = _utilize_utilize__WEBPACK_IMPORTED_MODULE_4__.utilize.characterEncodingUrl(dataListChip);
-<<<<<<< HEAD
-                  store.dispatch("getDataListChips", dataListChip);
-=======
                   collectListChips += "|".concat(dataListChip);
->>>>>>> master
                 }
               } catch (err) {
                 _iterator.e(err);
@@ -441,12 +431,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       get useStore() {
         return vuex__WEBPACK_IMPORTED_MODULE_7__.useStore;
-<<<<<<< HEAD
-=======
-      },
-      get utilize() {
-        return _utilize_utilize__WEBPACK_IMPORTED_MODULE_4__.utilize;
->>>>>>> master
       },
       get Swal() {
         return (sweetalert2__WEBPACK_IMPORTED_MODULE_5___default());

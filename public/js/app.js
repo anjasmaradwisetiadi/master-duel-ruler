@@ -24641,38 +24641,21 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getDataListChips: function getDataListChips(_ref3, payload) {
-      var commit = _ref3.commit,
-        rootState = _ref3.rootState;
-      rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default()({
-        method: 'get',
-        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
-      }).then(function (response) {
-        commit('mutateGetDataListChips', response.data.data[0]);
-        rootState.loading = false;
-      })["catch"](function (error) {
-        commit('mutateResponsGeneral', error.message);
-        rootState.loading = false;
-      });
-    },
     //********** */ login, register, logout need explode file
-    register: function register(_ref4, payload) {
-      var dispatch = _ref4.dispatch;
+    register: function register(_ref3, payload) {
+      var dispatch = _ref3.dispatch;
       dispatch('auth', {
         data: payload,
         mode: 'register'
       });
     },
-    login: function login(_ref5, payload) {
-      var dispatch = _ref5.dispatch;
+    login: function login(_ref4, payload) {
+      var dispatch = _ref4.dispatch;
       dispatch('auth', {
         data: payload,
         mode: 'login'
       });
     },
-<<<<<<< HEAD
-=======
     logout: function logout(_ref5) {
       var commit = _ref5.commit;
       localStorage.removeItem('user');
@@ -24684,7 +24667,6 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         icon: "success"
       });
     },
->>>>>>> master
     auth: function auth(_ref6, payload) {
       var commit = _ref6.commit,
         rootState = _ref6.rootState;
@@ -24856,16 +24838,13 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         rootState.loading = false;
       });
     },
-    getSearchCounterStyleDeck: function getSearchCounterStyleDeck(_ref14, payload) {
+    getDataListChips: function getDataListChips(_ref14, payload) {
       var commit = _ref14.commit,
         rootState = _ref14.rootState;
-<<<<<<< HEAD
-      axios__WEBPACK_IMPORTED_MODULE_0___default()({
-=======
       rootState.loading = true;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
-        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
+        url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_1__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
       }).then(function (response) {
         commit('mutateGetDataListChips', response.data.data);
         rootState.loading = false;
@@ -24877,8 +24856,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
     getSearchStyleDeck: function getSearchStyleDeck(_ref15, payload) {
       var commit = _ref15.commit,
         rootState = _ref15.rootState;
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
->>>>>>> master
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
         method: 'get',
         url: "".concat(urlCounterStyle, "/search/").concat(payload),
         headers: {
@@ -27044,7 +27022,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n  /* * {\r\n    scrollbar-width: thin;\r\n    scrollbar-color: blue orange;\r\n  } */\n#scrollbar1[data-v-6d971000]::-webkit-scrollbar {\r\n    width: 6px;\n}\n#scrollbar1[data-v-6d971000]::-webkit-scrollbar-track {\r\n        border-radius: 4px;\r\n        background-color: #0C345A;\r\n        border: 2px solid #0C345A;\n}\n#scrollbar1[data-v-6d971000]::-webkit-scrollbar-thumb {\r\n    border-radius: 4px;\r\n    border: 2px solid transparent;\r\n    background-clip: content-box;\r\n    background-color: #194773;\n}\n.modal-wrapper-none[data-v-6d971000] {\r\n    display: none;\n}\n.modal-wrapper[data-v-6d971000] {\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    z-index: 999;\r\n    width: 100vw;\r\n    height: 100vh;\r\n    background: rgba(0, 0, 0, 0.4);\r\n    display: grid;\r\n    /* place-items: center; */\n}\n.card-search-cards[data-v-6d971000] {\r\n    display: grid;\r\n    place-items: center;\r\n    grid-template-rows: 0fr 0fr;\n}\n.content-card-search-cards[data-v-6d971000] {\r\n    margin-top: 1.5rem;\r\n    width: 530px;\r\n    height: 100%;\r\n    padding: 6px 6px 0px 6px;\r\n    background-color: #0b365e;\r\n    border-radius: 8px;\r\n    border: solid 1px #385979;\n}\n.header-card[data-v-6d971000] {\r\n    border-bottom: solid 3px #385979;\n}\n.wrap-card-search-global .hover-card[data-v-6d971000]{\r\n    display: none;\r\n    position: relative;\n}\n.background-image[data-v-6d971000]{\r\n        background-color: #03182c;\r\n        border-radius: 10px;\r\n        padding: 10px 0px 10px;\n}\n.background-image .image-style[data-v-6d971000]{\r\n        max-width: 95px;\r\n        padding-right: 8px;\r\n        cursor: pointer;\r\n        padding-top:4px;\r\n        cursor: pointer;\n}\n.wrap-card-search-global .hover-card[data-v-6d971000]{\r\n        display: none;\r\n        position: relative;\n}\n.wrap-card-search-global .non-hover-card[data-v-6d971000]{\r\n        display: none;\n}\n.hover-card .image-section img[data-v-6d971000]{\r\n        width: 160px !important;\r\n        height: 230px;\r\n        margin-right: 0.75rem;\n}\n.information-section[data-v-6d971000]{\r\n        max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-6d971000]{\r\n        width: 16px;\r\n        height: 16px;\r\n        margin-right: 4px;\r\n        margin-top:-4px;\n}\n.middle-notice[data-v-6d971000]{\r\n        line-height: 8px;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\n}\n.scroller-cards-collect[data-v-6d971000]{\r\n        max-height: 32rem;\r\n        overflow: auto;\n}\n.description-card[data-v-6d971000]{\r\n        min-height: 9.4rem;\r\n        text-align: justify;\n}\r\n\r\n\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n  /* * {\r\n    scrollbar-width: thin;\r\n    scrollbar-color: blue orange;\r\n  } */\n#scrollbar1[data-v-6d971000]::-webkit-scrollbar {\r\n    width: 6px;\n}\n#scrollbar1[data-v-6d971000]::-webkit-scrollbar-track {\r\n        border-radius: 4px;\r\n        background-color: #0C345A;\r\n        border: 2px solid #0C345A;\n}\n#scrollbar1[data-v-6d971000]::-webkit-scrollbar-thumb {\r\n    border-radius: 4px;\r\n    border: 2px solid transparent;\r\n    background-clip: content-box;\r\n    background-color: #194773;\n}\n.modal-wrapper-none[data-v-6d971000] {\r\n    display: none;\n}\n.modal-wrapper[data-v-6d971000] {\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    z-index: 999;\r\n    width: 100vw;\r\n    height: 100vh;\r\n    background: rgba(0, 0, 0, 0.4);\r\n    display: grid;\r\n    /* place-items: center; */\n}\n.card-search-cards[data-v-6d971000] {\r\n    display: grid;\r\n    place-items: center;\r\n    grid-template-rows: 0fr 0fr;\n}\n.content-card-search-cards[data-v-6d971000] {\r\n    margin-top: 1.5rem;\r\n    width: 530px;\r\n    height: 100%;\r\n    padding: 6px 6px 0px 6px;\r\n    background-color: #0b365e;\r\n    border-radius: 8px;\r\n    border: solid 1px #385979;\n}\n.header-card[data-v-6d971000] {\r\n    border-bottom: solid 3px #385979;\n}\n.wrap-card-search-global .hover-card[data-v-6d971000]{\r\n    display: none;\r\n    position: relative;\n}\n.background-image[data-v-6d971000]{\r\n        background-color: #03182c;\r\n        border-radius: 10px;\r\n        padding: 10px;\n}\n.background-image .image-style[data-v-6d971000]{\r\n        max-width: 95px;\r\n        padding-right: 8px;\r\n        cursor: pointer;\r\n        padding-top:4px;\r\n        cursor: pointer;\n}\n.wrap-card-search-global .hover-card[data-v-6d971000]{\r\n        display: none;\r\n        position: relative;\n}\n.wrap-card-search-global .non-hover-card[data-v-6d971000]{\r\n        display: none;\n}\n.hover-card .image-section img[data-v-6d971000]{\r\n        width: 160px !important;\r\n        height: 230px;\r\n        margin-right: 0.75rem;\n}\n.information-section[data-v-6d971000]{\r\n        max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-6d971000]{\r\n        width: 16px;\r\n        height: 16px;\r\n        margin-right: 4px;\r\n        margin-top:-4px;\n}\n.middle-notice[data-v-6d971000]{\r\n        line-height: 8px;\r\n        display: flex;\r\n        justify-content: center;\r\n        align-items: center;\n}\n.scroller-cards-collect[data-v-6d971000]{\r\n        max-height: 32rem;\r\n        overflow: auto;\n}\n.description-card[data-v-6d971000]{\r\n        min-height: 9.4rem;\r\n        text-align: justify;\n}\r\n\r\n\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

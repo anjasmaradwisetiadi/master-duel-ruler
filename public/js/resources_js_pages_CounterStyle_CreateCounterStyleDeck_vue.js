@@ -1091,60 +1091,37 @@ var _hoisted_6 = {
 var _hoisted_7 = {
   "class": "form-group"
 };
-<<<<<<< HEAD
 var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "name"
   }, "Name", -1 /* HOISTED */);
 });
-var _hoisted_9 = ["disabled"];
-var _hoisted_10 = {
-=======
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "name"
-}, "Name", -1 /* HOISTED */);
 var _hoisted_9 = {
->>>>>>> master
   key: 0,
   "class": "form-text invalid-feedback"
 };
 var _hoisted_10 = {
   "class": "form-group"
 };
-<<<<<<< HEAD
-var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "imageUpload"
   }, "Upload Image", -1 /* HOISTED */);
 });
-var _hoisted_13 = {
-=======
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "imageUpload"
-}, "Upload Image", -1 /* HOISTED */);
 var _hoisted_12 = {
->>>>>>> master
   id: "imageUpload",
   "class": "form-input-file"
 };
 var _hoisted_13 = {
   "class": "input-file-style"
 };
-<<<<<<< HEAD
-var _hoisted_15 = ["disabled"];
-var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_14 = ["disabled"];
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "px-3 d-flex align-items-center"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "OR")], -1 /* HOISTED */);
 });
-var _hoisted_17 = {
-=======
-var _hoisted_14 = ["disabled"];
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "px-3 d-flex align-items-center"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "OR")], -1 /* HOISTED */);
 var _hoisted_16 = {
->>>>>>> master
   "class": "input-file-style"
 };
 var _hoisted_17 = ["disabled"];
@@ -1162,8 +1139,7 @@ var _hoisted_20 = {
 var _hoisted_21 = {
   "class": "d-flex justify-content-end"
 };
-<<<<<<< HEAD
-var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_22 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "material-icons",
     style: {
@@ -1171,53 +1147,29 @@ var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
     }
   }, " cancel ", -1 /* HOISTED */);
 });
-var _hoisted_24 = [_hoisted_23];
-var _hoisted_25 = ["src"];
-var _hoisted_26 = {
-  "class": "form-group"
-};
-var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "for": "inputBody"
-  }, "Information", -1 /* HOISTED */);
-});
-var _hoisted_28 = {
-=======
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "material-icons",
-  style: {
-    "font-size": "36px"
-  }
-}, " cancel ", -1 /* HOISTED */);
 var _hoisted_23 = [_hoisted_22];
 var _hoisted_24 = ["src"];
 var _hoisted_25 = {
   "class": "form-group"
 };
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "inputBody"
-}, "Information", -1 /* HOISTED */);
+var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "inputBody"
+  }, "Information", -1 /* HOISTED */);
+});
 var _hoisted_27 = {
->>>>>>> master
   key: 0,
   "class": "form-text invalid-feedback-custom"
 };
 var _hoisted_28 = {
   "class": "form-group"
 };
-<<<<<<< HEAD
-var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "chips"
   }, "Chips File", -1 /* HOISTED */);
 });
-var _hoisted_31 = {
-=======
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "chips"
-}, "Chips File", -1 /* HOISTED */);
 var _hoisted_30 = {
->>>>>>> master
   id: "chips",
   "aria-describedby": "chips"
 };

@@ -41,7 +41,6 @@ import ImagePreview from '../../components/ImagePreview.vue';
 import {utilize} from '../../utilize/utilize';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import { utilize } from '../../utilize/utilize';
 import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();

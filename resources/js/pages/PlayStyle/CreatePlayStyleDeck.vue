@@ -269,14 +269,12 @@ function removeChip(index){
 }
 
 function storeListCrad(listChips){
-    for (let dataListChip of listChips) {
-        if(dataListChip.includes('&')){
-            dataListChip = dataListChip.replaceAll('&','%26')
-        } if(dataListChip.includes(`"`)){
-            dataListChip = dataListChip.replaceAll('&','%22')
-        }  
-    store.dispatch("getDataListChips",dataListChip);
-    }
+    let collectListChips = '';
+        for (let dataListChip of listChips) {
+            dataListChip = utilize.characterEncodingUrl(dataListChip);
+            collectListChips += `|${dataListChip}`;
+        }
+    store.dispatch("getDataListChips",collectListChips);
 }
 
 function dataModalCard($event){

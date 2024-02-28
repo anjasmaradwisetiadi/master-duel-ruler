@@ -148,9 +148,18 @@ const store = createStore({
         mode: 'login'
       })
     },
-    logout({commit, rootState}){
 
+    logout({commit}){
+      localStorage.removeItem('user');
+      store.state.responseAuth = {};
+      router.push('/login');
+      Swal.fire({
+          title: "Sukses!!!",
+          text: "Anda telah berhasil logout",
+          icon: "success"
+      });
     },
+    
     auth({commit, rootState}, payload){
       rootState.loading = true;
       let urlAuth = '';

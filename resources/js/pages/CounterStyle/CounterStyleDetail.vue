@@ -111,6 +111,7 @@ function methodConfirmDelete($event){
     if($event){
         store.dispatch('deleteCounterStyle', paramsUrl.value);   
     }
+    state.confirmDelete = false;
 }
 
 function backRoute(){

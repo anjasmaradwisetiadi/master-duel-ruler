@@ -3,7 +3,8 @@
         <div class="row justify-content-center mt-3">
             <div class="col-9 background-image ml-4">
                     <div class="d-flex flex-wrap ml-1" 
-                        v-if="getDataYgoProDeck.length">
+                        v-if="getDataYgoProDeck.length"
+                    >
                         <div
                             v-for="(urlImage,index) in getDataYgoProDeck" 
                             :key="index" 
@@ -11,7 +12,7 @@
                             :style="hoverFunctionCard"
                         >
                             <img 
-                                :src="urlImage.card_images[0].image_url" 
+                                :src="urlImage.card_images[0].image_url_small" 
                                 :alt="urlImage.name"
                                 @mouseover=" displayCard($event,index,true)" 
                                 @mouseleave=" displayCard($event,index,false)"
@@ -22,7 +23,7 @@
                                 <template v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'">
                                     <div class="d-flex card-monster">
                                         <div class="image-section">
-                                            <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
+                                            <img :src="urlImage.card_images[0].image_url_small" :alt="urlImage.name" >
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">
@@ -63,7 +64,7 @@
                                 <template v-if="urlImage.frameType === 'trap' || urlImage.frameType === 'spell'">
                                     <div class="d-flex card-trap-spell">
                                         <div class="image-section">
-                                            <img :src="urlImage.card_images[0].image_url" :alt="urlImage.name" >
+                                            <img :src="urlImage.card_images[0].image_url_small" :alt="urlImage.name" >
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">

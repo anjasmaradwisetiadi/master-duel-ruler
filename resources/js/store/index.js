@@ -74,7 +74,7 @@ const store = createStore({
       state.responseGeneral = payload;
     },
     mutateGetDataListChips(state, payload){
-      state.dataListChips.push(payload) 
+      state.dataListChips = payload; 
     }, 
     mutateRemoveDataListChips(state, payload){
       return state.dataListChips.splice(payload,1); 
@@ -135,22 +135,6 @@ const store = createStore({
       
     },
 
-    getDataListChips({commit,rootState}, payload){
-      rootState.loading = true;
-      axios({
-          method: 'get',
-          url: `${collectionUrl.baseUrlApiYgoProDeck}name=${payload}`,
-      })
-      .then(function(response){
-          commit('mutateGetDataListChips', response.data.data[0]); 
-          rootState.loading = false;
-      })
-      .catch(function(error) {
-          commit('mutateResponsGeneral', error.message); 
-          rootState.loading = false;
-      })
-    },
-
     //********** */ login, register, logout need explode file
     register({dispatch}, payload){
       dispatch('auth',{
@@ -165,6 +149,18 @@ const store = createStore({
         mode: 'login'
       })
     },
+
+    logout({commit}){
+      localStorage.removeItem('user');
+      store.state.responseAuth = {};
+      router.push('/login');
+      Swal.fire({
+          title: "Sukses!!!",
+          text: "Anda telah berhasil logout",
+          icon: "success"
+      });
+    },
+    
     auth({commit, rootState}, payload){
       rootState.loading = true;
       let urlAuth = '';
@@ -298,7 +294,7 @@ const store = createStore({
     },
 
     editCounterStyle({commit, rootState}, payload){
-      const dataForm = payload.form
+      const dataForm = payload.form;
       rootState.loading =true;
       axios({
           method: 'post',
@@ -346,7 +342,24 @@ const store = createStore({
           rootState.loading = false;
       })
     },
-    getSearchCounterStyleDeck({commit,rootState}, payload){
+
+    getDataListChips({commit,rootState}, payload){
+      rootState.loading = true;
+      axios({
+          method: 'get',
+          url: `${collectionUrl.baseUrlApiYgoProDeck}name=${payload}`,
+      })
+      .then(function(response){
+          commit('mutateGetDataListChips', response.data.data); 
+          rootState.loading = false;
+      })
+      .catch(function(error) {
+          commit('mutateResponsGeneral', error.message); 
+          rootState.loading = false;
+      })
+    },
+
+    getSearchStyleDeck({commit,rootState}, payload){
       axios({
           method: 'get',
           url: `${urlCounterStyle}/search/${payload}`,

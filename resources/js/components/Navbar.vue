@@ -79,14 +79,26 @@ function dataModalCard($event){
 }
 
 function logout(){
-    localStorage.removeItem('user');
-    store.state.responseAuth = {};
-    router.push('/login');
     Swal.fire({
-        title: "Sukses!!!",
-        text: "Anda telah berhasil logout",
-        icon: "success"
-    });
+            title: "Apa kamu yakin akan Logout ? ",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                // localStorage.removeItem('user');
+                // store.state.responseAuth = {};
+                // router.push('/login');
+                // Swal.fire({
+                //     title: "Sukses!!!",
+                //     text: "Anda telah berhasil logout",
+                //     icon: "success"
+                // });
+                store.dispatch('logout');
+            } else{
+                return false;
+            }
+        });
 }
 
 </script>

@@ -11,7 +11,7 @@
                 <button type="button" class="btn btn-danger" @click="deleteCounterStyle()">Delete Counter Style</button>
             </div>
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>
+                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="row">
@@ -40,6 +40,7 @@ import ListImageHover from '../../components/ListImageHover.vue';
 import ImagePreview from '../../components/ImagePreview.vue'
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { utilize } from '../../utilize/utilize';
 import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
@@ -79,14 +80,14 @@ const getDataYgoProDeck = computed(()=>{
 
 
 watch(getDataCounterStyleDeck, async (newValue, oldValue)=>{
+    let collectListChips = '';
     const dataListChips= newValue.list_chips;
     store.state.dataListChips = [];
     for (let dataListChip of dataListChips) {
-        if(dataListChip.includes('&')){
-            dataListChip = dataListChip.replaceAll('&','%26')
-        }
-        store.dispatch("getDataListChips",dataListChip);
+        dataListChip = utilize.characterEncodingUrl(dataListChip);
+        collectListChips += `|${dataListChip}`;
     }
+    store.dispatch("getDataListChips",collectListChips);
 })
 
 function dataModalCardPreview (value) {
@@ -107,7 +108,10 @@ function deleteCounterStyle(){
 }
 
 function methodConfirmDelete($event){
-    store.dispatch('deleteCounterStyle', paramsUrl.value);
+    if($event){
+        store.dispatch('deleteCounterStyle', paramsUrl.value);   
+    }
+    state.confirmDelete = false;
 }
 
 function backRoute(){

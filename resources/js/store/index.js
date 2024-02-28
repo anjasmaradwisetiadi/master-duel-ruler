@@ -73,7 +73,7 @@ const store = createStore({
       state.responseGeneral = payload;
     },
     mutateGetDataListChips(state, payload){
-      state.dataListChips.push(payload) 
+      state.dataListChips = payload; 
     }, 
     mutateRemoveDataListChips(state, payload){
       return state.dataListChips.splice(payload,1); 
@@ -148,9 +148,18 @@ const store = createStore({
         mode: 'login'
       })
     },
-    logout({commit, rootState}){
 
+    logout({commit}){
+      localStorage.removeItem('user');
+      store.state.responseAuth = {};
+      router.push('/login');
+      Swal.fire({
+          title: "Sukses!!!",
+          text: "Anda telah berhasil logout",
+          icon: "success"
+      });
     },
+    
     auth({commit, rootState}, payload){
       rootState.loading = true;
       let urlAuth = '';
@@ -284,7 +293,7 @@ const store = createStore({
     },
 
     editCounterStyle({commit, rootState}, payload){
-      const dataForm = payload.form
+      const dataForm = payload.form;
       rootState.loading =true;
       axios({
           method: 'post',
@@ -340,7 +349,7 @@ const store = createStore({
           url: `${collectionUrl.baseUrlApiYgoProDeck}name=${payload}`,
       })
       .then(function(response){
-          commit('mutateGetDataListChips', response.data.data[0]); 
+          commit('mutateGetDataListChips', response.data.data); 
           rootState.loading = false;
       })
       .catch(function(error) {

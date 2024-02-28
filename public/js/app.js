@@ -21169,13 +21169,25 @@ __webpack_require__.r(__webpack_exports__);
       state.openModal = $event;
     }
     function logout() {
-      localStorage.removeItem('user');
-      store.state.responseAuth = {};
-      router.push('/login');
       sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
-        title: "Sukses!!!",
-        text: "Anda telah berhasil logout",
-        icon: "success"
+        title: "Apa kamu yakin akan Logout ? ",
+        showCancelButton: true,
+        confirmButtonText: "Yes"
+      }).then(function (result) {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          // localStorage.removeItem('user');
+          // store.state.responseAuth = {};
+          // router.push('/login');
+          // Swal.fire({
+          //     title: "Sukses!!!",
+          //     text: "Anda telah berhasil logout",
+          //     icon: "success"
+          // });
+          store.dispatch('logout');
+        } else {
+          return false;
+        }
       });
     }
     var __returned__ = {
@@ -24304,7 +24316,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       state.responseGeneral = payload;
     },
     mutateGetDataListChips: function mutateGetDataListChips(state, payload) {
-      state.dataListChips.push(payload);
+      state.dataListChips = payload;
     },
     mutateRemoveDataListChips: function mutateRemoveDataListChips(state, payload) {
       return state.dataListChips.splice(payload, 1);
@@ -24375,8 +24387,15 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       });
     },
     logout: function logout(_ref5) {
-      var commit = _ref5.commit,
-        rootState = _ref5.rootState;
+      var commit = _ref5.commit;
+      localStorage.removeItem('user');
+      store.state.responseAuth = {};
+      _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/login');
+      sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
+        title: "Sukses!!!",
+        text: "Anda telah berhasil logout",
+        icon: "success"
+      });
     },
     auth: function auth(_ref6, payload) {
       var commit = _ref6.commit,
@@ -24557,7 +24576,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         method: 'get',
         url: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(payload)
       }).then(function (response) {
-        commit('mutateGetDataListChips', response.data.data[0]);
+        commit('mutateGetDataListChips', response.data.data);
         rootState.loading = false;
       })["catch"](function (error) {
         commit('mutateResponsGeneral', error.message);

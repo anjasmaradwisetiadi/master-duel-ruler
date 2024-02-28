@@ -63,19 +63,20 @@ __webpack_require__.r(__webpack_exports__);
       }
     });
     var confirmDelete = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      props === null || props === void 0 || props.confirmDelete;
-      return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
-        title: "Apa kamu yakin akan mengapus info Deck ini ? ",
-        showCancelButton: true,
-        confirmButtonText: "Yes"
-      }).then(function (result) {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          emit('confirm', true);
-        } else {
-          emit('confirm', false);
-        }
-      });
+      if (props !== null && props !== void 0 && props.confirmDelete) {
+        return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          title: "Apa kamu yakin akan mengapus info Deck ini ? ",
+          showCancelButton: true,
+          confirmButtonText: "Yes"
+        }).then(function (result) {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            emit('confirm', true);
+          } else {
+            emit('confirm', false);
+          }
+        });
+      }
     });
     var __returned__ = {
       store: store,
@@ -83,9 +84,11 @@ __webpack_require__.r(__webpack_exports__);
       emit: emit,
       responseGeneral: responseGeneral,
       confirmDelete: confirmDelete,
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
+      watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
       get useStore() {
         return vuex__WEBPACK_IMPORTED_MODULE_2__.useStore;
       },
@@ -495,7 +498,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[6] || (_cache[6] = function ($event) {
       return $setup.back();
     })
-  }, " Kembali ")])])], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, " Back ")])])], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.loginOrNotChecked ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "email",

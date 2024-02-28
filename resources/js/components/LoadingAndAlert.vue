@@ -14,7 +14,7 @@
     </div>
 </template>
 <script setup>
-     import { reactive, computed, onMounted, defineProps, defineEmits } from 'vue';
+     import { ref, reactive, computed, onMounted, defineProps, defineEmits, watch } from 'vue';
      import { useStore } from 'vuex';
      import Swal from 'sweetalert2';
      const store = useStore();
@@ -66,20 +66,22 @@
     })
 
     const confirmDelete = computed(()=>{
-        props?.confirmDelete;
-        return Swal.fire({
+        if(props?.confirmDelete){
+            return Swal.fire({
             title: "Apa kamu yakin akan mengapus info Deck ini ? ",
             showCancelButton: true,
             confirmButtonText: "Yes",
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                emit('confirm',true);
-            } else{
-                emit('confirm',false);
-            }
-        });
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    emit('confirm',true);
+                } else{
+                    emit('confirm',false);
+                }
+            });
+        }
     })
+
 </script>
 <style scoped>
     /* ********** loading style */

@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-2">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>
+                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="form-create">
@@ -15,8 +15,7 @@
                 <label for="name">Name</label>
                 <input type="text" class="form-control" 
                     v-model="title" 
-                    :class="responseGeneral?.message?.title ? 'is-invalid':''" id="name" aria-describedby="name" 
-                    :disabled="editOrNot ? '':disabled">
+                    :class="responseGeneral?.message?.title ? 'is-invalid':''" id="name" aria-describedby="name">
                 <small v-if="!responseGeneral?.status" class="form-text invalid-feedback">{{responseGeneral?.message?.title ? responseGeneral?.message?.title[0] : ''}}</small>
             </div>
             <div class="form-group">
@@ -106,6 +105,7 @@
     import ListImageHover from '../../components/ListImageHover.vue';
     import ImagePreview from '../../components/ImagePreview.vue'
     import Swal from 'sweetalert2';
+    import { utilize } from '../../utilize/utilize';
     const router = useRouter();
     const store = useStore();
 
@@ -267,14 +267,12 @@
     }
 
     function storeListCrad(listChips){
+        let collectListChips = '';
         for (let dataListChip of listChips) {
-            if(dataListChip.includes('&')){
-                dataListChip = dataListChip.replaceAll('&','%26')
-            } if(dataListChip.includes(`"`)){
-                dataListChip = dataListChip.replaceAll('&','%22')
-            }  
-        store.dispatch("getDataListChips",dataListChip);
+            dataListChip = utilize.characterEncodingUrl(dataListChip);
+            collectListChips += `|${dataListChip}`;
         }
+        store.dispatch("getDataListChips",collectListChips);
     }
 
     function dataModalCardPreview (value) {
@@ -299,7 +297,6 @@
         let formData = new FormData();
         const getParamsCreate = {
             'title': title.value,
-            'slug': slugCreated,
             'information': information.value,
             'list_chips': listChips.value,
             'url_image': urlImage.value
@@ -312,7 +309,8 @@
 
         if(!editOrNot.value){
             formData.append('image', image.value);
-            store.dispatch('createCounterStyle', formData)
+            formData.append('slug', slugCreated);
+            store.dispatch('createCounterStyle', formData);
             state.editOrNot = false
         } else {
             if(conditionImage.value === 'neutral'){
@@ -322,9 +320,10 @@
             }
             // add function spoofing because laravel not know about method Put, Patch, Delete
             formData.append('_method', 'PUT');
-            formData.append('old-slug', oldSlug.value)
+            formData.append('slug', oldSlug.value);
+            formData.append('old-slug', oldSlug.value);
             const data ={
-                slug:slugCreated,
+                slug:oldSlug.value,
                 form:formData
             } 
             store.dispatch('editCounterStyle', data)

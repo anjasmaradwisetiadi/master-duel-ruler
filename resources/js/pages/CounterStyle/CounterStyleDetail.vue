@@ -108,7 +108,9 @@ function deleteCounterStyle(){
 }
 
 function methodConfirmDelete($event){
-    store.dispatch('deleteCounterStyle', paramsUrl.value);
+    if($event){
+        store.dispatch('deleteCounterStyle', paramsUrl.value);   
+    }
 }
 
 function backRoute(){

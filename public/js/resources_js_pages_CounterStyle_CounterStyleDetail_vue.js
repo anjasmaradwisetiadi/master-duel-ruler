@@ -388,7 +388,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       state.confirmDelete = true;
     }
     function methodConfirmDelete($event) {
-      store.dispatch('deleteCounterStyle', paramsUrl.value);
+      if ($event) {
+        store.dispatch('deleteCounterStyle', paramsUrl.value);
+      }
     }
     function backRoute() {
       router.back();

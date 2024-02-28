@@ -34,6 +34,11 @@
                             @change="previewImage($event)" 
                             :disabled="conditionImage === 'input-url-image' || conditionImage === 'neutral' ? disabled: '' " >
                     </div>
+                    <div class="mr-3">
+                        <div class="btn btn-secondary mt-2" @click="addImage()">
+                            Add Image
+                        </div>
+                    </div>
                 </div>
                 <div v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.image ? responseGeneral?.message?.image[0] : ''}}</div>
                 <!-- image preview -->
@@ -116,8 +121,7 @@
     const image = ref(null);
     const urlImage = ref(null);
     const inputFile = ref(0);
-    const listChips = ref([])
-    const textInformation = ref('')
+    const listChips = ref([]);
     const paramsUrl = ref('');
     const oldSlug = ref('');
     const editOrNot = ref(null);
@@ -133,7 +137,6 @@
         information, 
         title, 
         listChips, 
-        textInformation, 
         paramsUrl,
         oldSlug,
         editOrNot
@@ -359,6 +362,10 @@
         // })
     }
 
+    function addImage(){
+
+    }
+
     function backRoute(){
         router.back();
     }
@@ -366,10 +373,10 @@
 
 <style scoped>
 .image-preview-wrap {
-    width: 200px;
+    width: 140px;
 }
 .image-preview-wrap .image-preview{
-    width: 200px;
+    width: 140px;
 }
 
 .image-preview-wrap .style-pointer{
@@ -420,7 +427,7 @@
     display: flex;
 }
 .form-input-file .input-file-style{
-    width: 250px;
+    width: 230px;
 }
 .invalid-feedback-custom {
     width: 100%;

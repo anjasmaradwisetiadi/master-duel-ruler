@@ -2,7 +2,7 @@
     <div id="CreatePlayStyleDeck" class="mt-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-6 text-center">
-                <h3>{{editOrNot ? 'Edit':'Create'}} Counter Style Deck</h3>
+                <h3>{{editOrNot ? 'Edit':'Create'}} Play Style Deck</h3>
             </div>
         </div>
         <div class="row mb-2">
@@ -16,7 +16,7 @@
                 <input type="text" class="form-control" 
                     v-model="title" 
                     :class="responseGeneral?.message?.title ? 'is-invalid':''" id="name" aria-describedby="name" 
-                    :disabled="editOrNot ? '':disabled">
+                    >
                 <small v-if="!responseGeneral?.status" class="form-text invalid-feedback">{{responseGeneral?.message?.title ? responseGeneral?.message?.title[0] : ''}}</small>
             </div>
             <div class="form-group">
@@ -104,7 +104,8 @@ import { useStore } from 'vuex';
 import {playStyleDeckService} from '../../store/PlayStyleDeck/playStyleDeckService';
 import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
 import ListImageHover from '../../components/ListImageHover.vue';
-import ImagePreview from '../../components/ImagePreview.vue'
+import ImagePreview from '../../components/ImagePreview.vue';
+import { utilize } from '../../utilize/utilize';
 import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
@@ -300,7 +301,6 @@ function submit(){
     let formData = new FormData();
     const getParamsCreate = {
         'title': title.value,
-        'slug': slugCreated,
         'information': information.value,
         'list_chips': listChips.value,
         'url_image': urlImage.value
@@ -313,6 +313,7 @@ function submit(){
 
     if(!editOrNot.value){
         formData.append('image', image.value);
+        formData.append('slug', slugCreated);
         playStyleDeckService.createPlayStyle(formData);
         // store.dispatch('createCounterStyle', formData)
         state.editOrNot = false
@@ -324,13 +325,13 @@ function submit(){
         }
         // add function spoofing because laravel not know about method Put, Patch, Delete
         formData.append('_method', 'PUT');
+        formData.append('slug', oldSlug.value);
         formData.append('old-slug', oldSlug.value);
         const data ={
-            slug:slugCreated,
+            slug:oldSlug.value,
             form:formData
         } 
         playStyleDeckService.editPlayStyle(data);
-        // store.dispatch('editCounterStyle', data)
         state.editOrNot = false
     }
 }
@@ -341,10 +342,10 @@ function backRoute(){
 </script>
 <style scoped>
 .image-preview-wrap {
-    width: 200px;
+    width: 140px;
 }
 .image-preview-wrap .image-preview{
-    width: 200px;
+    width: 140px;
 }
 
 .image-preview-wrap .style-pointer{
@@ -395,7 +396,7 @@ function backRoute(){
     display: flex;
 }
 .form-input-file .input-file-style{
-    width: 250px;
+    width: 230px;
 }
 .invalid-feedback-custom {
     width: 100%;

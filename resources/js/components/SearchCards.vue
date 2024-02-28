@@ -41,7 +41,6 @@
                             v-for="(urlImage,index) in getDataYgoProDeck" 
                             :key="index" 
                             class="wrap-card-search-global" 
-                            :style="hoverFunctionCard"
                         >
                             <img 
                                 :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' " 
@@ -330,12 +329,12 @@
         border: 2px solid #0C345A;
   }
 
-#scrollbar1::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-    background-color: #194773;
-}
+    #scrollbar1::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+        background-color: #194773;
+    }
   .modal-wrapper-none {
     display: none;
   }

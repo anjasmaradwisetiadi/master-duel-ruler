@@ -200,11 +200,16 @@
                         :alt="card.name"
                         class="image-style"
                       >
-                      <img class="image-card-value"  src="../../assets/image/3-card.webp"  alt="3-card">
+                      <img v-if="card.value === 2" class="image-card-value"  src="../../assets/image/2-card.webp"  alt="2-card">
+                      <img v-if="card.value === 3" class="image-card-value"  src="../../assets/image/3-card.webp"  alt="3-card">
                     </div>
-                    <div class="d-flex mt-1">
-                      <button class="button-action mr-1" @click="addCard()"> + </button>
-                      <button class="button-action" @click="removeCard()"> - </button>
+                    <div class="d-flex justify-content-center mt-1">
+                      <span class="button-action mr-1" @click="addCard(card)"> 
+                        <img src="../../assets/image/plus.png" alt="plus">
+                      </span>
+                      <span class="button-action" @click="removeCard(card)"> 
+                        <img src="../../assets/image/minus.png" alt="minus">
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -232,11 +237,12 @@
       dataDeckBuilderLength: Object,
       deckType: String,
       displayHover: Boolean,
-      // deckCollects : {
-      //   default:[]
-      // }
   })
   
+  const emits = defineEmits([
+    'addRemoveCardSelected'
+  ])
+
   const cardSelected = defineModel('cardSelected');
   const mainDeckCards = defineModel('mainDeckCards');
   const deckCollects = defineModel('deckCollects');
@@ -334,11 +340,19 @@
       cardSelected.value = data;
   }
 
-  function addCard(){
-    console.log("add card");
+  function addCard(data){
+    const payload ={
+      status: 'add',
+      value: data
+    };
+    emits('addRemoveCardSelected', payload);
   }
-  function removeCard(){
-    console.log("remove card");
+  function removeCard(data){
+    const payload ={
+      status: 'remove',
+      value: data
+    };
+    emits('addRemoveCardSelected', payload);
   }
   </script>
   <style scoped>
@@ -346,6 +360,8 @@
   /*---------- style deck buider hover */
   #MainExtraDeck{
       min-height: 8rem;
+      position: relative;
+      z-index: 1;
   }
   
   #scrollbar1::-webkit-scrollbar {
@@ -427,11 +443,12 @@
 
   /*---------- style deck buider non hover */
   .button-action{
-    padding: 4px;
-    border: none;
-    border-radius: 1px;
-    background-color: #0a87bb;
-    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .button-action img{
+    width: 24px;
+    height: 24px;
   }
 
   .wrap-card-one-deck-builder{

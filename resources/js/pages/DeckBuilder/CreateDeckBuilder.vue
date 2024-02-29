@@ -71,7 +71,7 @@
             </div>
             <div class="row">
                 <div class="col-6 pt-1">
-                    <SearchCardsSeparate @selectedCard="selectedCardHas"></SearchCardsSeparate>
+                    <SearchCardsSeparate @selectedCard="selectedCardHas" v-model:fullCardLoad="fullCardLoad"></SearchCardsSeparate>
                 </div>
                 <div class="col-6">
                     <MainExtraDeck 
@@ -81,7 +81,9 @@
                         v-model:card-selected="cardSelected"
                         :deck-type="deckTypeMain"
                         v-model:deck-collects="dataDeckTypeMain"
+                        @addRemoveCardSelected="addRemoveCardSelectedMain"
                     ></MainExtraDeck>
+                    <div class="mt-2"></div>
                     <MainExtraDeck 
                         :data-deck-builder-length="dataDeckBuilderLength" 
                         :data-deck-builder="dataDeckBuilder"
@@ -89,6 +91,7 @@
                         v-model:card-selected="cardSelected"
                         :deck-type="deckTypeExtra"
                         :deck-collects="dataDeckTypeExtra"
+                        @addRemoveCardSelected="addRemoveCardSelectedMain"
                     ></MainExtraDeck>
                 </div>
             </div>
@@ -151,6 +154,13 @@ const deckTypeExtra = ref('extra-deck');
 const dataDeckTypeMain = ref([]);
 const dataDeckTypeExtra = ref([]);
 const cardSelectedChoice = ref(null);
+// const fullCardLoad = defineModel('fullCardLoad');
+const fullCardLoad = ref(
+    {
+        condition: false,
+        value: 0
+    }
+);
 
 const state = reactive({
         preview, 
@@ -163,11 +173,10 @@ const state = reactive({
         oldSlug,
         editOrNot,
         cardSelectedChoice,
-        dataDeckTypeMain
 })
 
 watch(deckCollectMain, (newValue, oldValue)=>{
-    state.dataDeckTypeMain = newValue;
+    dataDeckTypeMain.value = newValue;
 })
 
 watch(deckCollectExtra, (newValue, oldValue)=>{
@@ -228,17 +237,123 @@ function removeImage(){
     state.conditionImage = 'neutral';
 }
 
+function calculatePopupAddedCard(condition, value){
+    fullCardLoad.value.condition = condition,
+    fullCardLoad.value.value= value
+}
+
+function addRemoveCardSelectedMain($event){
+    if($event.status === 'add'){
+        selectedCardHas($event.value);
+    } else {
+        console.log("trigger remove")
+        selectedCardHasRemove($event.value);
+    }
+}
+
 function selectedCardHas(event){
-    console.log("data selected card = ")
-    console.log(event)
     const dataType = utilize.sliceCardToMainOrExtraDeck(event);
     if(dataType === 'extra deck'){
-        dataDeckTypeExtra.value.push(event)
+        const dataSearch = dataDeckTypeExtra.value.some((element, index) => {
+            return element.name === event.name
+        });
+        // ********* when it not have card collect
+        if(!dataSearch){
+            const dataJoin = {
+                value: 1,
+                rarity: 'N',
+                column_deck: 'extra deck'
+            }
+            event = {...event, ...dataJoin};
+            dataDeckTypeExtra.value.push(event)
+            calculatePopupAddedCard(false, 1);
+        } else if (dataSearch){
+            // ********* when it have card collect
+            dataDeckTypeExtra.value.forEach((element, index) => {
+                if(element.name === event.name){
+                    if(dataDeckTypeExtra.value[index].value === 3){
+                        calculatePopupAddedCard(true, 3);
+                    } else {
+                        dataDeckTypeExtra.value[index].value += 1;
+                        calculatePopupAddedCard(false, dataDeckTypeExtra.value[index].value);
+                    }
+                }
+            });
+        }
+        dataDeckTypeExtra.value = dataDeckTypeExtra.value;
+
+
     } else if(dataType === 'main deck'){
-        state.dataDeckTypeMain.push(event)
-        // deckCollectMain.value.push(event);
-        console.log("deckCollectMain.value = ")
-        console.log(dataDeckTypeMain.value)
+        const dataSearch = dataDeckTypeMain.value.some((element, index) => {
+            return element.name === event.name
+        });
+        // ********* when it not have card collect
+        if(!dataSearch){
+            const dataJoin = {
+                value: 1,
+                rarity: 'N',
+                column_deck: 'main deck'
+            }
+            event = {...event, ...dataJoin};
+            dataDeckTypeMain.value.push(event)
+            calculatePopupAddedCard(false, 1);
+        } else if (dataSearch){
+            // ********* when it have card collect
+            dataDeckTypeMain.value.forEach((element, index) => {
+                if(element.name === event.name){
+                    if(dataDeckTypeMain.value[index].value === 3){
+                        calculatePopupAddedCard(true, 3);
+                    } else {
+                        dataDeckTypeMain.value[index].value += 1;
+                        calculatePopupAddedCard(false, dataDeckTypeMain.value[index].value);
+                    }
+                }
+            });
+        }
+        dataDeckTypeMain.value = dataDeckTypeMain.value;
+    }
+}
+
+
+
+function selectedCardHasRemove(event){
+    const dataType = event.column_deck;
+    if(dataType === 'extra deck'){
+        const dataSearch = dataDeckTypeExtra.value.some((element, index) => {
+            return element.name === event.name
+        });
+        // ********* when it not have card collect
+         if (dataSearch){
+            // ********* when it have card collect
+            dataDeckTypeExtra.value.forEach((element, index) => {
+                if(element.name === event.name){
+                    if( dataDeckTypeExtra.value[index].value >= 2 && dataDeckTypeExtra.value[index].value <= 3 ){
+                        dataDeckTypeExtra.value[index].value -= 1;
+                        calculatePopupAddedCard(false, dataDeckTypeExtra.value[index].value);
+                    } else if (dataDeckTypeExtra.value[index].value === 1){
+                        dataDeckTypeExtra.value.splice(index,1);
+                    }
+                }
+            });
+        }
+    } else if(dataType === 'main deck'){
+        const dataSearch = dataDeckTypeMain.value.some((element, index) => {
+            return element.name === event.name
+        });
+        // ********* when it not have card collect
+         if (dataSearch){
+            // ********* when it have card collect
+            dataDeckTypeMain.value.forEach((element, index) => {
+                if(element.name === event.name){
+                    if( dataDeckTypeMain.value[index].value >= 2 && dataDeckTypeMain.value[index].value <= 3 ){
+                        dataDeckTypeMain.value[index].value -= 1;
+                        calculatePopupAddedCard(false, dataDeckTypeMain.value[index].value);
+                    } else if (dataDeckTypeMain.value[index].value === 1){
+                        dataDeckTypeMain.value.splice(index,1);
+                    }
+                }
+            });
+        }
     }
 }
 

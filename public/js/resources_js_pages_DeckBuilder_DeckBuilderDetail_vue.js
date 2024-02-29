@@ -25,9 +25,6 @@ __webpack_require__.r(__webpack_exports__);
     dataDeckBuilderLength: Object,
     deckType: String,
     displayHover: Boolean
-    // deckCollects : {
-    //   default:[]
-    // }
   }, {
     "cardSelected": {},
     "cardSelectedModifiers": {},
@@ -36,12 +33,14 @@ __webpack_require__.r(__webpack_exports__);
     "deckCollects": {},
     "deckCollectsModifiers": {}
   }),
-  emits: ["update:cardSelected", "update:mainDeckCards", "update:deckCollects"],
+  emits: /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeModels)(['addRemoveCardSelected'], ["update:cardSelected", "update:mainDeckCards", "update:deckCollects"]),
   setup: function setup(__props, _ref) {
-    var __expose = _ref.expose;
+    var __expose = _ref.expose,
+      __emit = _ref.emit;
     __expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var props = __props;
+    var emits = __emit;
     var cardSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'cardSelected');
     var mainDeckCards = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'mainDeckCards');
     var deckCollects = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'deckCollects');
@@ -138,15 +137,24 @@ __webpack_require__.r(__webpack_exports__);
     function selectedCard(data) {
       cardSelected.value = data;
     }
-    function addCard() {
-      console.log("add card");
+    function addCard(data) {
+      var payload = {
+        status: 'add',
+        value: data
+      };
+      emits('addRemoveCardSelected', payload);
     }
-    function removeCard() {
-      console.log("remove card");
+    function removeCard(data) {
+      var payload = {
+        status: 'remove',
+        value: data
+      };
+      emits('addRemoveCardSelected', payload);
     }
     var __returned__ = {
       store: store,
       props: props,
+      emits: emits,
       cardSelected: cardSelected,
       mainDeckCards: mainDeckCards,
       deckCollects: deckCollects,
@@ -328,7 +336,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_image_cp_sr_rarity_webp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/image/cp-sr-rarity.webp */ "./resources/assets/image/cp-sr-rarity.webp");
 /* harmony import */ var _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/image/rank-icon.webp */ "./resources/assets/image/rank-icon.webp");
 /* harmony import */ var _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/image/star-icon.webp */ "./resources/assets/image/star-icon.webp");
-/* harmony import */ var _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/image/3-card.webp */ "./resources/assets/image/3-card.webp");
+/* harmony import */ var _assets_image_2_card_webp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/image/2-card.webp */ "./resources/assets/image/2-card.webp");
+/* harmony import */ var _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/image/3-card.webp */ "./resources/assets/image/3-card.webp");
+/* harmony import */ var _assets_image_plus_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/image/plus.png */ "./resources/assets/image/plus.png");
+/* harmony import */ var _assets_image_minus_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../assets/image/minus.png */ "./resources/assets/image/minus.png");
+
+
+
 
 
 
@@ -505,24 +519,45 @@ var _hoisted_50 = {
   "class": "wrap-card-one-deck-builder"
 };
 var _hoisted_51 = ["src", "alt"];
-var _hoisted_52 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    "class": "image-card-value",
-    src: _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_5__["default"],
-    alt: "3-card"
-  }, null, -1 /* HOISTED */);
-});
+var _hoisted_52 = {
+  key: 0,
+  "class": "image-card-value",
+  src: _assets_image_2_card_webp__WEBPACK_IMPORTED_MODULE_5__["default"],
+  alt: "2-card"
+};
 var _hoisted_53 = {
-  "class": "d-flex mt-1"
+  key: 1,
+  "class": "image-card-value",
+  src: _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_6__["default"],
+  alt: "3-card"
 };
 var _hoisted_54 = {
+  "class": "d-flex justify-content-center mt-1"
+};
+var _hoisted_55 = ["onClick"];
+var _hoisted_56 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: _assets_image_plus_png__WEBPACK_IMPORTED_MODULE_7__["default"],
+    alt: "plus"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_57 = [_hoisted_56];
+var _hoisted_58 = ["onClick"];
+var _hoisted_59 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: _assets_image_minus_png__WEBPACK_IMPORTED_MODULE_8__["default"],
+    alt: "minus"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_60 = [_hoisted_59];
+var _hoisted_61 = {
   key: 2,
   "class": "d-flex justify-content-center"
 };
-var _hoisted_55 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_62 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
 });
-var _hoisted_56 = [_hoisted_55];
+var _hoisted_63 = [_hoisted_62];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$setup$props2, _$setup$props3;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main-deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.price.total_rarity_UR && $props.deckType === 'main-deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_UR), 1 /* TEXT */)]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_SR), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.price.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main-deck' ? $props.dataDeckBuilder.total_card.total_card_main_deck : $props.dataDeckBuilder.total_card.total_card_extra_deck) + " Cards ", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [$props.dataDeckBuilderLength.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -570,18 +605,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       src: card !== null && card !== void 0 && card.card_images ? card === null || card === void 0 || (_card$card_images$ = card.card_images[0]) === null || _card$card_images$ === void 0 ? void 0 : _card$card_images$.image_url_small : '',
       alt: card.name,
       "class": "image-style"
-    }, null, 8 /* PROPS */, _hoisted_51), _hoisted_52]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, null, 8 /* PROPS */, _hoisted_51), card.value === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_52)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), card.value === 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_53)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "button-action mr-1",
-      onClick: _cache[0] || (_cache[0] = function ($event) {
-        return $setup.addCard();
-      })
-    }, " + "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return $setup.addCard(card);
+      }
+    }, [].concat(_hoisted_57), 8 /* PROPS */, _hoisted_55), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "button-action",
-      onClick: _cache[1] || (_cache[1] = function ($event) {
-        return $setup.removeCard();
-      })
-    }, " - ")])])]);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$props.dataDeckBuilderLength.length && (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_54, [].concat(_hoisted_56))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]);
+      onClick: function onClick($event) {
+        return $setup.removeCard(card);
+      }
+    }, [].concat(_hoisted_60), 8 /* PROPS */, _hoisted_58)])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$props.dataDeckBuilderLength.length && (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_61, [].concat(_hoisted_63))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]);
 }
 
 /***/ }),
@@ -977,7 +1012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n  \r\n  /*---------- style deck buider hover */\n#MainExtraDeck[data-v-220882c5]{\r\n      min-height: 8rem;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar {\r\n      width: 6px;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-track {\r\n          border-radius: 4px;\r\n          background-color: #0C345A;\r\n          border: 2px solid #0C345A;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-thumb {\r\n      border-radius: 4px;\r\n      border: 2px solid transparent;\r\n      background-clip: content-box;\r\n      background-color: #194773;\n}\n.price-wrap .image-rarity[data-v-220882c5]{\r\n      width: 20px;\r\n      height: 20px;\n}\n.background-image[data-v-220882c5]{\r\n      background-color: #03182c;\r\n      border-radius: 10px;\r\n      padding: 10px;\n}\n.background-image .image-style[data-v-220882c5]{\r\n      max-width: 84px;\r\n      padding-right: 6px;\r\n      padding-top:4px;\r\n      cursor: pointer;\n}\n.wrap-card-search-global .non-hover-card[data-v-220882c5]{\r\n      display: none;\n}\n.wrap-card-search-global .hover-card[data-v-220882c5]{\r\n      display: none;\r\n      position: relative;\n}\n.hover-card .image-section img[data-v-220882c5]{\r\n      width: 150px !important;\r\n      height: 210px;\r\n      margin-right: 0.75rem;\n}\n.information-section[data-v-220882c5]{\r\n      max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.description-card[data-v-220882c5]{\r\n      min-height: 9.4rem;\r\n      text-align: justify;\n}\n.scroller-cards-collect[data-v-220882c5]{\r\n      max-height: 32rem;\r\n      min-height: 10rem;\r\n      overflow: auto;\n}\r\n  /*---------- end style deck buider hover */\r\n\r\n  /*---------- style deck buider non hover */\n.button-action[data-v-220882c5]{\r\n    padding: 4px;\r\n    border: none;\r\n    border-radius: 1px;\r\n    background-color: #0a87bb;\r\n    font-weight: bold;\n}\n.wrap-card-one-deck-builder[data-v-220882c5]{\r\n    position: relative;\n}\n.wrap-card-one-deck-builder .image-style[data-v-220882c5]{\r\n      max-width: 84px;\r\n      padding-right: 6px;\r\n      padding-top:4px;\r\n      cursor: pointer;\n}\n.wrap-card-one-deck-builder .image-card-value[data-v-220882c5]{\r\n    position: absolute;\r\n    top: 74px;\r\n    left: 22px;\r\n    width: 38px;\r\n    z-index: 2;\n}\r\n  /*---------- end style deck buider non hover */\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n  \r\n  /*---------- style deck buider hover */\n#MainExtraDeck[data-v-220882c5]{\r\n      min-height: 8rem;\r\n      position: relative;\r\n      z-index: 1;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar {\r\n      width: 6px;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-track {\r\n          border-radius: 4px;\r\n          background-color: #0C345A;\r\n          border: 2px solid #0C345A;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-thumb {\r\n      border-radius: 4px;\r\n      border: 2px solid transparent;\r\n      background-clip: content-box;\r\n      background-color: #194773;\n}\n.price-wrap .image-rarity[data-v-220882c5]{\r\n      width: 20px;\r\n      height: 20px;\n}\n.background-image[data-v-220882c5]{\r\n      background-color: #03182c;\r\n      border-radius: 10px;\r\n      padding: 10px;\n}\n.background-image .image-style[data-v-220882c5]{\r\n      max-width: 84px;\r\n      padding-right: 6px;\r\n      padding-top:4px;\r\n      cursor: pointer;\n}\n.wrap-card-search-global .non-hover-card[data-v-220882c5]{\r\n      display: none;\n}\n.wrap-card-search-global .hover-card[data-v-220882c5]{\r\n      display: none;\r\n      position: relative;\n}\n.hover-card .image-section img[data-v-220882c5]{\r\n      width: 150px !important;\r\n      height: 210px;\r\n      margin-right: 0.75rem;\n}\n.information-section[data-v-220882c5]{\r\n      max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.description-card[data-v-220882c5]{\r\n      min-height: 9.4rem;\r\n      text-align: justify;\n}\n.scroller-cards-collect[data-v-220882c5]{\r\n      max-height: 32rem;\r\n      min-height: 10rem;\r\n      overflow: auto;\n}\r\n  /*---------- end style deck buider hover */\r\n\r\n  /*---------- style deck buider non hover */\n.button-action[data-v-220882c5]{\r\n    cursor: pointer;\n}\n.button-action img[data-v-220882c5]{\r\n    width: 24px;\r\n    height: 24px;\n}\n.wrap-card-one-deck-builder[data-v-220882c5]{\r\n    position: relative;\n}\n.wrap-card-one-deck-builder .image-style[data-v-220882c5]{\r\n      max-width: 84px;\r\n      padding-right: 6px;\r\n      padding-top:4px;\r\n      cursor: pointer;\n}\n.wrap-card-one-deck-builder .image-card-value[data-v-220882c5]{\r\n    position: absolute;\r\n    top: 74px;\r\n    left: 22px;\r\n    width: 38px;\r\n    z-index: 2;\n}\r\n  /*---------- end style deck buider non hover */\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1042,6 +1077,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.card-body .information-html p {\r\n
 
 /***/ }),
 
+/***/ "./resources/assets/image/2-card.webp":
+/*!********************************************!*\
+  !*** ./resources/assets/image/2-card.webp ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/2-card.webp?1bdb58527538458c6e9bf342bdca7d13");
+
+/***/ }),
+
 /***/ "./resources/assets/image/3-card.webp":
 /*!********************************************!*\
   !*** ./resources/assets/image/3-card.webp ***!
@@ -1084,6 +1134,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/cp-ur-rarity.webp?c3bd5862c25d7f03255a756546e00dca");
+
+/***/ }),
+
+/***/ "./resources/assets/image/minus.png":
+/*!******************************************!*\
+  !*** ./resources/assets/image/minus.png ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/minus.png?4ffb9a4faf6bfd65e0e983e498f0631b");
+
+/***/ }),
+
+/***/ "./resources/assets/image/plus.png":
+/*!*****************************************!*\
+  !*** ./resources/assets/image/plus.png ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/plus.png?e8fee3227bdc043dd92a41f5b2b76889");
 
 /***/ }),
 

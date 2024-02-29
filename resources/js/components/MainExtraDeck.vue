@@ -52,6 +52,7 @@
               id="scrollbar1"
               v-if="dataDeckBuilderLength.length"
             >
+              <!-- when it need hover for display detail information -->
               <template v-if="props?.displayHover">
                 <div
                   v-for="(urlImage, index) of mainDeckCards"
@@ -186,8 +187,27 @@
                   </div>
                 </div>
               </template>
+              <!-- when it just use make deck builder -->
               <template v-if="!props?.displayHover">
-                <p>tidak ada display hover</p>
+                <div 
+                  v-for="(card, index) of deckCollects"
+                  :key="index"
+                >
+                  <div class="mb-1" >
+                    <div class="wrap-card-one-deck-builder">
+                      <img 
+                        :src="card?.card_images ? card?.card_images[0]?.image_url_small :'' " 
+                        :alt="card.name"
+                        class="image-style"
+                      >
+                      <img class="image-card-value"  src="../../assets/image/3-card.webp"  alt="3-card">
+                    </div>
+                    <div class="d-flex mt-1">
+                      <button class="button-action mr-1" @click="addCard()"> + </button>
+                      <button class="button-action" @click="removeCard()"> - </button>
+                    </div>
+                  </div>
+                </div>
               </template>
   
               <div
@@ -203,7 +223,7 @@
     </div>
   </template>
   <script setup>
-  import { ref, computed, onMounted, defineProps, defineEmits, defineModel } from 'vue';
+  import { ref, computed, onMounted, defineProps, defineEmits, defineModel, watch } from 'vue';
   import { useStore } from 'vuex'
   import {utilize} from '../utilize/utilize';
   const store = useStore();
@@ -211,11 +231,15 @@
       dataDeckBuilder: Object,
       dataDeckBuilderLength: Object,
       deckType: String,
-      displayHover: Boolean
+      displayHover: Boolean,
+      // deckCollects : {
+      //   default:[]
+      // }
   })
   
   const cardSelected = defineModel('cardSelected');
   const mainDeckCards = defineModel('mainDeckCards');
+  const deckCollects = defineModel('deckCollects');
   
   const hoverCardTemplate = ref(null);
   const hoverConditionIndex = ref(0);
@@ -229,6 +253,17 @@
   onMounted(()=>{
   
   })
+
+  // watch(cardSelectedChoice, (newValue, oldValue) =>{
+  //   console.log("newValue = ");
+  //   console.log(newValue);
+  //   const cardSeperateMainOrExtra = utilize.cardSelectedChoice(newValue);
+  //   if(cardSeperateMainOrExtra === 'main deck'){
+  //     props?.deckCollects.push(newValue);
+  //   } else if (cardSeperateMainOrExtra === 'extra deck') {
+  //     props?.deckCollects.push(newValue);
+  //   }
+  // })
   
   function displayCard($event, index, condition ){
       hoverCondition.value = condition;
@@ -298,8 +333,17 @@
   function selectedCard(data){
       cardSelected.value = data;
   }
+
+  function addCard(){
+    console.log("add card");
+  }
+  function removeCard(){
+    console.log("remove card");
+  }
   </script>
   <style scoped>
+  
+  /*---------- style deck buider hover */
   #MainExtraDeck{
       min-height: 8rem;
   }
@@ -379,5 +423,34 @@
       min-height: 10rem;
       overflow: auto;
   }
+  /*---------- end style deck buider hover */
+
+  /*---------- style deck buider non hover */
+  .button-action{
+    padding: 4px;
+    border: none;
+    border-radius: 1px;
+    background-color: #0a87bb;
+    font-weight: bold;
+  }
+
+  .wrap-card-one-deck-builder{
+    position: relative;
+  }
+
+  .wrap-card-one-deck-builder .image-style{
+      max-width: 84px;
+      padding-right: 6px;
+      padding-top:4px;
+      cursor: pointer;
+  }
+  .wrap-card-one-deck-builder .image-card-value{
+    position: absolute;
+    top: 74px;
+    left: 22px;
+    width: 38px;
+    z-index: 2;
+  }
+  /*---------- end style deck buider non hover */
   </style>
   

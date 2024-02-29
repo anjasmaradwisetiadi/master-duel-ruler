@@ -174,7 +174,8 @@ const responseGeneral = computed(()=>{
 })
 
 const getDataYgoProDeck = computed(()=>{
-    return store?.state?.dataSearchCard?.data ? store?.state?.dataSearchCard?.data : [];
+    return store?.state?.dataDummyCards;
+    // return store?.state?.dataSearchCard?.data ? store?.state?.dataSearchCard?.data : [];
 })
 
 const infoPage = computed(()=>{

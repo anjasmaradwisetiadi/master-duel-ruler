@@ -1,11 +1,13 @@
 export const utilize = {
     characterEncodingUrl(text){
-        if(text.includes('&')){
-            return text.replaceAll('&','%26')
-        } else if(text.includes(`"`)){
-            return text.replaceAll(`"`,'%22')
-        }  else {
-            return text;
+        if(text){
+            if(text.includes('&')){
+                return text.replaceAll('&','%26')
+            } else if(text.includes(`"`)){
+                return text.replaceAll(`"`,'%22')
+            }  else {
+                return text;
+            }
         }
     },
 
@@ -32,5 +34,16 @@ export const utilize = {
         let htmlText = type === 'link' ? '' : `<b>DEF/</b>${def}`
         txt.innerHTML = htmlText;
         return txt.value;
+     },
+
+     sliceCardToMainOrExtraDeck(data){
+        if(data){
+            let dataFrame = ['xyz', 'link', 'fusion', 'synchro'];
+            if(dataFrame.includes(data.frameType)){
+                return 'extra deck';
+            } else {
+                return 'main deck';
+            }
+        }
      }
 }

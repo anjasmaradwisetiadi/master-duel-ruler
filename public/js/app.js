@@ -24946,12 +24946,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var utilize = {
   characterEncodingUrl: function characterEncodingUrl(text) {
-    if (text.includes('&')) {
-      return text.replaceAll('&', '%26');
-    } else if (text.includes("\"")) {
-      return text.replaceAll("\"", '%22');
-    } else {
-      return text;
+    if (text) {
+      if (text.includes('&')) {
+        return text.replaceAll('&', '%26');
+      } else if (text.includes("\"")) {
+        return text.replaceAll("\"", '%22');
+      } else {
+        return text;
+      }
     }
   },
   textTypeMonster: function textTypeMonster(data) {
@@ -24975,6 +24977,16 @@ var utilize = {
     var htmlText = type === 'link' ? '' : "<b>DEF/</b>".concat(def);
     txt.innerHTML = htmlText;
     return txt.value;
+  },
+  sliceCardToMainOrExtraDeck: function sliceCardToMainOrExtraDeck(data) {
+    if (data) {
+      var dataFrame = ['xyz', 'link', 'fusion', 'synchro'];
+      if (dataFrame.includes(data.frameType)) {
+        return 'extra deck';
+      } else {
+        return 'main deck';
+      }
+    }
   }
 };
 

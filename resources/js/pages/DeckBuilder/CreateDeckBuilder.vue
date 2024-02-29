@@ -80,6 +80,7 @@
                         v-model:mainDeckCards="mainDeckCards"
                         v-model:card-selected="cardSelected"
                         :deck-type="deckTypeMain"
+                        v-model:deck-collects="dataDeckTypeMain"
                     ></MainExtraDeck>
                     <MainExtraDeck 
                         :data-deck-builder-length="dataDeckBuilderLength" 
@@ -87,6 +88,7 @@
                         v-model:mainDeckCards="extraDeckCards"
                         v-model:card-selected="cardSelected"
                         :deck-type="deckTypeExtra"
+                        :deck-collects="dataDeckTypeExtra"
                     ></MainExtraDeck>
                 </div>
             </div>
@@ -99,7 +101,7 @@
     </div>
 </template>
 <script setup>
-import { ref, reactive, computed, onMounted, onBeforeMount } from 'vue';
+import { ref, reactive, computed, onMounted, onBeforeMount, watch } from 'vue';
 import SearchCardsSeparate from '../../components/SearchCardsSeparate.vue';
 import {dataDummyDeckBuilder, dataDummyCards} from '../../DummyDataCard';
 import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
@@ -127,6 +129,14 @@ const extraDeckCards = computed(()=>{
     return store.getters.getterdataDeckBuilderExtraDeck;
 })
 
+const deckCollectMain = computed(()=>{
+    return store.getters.getterdataDeckBuilderMainDeck;
+})
+
+const deckCollectExtra = computed(()=>{
+    return store.getters.getterdataDeckBuilderExtraDeck;
+})
+
 const title = ref('');
 const information = ref('');
 const preview = ref(null);
@@ -137,7 +147,10 @@ const inputFile = ref(0);
 const oldSlug = ref('');
 const editOrNot = ref(null);
 const deckTypeMain = ref('main-deck');
-const deckTypeExtra = ref('extra-deck')
+const deckTypeExtra = ref('extra-deck');
+const dataDeckTypeMain = ref([]);
+const dataDeckTypeExtra = ref([]);
+const cardSelectedChoice = ref(null);
 
 const state = reactive({
         preview, 
@@ -149,14 +162,27 @@ const state = reactive({
         title, 
         oldSlug,
         editOrNot,
+        cardSelectedChoice,
+        dataDeckTypeMain
+})
+
+watch(deckCollectMain, (newValue, oldValue)=>{
+    state.dataDeckTypeMain = newValue;
+})
+
+watch(deckCollectExtra, (newValue, oldValue)=>{
+    dataDeckTypeExtra.value = newValue;
 })
 
 onBeforeMount(()=>{
     builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
+    deckCollectMain;
+    deckCollectExtra;
 })
 
 onMounted(()=>{
-
+    console.log("deckCollectMain = ");
+    console.log(deckCollectMain.value);
 })
 
 const responseGeneral = computed(()=>{
@@ -205,6 +231,15 @@ function removeImage(){
 function selectedCardHas(event){
     console.log("data selected card = ")
     console.log(event)
+    const dataType = utilize.sliceCardToMainOrExtraDeck(event);
+    if(dataType === 'extra deck'){
+        dataDeckTypeExtra.value.push(event)
+    } else if(dataType === 'main deck'){
+        state.dataDeckTypeMain.push(event)
+        // deckCollectMain.value.push(event);
+        console.log("deckCollectMain.value = ")
+        console.log(dataDeckTypeMain.value)
+    }
 }
 
 function backRoute(){

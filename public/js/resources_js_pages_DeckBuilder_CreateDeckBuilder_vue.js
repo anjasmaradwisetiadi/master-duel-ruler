@@ -130,13 +130,18 @@ __webpack_require__.r(__webpack_exports__);
     dataDeckBuilderLength: Object,
     deckType: String,
     displayHover: Boolean
+    // deckCollects : {
+    //   default:[]
+    // }
   }, {
     "cardSelected": {},
     "cardSelectedModifiers": {},
     "mainDeckCards": {},
-    "mainDeckCardsModifiers": {}
+    "mainDeckCardsModifiers": {},
+    "deckCollects": {},
+    "deckCollectsModifiers": {}
   }),
-  emits: ["update:cardSelected", "update:mainDeckCards"],
+  emits: ["update:cardSelected", "update:mainDeckCards", "update:deckCollects"],
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose;
     __expose();
@@ -144,6 +149,7 @@ __webpack_require__.r(__webpack_exports__);
     var props = __props;
     var cardSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'cardSelected');
     var mainDeckCards = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'mainDeckCards');
+    var deckCollects = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'deckCollects');
     var hoverCardTemplate = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var hoverConditionIndex = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
     var hoverCondition = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
@@ -153,6 +159,18 @@ __webpack_require__.r(__webpack_exports__);
     var valueSearch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var imagePosition = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
+
+    // watch(cardSelectedChoice, (newValue, oldValue) =>{
+    //   console.log("newValue = ");
+    //   console.log(newValue);
+    //   const cardSeperateMainOrExtra = utilize.cardSelectedChoice(newValue);
+    //   if(cardSeperateMainOrExtra === 'main deck'){
+    //     props?.deckCollects.push(newValue);
+    //   } else if (cardSeperateMainOrExtra === 'extra deck') {
+    //     props?.deckCollects.push(newValue);
+    //   }
+    // })
+
     function displayCard($event, index, condition) {
       hoverCondition.value = condition;
       hoverConditionIndex.value = index;
@@ -225,11 +243,18 @@ __webpack_require__.r(__webpack_exports__);
     function selectedCard(data) {
       cardSelected.value = data;
     }
+    function addCard() {
+      console.log("add card");
+    }
+    function removeCard() {
+      console.log("remove card");
+    }
     var __returned__ = {
       store: store,
       props: props,
       cardSelected: cardSelected,
       mainDeckCards: mainDeckCards,
+      deckCollects: deckCollects,
       hoverCardTemplate: hoverCardTemplate,
       hoverConditionIndex: hoverConditionIndex,
       hoverCondition: hoverCondition,
@@ -241,10 +266,13 @@ __webpack_require__.r(__webpack_exports__);
       displayCard: displayCard,
       createdStyleCardHover: createdStyleCardHover,
       selectedCard: selectedCard,
+      addCard: addCard,
+      removeCard: removeCard,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       defineModel: vue__WEBPACK_IMPORTED_MODULE_0__.defineModel,
+      watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
       get useStore() {
         return vuex__WEBPACK_IMPORTED_MODULE_2__.useStore;
       },
@@ -322,12 +350,13 @@ __webpack_require__.r(__webpack_exports__);
       return store === null || store === void 0 || (_store$state = store.state) === null || _store$state === void 0 ? void 0 : _store$state.responseGeneral;
     });
     var getDataYgoProDeck = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      var _store$state2, _store$state3;
-      return store !== null && store !== void 0 && (_store$state2 = store.state) !== null && _store$state2 !== void 0 && (_store$state2 = _store$state2.dataSearchCard) !== null && _store$state2 !== void 0 && _store$state2.data ? store === null || store === void 0 || (_store$state3 = store.state) === null || _store$state3 === void 0 || (_store$state3 = _store$state3.dataSearchCard) === null || _store$state3 === void 0 ? void 0 : _store$state3.data : [];
+      var _store$state2;
+      return store === null || store === void 0 || (_store$state2 = store.state) === null || _store$state2 === void 0 ? void 0 : _store$state2.dataDummyCards;
+      // return store?.state?.dataSearchCard?.data ? store?.state?.dataSearchCard?.data : [];
     });
     var infoPage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      var _store$state4;
-      return store === null || store === void 0 || (_store$state4 = store.state) === null || _store$state4 === void 0 || (_store$state4 = _store$state4.dataSearchCard) === null || _store$state4 === void 0 ? void 0 : _store$state4.meta;
+      var _store$state3;
+      return store === null || store === void 0 || (_store$state3 = store.state) === null || _store$state3 === void 0 || (_store$state3 = _store$state3.dataSearchCard) === null || _store$state3 === void 0 ? void 0 : _store$state3.meta;
     });
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterStateLoading;
@@ -549,6 +578,12 @@ __webpack_require__.r(__webpack_exports__);
       // return store.state.dataDummyCards;
       return store.getters.getterdataDeckBuilderExtraDeck;
     });
+    var deckCollectMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters.getterdataDeckBuilderMainDeck;
+    });
+    var deckCollectExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters.getterdataDeckBuilderExtraDeck;
+    });
     var title = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var information = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var preview = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
@@ -560,6 +595,9 @@ __webpack_require__.r(__webpack_exports__);
     var editOrNot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var deckTypeMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('main-deck');
     var deckTypeExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('extra-deck');
+    var dataDeckTypeMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var dataDeckTypeExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var cardSelectedChoice = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       preview: preview,
       image: image,
@@ -569,12 +607,25 @@ __webpack_require__.r(__webpack_exports__);
       information: information,
       title: title,
       oldSlug: oldSlug,
-      editOrNot: editOrNot
+      editOrNot: editOrNot,
+      cardSelectedChoice: cardSelectedChoice,
+      dataDeckTypeMain: dataDeckTypeMain
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(deckCollectMain, function (newValue, oldValue) {
+      state.dataDeckTypeMain = newValue;
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(deckCollectExtra, function (newValue, oldValue) {
+      dataDeckTypeExtra.value = newValue;
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount)(function () {
       _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_7__.builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
+      deckCollectMain;
+      deckCollectExtra;
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      console.log("deckCollectMain = ");
+      console.log(deckCollectMain.value);
+    });
     var responseGeneral = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var _store$state;
       return store === null || store === void 0 || (_store$state = store.state) === null || _store$state === void 0 ? void 0 : _store$state.responseGeneral;
@@ -616,6 +667,15 @@ __webpack_require__.r(__webpack_exports__);
     function selectedCardHas(event) {
       console.log("data selected card = ");
       console.log(event);
+      var dataType = _utilize_utilize__WEBPACK_IMPORTED_MODULE_9__.utilize.sliceCardToMainOrExtraDeck(event);
+      if (dataType === 'extra deck') {
+        dataDeckTypeExtra.value.push(event);
+      } else if (dataType === 'main deck') {
+        state.dataDeckTypeMain.push(event);
+        // deckCollectMain.value.push(event);
+        console.log("deckCollectMain.value = ");
+        console.log(dataDeckTypeMain.value);
+      }
     }
     function backRoute() {
       router.back();
@@ -630,6 +690,8 @@ __webpack_require__.r(__webpack_exports__);
       dataDeckBuilder: dataDeckBuilder,
       mainDeckCards: mainDeckCards,
       extraDeckCards: extraDeckCards,
+      deckCollectMain: deckCollectMain,
+      deckCollectExtra: deckCollectExtra,
       title: title,
       information: information,
       preview: preview,
@@ -641,6 +703,9 @@ __webpack_require__.r(__webpack_exports__);
       editOrNot: editOrNot,
       deckTypeMain: deckTypeMain,
       deckTypeExtra: deckTypeExtra,
+      dataDeckTypeMain: dataDeckTypeMain,
+      dataDeckTypeExtra: dataDeckTypeExtra,
+      cardSelectedChoice: cardSelectedChoice,
       state: state,
       responseGeneral: responseGeneral,
       loading: loading,
@@ -654,6 +719,7 @@ __webpack_require__.r(__webpack_exports__);
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       onBeforeMount: vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount,
+      watch: vue__WEBPACK_IMPORTED_MODULE_0__.watch,
       SearchCardsSeparate: _components_SearchCardsSeparate_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       get dataDummyDeckBuilder() {
         return _DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyDeckBuilder;
@@ -764,6 +830,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_image_cp_sr_rarity_webp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/image/cp-sr-rarity.webp */ "./resources/assets/image/cp-sr-rarity.webp");
 /* harmony import */ var _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/image/rank-icon.webp */ "./resources/assets/image/rank-icon.webp");
 /* harmony import */ var _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/image/star-icon.webp */ "./resources/assets/image/star-icon.webp");
+/* harmony import */ var _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/image/3-card.webp */ "./resources/assets/image/3-card.webp");
+
 
 
 
@@ -933,19 +1001,33 @@ var _hoisted_48 = {
   "class": "released-card"
 };
 var _hoisted_49 = {
-  key: 1
+  "class": "mb-1"
 };
 var _hoisted_50 = {
+  "class": "wrap-card-one-deck-builder"
+};
+var _hoisted_51 = ["src", "alt"];
+var _hoisted_52 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    "class": "image-card-value",
+    src: _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_5__["default"],
+    alt: "3-card"
+  }, null, -1 /* HOISTED */);
+});
+var _hoisted_53 = {
+  "class": "d-flex mt-1"
+};
+var _hoisted_54 = {
   key: 2,
   "class": "d-flex justify-content-center"
 };
-var _hoisted_51 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_55 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
 });
-var _hoisted_52 = [_hoisted_51];
+var _hoisted_56 = [_hoisted_55];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$setup$props2, _$setup$props3;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main-deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.price.total_rarity_UR && $props.deckType === 'main-deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_UR), 1 /* TEXT */)]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_SR), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.price.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main-deck' ? $props.dataDeckBuilder.total_card.total_card_main_deck : $props.dataDeckBuilder.total_card.total_card_extra_deck) + " Cards ", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [$props.dataDeckBuilderLength.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main-deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.price.total_rarity_UR && $props.deckType === 'main-deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_UR), 1 /* TEXT */)]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_SR), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.price.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main-deck' ? $props.dataDeckBuilder.total_card.total_card_main_deck : $props.dataDeckBuilder.total_card.total_card_extra_deck) + " Cards ", 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [$props.dataDeckBuilderLength.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.mainDeckCards, function (urlImage, index) {
     var _urlImage$card_images, _urlImage$card_images2, _urlImage$card_sets$, _urlImage$card_images3, _urlImage$card_sets$2;
@@ -980,7 +1062,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       src: urlImage !== null && urlImage !== void 0 && urlImage.card_images ? urlImage === null || urlImage === void 0 || (_urlImage$card_images3 = urlImage.card_images[0]) === null || _urlImage$card_images3 === void 0 ? void 0 : _urlImage$card_images3.image_url_small : '',
       alt: urlImage.name
     }, null, 8 /* PROPS */, _hoisted_41)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster(urlImage.frameType)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML(urlImage.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.card_sets ? urlImage === null || urlImage === void 0 || (_urlImage$card_sets$2 = urlImage.card_sets[0]) === null || _urlImage$card_sets$2 === void 0 ? void 0 : _urlImage$card_sets$2.set_name : ''), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 512 /* NEED_PATCH */)]);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_49, "tidak ada display hover")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$props.dataDeckBuilderLength.length && (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_50, [].concat(_hoisted_52))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it just use make deck builder "), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 1
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.deckCollects, function (card, index) {
+    var _card$card_images$;
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: index
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      src: card !== null && card !== void 0 && card.card_images ? card === null || card === void 0 || (_card$card_images$ = card.card_images[0]) === null || _card$card_images$ === void 0 ? void 0 : _card$card_images$.image_url_small : '',
+      alt: card.name,
+      "class": "image-style"
+    }, null, 8 /* PROPS */, _hoisted_51), _hoisted_52]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "button-action mr-1",
+      onClick: _cache[0] || (_cache[0] = function ($event) {
+        return $setup.addCard();
+      })
+    }, " + "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      "class": "button-action",
+      onClick: _cache[1] || (_cache[1] = function ($event) {
+        return $setup.removeCard();
+      })
+    }, " - ")])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$props.dataDeckBuilderLength.length && (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_54, [].concat(_hoisted_56))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]);
 }
 
 /***/ }),
@@ -1397,23 +1500,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:cardSelected": _cache[7] || (_cache[7] = function ($event) {
       return _ctx.cardSelected = $event;
     }),
-    "deck-type": $setup.deckTypeMain
-  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
+    "deck-type": $setup.deckTypeMain,
+    "deck-collects": $setup.dataDeckTypeMain,
+    "onUpdate:deckCollects": _cache[8] || (_cache[8] = function ($event) {
+      return $setup.dataDeckTypeMain = $event;
+    })
+  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "deck-collects"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
     "data-deck-builder-length": $setup.dataDeckBuilderLength,
     "data-deck-builder": $setup.dataDeckBuilder,
     mainDeckCards: $setup.extraDeckCards,
-    "onUpdate:mainDeckCards": _cache[8] || (_cache[8] = function ($event) {
+    "onUpdate:mainDeckCards": _cache[9] || (_cache[9] = function ($event) {
       return $setup.extraDeckCards = $event;
     }),
     "card-selected": _ctx.cardSelected,
-    "onUpdate:cardSelected": _cache[9] || (_cache[9] = function ($event) {
+    "onUpdate:cardSelected": _cache[10] || (_cache[10] = function ($event) {
       return _ctx.cardSelected = $event;
     }),
-    "deck-type": $setup.deckTypeExtra
-  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "deck-type": $setup.deckTypeExtra,
+    "deck-collects": $setup.dataDeckTypeExtra
+  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "deck-collects"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-success",
-    onClick: _cache[10] || (_cache[10] = function ($event) {
+    onClick: _cache[11] || (_cache[11] = function ($event) {
       return $setup.submit();
     })
   }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-danger ml-2\" @click=\"createPayload()\">Create Payload</button> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
@@ -1569,7 +1677,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#MainExtraDeck[data-v-220882c5]{\r\n      min-height: 8rem;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar {\r\n      width: 6px;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-track {\r\n          border-radius: 4px;\r\n          background-color: #0C345A;\r\n          border: 2px solid #0C345A;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-thumb {\r\n      border-radius: 4px;\r\n      border: 2px solid transparent;\r\n      background-clip: content-box;\r\n      background-color: #194773;\n}\n.price-wrap .image-rarity[data-v-220882c5]{\r\n      width: 20px;\r\n      height: 20px;\n}\n.background-image[data-v-220882c5]{\r\n      background-color: #03182c;\r\n      border-radius: 10px;\r\n      padding: 10px;\n}\n.background-image .image-style[data-v-220882c5]{\r\n      max-width: 84px;\r\n      padding-right: 6px;\r\n      padding-top:4px;\r\n      cursor: pointer;\n}\n.wrap-card-search-global .non-hover-card[data-v-220882c5]{\r\n      display: none;\n}\n.wrap-card-search-global .hover-card[data-v-220882c5]{\r\n      display: none;\r\n      position: relative;\n}\n.hover-card .image-section img[data-v-220882c5]{\r\n      width: 150px !important;\r\n      height: 210px;\r\n      margin-right: 0.75rem;\n}\n.information-section[data-v-220882c5]{\r\n      max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.description-card[data-v-220882c5]{\r\n      min-height: 9.4rem;\r\n      text-align: justify;\n}\n.scroller-cards-collect[data-v-220882c5]{\r\n      max-height: 32rem;\r\n      min-height: 10rem;\r\n      overflow: auto;\n}\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n  \r\n  /*---------- style deck buider hover */\n#MainExtraDeck[data-v-220882c5]{\r\n      min-height: 8rem;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar {\r\n      width: 6px;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-track {\r\n          border-radius: 4px;\r\n          background-color: #0C345A;\r\n          border: 2px solid #0C345A;\n}\n#scrollbar1[data-v-220882c5]::-webkit-scrollbar-thumb {\r\n      border-radius: 4px;\r\n      border: 2px solid transparent;\r\n      background-clip: content-box;\r\n      background-color: #194773;\n}\n.price-wrap .image-rarity[data-v-220882c5]{\r\n      width: 20px;\r\n      height: 20px;\n}\n.background-image[data-v-220882c5]{\r\n      background-color: #03182c;\r\n      border-radius: 10px;\r\n      padding: 10px;\n}\n.background-image .image-style[data-v-220882c5]{\r\n      max-width: 84px;\r\n      padding-right: 6px;\r\n      padding-top:4px;\r\n      cursor: pointer;\n}\n.wrap-card-search-global .non-hover-card[data-v-220882c5]{\r\n      display: none;\n}\n.wrap-card-search-global .hover-card[data-v-220882c5]{\r\n      display: none;\r\n      position: relative;\n}\n.hover-card .image-section img[data-v-220882c5]{\r\n      width: 150px !important;\r\n      height: 210px;\r\n      margin-right: 0.75rem;\n}\n.information-section[data-v-220882c5]{\r\n      max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.hover-card .information-section .wrap-star img[data-v-220882c5]{\r\n      width: 16px;\r\n      height: 16px;\r\n      margin-right: 4px;\r\n      margin-top:-4px;\n}\n.description-card[data-v-220882c5]{\r\n      min-height: 9.4rem;\r\n      text-align: justify;\n}\n.scroller-cards-collect[data-v-220882c5]{\r\n      max-height: 32rem;\r\n      min-height: 10rem;\r\n      overflow: auto;\n}\r\n  /*---------- end style deck buider hover */\r\n\r\n  /*---------- style deck buider non hover */\n.button-action[data-v-220882c5]{\r\n    padding: 4px;\r\n    border: none;\r\n    border-radius: 1px;\r\n    background-color: #0a87bb;\r\n    font-weight: bold;\n}\n.wrap-card-one-deck-builder[data-v-220882c5]{\r\n    position: relative;\n}\n.wrap-card-one-deck-builder .image-style[data-v-220882c5]{\r\n      max-width: 84px;\r\n      padding-right: 6px;\r\n      padding-top:4px;\r\n      cursor: pointer;\n}\n.wrap-card-one-deck-builder .image-card-value[data-v-220882c5]{\r\n    position: absolute;\r\n    top: 74px;\r\n    left: 22px;\r\n    width: 38px;\r\n    z-index: 2;\n}\r\n  /*---------- end style deck buider non hover */\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1642,6 +1750,20 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\nbutton {\r\n  font-weight: bold;\n}\
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
+
+/***/ }),
+
+/***/ "./resources/assets/image/3-card.webp":
+/*!********************************************!*\
+  !*** ./resources/assets/image/3-card.webp ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/3-card.webp?3ef22053c7df3f994e267275d2f45c48");
 
 /***/ }),
 

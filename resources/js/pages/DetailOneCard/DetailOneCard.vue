@@ -12,7 +12,7 @@
                     <div class="card-monster-preview wrap-card-currently">
                         <div class="d-flex">
                             <div class="image-section">
-                                <img :src="getDataOneCard?.card_images[0]?.image_url_small" :alt="getDataOneCard?.name" >
+                                <img class="main-image" :src="getDataOneCard?.card_images[0]?.image_url_small" :alt="getDataOneCard?.name" >
                             </div>
                             <div class="information-section">
                                 <div class="mb-2 d-flex">
@@ -55,7 +55,7 @@
                     <div class="card-trap-spell-preview wrap-card-currently">
                         <div class="d-flex">
                             <div class="image-section">
-                                <img :src="getDataOneCard?.card_images[0]?.image_url_small" :alt="getDataOneCard?.name" >
+                                <img class="main-image" :src="getDataOneCard?.card_images[0]?.image_url_small" :alt="getDataOneCard?.name" >
                             </div>
                             <div class="information-section">
                                 <div class="row mb-2">
@@ -80,14 +80,14 @@
     </div>
 </template>
 <script setup>
-     import { reactive, computed, onBeforeMount } from 'vue';
+     import { ref, reactive, computed, onBeforeMount } from 'vue';
      import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
      import { useStore } from 'vuex';
      import { useRouter } from 'vue-router';
      import {utilize} from '../../utilize/utilize';
      const store = useStore();
      const router = useRouter();
-     
+
      const getDataOneCard = computed(()=>{
         return store?.state?.oneCardSelected?.data ? store?.state?.oneCardSelected?.data[0] : {};
      })
@@ -122,9 +122,14 @@
         font-size: 22px;
     }
 
-    .image-section img{
+    .image-section .main-image{
         width: 210px;
         margin-right: 0.75rem;
+    }
+    .image-section .wrap-rarity-image{
+        width: 210px;
+        display: flex;
+        justify-content: end;
     }
     .information-section {
         display: flex;

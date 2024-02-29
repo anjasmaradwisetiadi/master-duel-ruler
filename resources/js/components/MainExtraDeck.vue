@@ -39,7 +39,16 @@
           </template>
         </div>
         <div class="col-4 text-right">
-          {{ deckType === 'main-deck' ? dataDeckBuilder.total_card.total_card_main_deck :  dataDeckBuilder.total_card.total_card_extra_deck}}
+          <template v-if="props?.displayHover">
+            <span >
+              {{ deckType === 'main-deck' ? dataDeckBuilder.total_card.total_card_main_deck :  dataDeckBuilder.total_card.total_card_extra_deck}}
+            </span>
+          </template>
+          <template v-if="!props?.displayHover">
+            <span>
+              {{ totalCard}}
+            </span>
+          </template>
           Cards
         </div>
       </div>
@@ -250,7 +259,7 @@
   const hoverCardTemplate = ref(null);
   const hoverConditionIndex = ref(0);
   const hoverCondition = ref(false);
-  const inputSearch = ref('');
+  // const totalCard = ref(0);
   const num = ref(40);
   const offset = ref(0);
   const valueSearch = ref('');
@@ -260,16 +269,15 @@
   
   })
 
-  // watch(cardSelectedChoice, (newValue, oldValue) =>{
-  //   console.log("newValue = ");
-  //   console.log(newValue);
-  //   const cardSeperateMainOrExtra = utilize.cardSelectedChoice(newValue);
-  //   if(cardSeperateMainOrExtra === 'main deck'){
-  //     props?.deckCollects.push(newValue);
-  //   } else if (cardSeperateMainOrExtra === 'extra deck') {
-  //     props?.deckCollects.push(newValue);
-  //   }
-  // })
+  const totalCard = computed(()=>{
+    let valueCard = 0;
+    if(deckCollects.value){
+      deckCollects.value?.forEach(element => {
+        valueCard+=element.value;
+      });
+      return valueCard;
+    }
+  })
   
   function displayCard($event, index, condition ){
       hoverCondition.value = condition;

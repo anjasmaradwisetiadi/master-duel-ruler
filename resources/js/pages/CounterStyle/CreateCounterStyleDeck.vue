@@ -34,11 +34,6 @@
                             @change="previewImage($event)" 
                             :disabled="conditionImage === 'input-url-image' || conditionImage === 'neutral' ? disabled: '' " >
                     </div>
-                    <div class="mr-3">
-                        <div class="btn btn-secondary mt-2" @click="addImage()">
-                            Add Image
-                        </div>
-                    </div>
                 </div>
                 <div v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.image ? responseGeneral?.message?.image[0] : ''}}</div>
                 <!-- image preview -->

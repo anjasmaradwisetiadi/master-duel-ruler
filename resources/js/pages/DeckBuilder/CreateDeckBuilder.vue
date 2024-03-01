@@ -71,7 +71,12 @@
             </div>
             <div class="row">
                 <div class="col-6 pt-1">
-                    <SearchCardsSeparate @selectedCard="selectedCardHas" v-model:fullCardLoad="fullCardLoad"></SearchCardsSeparate>
+                    <SearchCardsSeparate 
+                        @selectedCard="selectedCardHas" 
+                        :fullCardLoad="fullCardLoad"
+                        @emitFullCardLoad="emitFullCardLoad"
+                    >
+                    </SearchCardsSeparate>
                 </div>
                 <div class="col-6">
                     <MainExtraDeck 
@@ -355,6 +360,11 @@ function selectedCardHasRemove(event){
             });
         }
     }
+}
+
+function emitFullCardLoad(event){
+    fullCardLoad.value.condition = event.condition,
+    fullCardLoad.value.value= event.value
 }
 
 function backRoute(){

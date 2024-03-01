@@ -168,7 +168,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-3" v-if="getDataYgoProDeck.length">
+        <div class="row mt-2" v-if="getDataYgoProDeck.length">
             <div class="col-4 d-flex justify-content-start align-items-center">
                 <div class="mr-2">
                     <button
@@ -195,24 +195,18 @@
             </div>
             <div class="col-4">
               <button class="btn" 
-                :class="conditionHover ? 'btn-success' : 'btn-secondary'" 
+                :class="conditionHover ? 'btn-info' : 'btn-secondary'" 
                 @click="conditionHover = !conditionHover"> 
                   {{conditionHover ? 'hover on' : 'hover off' }}
               </button>
             </div>
             <div class="col-4 d-flex justify-content-end text-center">
-                <div :class="fullCardLoad?.value? 'smooth-animation':''">
-                    <span v-show="fullCardLoad?.value < 3 && fullCardLoad?.value >= 1">
-                        {{fullCardLoad?.value}} card added
+                <div ref="ClassList" >
+                    <span v-show="props?.fullCardLoad?.value < 3 && props?.fullCardLoad?.value >= 1">
+                        {{props?.fullCardLoad?.value}} card added
                     </span>
-                    <span v-show="fullCardLoad?.value === 3"> limit reached </span>
+                    <span v-show="props?.fullCardLoad?.value === 3"> limit reached </span>
                 </div>
-                <!-- <div ref="ClassList">
-                    <span v-show="fullCardLoad?.value < 3 && fullCardLoad?.value >= 1">
-                        {{fullCardLoad?.value}} card added
-                    </span>
-                    <span v-show="fullCardLoad?.value === 3"> limit reached </span>
-                </div> -->
             </div>
       </div>
       </div>
@@ -236,63 +230,38 @@
   const hoverCondition = ref(false);
   const hoverConditionIndex = ref(0);
   let searchTimeout = '';
-  const fullCardLoad = defineModel('fullCardLoad')
-  const fullCardLoadV2 = ref(fullCardLoad);
   const ClassList = ref(null);
   const conditionHover = ref(true);
   
-  const props = defineProps({
-      // fullCardLoad: {
-      //     required: true,
-      //     default: false
-      // }
-  })
+  const props = defineProps([
+    'fullCardLoad'
+  ])
   const emit = defineEmits([
-      'selectedCard'
+      'selectedCard',
+      'emitFullCardLoad'
   ])
   
   const state = reactive({
       inputSearch
   })
 
-//********** still not working for dispakly pop up simultant */
-//   const dataV2 = computed(()=>{
-//       console.log("newValue = ");
-//       let el = ClassList.value;
-//       console.log("classList.value = ")
-//       console.log(el)
-//       //   el.classList.add('smooth-animation');
-//       // clearTimeout(searchTimeout);
-//       // searchTimeout = setTimeout(()=>{
-//       //     fullCardLoadV2.value = newValue;
-//       // }, 800);
-//       searchTimeout = setTimeout(()=>{
-//         // el.classList.remove('smooth-animation');
-//       }, 1000);
-//       clearTimeout(searchTimeout);
-//     //   fullCardLoad.condition = false;
-//   })
+
   
   
-//   watch(fullCardLoad, (newValue, oldValue)=>{
-//     //   console.log("classList.value = ")
-//     //   console.log(classList.value)
-//     //   console.log("newValue = ");
-//     //   console.log(newValue);
-//       let el = ClassList.value;
-//       console.log("classList.value = ")
-//       console.log(el)
-//     //   el.classList.add('smooth-animation');
-//     //   // clearTimeout(searchTimeout);
-//     //   // searchTimeout = setTimeout(()=>{
-//     //   //     fullCardLoadV2.value = newValue;
-//     //   // }, 800);
-//     //   searchTimeout = setTimeout(()=>{
-//     //     el.classList.remove('smooth-animation');
-//     //   }, 1000);
-//     //   clearTimeout(searchTimeout);
-//     //   fullCardLoad.condition = false;
-//   })
+  watch(props?.fullCardLoad, (newValue, oldValue)=>{
+      let el = ClassList.value;
+      el.classList.add('smooth-animation');
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(()=>{
+        const data ={
+          condition: false,
+          value: 0
+        }
+        el.classList.remove('smooth-animation');
+        emit('emitFullCardLoad', data)
+      }, 300);
+    //   fullCardLoad.condition = false;
+  })
   
   onMounted(()=>{
       //******* it make be default search but when app ready to use */
@@ -311,7 +280,6 @@
   
   const getDataYgoProDeck = computed(()=>{
       return store?.state?.dataDummyCards;
-      // return store?.state?.dataSearchCard?.data ? store?.state?.dataSearchCard?.data : [];
   })
   
   const infoPage = computed(()=>{
@@ -510,10 +478,10 @@
     opacity: 0;
     z-index: 1;
     padding-top: 18px;
-    top: -20px !important;
+    top: -24px !important;
     position: absolute;
     animation-name: example;
-    animation-duration: 0.9s; 
+    animation-duration: 0.4s; 
     animation-iteration-count: 1;
   }
   

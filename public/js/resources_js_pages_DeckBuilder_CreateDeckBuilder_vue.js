@@ -317,19 +317,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __name: 'SearchCardsSeparate',
-  props: /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeModels)({
-    // fullCardLoad: {
-    //     required: true,
-    //     default: false
-    // }
-  }, {
-    "fullCardLoad": {},
-    "fullCardLoadModifiers": {}
-  }),
-  emits: /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeModels)(['selectedCard'], ["update:fullCardLoad"]),
+  props: ['fullCardLoad'],
+  emits: ['selectedCard', 'emitFullCardLoad'],
   setup: function setup(__props, _ref) {
     var __expose = _ref.expose,
       __emit = _ref.emit;
@@ -345,8 +336,6 @@ __webpack_require__.r(__webpack_exports__);
     var hoverCondition = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var hoverConditionIndex = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
     var searchTimeout = '';
-    var fullCardLoad = (0,vue__WEBPACK_IMPORTED_MODULE_0__.useModel)(__props, 'fullCardLoad');
-    var fullCardLoadV2 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(fullCardLoad);
     var ClassList = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var conditionHover = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(true);
     var props = __props;
@@ -354,45 +343,20 @@ __webpack_require__.r(__webpack_exports__);
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       inputSearch: inputSearch
     });
-
-    //********** still not working for dispakly pop up simultant */
-    //   const dataV2 = computed(()=>{
-    //       console.log("newValue = ");
-    //       let el = ClassList.value;
-    //       console.log("classList.value = ")
-    //       console.log(el)
-    //       //   el.classList.add('smooth-animation');
-    //       // clearTimeout(searchTimeout);
-    //       // searchTimeout = setTimeout(()=>{
-    //       //     fullCardLoadV2.value = newValue;
-    //       // }, 800);
-    //       searchTimeout = setTimeout(()=>{
-    //         // el.classList.remove('smooth-animation');
-    //       }, 1000);
-    //       clearTimeout(searchTimeout);
-    //     //   fullCardLoad.condition = false;
-    //   })
-
-    //   watch(fullCardLoad, (newValue, oldValue)=>{
-    //     //   console.log("classList.value = ")
-    //     //   console.log(classList.value)
-    //     //   console.log("newValue = ");
-    //     //   console.log(newValue);
-    //       let el = ClassList.value;
-    //       console.log("classList.value = ")
-    //       console.log(el)
-    //     //   el.classList.add('smooth-animation');
-    //     //   // clearTimeout(searchTimeout);
-    //     //   // searchTimeout = setTimeout(()=>{
-    //     //   //     fullCardLoadV2.value = newValue;
-    //     //   // }, 800);
-    //     //   searchTimeout = setTimeout(()=>{
-    //     //     el.classList.remove('smooth-animation');
-    //     //   }, 1000);
-    //     //   clearTimeout(searchTimeout);
-    //     //   fullCardLoad.condition = false;
-    //   })
-
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(props === null || props === void 0 ? void 0 : props.fullCardLoad, function (newValue, oldValue) {
+      var el = ClassList.value;
+      el.classList.add('smooth-animation');
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function () {
+        var data = {
+          condition: false,
+          value: 0
+        };
+        el.classList.remove('smooth-animation');
+        emit('emitFullCardLoad', data);
+      }, 300);
+      //   fullCardLoad.condition = false;
+    });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       //******* it make be default search but when app ready to use */
       // const payload = {
@@ -410,7 +374,6 @@ __webpack_require__.r(__webpack_exports__);
     var getDataYgoProDeck = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var _store$state2;
       return store === null || store === void 0 || (_store$state2 = store.state) === null || _store$state2 === void 0 ? void 0 : _store$state2.dataDummyCards;
-      // return store?.state?.dataSearchCard?.data ? store?.state?.dataSearchCard?.data : [];
     });
     var infoPage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var _store$state3;
@@ -532,8 +495,6 @@ __webpack_require__.r(__webpack_exports__);
       set searchTimeout(v) {
         searchTimeout = v;
       },
-      fullCardLoad: fullCardLoad,
-      fullCardLoadV2: fullCardLoadV2,
       ClassList: ClassList,
       conditionHover: conditionHover,
       props: props,
@@ -837,6 +798,9 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         }
       }
     }
+    function emitFullCardLoad(event) {
+      fullCardLoad.value.condition = event.condition, fullCardLoad.value.value = event.value;
+    }
     function backRoute() {
       router.back();
     }
@@ -876,6 +840,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       addRemoveCardSelectedMain: addRemoveCardSelectedMain,
       selectedCardHas: selectedCardHas,
       selectedCardHasRemove: selectedCardHasRemove,
+      emitFullCardLoad: emitFullCardLoad,
       backRoute: backRoute,
       submit: submit,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
@@ -1443,7 +1408,7 @@ var _hoisted_40 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_41 = [_hoisted_40];
 var _hoisted_42 = {
   key: 0,
-  "class": "row mt-3"
+  "class": "row mt-2"
 };
 var _hoisted_43 = {
   "class": "col-4 d-flex justify-content-start align-items-center"
@@ -1459,8 +1424,11 @@ var _hoisted_47 = {
 var _hoisted_48 = {
   "class": "col-4 d-flex justify-content-end text-center"
 };
+var _hoisted_49 = {
+  ref: "ClassList"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$setup$infoPage, _$setup$infoPage2, _$setup$infoPage3, _$setup$infoPage4, _$setup$infoPage5, _$setup$fullCardLoad, _$setup$fullCardLoad2, _$setup$fullCardLoad3, _$setup$fullCardLoad4, _$setup$fullCardLoad5;
+  var _$setup$infoPage, _$setup$infoPage2, _$setup$infoPage3, _$setup$infoPage4, _$setup$infoPage5, _$setup$props, _$setup$props2, _$setup$props3, _$setup$props4;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control",
@@ -1519,13 +1487,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     disabled: ((_$setup$infoPage2 = $setup.infoPage) === null || _$setup$infoPage2 === void 0 ? void 0 : _$setup$infoPage2.previous_page_offset) === undefined ? '' : _ctx.disabled
   }, " < ", 8 /* PROPS */, _hoisted_46)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage3 = $setup.infoPage) === null || _$setup$infoPage3 === void 0 ? void 0 : _$setup$infoPage3.total_rows) - ((_$setup$infoPage4 = $setup.infoPage) === null || _$setup$infoPage4 === void 0 ? void 0 : _$setup$infoPage4.rows_remaining)) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$infoPage5 = $setup.infoPage) === null || _$setup$infoPage5 === void 0 ? void 0 : _$setup$infoPage5.total_rows), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn", $setup.conditionHover ? 'btn-success' : 'btn-secondary']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn", $setup.conditionHover ? 'btn-info' : 'btn-secondary']),
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $setup.conditionHover = !$setup.conditionHover;
     })
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.conditionHover ? 'hover on' : 'hover off'), 3 /* TEXT, CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)((_$setup$fullCardLoad = $setup.fullCardLoad) !== null && _$setup$fullCardLoad !== void 0 && _$setup$fullCardLoad.value ? 'smooth-animation' : '')
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$fullCardLoad2 = $setup.fullCardLoad) === null || _$setup$fullCardLoad2 === void 0 ? void 0 : _$setup$fullCardLoad2.value) + " card added ", 513 /* TEXT, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, ((_$setup$fullCardLoad3 = $setup.fullCardLoad) === null || _$setup$fullCardLoad3 === void 0 ? void 0 : _$setup$fullCardLoad3.value) < 3 && ((_$setup$fullCardLoad4 = $setup.fullCardLoad) === null || _$setup$fullCardLoad4 === void 0 ? void 0 : _$setup$fullCardLoad4.value) >= 1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " limit reached ", 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, ((_$setup$fullCardLoad5 = $setup.fullCardLoad) === null || _$setup$fullCardLoad5 === void 0 ? void 0 : _$setup$fullCardLoad5.value) === 3]])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div ref=\"ClassList\">\r\n                    <span v-show=\"fullCardLoad?.value < 3 && fullCardLoad?.value >= 1\">\r\n                        {{fullCardLoad?.value}} card added\r\n                    </span>\r\n                    <span v-show=\"fullCardLoad?.value === 3\"> limit reached </span>\r\n                </div> ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.conditionHover ? 'hover on' : 'hover off'), 3 /* TEXT, CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$props = $setup.props) === null || _$setup$props === void 0 || (_$setup$props = _$setup$props.fullCardLoad) === null || _$setup$props === void 0 ? void 0 : _$setup$props.value) + " card added ", 513 /* TEXT, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, ((_$setup$props2 = $setup.props) === null || _$setup$props2 === void 0 || (_$setup$props2 = _$setup$props2.fullCardLoad) === null || _$setup$props2 === void 0 ? void 0 : _$setup$props2.value) < 3 && ((_$setup$props3 = $setup.props) === null || _$setup$props3 === void 0 || (_$setup$props3 = _$setup$props3.fullCardLoad) === null || _$setup$props3 === void 0 ? void 0 : _$setup$props3.value) >= 1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, " limit reached ", 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, ((_$setup$props4 = $setup.props) === null || _$setup$props4 === void 0 || (_$setup$props4 = _$setup$props4.fullCardLoad) === null || _$setup$props4 === void 0 ? void 0 : _$setup$props4.value) === 3]])], 512 /* NEED_PATCH */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),
@@ -1715,23 +1681,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, ["content"]), !((_$setup$responseGener9 = $setup.responseGeneral) !== null && _$setup$responseGener9 !== void 0 && _$setup$responseGener9.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener10 = $setup.responseGeneral) !== null && _$setup$responseGener10 !== void 0 && (_$setup$responseGener10 = _$setup$responseGener10.message) !== null && _$setup$responseGener10 !== void 0 && _$setup$responseGener10.information ? (_$setup$responseGener11 = $setup.responseGeneral) === null || _$setup$responseGener11 === void 0 || (_$setup$responseGener11 = _$setup$responseGener11.message) === null || _$setup$responseGener11 === void 0 ? void 0 : _$setup$responseGener11.information[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SearchCardsSeparate"], {
     onSelectedCard: $setup.selectedCardHas,
     fullCardLoad: $setup.fullCardLoad,
-    "onUpdate:fullCardLoad": _cache[6] || (_cache[6] = function ($event) {
-      return $setup.fullCardLoad = $event;
-    })
+    onEmitFullCardLoad: $setup.emitFullCardLoad
   }, null, 8 /* PROPS */, ["fullCardLoad"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
     "data-deck-builder-length": $setup.dataDeckBuilderLength,
     "data-deck-builder": $setup.dataDeckBuilder,
     mainDeckCards: $setup.mainDeckCards,
-    "onUpdate:mainDeckCards": _cache[7] || (_cache[7] = function ($event) {
+    "onUpdate:mainDeckCards": _cache[6] || (_cache[6] = function ($event) {
       return $setup.mainDeckCards = $event;
     }),
     "card-selected": _ctx.cardSelected,
-    "onUpdate:cardSelected": _cache[8] || (_cache[8] = function ($event) {
+    "onUpdate:cardSelected": _cache[7] || (_cache[7] = function ($event) {
       return _ctx.cardSelected = $event;
     }),
     "deck-type": $setup.deckTypeMain,
     "deck-collects": $setup.dataDeckTypeMain,
-    "onUpdate:deckCollects": _cache[9] || (_cache[9] = function ($event) {
+    "onUpdate:deckCollects": _cache[8] || (_cache[8] = function ($event) {
       return $setup.dataDeckTypeMain = $event;
     }),
     onAddRemoveCardSelected: $setup.addRemoveCardSelectedMain
@@ -1739,11 +1703,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "data-deck-builder-length": $setup.dataDeckBuilderLength,
     "data-deck-builder": $setup.dataDeckBuilder,
     mainDeckCards: $setup.extraDeckCards,
-    "onUpdate:mainDeckCards": _cache[10] || (_cache[10] = function ($event) {
+    "onUpdate:mainDeckCards": _cache[9] || (_cache[9] = function ($event) {
       return $setup.extraDeckCards = $event;
     }),
     "card-selected": _ctx.cardSelected,
-    "onUpdate:cardSelected": _cache[11] || (_cache[11] = function ($event) {
+    "onUpdate:cardSelected": _cache[10] || (_cache[10] = function ($event) {
       return _ctx.cardSelected = $event;
     }),
     "deck-type": $setup.deckTypeExtra,
@@ -1752,7 +1716,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "deck-collects"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-success",
-    onClick: _cache[12] || (_cache[12] = function ($event) {
+    onClick: _cache[11] || (_cache[11] = function ($event) {
       return $setup.submit();
     })
   }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-danger ml-2\" @click=\"createPayload()\">Create Payload</button> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
@@ -1931,7 +1895,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#SearchCardsSeparate[data-v-699db5c3]{\r\n    z-index: 99;\n}\r\n  /* stryle seacrh global image */\n#scrollbar1[data-v-699db5c3]::-webkit-scrollbar {\r\n    width: 6px;\n}\n#scrollbar1[data-v-699db5c3]::-webkit-scrollbar-track {\r\n    border-radius: 4px;\r\n    background-color: #0c345a;\r\n    border: 2px solid #0c345a;\n}\n#scrollbar1[data-v-699db5c3]::-webkit-scrollbar-thumb {\r\n    border-radius: 4px;\r\n    border: 2px solid transparent;\r\n    background-clip: content-box;\r\n    background-color: #194773;\n}\n.background-image[data-v-699db5c3] {\r\n    background-color: #03182c;\r\n    border-radius: 10px;\r\n    padding: 10px;\r\n    z-index: 2;\r\n    position: relative;\n}\n.background-image .image-style[data-v-699db5c3] {\r\n    max-width: 95px;\r\n    padding-right: 8px;\r\n    cursor: pointer;\r\n    padding-top: 4px;\r\n    cursor: pointer;\n}\n.wrap-card-search-deck-builder .non-hover-card[data-v-699db5c3] {\r\n    display: none;\n}\n.wrap-card-search-deck-builder .hover-card[data-v-699db5c3] {\r\n    display: none;\r\n    position: relative;\n}\n.hover-card .image-section img[data-v-699db5c3] {\r\n    width: 150px !important;\r\n    height: 210px;\r\n    margin-right: 0.75rem;\n}\n.information-section[data-v-699db5c3] {\r\n    max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-699db5c3] {\r\n    width: 16px;\r\n    height: 16px;\r\n    margin-right: 4px;\r\n    margin-top: -4px;\n}\n.hover-card .information-section .wrap-star img[data-v-699db5c3] {\r\n    width: 16px;\r\n    height: 16px;\r\n    margin-right: 4px;\r\n    margin-top: -4px;\n}\n.description-card[data-v-699db5c3] {\r\n    min-height: 9.4rem;\r\n    text-align: justify;\n}\n.scroller-cards-collect[data-v-699db5c3] {\r\n    max-height: 32rem;\r\n    overflow: auto;\n}\n.smooth-animation[data-v-699db5c3] {\r\n    width: 120px;\r\n    height: 42px;\r\n    border-radius: 10px;\r\n    background-color: #3498db;\r\n    opacity: 0;\r\n    z-index: 1;\r\n    padding-top: 18px;\r\n    top: -20px !important;\r\n    position: absolute;\r\n    animation-name: example-699db5c3;\r\n    animation-duration: 0.9s; \r\n    animation-iteration-count: 1;\n}\n@keyframes example-699db5c3 {\n0% {\r\n      opacity: 1;\n}\n25% {\r\n      opacity: 1;\n}\n50% {\r\n      opacity: 1;\n}\n50% {\r\n      opacity: 1;\n}\n100% {\r\n      opacity: 1;\n}\n}\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#SearchCardsSeparate[data-v-699db5c3]{\r\n    z-index: 99;\n}\r\n  /* stryle seacrh global image */\n#scrollbar1[data-v-699db5c3]::-webkit-scrollbar {\r\n    width: 6px;\n}\n#scrollbar1[data-v-699db5c3]::-webkit-scrollbar-track {\r\n    border-radius: 4px;\r\n    background-color: #0c345a;\r\n    border: 2px solid #0c345a;\n}\n#scrollbar1[data-v-699db5c3]::-webkit-scrollbar-thumb {\r\n    border-radius: 4px;\r\n    border: 2px solid transparent;\r\n    background-clip: content-box;\r\n    background-color: #194773;\n}\n.background-image[data-v-699db5c3] {\r\n    background-color: #03182c;\r\n    border-radius: 10px;\r\n    padding: 10px;\r\n    z-index: 2;\r\n    position: relative;\n}\n.background-image .image-style[data-v-699db5c3] {\r\n    max-width: 95px;\r\n    padding-right: 8px;\r\n    cursor: pointer;\r\n    padding-top: 4px;\r\n    cursor: pointer;\n}\n.wrap-card-search-deck-builder .non-hover-card[data-v-699db5c3] {\r\n    display: none;\n}\n.wrap-card-search-deck-builder .hover-card[data-v-699db5c3] {\r\n    display: none;\r\n    position: relative;\n}\n.hover-card .image-section img[data-v-699db5c3] {\r\n    width: 150px !important;\r\n    height: 210px;\r\n    margin-right: 0.75rem;\n}\n.information-section[data-v-699db5c3] {\r\n    max-width: 320px;\n}\n.hover-card .information-section .wrap-star img[data-v-699db5c3] {\r\n    width: 16px;\r\n    height: 16px;\r\n    margin-right: 4px;\r\n    margin-top: -4px;\n}\n.hover-card .information-section .wrap-star img[data-v-699db5c3] {\r\n    width: 16px;\r\n    height: 16px;\r\n    margin-right: 4px;\r\n    margin-top: -4px;\n}\n.description-card[data-v-699db5c3] {\r\n    min-height: 9.4rem;\r\n    text-align: justify;\n}\n.scroller-cards-collect[data-v-699db5c3] {\r\n    max-height: 32rem;\r\n    overflow: auto;\n}\n.smooth-animation[data-v-699db5c3] {\r\n    width: 120px;\r\n    height: 42px;\r\n    border-radius: 10px;\r\n    background-color: #3498db;\r\n    opacity: 0;\r\n    z-index: 1;\r\n    padding-top: 18px;\r\n    top: -24px !important;\r\n    position: absolute;\r\n    animation-name: example-699db5c3;\r\n    animation-duration: 0.4s; \r\n    animation-iteration-count: 1;\n}\n@keyframes example-699db5c3 {\n0% {\r\n      opacity: 1;\n}\n25% {\r\n      opacity: 1;\n}\n50% {\r\n      opacity: 1;\n}\n50% {\r\n      opacity: 1;\n}\n100% {\r\n      opacity: 1;\n}\n}\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

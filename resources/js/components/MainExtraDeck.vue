@@ -4,11 +4,11 @@
       <!-- head list deck builder -->
       <div class="row">
         <div class="col-4 mr-auto">
-          <h5>{{deckType === 'main-deck' ? 'Main Deck' : 'Extra Deck'}}</h5>
+          <h5>{{deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'}}</h5>
         </div>
         <div class="col-4 text-center">
           <template
-            v-if="dataDeckBuilder?.price.total_rarity_UR && deckType === 'main-deck'"
+            v-if="dataDeckBuilder?.price.total_rarity_UR && deckType === 'main deck'"
           >
             <div class="d-flex price-wrap">
               <div class="d-flex align-items-center">
@@ -41,12 +41,12 @@
         <div class="col-4 text-right">
           <template v-if="props?.displayHover">
             <span >
-              {{ deckType === 'main-deck' ? dataDeckBuilder.total_card.total_card_main_deck :  dataDeckBuilder.total_card.total_card_extra_deck}}
+              {{ deckType === 'main deck' ? dataDeckBuilder.total_card.total_card_main_deck :  dataDeckBuilder.total_card.total_card_extra_deck}}
             </span>
           </template>
           <template v-if="!props?.displayHover">
             <span>
-              {{ totalCard}}
+              {{totalCard}}
             </span>
           </template>
           Cards
@@ -232,6 +232,13 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span 
+            v-if="deckType === 'main deck'" 
+            class="invalid-text"> deck contain 40 until 60 cards </span>
         </div>
       </div>
     </div>
@@ -475,6 +482,13 @@
     left: 22px;
     width: 38px;
     z-index: 2;
+  }
+
+  .invalid-text{
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: #dc3545;
   }
   /*---------- end style deck buider non hover */
   </style>

@@ -83,7 +83,7 @@
                         v-model:deck-collects="dataDeckTypeMain"
                         @addRemoveCardSelected="addRemoveCardSelectedMain"
                     ></MainExtraDeck>
-                    <div class="mt-2"></div>
+                    <div class="mt-3"></div>
                     <MainExtraDeck 
                         :data-deck-builder-length="dataDeckBuilderLength" 
                         :data-deck-builder="dataDeckBuilder"
@@ -149,8 +149,8 @@ const urlImage = ref(null);
 const inputFile = ref(0);
 const oldSlug = ref('');
 const editOrNot = ref(null);
-const deckTypeMain = ref('main-deck');
-const deckTypeExtra = ref('extra-deck');
+const deckTypeMain = ref('main deck');
+const deckTypeExtra = ref('extra deck');
 const dataDeckTypeMain = ref([]);
 const dataDeckTypeExtra = ref([]);
 const cardSelectedChoice = ref(null);

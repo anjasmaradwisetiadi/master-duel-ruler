@@ -36,7 +36,11 @@
                     class="image-style"
                     ref="imagePosition"
                   />
-                  <div class="hover-card" ref="hoverCardTemplate">
+                  <div 
+                    v-show="conditionHover"
+                    class="hover-card" 
+                    ref="hoverCardTemplate"
+                  >
                     <template
                       v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'"
                     >
@@ -164,9 +168,9 @@
             </div>
           </div>
         </div>
-        <div class="row" v-if="getDataYgoProDeck.length">
-            <div class="col-6 d-flex justify-content-start align-items-center">
-                <div class="mr-4">
+        <div class="row mt-3" v-if="getDataYgoProDeck.length">
+            <div class="col-4 d-flex justify-content-start align-items-center">
+                <div class="mr-2">
                     <button
                         class="btn btn-warning mr-2"
                         @click="nextPage()"
@@ -189,7 +193,14 @@
                     >
                 </div>
             </div>
-            <div class="col-6 d-flex justify-content-end text-center">
+            <div class="col-4">
+              <button class="btn" 
+                :class="conditionHover ? 'btn-success' : 'btn-secondary'" 
+                @click="conditionHover = !conditionHover"> 
+                  {{conditionHover ? 'hover on' : 'hover off' }}
+              </button>
+            </div>
+            <div class="col-4 d-flex justify-content-end text-center">
                 <div :class="fullCardLoad?.value? 'smooth-animation':''">
                     <span v-show="fullCardLoad?.value < 3 && fullCardLoad?.value >= 1">
                         {{fullCardLoad?.value}} card added
@@ -228,6 +239,7 @@
   const fullCardLoad = defineModel('fullCardLoad')
   const fullCardLoadV2 = ref(fullCardLoad);
   const ClassList = ref(null);
+  const conditionHover = ref(true);
   
   const props = defineProps({
       // fullCardLoad: {
@@ -342,7 +354,7 @@
       let listCardSelector = document.querySelector(`.wrap-card-search-deck-builder:nth-child(${data}) .hover-card`);
       // trial add before
       // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
-      if (condition){
+      if (condition && conditionHover.value){
           if(detectWidthMonitor >= 1910){
               positionLeft = left-301;
               positionTop =  top-320;

@@ -1827,39 +1827,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var urlBuilderStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApi, "deck-builder-api");
 var builderDeckService = {
-  getDataDeckBuilder: function getDataDeckBuilder(payload) {
-    var _this = this;
+  getDeckBuilderDetail: function getDeckBuilderDetail(slug) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var nameCard, urlApiYugioh, numberModulus, dataOrigin;
+      var tokenAuth;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            nameCard = '';
-            urlApiYugioh = '';
-            numberModulus = 4;
-            dataOrigin = [];
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            payload.forEach(function (data, index) {
-              index = index + 1;
-              if (index % numberModulus !== 0) {
-                data.name = _utilize_utilize__WEBPACK_IMPORTED_MODULE_5__.utilize.characterEncodingUrl(data.name);
-                nameCard += "|".concat(data.name);
-                dataOrigin.push(data);
-                if (payload.length === index && nameCard.length) {
-                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
-                }
-              } else if (index % numberModulus === 0) {
-                if (index % numberModulus === 0 && nameCard.length) {
-                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
-                  nameCard = '';
-                  dataOrigin = [];
-                }
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'get',
+              url: "".concat(urlBuilderStyle, "/").concat(slug),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth)
               }
+            }).then(function (response) {
+              return functionReuse.getDataDeckBuilder(response.data.deck_builder);
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-          case 7:
+          case 3:
           case "end":
             return _context.stop();
         }
@@ -1873,10 +1861,6 @@ var builderDeckService = {
     }).then(function (response) {
       var dataJoin = response.data;
       dataJoin.data.forEach(function (data, index) {
-        // console.log("dataOriginPayload[index].name");
-        // console.log(dataOriginPayload[index]);
-        // console.log("data.name ");
-        // console.log(data);
         dataOriginPayload.some(function (origin) {
           if (data.name === origin.name) {
             delete origin.name;
@@ -1906,7 +1890,7 @@ var builderDeckService = {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
             }).then(function (response) {
-              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateGetTableDeckBuilder', response.data);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             })["catch"](function (error) {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
@@ -1918,6 +1902,63 @@ var builderDeckService = {
         }
       }, _callee2);
     }))();
+  }
+};
+var functionReuse = {
+  getDataDeckBuilder: function getDataDeckBuilder(payload) {
+    var _this = this;
+    var nameCard = '';
+    var urlApiYugioh = '';
+    var numberModulus = 11;
+    var dataOrigin = [];
+    var nameConvert = '';
+    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+
+    // this.getFunction(payload);
+    payload.forEach(function (data, index) {
+      index = index + 1;
+      if (index % numberModulus !== 0) {
+        dataOrigin.push(data);
+        // it will make can return value false on root data  lol...     
+        // data.name = this.characterEncodingUrl(data.name);
+        nameConvert = _utilize_utilize__WEBPACK_IMPORTED_MODULE_5__.utilize.characterEncodingUrl(data.name);
+        //********* */ make can use many name card but call one time api
+        nameCard += "|".concat(nameConvert);
+        if (payload.length === index && nameCard.length) {
+          urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+        }
+      } else if (index % numberModulus === 0) {
+        if (index % numberModulus === 0 && nameCard.length) {
+          urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+          nameCard = '';
+          dataOrigin = [];
+        }
+      }
+    });
+  },
+  getApiYuGiohAnother: function getApiYuGiohAnother(urlApiYugioh, dataOriginPayload) {
+    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+    axios__WEBPACK_IMPORTED_MODULE_3___default()({
+      method: 'get',
+      url: urlApiYugioh
+    }).then(function (response) {
+      var dataJoin = response.data;
+      dataJoin.data.forEach(function (data, index) {
+        dataOriginPayload.some(function (origin) {
+          if (data.name === origin.name) {
+            delete origin.name;
+            dataJoin.data[index] = _objectSpread(_objectSpread({}, dataJoin.data[index]), origin);
+          }
+        });
+      });
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', dataJoin.data);
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+    })["catch"](function (error) {
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+    });
   }
 };
 

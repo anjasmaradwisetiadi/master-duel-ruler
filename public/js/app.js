@@ -24335,7 +24335,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
       requiresAuth: true
     }
   }, {
-    path: '/builder-deck/:slug',
+    path: '/builder-deck/:slug_play_style/:slug',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_pages_DeckBuilder_DeckBuilderDetail_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/DeckBuilder/DeckBuilderDetail.vue */ "./resources/js/pages/DeckBuilder/DeckBuilderDetail.vue"));
     },
@@ -24343,7 +24343,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
       requiresAuth: true
     }
   }, {
-    path: '/builder-deck/:slug/edit',
+    path: '/builder-deck/:slug_play_style/:slug/edit',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_pages_DeckBuilder_CreateDeckBuilder_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/DeckBuilder/CreateDeckBuilder.vue */ "./resources/js/pages/DeckBuilder/CreateDeckBuilder.vue"));
     },
@@ -24351,7 +24351,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
       requiresAuth: true
     }
   }, {
-    path: '/builder-deck/create',
+    path: '/builder-deck/:slug_play_style/create',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_pages_DeckBuilder_CreateDeckBuilder_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/DeckBuilder/CreateDeckBuilder.vue */ "./resources/js/pages/DeckBuilder/CreateDeckBuilder.vue"));
     },

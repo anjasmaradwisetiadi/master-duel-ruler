@@ -248,29 +248,37 @@ __webpack_require__.r(__webpack_exports__);
     var deckTypeMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('main deck');
     var deckTypeExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('extra deck');
     var displayHover = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(true);
+    var confirmDelete = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    var paramsUrl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
+      paramsUrl: paramsUrl,
+      confirmDelete: confirmDelete
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      var payload = router.currentRoute.value.params.slug;
+      state.paramsUrl = payload;
+      _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getDeckBuilderDetail(payload);
+    });
     var dataHasSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return cardSelected.value;
     });
     var mainDeckCards = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      // return store.state.dataDummyCards;
       return store.getters.getterdataDeckBuilderMainDeck;
     });
     var extraDeckCards = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      // return store.state.dataDummyCards;
       return store.getters.getterdataDeckBuilderExtraDeck;
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount)(function () {
-      _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
-    });
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
     function editPlayStyle(slug) {
-      router.push("/builder-deck/".concat(slug, "/edit"));
+      router.push("/builder-deck/".concat(paramsUrl.value, "/").concat(slug, "/edit"));
     }
     function deletePlayStyle() {
-      // state.confirmDelete = true;
+      state.confirmDelete = true;
     }
-    function createDeckBuilder() {
-      console.log("create deckBuilder = ");
+    function methodConfirmDelete($event) {
+      if ($event) {
+        // store.dispatch('deleteCounterStyle', paramsUrl.value);   
+      }
+      state.confirmDelete = false;
     }
     function backRoute() {
       router.back();
@@ -285,12 +293,15 @@ __webpack_require__.r(__webpack_exports__);
       deckTypeMain: deckTypeMain,
       deckTypeExtra: deckTypeExtra,
       displayHover: displayHover,
+      confirmDelete: confirmDelete,
+      paramsUrl: paramsUrl,
+      state: state,
       dataHasSelected: dataHasSelected,
       mainDeckCards: mainDeckCards,
       extraDeckCards: extraDeckCards,
       editPlayStyle: editPlayStyle,
       deletePlayStyle: deletePlayStyle,
-      createDeckBuilder: createDeckBuilder,
+      methodConfirmDelete: methodConfirmDelete,
       backRoute: backRoute,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
@@ -847,6 +858,7 @@ var _hoisted_55 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$setup$dataDeckBuild, _$setup$dataDeckBuild2, _$setup$dataHasSelect, _$setup$dataHasSelect2, _$setup$dataHasSelect3, _$setup$dataHasSelect4, _$setup$dataHasSelect5, _$setup$dataHasSelect6, _$setup$dataHasSelect7, _$setup$dataHasSelect9, _$setup$dataHasSelect10, _$setup$dataHasSelect11, _$setup$dataHasSelect12, _$setup$dataHasSelect13, _$setup$dataHasSelect14, _$setup$dataHasSelect15, _$setup$dataHasSelect16, _$setup$dataHasSelect17, _$setup$dataHasSelect18, _$setup$dataHasSelect19, _$setup$dataHasSelect20, _$setup$dataHasSelect21, _$setup$dataHasSelect22, _$setup$dataHasSelect23, _$setup$dataHasSelect24, _$setup$dataHasSelect25, _$setup$dataHasSelect26, _$setup$dataHasSelect27, _$setup$dataHasSelect28, _$setup$dataHasSelect29, _$setup$dataHasSelect30, _$setup$dataHasSelect31, _$setup$dataHasSelect32, _$setup$dataHasSelect33, _$setup$dataHasSelect34;
   var _component_szpan = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("szpan");
+  var _component_LoadingAndAlert = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("LoadingAndAlert");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-success mr-2",
@@ -911,7 +923,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, _hoisted_40)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect22 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect22 !== void 0 && _$setup$dataHasSelect22.card_sets ? (_$setup$dataHasSelect23 = $setup.dataHasSelected) === null || _$setup$dataHasSelect23 === void 0 || (_$setup$dataHasSelect23 = _$setup$dataHasSelect23.card_sets[0]) === null || _$setup$dataHasSelect23 === void 0 ? void 0 : _$setup$dataHasSelect23.set_name : ' '), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((_$setup$dataHasSelect24 = $setup.dataHasSelected) === null || _$setup$dataHasSelect24 === void 0 ? void 0 : _$setup$dataHasSelect24.frameType) === 'trap' || ((_$setup$dataHasSelect25 = $setup.dataHasSelected) === null || _$setup$dataHasSelect25 === void 0 ? void 0 : _$setup$dataHasSelect25.frameType) === 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect26 = $setup.dataHasSelected) === null || _$setup$dataHasSelect26 === void 0 ? void 0 : _$setup$dataHasSelect26.name), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: (_$setup$dataHasSelect27 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect27 !== void 0 && _$setup$dataHasSelect27.card_images ? (_$setup$dataHasSelect28 = $setup.dataHasSelected) === null || _$setup$dataHasSelect28 === void 0 || (_$setup$dataHasSelect28 = _$setup$dataHasSelect28.card_images[0]) === null || _$setup$dataHasSelect28 === void 0 ? void 0 : _$setup$dataHasSelect28.image_url_small : ' ',
     alt: (_$setup$dataHasSelect29 = $setup.dataHasSelected) === null || _$setup$dataHasSelect29 === void 0 ? void 0 : _$setup$dataHasSelect29.name
-  }, null, 8 /* PROPS */, _hoisted_48)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect30 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect30 !== void 0 && _$setup$dataHasSelect30.frameType ? (_$setup$dataHasSelect31 = $setup.dataHasSelected) === null || _$setup$dataHasSelect31 === void 0 ? void 0 : _$setup$dataHasSelect31.frameType : ' ')) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect32 = $setup.dataHasSelected) === null || _$setup$dataHasSelect32 === void 0 ? void 0 : _$setup$dataHasSelect32.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect33 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect33 !== void 0 && _$setup$dataHasSelect33.card_sets ? (_$setup$dataHasSelect34 = $setup.dataHasSelected) === null || _$setup$dataHasSelect34 === void 0 || (_$setup$dataHasSelect34 = _$setup$dataHasSelect34.card_sets[0]) === null || _$setup$dataHasSelect34 === void 0 ? void 0 : _$setup$dataHasSelect34.set_name : ''), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+  }, null, 8 /* PROPS */, _hoisted_48)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect30 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect30 !== void 0 && _$setup$dataHasSelect30.frameType ? (_$setup$dataHasSelect31 = $setup.dataHasSelected) === null || _$setup$dataHasSelect31 === void 0 ? void 0 : _$setup$dataHasSelect31.frameType : ' ')) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect32 = $setup.dataHasSelected) === null || _$setup$dataHasSelect32 === void 0 ? void 0 : _$setup$dataHasSelect32.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect33 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect33 !== void 0 && _$setup$dataHasSelect33.card_sets ? (_$setup$dataHasSelect34 = $setup.dataHasSelected) === null || _$setup$dataHasSelect34 === void 0 || (_$setup$dataHasSelect34 = _$setup$dataHasSelect34.card_sets[0]) === null || _$setup$dataHasSelect34 === void 0 ? void 0 : _$setup$dataHasSelect34.set_name : ''), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LoadingAndAlert, {
+    loading: _ctx.loading,
+    confirmDelete: $setup.confirmDelete,
+    onConfirm: $setup.methodConfirmDelete
+  }, null, 8 /* PROPS */, ["loading", "confirmDelete"])]);
 }
 
 /***/ }),
@@ -954,39 +970,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var urlBuilderStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApi, "deck-builder-api");
 var builderDeckService = {
-  getDataDeckBuilder: function getDataDeckBuilder(payload) {
-    var _this = this;
+  getDeckBuilderDetail: function getDeckBuilderDetail(slug) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var nameCard, urlApiYugioh, numberModulus, dataOrigin;
+      var tokenAuth;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            nameCard = '';
-            urlApiYugioh = '';
-            numberModulus = 4;
-            dataOrigin = [];
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            payload.forEach(function (data, index) {
-              index = index + 1;
-              if (index % numberModulus !== 0) {
-                data.name = _utilize_utilize__WEBPACK_IMPORTED_MODULE_5__.utilize.characterEncodingUrl(data.name);
-                nameCard += "|".concat(data.name);
-                dataOrigin.push(data);
-                if (payload.length === index && nameCard.length) {
-                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
-                }
-              } else if (index % numberModulus === 0) {
-                if (index % numberModulus === 0 && nameCard.length) {
-                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
-                  nameCard = '';
-                  dataOrigin = [];
-                }
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'get',
+              url: "".concat(urlBuilderStyle, "/").concat(slug),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth)
               }
+            }).then(function (response) {
+              return functionReuse.getDataDeckBuilder(response.data.deck_builder);
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-          case 7:
+          case 3:
           case "end":
             return _context.stop();
         }
@@ -1000,10 +1004,6 @@ var builderDeckService = {
     }).then(function (response) {
       var dataJoin = response.data;
       dataJoin.data.forEach(function (data, index) {
-        // console.log("dataOriginPayload[index].name");
-        // console.log(dataOriginPayload[index]);
-        // console.log("data.name ");
-        // console.log(data);
         dataOriginPayload.some(function (origin) {
           if (data.name === origin.name) {
             delete origin.name;
@@ -1033,7 +1033,7 @@ var builderDeckService = {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
             }).then(function (response) {
-              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateGetTableDeckBuilder', response.data);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             })["catch"](function (error) {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
@@ -1045,6 +1045,63 @@ var builderDeckService = {
         }
       }, _callee2);
     }))();
+  }
+};
+var functionReuse = {
+  getDataDeckBuilder: function getDataDeckBuilder(payload) {
+    var _this = this;
+    var nameCard = '';
+    var urlApiYugioh = '';
+    var numberModulus = 11;
+    var dataOrigin = [];
+    var nameConvert = '';
+    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+
+    // this.getFunction(payload);
+    payload.forEach(function (data, index) {
+      index = index + 1;
+      if (index % numberModulus !== 0) {
+        dataOrigin.push(data);
+        // it will make can return value false on root data  lol...     
+        // data.name = this.characterEncodingUrl(data.name);
+        nameConvert = _utilize_utilize__WEBPACK_IMPORTED_MODULE_5__.utilize.characterEncodingUrl(data.name);
+        //********* */ make can use many name card but call one time api
+        nameCard += "|".concat(nameConvert);
+        if (payload.length === index && nameCard.length) {
+          urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+        }
+      } else if (index % numberModulus === 0) {
+        if (index % numberModulus === 0 && nameCard.length) {
+          urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+          nameCard = '';
+          dataOrigin = [];
+        }
+      }
+    });
+  },
+  getApiYuGiohAnother: function getApiYuGiohAnother(urlApiYugioh, dataOriginPayload) {
+    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+    axios__WEBPACK_IMPORTED_MODULE_3___default()({
+      method: 'get',
+      url: urlApiYugioh
+    }).then(function (response) {
+      var dataJoin = response.data;
+      dataJoin.data.forEach(function (data, index) {
+        dataOriginPayload.some(function (origin) {
+          if (data.name === origin.name) {
+            delete origin.name;
+            dataJoin.data[index] = _objectSpread(_objectSpread({}, dataJoin.data[index]), origin);
+          }
+        });
+      });
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', dataJoin.data);
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+    })["catch"](function (error) {
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+    });
   }
 };
 

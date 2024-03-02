@@ -46,9 +46,8 @@ import { ref, reactive, watch, computed, onMounted, onBeforeMount } from 'vue';
 import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
 import ListImageHover from '../../components/ListImageHover.vue';
 import ImagePreview from '../../components/ImagePreview.vue';
-import TableListDeckBuilder from '../DeckBuilder/TableListDeckBuilder.vue'
+import TableListDeckBuilder from '../DeckBuilder/TableListDeckBuilder.vue';
 import {playStyleDeckService} from '../../store/PlayStyleDeck/playStyleDeckService';
-import { builderDeckService } from '../../store/BuilderDeck/builderDeckService';
 import {utilize} from '../../utilize/utilize';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
@@ -71,7 +70,6 @@ onBeforeMount(()=>{
     
     // store.dispatch('detailCounterStyle', payload);
     playStyleDeckService.detailPlayStyle(paramsUrl.value);
-    builderDeckService.getTableDeckBuilder(paramsUrl.value);
 })
 
 const getDataPlayStyleDeck = computed(()=>{

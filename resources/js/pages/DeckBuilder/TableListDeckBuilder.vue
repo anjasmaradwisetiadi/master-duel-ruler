@@ -72,23 +72,30 @@
     </div>
 </template>
 <script setup>
-import { reactive, computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import {dataDummyDeckBuilder} from '../../DummyDataCard';
 import { useRouter } from 'vue-router';
+import { builderDeckService } from '../../store/BuilderDeck/builderDeckService';
 import {collectionUrl} from '../../urlCollect';
 const dayjs = require('dayjs');
 
 const store = useStore();
 const router = useRouter();
-const dataDeckBuilders = dataDummyDeckBuilder.data;
+const paramsUrl = ref('');
 
 onMounted(()=>{
+    const payload = router.currentRoute.value.params.slug;
+    paramsUrl.value = payload;
+    builderDeckService.getTableDeckBuilder(payload);
+})
 
+const dataDeckBuilders = computed(()=>{
+    return store?.getters?.getterListDeckBuilder ? store?.getters?.getterListDeckBuilder : [];
 })
 
 function redirectDetailDeckBuilder(slug){
-    router.push(`/builder-deck/${slug}`)
+    router.push(`/builder-deck/${paramsUrl.value}/${slug}`)
 }
 </script>
 <style scoped>

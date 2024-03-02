@@ -27,8 +27,6 @@ export const builderDeck = {
         mutateGetTableDeckBuilder(state, payload){
             state.listDeckBuilder = payload;
         },
-
-
     }, 
     action:{
 

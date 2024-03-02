@@ -205,6 +205,7 @@
           </div>
         </div>
       </div>
+      <LoadingAndAlert :loading="loading" :confirmDelete="confirmDelete" @confirm="methodConfirmDelete" ></LoadingAndAlert>
     </div>
   </template>
   <script setup>
@@ -229,39 +230,44 @@
   const deckTypeMain = ref('main deck');
   const deckTypeExtra = ref('extra deck');
   const displayHover = ref(true);
-  
+  const confirmDelete = ref(false);
+  const paramsUrl = ref('');
+
+  const state = reactive({
+    paramsUrl,
+    confirmDelete
+  }) 
+
+  onMounted(()=>{
+      const payload = router.currentRoute.value.params.slug
+      state.paramsUrl = payload;
+      builderDeckService.getDeckBuilderDetail(payload);
+  })
   
   const dataHasSelected = computed(()=>{
       return cardSelected.value;
   })
   
   const mainDeckCards = computed(()=>{
-      // return store.state.dataDummyCards;
       return store.getters.getterdataDeckBuilderMainDeck;
   })
   const extraDeckCards = computed(()=>{
-      // return store.state.dataDummyCards;
       return store.getters.getterdataDeckBuilderExtraDeck;
   })
   
-  onBeforeMount(()=>{
-      builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
-  })
-
-  onMounted(()=>{
-
-  })
-  
   function editPlayStyle(slug){
-      router.push(`/builder-deck/${slug}/edit`);
+      router.push(`/builder-deck/${paramsUrl.value}/${slug}/edit`);
   }
   
   function deletePlayStyle(){
-      // state.confirmDelete = true;
+      state.confirmDelete = true;
   }
-  
-  function createDeckBuilder(){
-      console.log("create deckBuilder = ")
+
+  function methodConfirmDelete($event){
+      if($event){
+          // store.dispatch('deleteCounterStyle', paramsUrl.value);   
+      }
+      state.confirmDelete = false;
   }
   
   function backRoute(){

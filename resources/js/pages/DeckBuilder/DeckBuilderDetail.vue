@@ -49,7 +49,7 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <div class="mt-2">
+          <div class="mt-2 main-deck-style">
             <MainExtraDeck
               :data-deck-builder-length="dataDeckBuilderLength"
               :data-deck-builder="dataDeckBuilder"
@@ -59,7 +59,7 @@
               :display-hover="displayHover"
             ></MainExtraDeck>
           </div>
-          <div class="mt-4">
+          <div class="mt-4 extra-deck-style">
             <MainExtraDeck
               :data-deck-builder-length="dataDeckBuilderLength"
               :data-deck-builder="dataDeckBuilder"
@@ -223,12 +223,12 @@
   
   
   // const dataHasSelected = dataDummyCards.data[4];
-  const dataDeckBuilderLength = ref([]);
+  const dataDeckBuilderLength = ref(dataDummyCards.data);
   const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
   const cardSelected = ref(null);
-  const deckTypeMain = ref('main-deck');
-  const deckTypeExtra = ref('extra-deck');
-  const displayHover = ref(false);
+  const deckTypeMain = ref('main deck');
+  const deckTypeExtra = ref('extra deck');
+  const displayHover = ref(true);
   
   
   const dataHasSelected = computed(()=>{
@@ -237,13 +237,11 @@
   
   const mainDeckCards = computed(()=>{
       // return store.state.dataDummyCards;
-      // return store.getters.getterdataDeckBuilderMainDeck;
-      return [];
+      return store.getters.getterdataDeckBuilderMainDeck;
   })
   const extraDeckCards = computed(()=>{
       // return store.state.dataDummyCards;
-      // return store.getters.getterdataDeckBuilderExtraDeck;
-      return [];
+      return store.getters.getterdataDeckBuilderExtraDeck;
   })
   
   onBeforeMount(()=>{
@@ -315,6 +313,14 @@
     justify-content: end;
   }
   /*--- end card selected */
+  .main-deck-style{
+    z-index: 2;
+    position: relative;
+  }
+  .extra-deck-style{
+    z-index: 1;
+    position: relative;
+  }
   </style>
   
   <style>

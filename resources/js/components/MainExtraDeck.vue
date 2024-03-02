@@ -59,7 +59,7 @@
             <div
               class="d-flex flex-wrap scroller-cards-collect"
               id="scrollbar1"
-              v-if="dataDeckBuilderLength.length"
+              v-if="props.dataDeckBuilderLength.length"
             >
               <!-- when it need hover for display detail information -->
               <template v-if="props?.displayHover">
@@ -250,9 +250,11 @@
   const store = useStore();
   const props = defineProps({
       dataDeckBuilder: Object,
-      dataDeckBuilderLength: Object,
+      dataDeckBuilderLength: Array,
       deckType: String,
-      displayHover: Boolean,
+      displayHover: {
+        default: true
+      },
   })
   
   const emits = defineEmits([
@@ -273,18 +275,33 @@
   const imagePosition = ref(null);
   
   onMounted(()=>{
-  
+    console.log("mainDeckCards = ");
+    console.log(mainDeckCards)
+    const valueCard = props?.deckType === 'main deck' ? props?.dataDeckBuilder.total_card.total_card_main_deck :  props?.dataDeckBuilder.total_card.total_card_extra_deck;
+    listenChangeTotalCard(valueCard)
   })
 
   const totalCard = computed(()=>{
     let valueCard = 0;
+    console.log("deckCollects = ");
+    console.log(deckCollects.value);
     if(deckCollects.value){
       deckCollects.value?.forEach(element => {
         valueCard+=element.value;
       });
+
+      listenChangeTotalCard(valueCard)
       return valueCard;
     }
   })
+
+  function listenChangeTotalCard(valueCard){
+    if(props?.deckType === 'main deck'){
+        store.commit('mutateTotalMainDeck', valueCard);
+      } else{
+        store.commit('mutateTotalExtraDeck', valueCard)
+      }
+  }
   
   function displayCard($event, index, condition ){
       hoverCondition.value = condition;

@@ -24417,13 +24417,23 @@ __webpack_require__.r(__webpack_exports__);
 var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApi, ",counter-style-deck-api");
 var builderDeck = {
   state: {
-    dataDeckBuilder: []
+    dataDeckBuilder: [],
+    totalMainDeck: 0,
+    totalExtraDeck: 0
   },
   mutations: {
     mutateDataDeckBuilder: function mutateDataDeckBuilder(state, payload) {
       payload.forEach(function (element, index) {
-        return state.dataDeckBuilder.push(element);
+        state.dataDeckBuilder.push(element);
       });
+    },
+    mutateTotalMainDeck: function mutateTotalMainDeck(state, payload) {
+      console.log("mutateTotalMainDeck = ");
+      console.log(payload);
+      state.totalMainDeck = payload;
+    },
+    mutateTotalExtraDeck: function mutateTotalExtraDeck(state, payload) {
+      state.totalExtraDeck = payload;
     }
   },
   action: {},
@@ -24443,6 +24453,12 @@ var builderDeck = {
         }
       });
       return extraDeckCollect;
+    },
+    getterTotalMainDeck: function getterTotalMainDeck(state) {
+      return state.totalMainDeck;
+    },
+    getterTotalExtraDeck: function getterTotalExtraDeck(state) {
+      return state.totalExtraDeck;
     }
   }
 };

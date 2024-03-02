@@ -22,9 +22,11 @@ __webpack_require__.r(__webpack_exports__);
   __name: 'MainExtraDeck',
   props: /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeModels)({
     dataDeckBuilder: Object,
-    dataDeckBuilderLength: Object,
+    dataDeckBuilderLength: Array,
     deckType: String,
-    displayHover: Boolean
+    displayHover: {
+      "default": true
+    }
   }, {
     "cardSelected": {},
     "cardSelectedModifiers": {},
@@ -52,17 +54,32 @@ __webpack_require__.r(__webpack_exports__);
     var offset = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
     var valueSearch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var imagePosition = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
+      console.log("mainDeckCards = ");
+      console.log(mainDeckCards);
+      var valueCard = (props === null || props === void 0 ? void 0 : props.deckType) === 'main deck' ? props === null || props === void 0 ? void 0 : props.dataDeckBuilder.total_card.total_card_main_deck : props === null || props === void 0 ? void 0 : props.dataDeckBuilder.total_card.total_card_extra_deck;
+      listenChangeTotalCard(valueCard);
+    });
     var totalCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var valueCard = 0;
+      console.log("deckCollects = ");
+      console.log(deckCollects.value);
       if (deckCollects.value) {
         var _deckCollects$value;
         (_deckCollects$value = deckCollects.value) === null || _deckCollects$value === void 0 || _deckCollects$value.forEach(function (element) {
           valueCard += element.value;
         });
+        listenChangeTotalCard(valueCard);
         return valueCard;
       }
     });
+    function listenChangeTotalCard(valueCard) {
+      if ((props === null || props === void 0 ? void 0 : props.deckType) === 'main deck') {
+        store.commit('mutateTotalMainDeck', valueCard);
+      } else {
+        store.commit('mutateTotalExtraDeck', valueCard);
+      }
+    }
     function displayCard($event, index, condition) {
       hoverCondition.value = condition;
       hoverConditionIndex.value = index;
@@ -164,6 +181,7 @@ __webpack_require__.r(__webpack_exports__);
       valueSearch: valueSearch,
       imagePosition: imagePosition,
       totalCard: totalCard,
+      listenChangeTotalCard: listenChangeTotalCard,
       displayCard: displayCard,
       createdStyleCardHover: createdStyleCardHover,
       selectedCard: selectedCard,
@@ -228,24 +246,22 @@ __webpack_require__.r(__webpack_exports__);
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.useRouter)();
 
     // const dataHasSelected = dataDummyCards.data[4];
-    var dataDeckBuilderLength = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var dataDeckBuilderLength = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(_DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyCards.data);
     var dataDeckBuilder = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(_DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyDeckBuilder.data[1]);
     var cardSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
-    var deckTypeMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('main-deck');
-    var deckTypeExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('extra-deck');
-    var displayHover = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    var deckTypeMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('main deck');
+    var deckTypeExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('extra deck');
+    var displayHover = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(true);
     var dataHasSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return cardSelected.value;
     });
     var mainDeckCards = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       // return store.state.dataDummyCards;
-      // return store.getters.getterdataDeckBuilderMainDeck;
-      return [];
+      return store.getters.getterdataDeckBuilderMainDeck;
     });
     var extraDeckCards = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       // return store.state.dataDummyCards;
-      // return store.getters.getterdataDeckBuilderExtraDeck;
-      return [];
+      return store.getters.getterdataDeckBuilderExtraDeck;
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount)(function () {
       _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
@@ -574,7 +590,7 @@ var _hoisted_68 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.price.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_UR), 1 /* TEXT */)]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_SR), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.price.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? $props.dataDeckBuilder.total_card.total_card_main_deck : $props.dataDeckBuilder.total_card.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalCard), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [$props.dataDeckBuilderLength.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.price.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_UR), 1 /* TEXT */)]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_SR), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.price.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? $props.dataDeckBuilder.total_card.total_card_main_deck : $props.dataDeckBuilder.total_card.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalCard), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [$setup.props.dataDeckBuilderLength.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.mainDeckCards, function (urlImage, index) {
     var _urlImage$card_images, _urlImage$card_images2, _urlImage$card_sets$, _urlImage$card_images3, _urlImage$card_sets$2;
@@ -706,10 +722,10 @@ var _hoisted_15 = {
   "class": "col-6"
 };
 var _hoisted_16 = {
-  "class": "mt-2"
+  "class": "mt-2 main-deck-style"
 };
 var _hoisted_17 = {
-  "class": "mt-4"
+  "class": "mt-4 extra-deck-style"
 };
 var _hoisted_18 = {
   "class": "col-6"
@@ -1050,7 +1066,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-31708fad] {\r\n    color: black;\n}\r\n  /*--- style card selected */\n.wrap-card-currently[data-v-31708fad] {\r\n    background-color: #0d2f4e;\r\n    padding: 8px;\r\n    border-radius: 10px;\r\n    border: 3px solid #385979;\n}\n.content-section[data-v-31708fad] {\r\n    margin-top: 2.5rem;\n}\n.image-section img[data-v-31708fad] {\r\n    width: 170px;\r\n    margin-right: 0.75rem;\n}\n.information-section .wrap-star[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\n}\n.information-section .wrap-star span[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\r\n    font-size: 18px;\n}\n.information-section .wrap-star img[data-v-31708fad] {\r\n    width: 20px;\r\n    height: 20px;\r\n    margin-right: 6px;\n}\n.information-section .description-card[data-v-31708fad] {\r\n    min-height: 220px;\r\n    text-align: justify;\r\n    font-size: 14px;\n}\n.released-card[data-v-31708fad] {\r\n    display: flex;\r\n    justify-content: end;\n}\r\n  /*--- end card selected */\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-31708fad] {\r\n    color: black;\n}\r\n  /*--- style card selected */\n.wrap-card-currently[data-v-31708fad] {\r\n    background-color: #0d2f4e;\r\n    padding: 8px;\r\n    border-radius: 10px;\r\n    border: 3px solid #385979;\n}\n.content-section[data-v-31708fad] {\r\n    margin-top: 2.5rem;\n}\n.image-section img[data-v-31708fad] {\r\n    width: 170px;\r\n    margin-right: 0.75rem;\n}\n.information-section .wrap-star[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\n}\n.information-section .wrap-star span[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\r\n    font-size: 18px;\n}\n.information-section .wrap-star img[data-v-31708fad] {\r\n    width: 20px;\r\n    height: 20px;\r\n    margin-right: 6px;\n}\n.information-section .description-card[data-v-31708fad] {\r\n    min-height: 220px;\r\n    text-align: justify;\r\n    font-size: 14px;\n}\n.released-card[data-v-31708fad] {\r\n    display: flex;\r\n    justify-content: end;\n}\r\n  /*--- end card selected */\n.main-deck-style[data-v-31708fad]{\r\n    z-index: 2;\r\n    position: relative;\n}\n.extra-deck-style[data-v-31708fad]{\r\n    z-index: 1;\r\n    position: relative;\n}\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

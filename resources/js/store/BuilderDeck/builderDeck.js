@@ -5,13 +5,25 @@ const urlCounterStyle = `${collectionUrl.baseUrlApi},counter-style-deck-api`
 export const builderDeck = {
     state:{
         dataDeckBuilder: [], 
+        totalMainDeck : 0,
+        totalExtraDeck : 0,
     },
     mutations: {
         mutateDataDeckBuilder(state, payload){
             payload.forEach((element, index) => {
-                return state.dataDeckBuilder.push(element);
+                state.dataDeckBuilder.push(element);
             });
         }, 
+
+        mutateTotalMainDeck(state, payload){
+            console.log("mutateTotalMainDeck = ");
+            console.log(payload)
+            state.totalMainDeck = payload;
+        },
+
+        mutateTotalExtraDeck(state, payload){
+            state.totalExtraDeck = payload;
+        }
     }, 
     action:{
 
@@ -32,6 +44,12 @@ export const builderDeck = {
                 }
             });
             return extraDeckCollect;
+        },
+        getterTotalMainDeck(state){
+            return state.totalMainDeck;
+        },
+        getterTotalExtraDeck(state){
+            return state.totalExtraDeck;
         }
     },
 }

@@ -61,8 +61,8 @@
 
             <div class="form-group mb-2">
                 <label for="inputBody">Description</label>
-                <quill-editor id="inputBody" v-model:content="information" content-type="html" placeholder="Write your information...."></quill-editor>
-                <small v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.information ? responseGeneral?.message?.information[0] : ''}}</small>
+                <quill-editor id="inputBody" v-model:content="description" content-type="html" placeholder="Write your description...."></quill-editor>
+                <small v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.description ? responseGeneral?.message?.description[0] : ''}}</small>
             </div>
             <div class="row">
                 <div class="col">
@@ -125,28 +125,8 @@ import { utilize } from '../../utilize/utilize';
 const router = useRouter();
 const store = useStore();
 
-const dataDeckBuilderLength = ref(dataDummyDeckBuilder.data);
-const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
-
-const mainDeckCards = computed(()=>{
-    // return store.state.dataDummyCards;
-    return store.getters.getterdataDeckBuilderMainDeck;
-})
-const extraDeckCards = computed(()=>{
-    // return store.state.dataDummyCards;
-    return store.getters.getterdataDeckBuilderExtraDeck;
-})
-
-const deckCollectMain = computed(()=>{
-    return store.getters.getterdataDeckBuilderMainDeck;
-})
-
-const deckCollectExtra = computed(()=>{
-    return store.getters.getterdataDeckBuilderExtraDeck;
-})
-
 const title = ref('');
-const information = ref('');
+const description = ref('');
 const preview = ref(null);
 const conditionImage = ref('neutral');
 const image = ref(null);
@@ -173,11 +153,31 @@ const state = reactive({
         urlImage,
         conditionImage,
         inputFile, 
-        information, 
+        description, 
         title, 
         oldSlug,
         editOrNot,
         cardSelectedChoice,
+})
+
+const dataDeckBuilderLength = ref(dataDummyDeckBuilder.data);
+const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
+
+const mainDeckCards = computed(()=>{
+    // return store.state.dataDummyCards;
+    return store.getters.getterdataDeckBuilderMainDeck;
+})
+const extraDeckCards = computed(()=>{
+    // return store.state.dataDummyCards;
+    return store.getters.getterdataDeckBuilderExtraDeck;
+})
+
+const deckCollectMain = computed(()=>{
+    return store.getters.getterdataDeckBuilderMainDeck;
+})
+
+const deckCollectExtra = computed(()=>{
+    return store.getters.getterdataDeckBuilderExtraDeck;
 })
 
 watch(deckCollectMain, (newValue, oldValue)=>{
@@ -195,8 +195,7 @@ onBeforeMount(()=>{
 })
 
 onMounted(()=>{
-    console.log("deckCollectMain = ");
-    console.log(deckCollectMain.value);
+
 })
 
 const responseGeneral = computed(()=>{
@@ -251,7 +250,6 @@ function addRemoveCardSelectedMain($event){
     if($event.status === 'add'){
         selectedCardHas($event.value);
     } else {
-        console.log("trigger remove")
         selectedCardHasRemove($event.value);
     }
 }
@@ -317,6 +315,11 @@ function selectedCardHas(event){
         }
         dataDeckTypeMain.value = dataDeckTypeMain.value;
     }
+
+    console.log("dataDeckTypeMain.value = ");
+    console.log(dataDeckTypeMain.value);
+    console.log("dataDeckTypeExtra.value = ");
+    console.log(dataDeckTypeExtra.value);
 }
 
 
@@ -372,7 +375,70 @@ function backRoute(){
 }
 
 function submit(){
-    console.log("data submit = ");
+
+    let slugCreated = title.value.toLowerCase().replaceAll(' ', '-');
+
+    let formData = new FormData();
+    const priceDeck ={
+        total_rarity_SR : 0,
+        total_rarity_UR : 0,
+    }
+
+    const totalCardDeck = {
+        total_card_main_deck: store.getters.getterTotalMainDeck,
+        total_card_extra_deck: store.getters.getterTotalExtraDeck
+    }
+
+    const dataDeckBuilder = createPayloadDeck(dataDeckTypeMain.value, dataDeckTypeExtra.value);
+
+    const getParamsCreate ={
+        title: title.value,
+        slug: slugCreated,
+        engines: 'akan masuk langsung di form data',
+        play_style_id: 'masih development',
+        price: priceDeck,
+        total_card: totalCardDeck,
+        description: description.value,
+        deck_buidler: dataDeckBuilder
+    }
+    for (const key in getParamsCreate) {
+        formData.append(key, getParamsCreate[key])
+    }
+    formData.append('engines', image.value);
+
+    console.log("getParamsCreate = ")
+    console.log(getParamsCreate)
+
+}
+
+function createPayloadDeck(dataMain, dataExtra){
+    let dataCollectMain = [];
+    let dataCollectExtra = [];
+    dataMain.forEach((element, index)=>{
+        if(element){
+            const collect = {
+                name: element.name,
+                value: element.value,
+                rarity: element.rarity,
+                column_deck: element.column_deck
+            }
+            dataCollectMain.push(collect)
+        }
+    })
+
+    dataExtra.forEach((element, index)=>{
+        if(element){
+            const collect = {
+                name: element.name,
+                value: element.value,
+                rarity: element.rarity,
+                column_deck: element.column_deck
+            }
+            dataCollectExtra.push(collect)
+        }
+    })
+
+    return dataCollectMain.concat(dataCollectExtra)
 }
 
 </script>

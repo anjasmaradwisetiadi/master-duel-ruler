@@ -24419,7 +24419,8 @@ var builderDeck = {
   state: {
     dataDeckBuilder: [],
     totalMainDeck: 0,
-    totalExtraDeck: 0
+    totalExtraDeck: 0,
+    listDeckBuilder: []
   },
   mutations: {
     mutateDataDeckBuilder: function mutateDataDeckBuilder(state, payload) {
@@ -24428,12 +24429,13 @@ var builderDeck = {
       });
     },
     mutateTotalMainDeck: function mutateTotalMainDeck(state, payload) {
-      console.log("mutateTotalMainDeck = ");
-      console.log(payload);
       state.totalMainDeck = payload;
     },
     mutateTotalExtraDeck: function mutateTotalExtraDeck(state, payload) {
       state.totalExtraDeck = payload;
+    },
+    mutateGetTableDeckBuilder: function mutateGetTableDeckBuilder(state, payload) {
+      state.listDeckBuilder = payload;
     }
   },
   action: {},
@@ -24459,6 +24461,9 @@ var builderDeck = {
     },
     getterTotalExtraDeck: function getterTotalExtraDeck(state) {
       return state.totalExtraDeck;
+    },
+    getterListDeckBuilder: function getterListDeckBuilder(state) {
+      return state.listDeckBuilder;
     }
   }
 };

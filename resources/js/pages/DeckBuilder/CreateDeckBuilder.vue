@@ -315,11 +315,6 @@ function selectedCardHas(event){
         }
         dataDeckTypeMain.value = dataDeckTypeMain.value;
     }
-
-    console.log("dataDeckTypeMain.value = ");
-    console.log(dataDeckTypeMain.value);
-    console.log("dataDeckTypeExtra.value = ");
-    console.log(dataDeckTypeExtra.value);
 }
 
 
@@ -405,10 +400,6 @@ function submit(){
         formData.append(key, getParamsCreate[key])
     }
     formData.append('engines', image.value);
-
-    console.log("getParamsCreate = ")
-    console.log(getParamsCreate)
-
 }
 
 function createPayloadDeck(dataMain, dataExtra){

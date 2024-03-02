@@ -25,7 +25,7 @@ __webpack_require__.r(__webpack_exports__);
     dataDeckBuilderLength: Array,
     deckType: String,
     displayHover: {
-      "default": true
+      "default": false
     }
   }, {
     "cardSelected": {},
@@ -55,15 +55,11 @@ __webpack_require__.r(__webpack_exports__);
     var valueSearch = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var imagePosition = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
-      console.log("mainDeckCards = ");
-      console.log(mainDeckCards);
       var valueCard = (props === null || props === void 0 ? void 0 : props.deckType) === 'main deck' ? props === null || props === void 0 ? void 0 : props.dataDeckBuilder.total_card.total_card_main_deck : props === null || props === void 0 ? void 0 : props.dataDeckBuilder.total_card.total_card_extra_deck;
       listenChangeTotalCard(valueCard);
     });
     var totalCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var valueCard = 0;
-      console.log("deckCollects = ");
-      console.log(deckCollects.value);
       if (deckCollects.value) {
         var _deckCollects$value;
         (_deckCollects$value = deckCollects.value) === null || _deckCollects$value === void 0 || _deckCollects$value.forEach(function (element) {
@@ -266,6 +262,7 @@ __webpack_require__.r(__webpack_exports__);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount)(function () {
       _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
     });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
     function editPlayStyle(slug) {
       router.push("/builder-deck/".concat(slug, "/edit"));
     }
@@ -955,7 +952,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-var urlBuilderStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApi, "builder-deck-api");
+var urlBuilderStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApi, "deck-builder-api");
 var builderDeckService = {
   getDataDeckBuilder: function getDataDeckBuilder(payload) {
     var _this = this;
@@ -1020,6 +1017,34 @@ var builderDeckService = {
       _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
       _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
     });
+  },
+  getTableDeckBuilder: function getTableDeckBuilder(slug) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'get',
+              url: "".concat(urlBuilderStyle, "/find/").concat(slug),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth)
+              }
+            }).then(function (response) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 3:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }))();
   }
 };
 

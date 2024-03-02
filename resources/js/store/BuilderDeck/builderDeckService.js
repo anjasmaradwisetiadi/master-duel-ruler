@@ -6,7 +6,7 @@ import router from '../../routes';
 import { utilize } from '../../utilize/utilize';
 import Swal from 'sweetalert2';
 
-const urlBuilderStyle = `${collectionUrl.baseUrlApi}builder-deck-api`;
+const urlBuilderStyle = `${collectionUrl.baseUrlApi}deck-builder-api`;
 
 export const builderDeckService ={
 
@@ -66,4 +66,24 @@ export const builderDeckService ={
             store.state.loading = false;
         })   
     },
+
+    async getTableDeckBuilder(slug){
+        store.state.loading = true;
+        const tokenAuth = store.getters.getterResponseAuth.token;
+        axios({
+            method: 'get',
+            url: `${urlBuilderStyle}/find/${slug}`,
+            headers:{
+                'Authorization': `Bearer ${tokenAuth}`
+              },
+        })
+        .then(function(response){
+            store.commit('mutateDataDeckBuilder', response.data);
+            store.state.loading = false;
+        })
+        .catch(function(error) {
+            store.commit('mutateResponsGeneral', error.message);
+            store.state.loading = false;
+        })   
+    }
 }

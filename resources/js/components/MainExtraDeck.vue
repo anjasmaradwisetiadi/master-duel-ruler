@@ -253,7 +253,7 @@
       dataDeckBuilderLength: Array,
       deckType: String,
       displayHover: {
-        default: true
+        default: false
       },
   })
   
@@ -275,16 +275,12 @@
   const imagePosition = ref(null);
   
   onMounted(()=>{
-    console.log("mainDeckCards = ");
-    console.log(mainDeckCards)
     const valueCard = props?.deckType === 'main deck' ? props?.dataDeckBuilder.total_card.total_card_main_deck :  props?.dataDeckBuilder.total_card.total_card_extra_deck;
     listenChangeTotalCard(valueCard)
   })
 
   const totalCard = computed(()=>{
     let valueCard = 0;
-    console.log("deckCollects = ");
-    console.log(deckCollects.value);
     if(deckCollects.value){
       deckCollects.value?.forEach(element => {
         valueCard+=element.value;

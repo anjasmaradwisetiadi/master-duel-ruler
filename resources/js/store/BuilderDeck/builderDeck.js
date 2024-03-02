@@ -7,6 +7,7 @@ export const builderDeck = {
         dataDeckBuilder: [], 
         totalMainDeck : 0,
         totalExtraDeck : 0,
+        listDeckBuilder: [],
     },
     mutations: {
         mutateDataDeckBuilder(state, payload){
@@ -16,14 +17,18 @@ export const builderDeck = {
         }, 
 
         mutateTotalMainDeck(state, payload){
-            console.log("mutateTotalMainDeck = ");
-            console.log(payload)
             state.totalMainDeck = payload;
         },
 
         mutateTotalExtraDeck(state, payload){
             state.totalExtraDeck = payload;
-        }
+        },
+
+        mutateGetTableDeckBuilder(state, payload){
+            state.listDeckBuilder = payload;
+        },
+
+
     }, 
     action:{
 
@@ -50,6 +55,9 @@ export const builderDeck = {
         },
         getterTotalExtraDeck(state){
             return state.totalExtraDeck;
+        },
+        getterListDeckBuilder(state){
+            return state.listDeckBuilder;
         }
-    },
+    }
 }

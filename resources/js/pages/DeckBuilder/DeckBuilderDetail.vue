@@ -247,6 +247,10 @@
   onBeforeMount(()=>{
       builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
   })
+
+  onMounted(()=>{
+
+  })
   
   function editPlayStyle(slug){
       router.push(`/builder-deck/${slug}/edit`);

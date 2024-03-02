@@ -7,6 +7,7 @@ use App\Http\Controllers\CounterStyleDeckController;
 use App\Http\Controllers\PlayStyleDeckController;
 use App\Http\Controllers\DeckBuilderController;
 use App\Http\Controllers\RegisteredController;
+use App\Models\PlayStyleDecks;
 
 
 /*
@@ -28,6 +29,7 @@ Route::get("/todolist/list", [ApiTodoListController::class, 'getList']);
 Route::middleware('auth:sanctum')->resource('/counter-style-deck-api', CounterStyleDeckController::class);
 Route::middleware('auth:sanctum')->resource('/play-style-deck-api', PlayStyleDeckController::class);
 Route::middleware('auth:sanctum')->resource('/deck-builder-api', DeckBuilderController::class);
+Route::middleware('auth:sanctum')->get('/deck-builder-api/find/{PlayStyleDecks:slug}', [DeckBuilderController::class, 'findTableDeckBuilder']);
 Route::get('/play-style-deck-api/search/{title}', [PlayStyleDeckController::class, 'searching']);
 Route::get('/counter-style-deck-api/search/{title}', [CounterStyleDeckController::class, 'searching']);
 Route::post('/register',[RegisteredController::class, 'register']);

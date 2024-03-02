@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\DeckBuilders;
+use App\Models\PlayStyleDecks;
 
 class DeckBuilderController extends Controller
 {
@@ -11,6 +13,7 @@ class DeckBuilderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -80,5 +83,18 @@ class DeckBuilderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function findTableDeckBuilder($slug){
+        $resultsFindStyle = PlayStyleDecks::where('slug','=',$slug )->get();
+        $results = DeckBuilders::where('play_style_id', '=', $resultsFindStyle[0]->id)->latest()->get();
+
+        for ($index=0; $index<count($results); $index++) {
+            $results[$index]->engines = json_decode($results[$index]->engines);
+            $results[$index]->price = json_decode($results[$index]->price);
+            $results[$index]->total_card = json_decode($results[$index]->total_card);
+            $results[$index]->deck_builder = json_decode($results[$index]->deck_builder);
+        };
+        return response()->json($results);
     }
 }

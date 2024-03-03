@@ -35,7 +35,7 @@
                             :disabled="conditionImage === 'input-url-image' || conditionImage === 'neutral' ? disabled: '' " >
                     </div>
                 </div>
-                <div v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.image ? responseGeneral?.message?.image[0] : ''}}</div>
+                <div v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.engines ? responseGeneral?.message?.engines[0] : ''}}</div>
                 <!-- image preview -->
             </div>
             <div v-if="preview" class="mb-3">
@@ -393,21 +393,17 @@ function submit(){
         title: title.value,
         slug: slugCreated,
         engines_url: urlImage.value,
-        engines: image.value,
+        // engines: image.value,
         play_style_slug: paramsUrlSlugPlayStyle.value,
-        price: priceDeck,
-        total_card: totalCardDeck,
+        price: JSON.stringify(priceDeck),
+        total_card: JSON.stringify(totalCardDeck),
         description: description.value,
-        deck_builder: dataDeckBuilder
+        deck_builder: JSON.stringify(dataDeckBuilder)
     }
     for (const key in getParamsCreate) {
-        console.log("getParamsCreate[key] = ");
-        console.log(getParamsCreate[key]);
         formData.append(key, getParamsCreate[key])
     }
     formData.append('engines', image.value);
-    console.log("getParamsCreate = "),
-    console.log(getParamsCreate)
     builderDeckService.createDeckBuilder(formData);
 }
 
@@ -442,15 +438,15 @@ function createPayloadDeck(dataMain, dataExtra){
 }
 
 function confirm($event){
-    // if($event){
-    //     router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`)
-    // }
+    if($event){
+        router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`)
+    }
 }
 
 function createPayload(){
     title.value = "example deck"
-    // state.slug = "example-deck"
-    // image.value = "https://images.ygoprodeck.com/images/cards_small/45663742.jpg";        
+    image.value = "https://images.ygoprodeck.com/images/cards_small/45663742.jpg"; 
+    urlImage.value = "https://images.ygoprodeck.com/images/cards_small/45663742.jpg";        
     // state.urlImage = '',
     description.value = "1. testing flow"
 }

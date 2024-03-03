@@ -24418,6 +24418,7 @@ var urlCounterStyle = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collect
 var builderDeck = {
   state: {
     dataDeckBuilder: [],
+    detailDeckBuilder: {},
     totalMainDeck: 0,
     totalExtraDeck: 0,
     listDeckBuilder: []
@@ -24427,6 +24428,9 @@ var builderDeck = {
       payload.forEach(function (element, index) {
         state.dataDeckBuilder.push(element);
       });
+    },
+    mutateDetailDeckBuilder: function mutateDetailDeckBuilder(state, payload) {
+      state.detailDeckBuilder = payload;
     },
     mutateTotalMainDeck: function mutateTotalMainDeck(state, payload) {
       state.totalMainDeck = payload;
@@ -24464,6 +24468,9 @@ var builderDeck = {
     },
     getterListDeckBuilder: function getterListDeckBuilder(state) {
       return state.listDeckBuilder;
+    },
+    getterDetailDeckBuilder: function getterDetailDeckBuilder(state) {
+      return state.detailDeckBuilder;
     }
   }
 };

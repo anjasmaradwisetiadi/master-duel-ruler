@@ -20,7 +20,10 @@ export const builderDeckService = {
               },
         })
         .then(function(response){
-            return functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
+            // get generale data deck builder
+            store.commit('mutateDetailDeckBuilder', response.data);
+            // get spesific card data yu gi oh on deck builder
+            functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
 
         })
         .catch(function(error) {

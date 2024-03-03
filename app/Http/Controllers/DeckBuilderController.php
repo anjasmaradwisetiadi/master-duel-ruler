@@ -39,7 +39,22 @@ class DeckBuilderController extends Controller
      */
     public function store(Request $request)
     {   
-        dd($request);
+        //********* */ it need convert because data is jsonStringfy
+        $price =json_decode($request->price);
+        $total_card =json_decode($request->total_card);
+        $deck_builder = json_decode($request->deck_builder);
+        $deck_builder_collect = [];
+
+        //********* */ mapping deck builder
+        for ($x = 0; $x < count($deck_builder); $x++) {
+            $variabelDeck = array(
+                'column_deck' => $deck_builder[$x]->column_deck,
+                'name'=> $deck_builder[$x]->name,
+                'rarity'=> $deck_builder[$x]->rarity,  
+                'value'=> $deck_builder[$x]->value  
+            );
+            array_push($deck_builder_collect, $variabelDeck);
+        }
         $resultsFindStyle = PlayStyleDecks::where('slug','=',$request->play_style_slug )->firstOrFail();
         $validator = $this->validatorInputBuilderDeck($request, 'created');
         $validator->after(function ($validator) use ($request){
@@ -61,8 +76,8 @@ class DeckBuilderController extends Controller
             return response()->json(['status'=>false, 'message'=> $validator->errors()]);
         } else if($validator){
             $imagePost = '';
-            if($request->url_engines !== 'null'){
-                $imagePost = $request->url_engines;
+            if($request->engines_url !== 'null'){
+                $imagePost = $request->engines_url;
             } else if($request->file('image')){
                 $baseUrlImage =  env('APP_URL').'storage/';
                 $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
@@ -73,10 +88,16 @@ class DeckBuilderController extends Controller
                 'slug' => $request->slug,
                 'engines' => json_encode(array($imagePost)),
                 'play_style_id'=> $resultsFindStyle->id,
-                'price' => json_encode($request->price),
-                'total_card' => json_encode($request->price),
+                'price' => json_encode(array(
+                    'total_rarity_SR' => $price->total_rarity_SR,
+                    'total_rarity_UR' => $price->total_rarity_UR
+                )),
+                'total_card' => json_encode(array(
+                    'total_card_main_deck' => $total_card->total_card_main_deck,
+                    'total_card_extra_deck' => $total_card->total_card_extra_deck
+                )),
                 'description' => $request->description,
-                'deck_builder' => json_encode($request->deck_builder),
+                'deck_builder' => json_encode($deck_builder_collect)
             ]);
             return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
         }

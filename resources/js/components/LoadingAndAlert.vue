@@ -48,11 +48,11 @@
                     })
                 } else if(response?.status === false) {
                     const conditionSlug = response?.message?.slug ? response?.message?.slug[0] : '';
-                    if(conditionSlug === 'slug unique'){
+                    if(conditionSlug.toLowerCase() === 'slug unique'){
                         return  Swal.fire({
                             icon: "error",
                             title: "Oops...",
-                            text: "Nama counter deck sudah ada, coba ganti nama lain !",
+                            text: "Nama sudah ada, coba ganti nama lain !",
                         });
                     } else {
                         return  Swal.fire({

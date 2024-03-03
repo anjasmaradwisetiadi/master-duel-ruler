@@ -5,6 +5,7 @@ const urlCounterStyle = `${collectionUrl.baseUrlApi},counter-style-deck-api`
 export const builderDeck = {
     state:{
         dataDeckBuilder: [], 
+        detailDeckBuilder: {},
         totalMainDeck : 0,
         totalExtraDeck : 0,
         listDeckBuilder: [],
@@ -15,6 +16,10 @@ export const builderDeck = {
                 state.dataDeckBuilder.push(element);
             });
         }, 
+
+        mutateDetailDeckBuilder(state, payload){
+            state.detailDeckBuilder = payload
+        },
 
         mutateTotalMainDeck(state, payload){
             state.totalMainDeck = payload;
@@ -56,6 +61,9 @@ export const builderDeck = {
         },
         getterListDeckBuilder(state){
             return state.listDeckBuilder;
+        },
+        getterDetailDeckBuilder(state){
+            return state.detailDeckBuilder;
         }
     }
 }

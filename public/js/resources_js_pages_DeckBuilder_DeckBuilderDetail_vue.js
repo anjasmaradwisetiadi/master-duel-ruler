@@ -242,8 +242,8 @@ __webpack_require__.r(__webpack_exports__);
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.useRouter)();
 
     // const dataHasSelected = dataDummyCards.data[4];
-    var dataDeckBuilderLength = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(_DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyCards.data);
-    var dataDeckBuilder = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(_DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyDeckBuilder.data[1]);
+    // const dataDeckBuilderLength = ref(dataDummyCards.data);
+    // const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
     var cardSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
     var deckTypeMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('main deck');
     var deckTypeExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('extra deck');
@@ -255,9 +255,17 @@ __webpack_require__.r(__webpack_exports__);
       confirmDelete: confirmDelete
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
-      var payload = router.currentRoute.value.params.slug_play_style;
+      var payload = router.currentRoute.value.params.slug;
       state.paramsUrlSlugPlayStyle = payload;
       _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getDeckBuilderDetail(payload);
+    });
+    var dataDeckBuilder = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      console.log("store.getters.getterDetailDeckBuilder = ");
+      console.log(store.getters.getterDetailDeckBuilder);
+      return store.getters.getterDetailDeckBuilder;
+    });
+    var dataDeckBuilderLength = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      return store.getters.getterDetailDeckBuilder.deck_builder;
     });
     var dataHasSelected = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return cardSelected.value;
@@ -287,8 +295,6 @@ __webpack_require__.r(__webpack_exports__);
       dayjs: dayjs,
       store: store,
       router: router,
-      dataDeckBuilderLength: dataDeckBuilderLength,
-      dataDeckBuilder: dataDeckBuilder,
       cardSelected: cardSelected,
       deckTypeMain: deckTypeMain,
       deckTypeExtra: deckTypeExtra,
@@ -296,6 +302,8 @@ __webpack_require__.r(__webpack_exports__);
       confirmDelete: confirmDelete,
       paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle,
       state: state,
+      dataDeckBuilder: dataDeckBuilder,
+      dataDeckBuilderLength: dataDeckBuilderLength,
       dataHasSelected: dataHasSelected,
       mainDeckCards: mainDeckCards,
       extraDeckCards: extraDeckCards,
@@ -948,7 +956,10 @@ var builderDeckService = {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
             }).then(function (response) {
-              return functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
+              // get generale data deck builder
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDetailDeckBuilder', response.data);
+              // get spesific card data yu gi oh on deck builder
+              functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
             })["catch"](function (error) {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;

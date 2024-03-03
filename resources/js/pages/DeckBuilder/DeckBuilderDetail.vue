@@ -224,8 +224,8 @@
   
   
   // const dataHasSelected = dataDummyCards.data[4];
-  const dataDeckBuilderLength = ref(dataDummyCards.data);
-  const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
+  // const dataDeckBuilderLength = ref(dataDummyCards.data);
+  // const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
   const cardSelected = ref(null);
   const deckTypeMain = ref('main deck');
   const deckTypeExtra = ref('extra deck');
@@ -239,9 +239,19 @@
   }) 
 
   onMounted(()=>{
-      const payload = router.currentRoute.value.params.slug_play_style
+      const payload = router.currentRoute.value.params.slug;
       state.paramsUrlSlugPlayStyle = payload;
       builderDeckService.getDeckBuilderDetail(payload);
+  })
+
+  const dataDeckBuilder = computed(()=>{
+    console.log("store.getters.getterDetailDeckBuilder = ")
+    console.log(store.getters.getterDetailDeckBuilder)
+    return store.getters.getterDetailDeckBuilder
+  })
+
+  const dataDeckBuilderLength = computed(()=>{
+    return store.getters.getterDetailDeckBuilder.deck_builder
   })
   
   const dataHasSelected = computed(()=>{

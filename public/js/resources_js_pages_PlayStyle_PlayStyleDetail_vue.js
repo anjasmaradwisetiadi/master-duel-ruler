@@ -219,11 +219,11 @@ __webpack_require__.r(__webpack_exports__);
         } else if ((response === null || response === void 0 ? void 0 : response.status) === false) {
           var _response$message, _response$message2;
           var conditionSlug = response !== null && response !== void 0 && (_response$message = response.message) !== null && _response$message !== void 0 && _response$message.slug ? response === null || response === void 0 || (_response$message2 = response.message) === null || _response$message2 === void 0 ? void 0 : _response$message2.slug[0] : '';
-          if (conditionSlug === 'slug unique') {
+          if (conditionSlug.toLowerCase() === 'slug unique') {
             return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
               icon: "error",
               title: "Oops...",
-              text: "Nama counter deck sudah ada, coba ganti nama lain !"
+              text: "Nama sudah ada, coba ganti nama lain !"
             });
           } else {
             return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
@@ -1222,7 +1222,10 @@ var builderDeckService = {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
             }).then(function (response) {
-              return functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
+              // get generale data deck builder
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDetailDeckBuilder', response.data);
+              // get spesific card data yu gi oh on deck builder
+              functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
             })["catch"](function (error) {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;

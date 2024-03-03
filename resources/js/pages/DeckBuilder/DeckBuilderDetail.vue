@@ -245,8 +245,6 @@
   })
 
   const dataDeckBuilder = computed(()=>{
-    console.log("store.getters.getterDetailDeckBuilder = ")
-    console.log(store.getters.getterDetailDeckBuilder)
     return store.getters.getterDetailDeckBuilder
   })
 

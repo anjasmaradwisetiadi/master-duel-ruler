@@ -8,7 +8,7 @@
         </div>
         <div class="col-4 text-center">
           <template
-            v-if="dataDeckBuilder?.price.total_rarity_UR && deckType === 'main deck'"
+            v-if="dataDeckBuilder?.price?.total_rarity_UR && deckType === 'main deck'"
           >
             <!--********** this code comment because rarity can not implement  -->
             <!-- <div class="d-flex price-wrap">
@@ -35,14 +35,14 @@
               </div>
             </div> -->
           </template>
-          <template v-if="!dataDeckBuilder?.price.total_rarity_UR">
+          <template v-if="!dataDeckBuilder?.price?.total_rarity_UR">
             <div></div>
           </template>
         </div>
         <div class="col-4 text-right">
           <template v-if="props?.displayHover">
             <span >
-              {{ deckType === 'main deck' ? dataDeckBuilder.total_card.total_card_main_deck :  dataDeckBuilder.total_card.total_card_extra_deck}}
+              {{ deckType === 'main deck' ? dataDeckBuilder?.total_card?.total_card_main_deck :  dataDeckBuilder?.total_card?.total_card_extra_deck}}
             </span>
           </template>
           <template v-if="!props?.displayHover">
@@ -60,7 +60,7 @@
             <div
               class="d-flex flex-wrap scroller-cards-collect"
               id="scrollbar1"
-              v-if="props.dataDeckBuilderLength.length"
+              v-if="props?.dataDeckBuilderLength?.length"
             >
               <!-- when it need hover for display detail information -->
               <template v-if="props?.displayHover">
@@ -69,14 +69,28 @@
                   :key="index"
                   class="wrap-card-search-global"
                 >
+                  <!-- <div class="image-wrap-main"> 
+                    <img
+                      :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
+                      :alt="urlImage?.name"
+                      @mouseover=" displayCard($event,index,true)"
+                      @mouseleave=" displayCard($event,index,false)"
+                      @click="selectedCard(urlImage)"
+                      class="image-style"
+                      ref="imagePosition"
+                    />
+                    it need adjustment because make untidy style
+                    <img v-if="urlImage.value === 2" class="image-card-value"  src="../../assets/image/2-card.webp"  alt="2-card">
+                    <img v-if="urlImage.value === 3" class="image-card-value"  src="../../assets/image/3-card.webp"  alt="3-card">
+                  </div> -->
                   <img
-                    :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
-                    :alt="urlImage.name"
-                    @mouseover=" displayCard($event,index,true)"
-                    @mouseleave=" displayCard($event,index,false)"
-                    @click="selectedCard(urlImage)"
-                    class="image-style"
-                    ref="imagePosition"
+                      :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
+                      :alt="urlImage?.name"
+                      @mouseover=" displayCard($event,index,true)"
+                      @mouseleave=" displayCard($event,index,false)"
+                      @click="selectedCard(urlImage)"
+                      class="image-style"
+                      ref="imagePosition"
                   />
                   <div class="hover-card" ref="hoverCardTemplate">
                     <template
@@ -86,109 +100,109 @@
                         <div class="image-section">
                           <img
                             :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small:''"
-                            :alt="urlImage.name"
+                            :alt="urlImage?.name"
                           />
                         </div>
                         <div class="information-section">
                           <div class="row mb-2">
                             <div class="col-8 mr-auto">
                               <span>
-                                <b>{{ urlImage.name }}</b></span
+                                <b>{{ urlImage?.name }}</b></span
                               >
                             </div>
                             <div class="col-4 ml-auto">
                               <span class="mr-1">
-                                <b>{{ urlImage.attribute }}</b></span
+                                <b>{{ urlImage?.attribute }}</b></span
                               >
                               <span
                                 class="wrap-star"
-                                v-if="urlImage.frameType === 'xyz'"
+                                v-if="urlImage?.frameType === 'xyz'"
                               >
                                 <img
                                   src="../../assets/image/rank-icon.webp"
                                   alt="rank"
                                 />
-                                <span>{{ urlImage.level }}</span>
+                                <span>{{ urlImage?.level }}</span>
                               </span>
                               <span
                                 class="wrap-star"
-                                v-else-if="urlImage.frameType === 'link'"
+                                v-else-if="urlImage?.frameType === 'link'"
                               >
                                 Link -
-                                <span>{{ urlImage.linkval }}</span>
+                                <span>{{ urlImage?.linkval }}</span>
                               </span>
                               <span class="wrap-star" v-else>
                                 <img
                                   src="../../assets/image/star-icon.webp"
                                   alt="star"
                                 />
-                                <span>{{ urlImage.level }}</span>
+                                <span>{{ urlImage?.level }}</span>
                               </span>
                             </div>
                           </div>
                           <div class="mb-2">
                             <span
                               ><b
-                                >[ {{ urlImage.race }} /
-                                {{ utilize.textTypeMonster(urlImage.frameType) }}
-                                {{utilize.textEffectMonster(urlImage.frameType)}}
+                                >[ {{ urlImage?.race }} /
+                                {{ utilize.textTypeMonster(urlImage?.frameType) }}
+                                {{utilize.textEffectMonster(urlImage?.frameType)}}
                                 ]</b
                               ></span
                             >
                           </div>
                           <div class="mb-2 description-card">
-                            {{ utilize.decodeHTML(urlImage.desc) }}
+                            {{ utilize.decodeHTML(urlImage?.desc) }}
                           </div>
                           <div class="mb-2">
                             <span
-                              ><b>ATK/</b>{{ urlImage.atk }}
+                              ><b>ATK/</b>{{ urlImage?.atk }}
                               <span
-                                :innerHTML="utilize.textDef(urlImage.frameType, urlImage.def)"
+                                :innerHTML="utilize.textDef(urlImage?.frameType, urlImage?.def)"
                               ></span
                             ></span>
                           </div>
                           <div class="released-card">
                             <span
                               >Released on Card Set
-                              {{urlImage.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
+                              {{urlImage?.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
                             >
                           </div>
                         </div>
                       </div>
                     </template>
                     <template
-                      v-if="urlImage.frameType === 'trap' || urlImage.frameType === 'spell'"
+                      v-if="urlImage?.frameType === 'trap' || urlImage?.frameType === 'spell'"
                     >
                       <div class="d-flex card-trap-spell">
                         <div class="image-section">
                           <img
                             :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :''"
-                            :alt="urlImage.name"
+                            :alt="urlImage?.name"
                           />
                         </div>
                         <div class="information-section">
                           <div class="row mb-2">
                             <div class="col-8 mr-auto">
                               <span>
-                                <b>{{ urlImage.name }}</b></span
+                                <b>{{ urlImage?.name }}</b></span
                               >
                             </div>
                             <div class="col-4 ml-auto">
                               <span class="mr-1">
                                 <b
-                                  >{{ utilize.textTypeMonster(urlImage.frameType)}}
-                                  - {{ urlImage.race }}</b
+                                  >{{ utilize.textTypeMonster(urlImage?.frameType)}}
+                                  - {{ urlImage?.race }}</b
                                 ></span
                               >
                             </div>
                           </div>
                           <div class="mb-2 description-card">
-                            {{ utilize.decodeHTML(urlImage.desc) }}
+                            {{ utilize.decodeHTML(urlImage?.desc) }}
                           </div>
                           <div class="released-card">
                             <span
                               >Released on Card Set
-                              {{urlImage.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
+                              {{urlImage?.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
                             >
                           </div>
                         </div>
@@ -276,7 +290,7 @@
   const imagePosition = ref(null);
   
   onMounted(()=>{
-    const valueCard = props?.deckType === 'main deck' ? props?.dataDeckBuilder.total_card.total_card_main_deck :  props?.dataDeckBuilder.total_card.total_card_extra_deck;
+    const valueCard = props?.deckType === 'main deck' ? props?.dataDeckBuilder?.total_card?.total_card_main_deck :  props?.dataDeckBuilder?.total_card?.total_card_extra_deck;
     listenChangeTotalCard(valueCard)
   })
 
@@ -419,12 +433,29 @@
       border-radius: 10px;
       padding: 10px;
   }
-  .background-image .image-style{
+  .image-wrap-main{
+    position: relative;
+    z-index: 1;
+  }
+  /* make untidy style */
+  /* .wrap-card-search-global{
+    position: relative;
+  } */
+  .wrap-card-search-global .image-style{
       max-width: 84px;
       padding-right: 6px;
       padding-top:4px;
       cursor: pointer;
   }
+
+  .wrap-card-search-global .image-card-value{
+    position: absolute;
+    top: 74px;
+    left: 22px;
+    width: 38px;
+    z-index: 2;
+  }
+
   .wrap-card-search-global .non-hover-card{
       display: none;
   }
@@ -432,8 +463,9 @@
   .wrap-card-search-global .hover-card{
       display: none;
       position: relative;
+      z-index: 2;
   }
-  
+
   .hover-card .image-section img{
       width: 150px !important;
       height: 210px;
@@ -466,7 +498,7 @@
   .scroller-cards-collect{
       max-height: 32rem;
       min-height: 10rem;
-      overflow: auto;
+      overflow-y: auto;
   }
   /*---------- end style deck buider hover */
 

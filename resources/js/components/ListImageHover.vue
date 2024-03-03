@@ -3,7 +3,7 @@
         <div class="row justify-content-center mt-3">
             <div class="col-9 background-image ml-4">
                     <div class="d-flex flex-wrap ml-1" 
-                        v-if="getDataYgoProDeck.length"
+                        v-if="getDataYgoProDeck?.length"
                     >
                         <div
                             v-for="(urlImage,index) in getDataYgoProDeck" 
@@ -89,7 +89,7 @@
                     </div>
                     <div 
                         class="d-flex justify-content-center"
-                        v-if="!getDataYgoProDeck.length"
+                        v-if="!getDataYgoProDeck?.length"
                     >
                         <span>Tidak ada kartu yang ke record</span>
                     </div>

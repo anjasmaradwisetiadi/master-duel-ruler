@@ -163,33 +163,30 @@ const functionReuse = {
         let numberModulus = 11;
         let dataOrigin = [];
         let nameConvert = '';
-        let payloadCollect = [];
         store.state.loading = true;
         // this.getFunction(payload);
-            payloadCollect = payload;
-            payloadCollect?.forEach((data, index) => {
-                index = index+1;
-                if(index%numberModulus !== 0){
-                    dataOrigin.push(data); 
-                    // it will make can return value false on root data  lol...     
-                    // data.name = this.characterEncodingUrl(data.name);
-                    nameConvert = utilize.characterEncodingUrl(data.name);
-                    //********* */ make can use many name card but call one time api
-                    nameCard += `|${nameConvert}`;
-                    if(payload.length === index && nameCard.length){
-                        urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
-                        this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
-                    }
-                } else if(index%numberModulus === 0){
-                    if(index%numberModulus === 0 && nameCard.length){
-                        urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
-                        this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
-                        nameCard = '';
-                        dataOrigin = [];
-                    } 
+        payload?.forEach((data, index) => {
+            index = index+1;
+            if(index%numberModulus !== 0){
+                dataOrigin.push(data); 
+                // it will make can return value false on root data  lol...     
+                // data.name = this.characterEncodingUrl(data.name);
+                nameConvert = utilize.characterEncodingUrl(data.name);
+                //********* */ make can use many name card but call one time api
+                nameCard += `|${nameConvert}`;
+                if(payload.length === index && nameCard.length){
+                    urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
+                    this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
                 }
-            }); 
-        }
+            } else if(index%numberModulus === 0){
+                if(index%numberModulus === 0 && nameCard.length){
+                    urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
+                    this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+                    nameCard = '';
+                    dataOrigin = [];
+                } 
+            }
+        }); 
     },
 
     getApiYuGiohAnother(urlApiYugioh, dataOriginPayload){

@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col background-image">
                     <div class="d-flex flex-wrap ml-2 scroller-cards-collect" id="scrollbar1" 
-                        v-if="getDataYgoProDeck.length">
+                        v-if="getDataYgoProDeck?.length">
                         <div
                             v-for="(urlImage,index) in getDataYgoProDeck" 
                             :key="index" 
@@ -121,14 +121,14 @@
                     </div>
                     <div 
                         class="d-flex justify-content-center"
-                        v-if="!getDataYgoProDeck.length"
+                        v-if="!getDataYgoProDeck?.length"
                     >
                         <span>Tidak ada kartu yang ke record</span>
                     </div>
                 </div>
             </div>
           </div>
-          <div class="row" v-if="getDataYgoProDeck.length">
+          <div class="row" v-if="getDataYgoProDeck?.length">
             <div class="col d-flex justify-content-start align-items-center">
                 <div class="mr-4">
                     <button class="btn btn-warning mr-2" 
@@ -151,6 +151,7 @@
   </template>
   <script setup>
    import { reactive, ref, computed, onMounted, defineProps, defineEmits } from 'vue';
+   import LoadingAndAlert from './LoadingAndAlert.vue';
    import { useStore } from 'vuex';
    import {utilize} from '../utilize/utilize';
    import {collectionUrl} from '../urlCollect';
@@ -193,13 +194,13 @@
   
    onMounted(()=>{
     //******* it make be default search but when app ready to use */
-    // const payload = {
-    //     mode: 'all-search',
-    //     name: 'inf',
-    //     num: num.value,
-    //     offset: offset.value
-    // }
-    // store.dispatch('getSearchCards', payload);
+    const payload = {
+        mode: 'all-search',
+        name: 'inf',
+        num: num.value,
+        offset: offset.value
+    }
+    store.dispatch('getSearchCards', payload);
    })
   
   function searching(event){

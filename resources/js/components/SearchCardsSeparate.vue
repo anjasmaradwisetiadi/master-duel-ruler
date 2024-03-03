@@ -20,7 +20,7 @@
               <div
                 class="d-flex flex-wrap ml-2 scroller-cards-collect"
                 id="scrollbar1"
-                v-if="getDataYgoProDeck.length"
+                v-if="getDataYgoProDeck?.length"
               >
                 <div
                   v-for="(urlImage,index) in getDataYgoProDeck"
@@ -161,15 +161,15 @@
               </div>
               <div
                 class="d-flex justify-content-center"
-                v-if="!getDataYgoProDeck.length"
+                v-if="!getDataYgoProDeck?.length"
               >
                 <span>Tidak ada kartu yang ke record</span>
               </div>
             </div>
           </div>
         </div>
-        <div class="row mt-2" v-if="getDataYgoProDeck.length">
-            <div class="col-4 d-flex justify-content-start align-items-center">
+        <div class="row mt-2" v-if="getDataYgoProDeck?.length">
+            <div class="col-5 d-flex justify-content-start align-items-center">
                 <div class="mr-2">
                     <button
                         class="btn btn-warning mr-2"
@@ -193,7 +193,7 @@
                     >
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
               <button class="btn" 
                 :class="conditionHover ? 'btn-info' : 'btn-secondary'" 
                 @click="conditionHover = !conditionHover"> 
@@ -210,12 +210,14 @@
             </div>
       </div>
       </div>
+      <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
     </div>
   </template>
   <script setup>
   import { ref, reactive, computed, onMounted, defineEmits, defineProps, watch } from 'vue';
   import { useStore } from 'vuex';
   import { useRouter } from 'vue-router';
+  import LoadingAndAlert from './LoadingAndAlert.vue';
   import Swal from 'sweetalert2';
   import { utilize } from '../utilize/utilize';
   const router = useRouter();
@@ -261,14 +263,14 @@
   })
   
   onMounted(()=>{
-      //******* it make be default search but when app ready to use */
-      // const payload = {
-      //     mode: 'all-search',
-      //     name: 'inf',
-      //     num: num.value,
-      //     offset: offset.value
-      // }
-      // store.dispatch('getSearchCards', payload);
+      /******* it make be default search but when app ready to use */
+      const payload = {
+          mode: 'all-search',
+          name: 'inf',
+          num: num.value,
+          offset: offset.value
+      }
+      store.dispatch('getSearchCards', payload);
   })
   
   const responseGeneral = computed(()=>{
@@ -276,7 +278,7 @@
   })
   
   const getDataYgoProDeck = computed(()=>{
-      return store?.state?.dataDummyCards;
+      return store?.state?.dataSearchCard.data;
   })
   
   const infoPage = computed(()=>{

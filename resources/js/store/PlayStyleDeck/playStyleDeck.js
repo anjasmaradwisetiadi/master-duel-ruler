@@ -13,8 +13,6 @@ export const playStyleDeck = {
             state.detailPlayStyle = payload;
         },
         mutateGetEditPlayStyle(state,payload){
-            console.log("mutate getEditPlayStyle = ");
-            console.log(payload);
             state.getEditPlayStyle = payload;
         },
 

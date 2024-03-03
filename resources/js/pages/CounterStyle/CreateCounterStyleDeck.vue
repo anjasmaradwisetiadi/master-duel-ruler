@@ -139,9 +139,6 @@
 
     onMounted(()=>{
         decisionEditOrCreateRuler();
-        // let container = document.querySelector('.ql-container.ql-snow ');
-        // const toolbar = document.getElementsByClassName('ql-toolbar');
-        // container.style.border= '1px solid #dc3545 !important';
     })
 
     const getDataEditCounterStyle = computed(()=>{

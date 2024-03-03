@@ -10,7 +10,7 @@
           <button
             type="button"
             class="btn btn-success mr-2"
-            @click="editPlayStyle(getDataPlayStyleDeck?.slug)"
+            @click="editPlayStyle()"
           >
             Edit Counter Style
           </button>
@@ -232,16 +232,21 @@
   const displayHover = ref(true);
   const confirmDelete = ref(false);
   const paramsUrlSlugPlayStyle = ref('');
+  const paramsUrlSlug = ref('');
 
   const state = reactive({
+    paramsUrlSlug,
     paramsUrlSlugPlayStyle,
     confirmDelete
   }) 
 
   onMounted(()=>{
-      const payload = router.currentRoute.value.params.slug;
-      state.paramsUrlSlugPlayStyle = payload;
-      builderDeckService.getDeckBuilderDetail(payload);
+      const payloadSlug = router.currentRoute.value.params.slug;
+      const payloadSlugPlayStyle= router.currentRoute.value.params.slug_play_style;
+
+      state.paramsUrlSlug = payloadSlug;
+      state.paramsUrlSlugPlayStyle = payloadSlugPlayStyle;
+      builderDeckService.getDeckBuilderDetail(payloadSlug);
   })
 
   const dataDeckBuilder = computed(()=>{
@@ -263,8 +268,8 @@
       return store.getters.getterdataDeckBuilderExtraDeck;
   })
   
-  function editPlayStyle(slug){
-      router.push(`/builder-deck/${paramsUrlSlugPlayStyle.value}/${slug}/edit`);
+  function editPlayStyle(){
+      router.push(`/builder-deck/${paramsUrlSlugPlayStyle.value}/${paramsUrlSlug.value}/edit`);
   }
   
   function deletePlayStyle(){

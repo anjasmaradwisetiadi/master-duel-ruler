@@ -82,7 +82,7 @@
                     <MainExtraDeck 
                         :data-deck-builder-length="dataDeckBuilderLength" 
                         :data-deck-builder="dataDeckBuilder"
-                        v-model:mainDeckCards="mainDeckCards"
+                        v-model:mainDeckCards="deckCollectMain"
                         v-model:card-selected="cardSelected"
                         :deck-type="deckTypeMain"
                         v-model:deck-collects="dataDeckTypeMain"
@@ -92,7 +92,7 @@
                     <MainExtraDeck 
                         :data-deck-builder-length="dataDeckBuilderLength" 
                         :data-deck-builder="dataDeckBuilder"
-                        v-model:mainDeckCards="extraDeckCards"
+                        v-model:mainDeckCards="deckCollectExtra"
                         v-model:card-selected="cardSelected"
                         :deck-type="deckTypeExtra"
                         :deck-collects="dataDeckTypeExtra"
@@ -140,6 +140,7 @@ const dataDeckTypeMain = ref([]);
 const dataDeckTypeExtra = ref([]);
 const cardSelectedChoice = ref(null);
 const paramsUrlSlugPlayStyle = ref('');
+
 // const fullCardLoad = defineModel('fullCardLoad');
 const fullCardLoad = ref(
     {
@@ -161,17 +162,23 @@ const state = reactive({
         cardSelectedChoice,
 })
 
-const dataDeckBuilderLength = ref(dataDummyDeckBuilder.data);
-const dataDeckBuilder = ref(dataDummyDeckBuilder.data[1]);
+onBeforeMount(()=>{
+    decisionEditOrCreateRuler();
+})
 
-const mainDeckCards = computed(()=>{
-    // return store.state.dataDummyCards;
-    return store.getters.getterdataDeckBuilderMainDeck;
+onMounted(()=>{
+
 })
-const extraDeckCards = computed(()=>{
-    // return store.state.dataDummyCards;
-    return store.getters.getterdataDeckBuilderExtraDeck;
+
+
+const dataDeckBuilder = computed(()=>{
+    return store.getters.getterDataEditDeckBuilder;
 })
+
+const dataDeckBuilderLength = computed(()=>{
+    return store.getters.getterDataEditDeckBuilder.deck_builder;
+})
+  
 
 const deckCollectMain = computed(()=>{
     return store.getters.getterdataDeckBuilderMainDeck;
@@ -181,6 +188,13 @@ const deckCollectExtra = computed(()=>{
     return store.getters.getterdataDeckBuilderExtraDeck;
 })
 
+const getDataEditDeckBuilder = computed(()=>{
+        const data = store.getters.getterDataEditDeckBuilder;
+        if(data?.title){
+            return data
+        }
+    })
+
 watch(deckCollectMain, (newValue, oldValue)=>{
     dataDeckTypeMain.value = newValue;
 })
@@ -189,16 +203,14 @@ watch(deckCollectExtra, (newValue, oldValue)=>{
     dataDeckTypeExtra.value = newValue;
 })
 
-onBeforeMount(()=>{
-    const payload = router.currentRoute.value.params.slug_play_style
-    paramsUrlSlugPlayStyle.value = payload;
-    builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
-    deckCollectMain;
-    deckCollectExtra;
-})
-
-onMounted(()=>{
-
+watch( getDataEditDeckBuilder,async (newValue, oldValue)=>{
+    console.log("newValue getDataEditDeckBuilder ")
+    console.log(newValue)
+    state.title = newValue.title;
+    state.slug = newValue.slug;
+    state.description = newValue.description;
+    state.preview = newValue.engines;
+    state.oldSlug = newValue.slug;
 })
 
 const responseGeneral = computed(()=>{
@@ -236,6 +248,15 @@ function previewImage(event){
     }
 }
 
+function decisionEditOrCreateRuler(){
+    const payload = router.currentRoute.value.params.slug;
+    state.paramsUrl = payload;
+    if(payload){
+        state.editOrNot = true;
+        builderDeckService.getEditDeckBuilder(payload);
+    } 
+}
+
 function removeImage(){
     state.preview = null;
     state.image = null;
@@ -259,6 +280,10 @@ function addRemoveCardSelectedMain($event){
 
 function selectedCardHas(event){
     const dataType = utilize.sliceCardToMainOrExtraDeck(event);
+    // console.log("dataDeckTypeExtra.value selectedCardHas = ");
+    // console.log(dataDeckTypeExtra.value);
+    // console.log("dataDeckTypeMain.value selectedCardHas = ");
+    // console.log(dataDeckTypeMain.value);
     if(dataType === 'extra deck'){
         const dataSearch = dataDeckTypeExtra.value.some((element, index) => {
             return element.name === event.name

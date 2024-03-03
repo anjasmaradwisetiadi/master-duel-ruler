@@ -128,7 +128,12 @@ class DeckBuilderController extends Controller
      */
     public function edit($id)
     {
-
+        $findData = DeckBuilders::where('slug','=',$id)->firstOrFail();
+        $findData->engines = json_decode($findData->engines);
+        $findData->price = json_decode($findData->price);
+        $findData->total_card = json_decode($findData->total_card);
+        $findData->deck_builder = json_decode($findData->deck_builder);
+        return response()->json($findData);
     }
 
     /**

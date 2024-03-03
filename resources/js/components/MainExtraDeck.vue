@@ -291,7 +291,7 @@
   
   onMounted(()=>{
     const valueCard = props?.deckType === 'main deck' ? props?.dataDeckBuilder?.total_card?.total_card_main_deck :  props?.dataDeckBuilder?.total_card?.total_card_extra_deck;
-    listenChangeTotalCard(valueCard)
+    listenChangeTotalCard(valueCard);
   })
 
   const totalCard = computed(()=>{

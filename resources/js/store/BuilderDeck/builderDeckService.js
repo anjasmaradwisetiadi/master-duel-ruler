@@ -129,6 +129,30 @@ export const builderDeckService = {
             store.commit('mutateResponsGeneral', error.message); 
             store.state.loading = false;
         })
+    },
+
+    async getEditDeckBuilder(payload){
+        const tokenAuth = store.getters.getterResponseAuth.token;
+        store.state.loading = true;
+        axios({
+            method: 'get',
+            url: `${urlBuilderStyle}/${payload}/edit`,
+            headers:{
+              'Authorization': `Bearer ${tokenAuth}`,
+              'Content-Type': 'multipart/form-data',
+            },
+            data:payload
+        })
+        .then(function(response){
+            store.commit('mutateEditDeckBuilder', response.data);
+            // get spesific card data yu gi oh on deck builder
+            functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
+            // store.state.loading = false;
+        })
+        .catch(function(error) {
+            store.commit('mutateResponsGeneral', error.message); 
+            store.state.loading = false;
+        })
     }
 }
 
@@ -139,31 +163,33 @@ const functionReuse = {
         let numberModulus = 11;
         let dataOrigin = [];
         let nameConvert = '';
+        let payloadCollect = [];
         store.state.loading = true;
-
         // this.getFunction(payload);
-        payload.forEach((data, index) => {
-            index = index+1;
-            if(index%numberModulus !== 0){
-                dataOrigin.push(data); 
-                // it will make can return value false on root data  lol...     
-                // data.name = this.characterEncodingUrl(data.name);
-                nameConvert = utilize.characterEncodingUrl(data.name);
-                //********* */ make can use many name card but call one time api
-                nameCard += `|${nameConvert}`;
-                if(payload.length === index && nameCard.length){
-                    urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
-                    this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+            payloadCollect = payload;
+            payloadCollect?.forEach((data, index) => {
+                index = index+1;
+                if(index%numberModulus !== 0){
+                    dataOrigin.push(data); 
+                    // it will make can return value false on root data  lol...     
+                    // data.name = this.characterEncodingUrl(data.name);
+                    nameConvert = utilize.characterEncodingUrl(data.name);
+                    //********* */ make can use many name card but call one time api
+                    nameCard += `|${nameConvert}`;
+                    if(payload.length === index && nameCard.length){
+                        urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
+                        this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+                    }
+                } else if(index%numberModulus === 0){
+                    if(index%numberModulus === 0 && nameCard.length){
+                        urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
+                        this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+                        nameCard = '';
+                        dataOrigin = [];
+                    } 
                 }
-            } else if(index%numberModulus === 0){
-                if(index%numberModulus === 0 && nameCard.length){
-                    urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
-                    this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
-                    nameCard = '';
-                    dataOrigin = [];
-                } 
-            }
-        }); 
+            }); 
+        }
     },
 
     getApiYuGiohAnother(urlApiYugioh, dataOriginPayload){
@@ -177,8 +203,12 @@ const functionReuse = {
             dataJoin.data.forEach((data, index)=>{
                 dataOriginPayload.some((origin)=>{
                     if(data.name === origin.name){
-                        delete origin.name;
-                        dataJoin.data[index] = {...dataJoin.data[index], ...origin};
+                        const originData = {
+                            column_deck: origin.column_deck,
+                            rarity: origin.rarity,
+                            value: origin.value,  
+                        }
+                        dataJoin.data[index] = {...dataJoin.data[index], ...originData};
                     }
                 })
             });

@@ -24421,7 +24421,8 @@ var builderDeck = {
     detailDeckBuilder: {},
     totalMainDeck: 0,
     totalExtraDeck: 0,
-    listDeckBuilder: []
+    listDeckBuilder: [],
+    dataEditDeckBuilder: {}
   },
   mutations: {
     mutateDataDeckBuilder: function mutateDataDeckBuilder(state, payload) {
@@ -24440,6 +24441,9 @@ var builderDeck = {
     },
     mutateGetTableDeckBuilder: function mutateGetTableDeckBuilder(state, payload) {
       state.listDeckBuilder = payload;
+    },
+    mutateEditDeckBuilder: function mutateEditDeckBuilder(state, payload) {
+      state.dataEditDeckBuilder = payload;
     }
   },
   action: {},
@@ -24471,6 +24475,9 @@ var builderDeck = {
     },
     getterDetailDeckBuilder: function getterDetailDeckBuilder(state) {
       return state.detailDeckBuilder;
+    },
+    getterDataEditDeckBuilder: function getterDataEditDeckBuilder(state) {
+      return state.dataEditDeckBuilder;
     }
   }
 };
@@ -24502,8 +24509,6 @@ var playStyleDeck = {
       state.detailPlayStyle = payload;
     },
     mutateGetEditPlayStyle: function mutateGetEditPlayStyle(state, payload) {
-      console.log("mutate getEditPlayStyle = ");
-      console.log(payload);
       state.getEditPlayStyle = payload;
     }
   },

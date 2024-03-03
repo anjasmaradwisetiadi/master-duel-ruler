@@ -350,9 +350,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       decisionEditOrCreateRuler();
-      // let container = document.querySelector('.ql-container.ql-snow ');
-      // const toolbar = document.getElementsByClassName('ql-toolbar');
-      // container.style.border= '1px solid #dc3545 !important';
     });
     var getDataEditCounterStyle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var data = store.state.getEditCounterStyle;

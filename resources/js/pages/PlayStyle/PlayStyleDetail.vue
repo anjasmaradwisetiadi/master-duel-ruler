@@ -125,7 +125,7 @@ function dataModalCard($event){
 }
 
 function createDeckBuilder(){
-    router.push('/builder-deck/create');
+    router.push(`/builder-deck/${paramsUrl.value}/create`);
 }
 
 </script>

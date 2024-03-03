@@ -212,13 +212,14 @@ class CounterStyleDeckController extends Controller
     public function validatorInputCounterStyle($request, $from){
         if($from === 'created'){
             $rules =[
-                'title' => 'required|max:255',
+                'title' => 'required|max:160',
                 'slug' => 'required|unique:counter_style_decks',
                 'information' => 'required',
             ];
     
             $messages =[
                 'title.required' => 'Isi title sekarang',
+                'title.max' => 'Isi title maximal 160 character',
                 'slug.required'=> 'Isi slug sekarang',
                 'slug.unique'=> 'Slug unique',
                 'information.required'=> 'Isi information sekarang'
@@ -232,12 +233,13 @@ class CounterStyleDeckController extends Controller
     
         } else if($from === 'edited') {
             $rules =[
-                'title' => 'required|max:255',
+                'title' => 'required|max:160',
                 'information' => 'required',
             ];
     
             $messages =[
                 'title.required' => 'Isi title sekarang',
+                'title.max' => 'Isi title maximal 160 character',
                 'information.required'=> 'Isi information sekarang'
             ];
             if ($request->file('image')){

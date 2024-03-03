@@ -231,16 +231,16 @@
   const deckTypeExtra = ref('extra deck');
   const displayHover = ref(true);
   const confirmDelete = ref(false);
-  const paramsUrl = ref('');
+  const paramsUrlSlugPlayStyle = ref('');
 
   const state = reactive({
-    paramsUrl,
+    paramsUrlSlugPlayStyle,
     confirmDelete
   }) 
 
   onMounted(()=>{
-      const payload = router.currentRoute.value.params.slug
-      state.paramsUrl = payload;
+      const payload = router.currentRoute.value.params.slug_play_style
+      state.paramsUrlSlugPlayStyle = payload;
       builderDeckService.getDeckBuilderDetail(payload);
   })
   
@@ -256,7 +256,7 @@
   })
   
   function editPlayStyle(slug){
-      router.push(`/builder-deck/${paramsUrl.value}/${slug}/edit`);
+      router.push(`/builder-deck/${paramsUrlSlugPlayStyle.value}/${slug}/edit`);
   }
   
   function deletePlayStyle(){

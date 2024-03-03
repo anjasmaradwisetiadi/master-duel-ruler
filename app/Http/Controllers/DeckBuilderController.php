@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DeckBuilders;
 use App\Models\PlayStyleDecks;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class DeckBuilderController extends Controller
 {
@@ -36,8 +38,48 @@ class DeckBuilderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        dd($request);
+        $resultsFindStyle = PlayStyleDecks::where('slug','=',$request->play_style_slug )->firstOrFail();
+        $validator = $this->validatorInputBuilderDeck($request, 'created');
+        $validator->after(function ($validator) use ($request){
+            $checkStringContain = $this->isHTML($request->description);
+            // this code add validation manual for conatin string or not in tag html contain
+            if(!$checkStringContain){
+                $validator->errors()->add(
+                    'description', 'Isi Description sekarang'
+                );
+            }
+            // this code add validation manual for image
+            if($request->engines_url === 'null' && !$request->file('image') && $request->engines === 'null'){
+                $validator->errors()->add(
+                    'image', 'Tambakan image sekarang'
+                );
+            }
+        });
+        if($validator->fails()){
+            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+        } else if($validator){
+            $imagePost = '';
+            if($request->url_engines !== 'null'){
+                $imagePost = $request->url_engines;
+            } else if($request->file('image')){
+                $baseUrlImage =  env('APP_URL').'storage/';
+                $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+            }
+            
+            DeckBuilders::create([
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'engines' => json_encode(array($imagePost)),
+                'play_style_id'=> $resultsFindStyle->id,
+                'price' => json_encode($request->price),
+                'total_card' => json_encode($request->price),
+                'description' => $request->description,
+                'deck_builder' => json_encode($request->deck_builder),
+            ]);
+            return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
+        }
     }
 
     /**
@@ -102,5 +144,54 @@ class DeckBuilderController extends Controller
             $results[$index]->deck_builder = json_decode($results[$index]->deck_builder);
         };
         return response()->json($results);
+    }
+
+    public function validatorInputBuilderDeck($request, $from){
+        if($from === 'created'){
+            $rules =[
+                'title' => 'required|max:160',
+                'slug' => 'required|unique:deck_builders',
+                'description' => 'required',
+            ];
+    
+            $messages =[
+                'title.required' => 'Isi title sekarang',
+                'title.max' => 'Isi title hanya maximal 160 kata',
+                'slug.required'=> 'Isi slug sekarang',
+                'slug.unique'=> 'Slug unique',
+                'description.required'=> 'Isi description sekarang'
+            ];
+            if ($request->file('image')){
+                $rules['engines'] = 'required|file|max:1024';
+                $messages['engines.required'] = 'Isi image sekarang';
+                $messages['engines.file'] = 'Isi file tidak cocok';
+                $messages['engines.max'] = 'File size terlalu besar >= 1024';
+            }
+    
+        } else if($from === 'edited') {
+            $rules =[
+                'title' => 'required|max:160',
+                'description' => 'required',
+            ];
+    
+            $messages =[
+                'title.required' => 'Isi title sekarang',
+                'title.max' => 'Isi title hanya maximal 160 kata',
+                'description.required'=> 'Isi description sekarang'
+            ];
+            if ($request->file('image')){
+                $rules['engines'] = 'required|file|max:1024';
+                $messages['engines.required'] = 'Isi image sekarang';
+                $messages['engines.file'] = 'Isi file tidak cocok';
+                $messages['engines.max'] = 'File size terlalu besar >= 1024';
+            }
+    
+        }
+        $validator = Validator::make($request->all(), $rules, $messages);
+        return $validator;
+    }
+
+    public function isHTML($string){
+        return strip_tags($string);
     }
 }

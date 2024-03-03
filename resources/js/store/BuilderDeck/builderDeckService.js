@@ -20,13 +20,46 @@ export const builderDeckService = {
               },
         })
         .then(function(response){
-            return functionReuse.getDataDeckBuilder(response.data.deck_builder);
+            return functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
 
         })
         .catch(function(error) {
             store.commit('mutateResponsGeneral', error.message);
             store.state.loading = false;
         })   
+    },
+
+    async getDataDeckBuilder(payload){
+        let nameCard = '';
+        let urlApiYugioh = '';
+        let numberModulus = 11;
+        let dataOrigin = [];
+        let nameConvert = '';
+        store.state.loading = true;
+
+        // this.getFunction(payload);
+        payload.forEach((data, index) => {
+            index = index+1;
+            if(index%numberModulus !== 0){
+                dataOrigin.push(data); 
+                // it will make can return value false on root data  lol...     
+                // data.name = this.characterEncodingUrl(data.name);
+                nameConvert = utilize.characterEncodingUrl(data.name);
+                //********* */ make can use many name card but call one time api
+                nameCard += `|${nameConvert}`;
+                if(payload.length === index && nameCard.length){
+                    urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
+                    this.getApiYuGioh(urlApiYugioh, dataOrigin);
+                }
+            } else if(index%numberModulus === 0){
+                if(index%numberModulus === 0 && nameCard.length){
+                    urlApiYugioh = `${collectionUrl.baseUrlApiYgoProDeck}name=${nameCard}`;
+                    this.getApiYuGioh(urlApiYugioh, dataOrigin);
+                    nameCard = '';
+                    dataOrigin = [];
+                } 
+            }
+        }); 
     },
 
     getApiYuGioh(urlApiYugioh, dataOriginPayload){
@@ -72,10 +105,32 @@ export const builderDeckService = {
             store.state.loading = false;
         })   
     },
+
+    async createDeckBuilder(payload){
+        const tokenAuth = store.getters.getterResponseAuth.token;
+        store.state.loading = true;
+        axios({
+            method: 'post',
+            url: `${urlBuilderStyle}`,
+            headers:{
+              'Authorization': `Bearer ${tokenAuth}`,
+              'Content-Type': 'multipart/form-data',
+            },
+            data:payload
+        })
+        .then(function(response){
+            store.commit('mutateResponsGeneral', response.data); 
+            store.state.loading = false;
+        })
+        .catch(function(error) {
+            store.commit('mutateResponsGeneral', error.message); 
+            store.state.loading = false;
+        })
+    }
 }
 
 const functionReuse = {
-    getDataDeckBuilder(payload){
+    getDataDeckBuilderAnother(payload){
         let nameCard = '';
         let urlApiYugioh = '';
         let numberModulus = 11;

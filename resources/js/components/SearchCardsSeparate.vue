@@ -243,10 +243,7 @@
   
   const state = reactive({
       inputSearch
-  })
-
-
-  
+  })  
   
   watch(props?.fullCardLoad, (newValue, oldValue)=>{
       let el = ClassList.value;

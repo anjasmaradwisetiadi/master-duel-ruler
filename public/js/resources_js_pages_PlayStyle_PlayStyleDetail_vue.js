@@ -481,7 +481,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       openModal.value = $event.openModal;
     }
     function createDeckBuilder() {
-      router.push('/builder-deck/create');
+      router.push("/builder-deck/".concat(paramsUrl.value, "/create"));
     }
     var __returned__ = {
       store: store,
@@ -1222,7 +1222,7 @@ var builderDeckService = {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
             }).then(function (response) {
-              return functionReuse.getDataDeckBuilder(response.data.deck_builder);
+              return functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
             })["catch"](function (error) {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
@@ -1232,6 +1232,50 @@ var builderDeckService = {
             return _context.stop();
         }
       }, _callee);
+    }))();
+  },
+  getDataDeckBuilder: function getDataDeckBuilder(payload) {
+    var _this = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var nameCard, urlApiYugioh, numberModulus, dataOrigin, nameConvert;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            nameCard = '';
+            urlApiYugioh = '';
+            numberModulus = 11;
+            dataOrigin = [];
+            nameConvert = '';
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+
+            // this.getFunction(payload);
+            payload.forEach(function (data, index) {
+              index = index + 1;
+              if (index % numberModulus !== 0) {
+                dataOrigin.push(data);
+                // it will make can return value false on root data  lol...     
+                // data.name = this.characterEncodingUrl(data.name);
+                nameConvert = _utilize_utilize__WEBPACK_IMPORTED_MODULE_5__.utilize.characterEncodingUrl(data.name);
+                //********* */ make can use many name card but call one time api
+                nameCard += "|".concat(nameConvert);
+                if (payload.length === index && nameCard.length) {
+                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
+                }
+              } else if (index % numberModulus === 0) {
+                if (index % numberModulus === 0 && nameCard.length) {
+                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
+                  nameCard = '';
+                  dataOrigin = [];
+                }
+              }
+            });
+          case 7:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
     }))();
   },
   getApiYuGioh: function getApiYuGioh(urlApiYugioh, dataOriginPayload) {
@@ -1256,10 +1300,10 @@ var builderDeckService = {
     });
   },
   getTableDeckBuilder: function getTableDeckBuilder(slug) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
           case 0:
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
@@ -1278,15 +1322,45 @@ var builderDeckService = {
             });
           case 3:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
-      }, _callee2);
+      }, _callee3);
+    }))();
+  },
+  createDeckBuilder: function createDeckBuilder(payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'post',
+              url: "".concat(urlBuilderStyle),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth),
+                'Content-Type': 'multipart/form-data'
+              },
+              data: payload
+            }).then(function (response) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 3:
+          case "end":
+            return _context4.stop();
+        }
+      }, _callee4);
     }))();
   }
 };
 var functionReuse = {
-  getDataDeckBuilder: function getDataDeckBuilder(payload) {
-    var _this = this;
+  getDataDeckBuilderAnother: function getDataDeckBuilderAnother(payload) {
+    var _this2 = this;
     var nameCard = '';
     var urlApiYugioh = '';
     var numberModulus = 11;
@@ -1306,12 +1380,12 @@ var functionReuse = {
         nameCard += "|".concat(nameConvert);
         if (payload.length === index && nameCard.length) {
           urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+          _this2.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
         }
       } else if (index % numberModulus === 0) {
         if (index % numberModulus === 0 && nameCard.length) {
           urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+          _this2.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
           nameCard = '';
           dataOrigin = [];
         }

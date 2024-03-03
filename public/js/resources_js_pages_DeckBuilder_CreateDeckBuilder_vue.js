@@ -615,6 +615,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     var dataDeckTypeMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var dataDeckTypeExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var cardSelectedChoice = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    var paramsUrlSlugPlayStyle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     // const fullCardLoad = defineModel('fullCardLoad');
     var fullCardLoad = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
       condition: false,
@@ -655,6 +656,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       dataDeckTypeExtra.value = newValue;
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onBeforeMount)(function () {
+      var payload = router.currentRoute.value.params.slug_play_style;
+      paramsUrlSlugPlayStyle.value = payload;
       _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_7__.builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
       deckCollectMain;
       deckCollectExtra;
@@ -829,17 +832,22 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       var getParamsCreate = {
         title: title.value,
         slug: slugCreated,
-        engines: 'akan masuk langsung di form data',
-        play_style_id: 'masih development',
+        engines_url: urlImage.value,
+        engines: image.value,
+        play_style_slug: paramsUrlSlugPlayStyle.value,
         price: priceDeck,
         total_card: totalCardDeck,
         description: description.value,
-        deck_buidler: dataDeckBuilder
+        deck_builder: dataDeckBuilder
       };
       for (var key in getParamsCreate) {
+        console.log("getParamsCreate[key] = ");
+        console.log(getParamsCreate[key]);
         formData.append(key, getParamsCreate[key]);
       }
       formData.append('engines', image.value);
+      console.log("getParamsCreate = "), console.log(getParamsCreate);
+      _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_7__.builderDeckService.createDeckBuilder(formData);
     }
     function createPayloadDeck(dataMain, dataExtra) {
       var dataCollectMain = [];
@@ -868,6 +876,18 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       });
       return dataCollectMain.concat(dataCollectExtra);
     }
+    function confirm($event) {
+      // if($event){
+      //     router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`)
+      // }
+    }
+    function createPayload() {
+      title.value = "example deck";
+      // state.slug = "example-deck"
+      // image.value = "https://images.ygoprodeck.com/images/cards_small/45663742.jpg";        
+      // state.urlImage = '',
+      description.value = "1. testing flow";
+    }
     var __returned__ = {
       router: router,
       store: store,
@@ -885,6 +905,7 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       dataDeckTypeMain: dataDeckTypeMain,
       dataDeckTypeExtra: dataDeckTypeExtra,
       cardSelectedChoice: cardSelectedChoice,
+      paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle,
       fullCardLoad: fullCardLoad,
       state: state,
       dataDeckBuilderLength: dataDeckBuilderLength,
@@ -905,6 +926,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       backRoute: backRoute,
       submit: submit,
       createPayloadDeck: createPayloadDeck,
+      confirm: confirm,
+      createPayload: createPayload,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
@@ -1017,16 +1040,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _assets_image_cp_ur_rarity_webp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/image/cp-ur-rarity.webp */ "./resources/assets/image/cp-ur-rarity.webp");
-/* harmony import */ var _assets_image_cp_sr_rarity_webp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/image/cp-sr-rarity.webp */ "./resources/assets/image/cp-sr-rarity.webp");
-/* harmony import */ var _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/image/rank-icon.webp */ "./resources/assets/image/rank-icon.webp");
-/* harmony import */ var _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/image/star-icon.webp */ "./resources/assets/image/star-icon.webp");
-/* harmony import */ var _assets_image_2_card_webp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/image/2-card.webp */ "./resources/assets/image/2-card.webp");
-/* harmony import */ var _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/image/3-card.webp */ "./resources/assets/image/3-card.webp");
-/* harmony import */ var _assets_image_plus_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/image/plus.png */ "./resources/assets/image/plus.png");
-/* harmony import */ var _assets_image_minus_png__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../assets/image/minus.png */ "./resources/assets/image/minus.png");
-
-
+/* harmony import */ var _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/image/rank-icon.webp */ "./resources/assets/image/rank-icon.webp");
+/* harmony import */ var _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/image/star-icon.webp */ "./resources/assets/image/star-icon.webp");
+/* harmony import */ var _assets_image_2_card_webp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/image/2-card.webp */ "./resources/assets/image/2-card.webp");
+/* harmony import */ var _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/image/3-card.webp */ "./resources/assets/image/3-card.webp");
+/* harmony import */ var _assets_image_plus_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/image/plus.png */ "./resources/assets/image/plus.png");
+/* harmony import */ var _assets_image_minus_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/image/minus.png */ "./resources/assets/image/minus.png");
 
 
 
@@ -1050,218 +1069,185 @@ var _hoisted_4 = {
   "class": "col-4 text-center"
 };
 var _hoisted_5 = {
-  key: 0,
-  "class": "d-flex price-wrap"
+  key: 1
 };
 var _hoisted_6 = {
-  "class": "d-flex align-items-center"
-};
-var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    "class": "image-rarity",
-    src: _assets_image_cp_ur_rarity_webp__WEBPACK_IMPORTED_MODULE_1__["default"],
-    alt: "cp-ur-rarity"
-  }, null, -1 /* HOISTED */);
-});
-var _hoisted_8 = {
-  "class": "ml-2"
-};
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "mx-2"
-  }, "+", -1 /* HOISTED */);
-});
-var _hoisted_10 = {
-  "class": "d-flex align-items-center"
-};
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    "class": "image-rarity",
-    src: _assets_image_cp_sr_rarity_webp__WEBPACK_IMPORTED_MODULE_2__["default"],
-    alt: "cp-sr-rarity"
-  }, null, -1 /* HOISTED */);
-});
-var _hoisted_12 = {
-  "class": "ml-2"
-};
-var _hoisted_13 = {
-  key: 1
-};
-var _hoisted_14 = {
   "class": "col-4 text-right"
 };
-var _hoisted_15 = {
+var _hoisted_7 = {
   key: 0
 };
-var _hoisted_16 = {
+var _hoisted_8 = {
   key: 1
 };
-var _hoisted_17 = {
+var _hoisted_9 = {
   "class": "row"
 };
-var _hoisted_18 = {
+var _hoisted_10 = {
   "class": "col"
 };
-var _hoisted_19 = {
+var _hoisted_11 = {
   "class": "background-image"
 };
-var _hoisted_20 = {
+var _hoisted_12 = {
   key: 0,
   "class": "d-flex flex-wrap scroller-cards-collect",
   id: "scrollbar1"
 };
-var _hoisted_21 = ["src", "alt", "onMouseover", "onMouseleave", "onClick"];
-var _hoisted_22 = {
+var _hoisted_13 = ["src", "alt", "onMouseover", "onMouseleave", "onClick"];
+var _hoisted_14 = {
   key: 0,
   "class": "d-flex card-monster"
 };
-var _hoisted_23 = {
+var _hoisted_15 = {
   "class": "image-section"
 };
-var _hoisted_24 = ["src", "alt"];
-var _hoisted_25 = {
+var _hoisted_16 = ["src", "alt"];
+var _hoisted_17 = {
   "class": "information-section"
 };
-var _hoisted_26 = {
+var _hoisted_18 = {
   "class": "row mb-2"
 };
-var _hoisted_27 = {
+var _hoisted_19 = {
   "class": "col-8 mr-auto"
 };
-var _hoisted_28 = {
+var _hoisted_20 = {
   "class": "col-4 ml-auto"
 };
-var _hoisted_29 = {
+var _hoisted_21 = {
   "class": "mr-1"
 };
-var _hoisted_30 = {
+var _hoisted_22 = {
   key: 0,
   "class": "wrap-star"
 };
-var _hoisted_31 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_3__["default"],
+    src: _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_1__["default"],
     alt: "rank"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_32 = {
+var _hoisted_24 = {
   key: 1,
   "class": "wrap-star"
 };
-var _hoisted_33 = {
+var _hoisted_25 = {
   key: 2,
   "class": "wrap-star"
 };
-var _hoisted_34 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_4__["default"],
+    src: _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_2__["default"],
     alt: "star"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_35 = {
+var _hoisted_27 = {
   "class": "mb-2"
 };
-var _hoisted_36 = {
+var _hoisted_28 = {
   "class": "mb-2 description-card"
 };
-var _hoisted_37 = {
+var _hoisted_29 = {
   "class": "mb-2"
 };
-var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "ATK/", -1 /* HOISTED */);
 });
-var _hoisted_39 = ["innerHTML"];
-var _hoisted_40 = {
+var _hoisted_31 = ["innerHTML"];
+var _hoisted_32 = {
   "class": "released-card"
 };
-var _hoisted_41 = {
+var _hoisted_33 = {
   key: 1,
   "class": "d-flex card-trap-spell"
 };
-var _hoisted_42 = {
+var _hoisted_34 = {
   "class": "image-section"
 };
-var _hoisted_43 = ["src", "alt"];
-var _hoisted_44 = {
+var _hoisted_35 = ["src", "alt"];
+var _hoisted_36 = {
   "class": "information-section"
 };
-var _hoisted_45 = {
+var _hoisted_37 = {
   "class": "row mb-2"
 };
-var _hoisted_46 = {
+var _hoisted_38 = {
   "class": "col-8 mr-auto"
 };
-var _hoisted_47 = {
+var _hoisted_39 = {
   "class": "col-4 ml-auto"
 };
-var _hoisted_48 = {
+var _hoisted_40 = {
   "class": "mr-1"
 };
-var _hoisted_49 = {
+var _hoisted_41 = {
   "class": "mb-2 description-card"
 };
-var _hoisted_50 = {
+var _hoisted_42 = {
   "class": "released-card"
 };
-var _hoisted_51 = {
+var _hoisted_43 = {
   "class": "mb-1"
 };
-var _hoisted_52 = {
+var _hoisted_44 = {
   "class": "wrap-card-one-deck-builder"
 };
-var _hoisted_53 = ["src", "alt"];
-var _hoisted_54 = {
+var _hoisted_45 = ["src", "alt"];
+var _hoisted_46 = {
   key: 0,
   "class": "image-card-value",
-  src: _assets_image_2_card_webp__WEBPACK_IMPORTED_MODULE_5__["default"],
+  src: _assets_image_2_card_webp__WEBPACK_IMPORTED_MODULE_3__["default"],
   alt: "2-card"
 };
-var _hoisted_55 = {
+var _hoisted_47 = {
   key: 1,
   "class": "image-card-value",
-  src: _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_6__["default"],
+  src: _assets_image_3_card_webp__WEBPACK_IMPORTED_MODULE_4__["default"],
   alt: "3-card"
 };
-var _hoisted_56 = {
+var _hoisted_48 = {
   "class": "d-flex justify-content-center mt-1"
 };
-var _hoisted_57 = ["onClick"];
-var _hoisted_58 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_49 = ["onClick"];
+var _hoisted_50 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: _assets_image_plus_png__WEBPACK_IMPORTED_MODULE_7__["default"],
+    src: _assets_image_plus_png__WEBPACK_IMPORTED_MODULE_5__["default"],
     alt: "plus"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_59 = [_hoisted_58];
-var _hoisted_60 = ["onClick"];
-var _hoisted_61 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_51 = [_hoisted_50];
+var _hoisted_52 = ["onClick"];
+var _hoisted_53 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: _assets_image_minus_png__WEBPACK_IMPORTED_MODULE_8__["default"],
+    src: _assets_image_minus_png__WEBPACK_IMPORTED_MODULE_6__["default"],
     alt: "minus"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_62 = [_hoisted_61];
-var _hoisted_63 = {
+var _hoisted_54 = [_hoisted_53];
+var _hoisted_55 = {
   key: 2,
   "class": "d-flex justify-content-center"
 };
-var _hoisted_64 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_56 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
 });
-var _hoisted_65 = [_hoisted_64];
-var _hoisted_66 = {
+var _hoisted_57 = [_hoisted_56];
+var _hoisted_58 = {
   "class": "row"
 };
-var _hoisted_67 = {
+var _hoisted_59 = {
   "class": "col"
 };
-var _hoisted_68 = {
+var _hoisted_60 = {
   key: 0,
   "class": "invalid-text"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5;
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.price.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_UR), 1 /* TEXT */)]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.dataDeckBuilder.price.total_rarity_SR), 1 /* TEXT */)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.price.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? $props.dataDeckBuilder.total_card.total_card_main_deck : $props.dataDeckBuilder.total_card.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalCard), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [$setup.props.dataDeckBuilderLength.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.price.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("********** this code comment because rarity can not implement  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"d-flex price-wrap\">\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-ur-rarity.webp\"\r\n                  alt=\"cp-ur-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_UR}}\r\n                </span>\r\n              </div>\r\n              <div class=\"mx-2\">+</div>\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-sr-rarity.webp\"\r\n                  alt=\"cp-sr-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_SR}}\r\n                </span>\r\n              </div>\r\n            </div> ")], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.price.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? $props.dataDeckBuilder.total_card.total_card_main_deck : $props.dataDeckBuilder.total_card.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalCard), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [$setup.props.dataDeckBuilderLength.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && _$setup$props3.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.mainDeckCards, function (urlImage, index) {
     var _urlImage$card_images, _urlImage$card_images2, _urlImage$card_sets$, _urlImage$card_images3, _urlImage$card_sets$2;
@@ -1283,41 +1269,41 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "image-style",
       ref_for: true,
       ref: "imagePosition"
-    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_21), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    }, null, 40 /* PROPS, NEED_HYDRATION */, _hoisted_13), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
       "class": "hover-card",
       ref_for: true,
       ref: "hoverCardTemplate"
-    }, [urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, [urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       src: urlImage !== null && urlImage !== void 0 && urlImage.card_images ? urlImage === null || urlImage === void 0 || (_urlImage$card_images2 = urlImage.card_images[0]) === null || _urlImage$card_images2 === void 0 ? void 0 : _urlImage$card_images2.image_url_small : '',
       alt: urlImage.name
-    }, null, 8 /* PROPS */, _hoisted_24)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.attribute), 1 /* TEXT */)]), urlImage.frameType === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_30, [_hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.level), 1 /* TEXT */)])) : urlImage.frameType === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Link - "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.linkval), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.level), 1 /* TEXT */)]))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster(urlImage.frameType)) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textEffectMonster(urlImage.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML(urlImage.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, null, 8 /* PROPS */, _hoisted_16)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.attribute), 1 /* TEXT */)]), urlImage.frameType === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_22, [_hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.level), 1 /* TEXT */)])) : urlImage.frameType === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Link - "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.linkval), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.level), 1 /* TEXT */)]))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster(urlImage.frameType)) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textEffectMonster(urlImage.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML(urlImage.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       innerHTML: $setup.utilize.textDef(urlImage.frameType, urlImage.def)
-    }, null, 8 /* PROPS */, _hoisted_39)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.card_sets ? urlImage === null || urlImage === void 0 || (_urlImage$card_sets$ = urlImage.card_sets[0]) === null || _urlImage$card_sets$ === void 0 ? void 0 : _urlImage$card_sets$.set_name : ''), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), urlImage.frameType === 'trap' || urlImage.frameType === 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, null, 8 /* PROPS */, _hoisted_31)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.card_sets ? urlImage === null || urlImage === void 0 || (_urlImage$card_sets$ = urlImage.card_sets[0]) === null || _urlImage$card_sets$ === void 0 ? void 0 : _urlImage$card_sets$.set_name : ''), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), urlImage.frameType === 'trap' || urlImage.frameType === 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       src: urlImage !== null && urlImage !== void 0 && urlImage.card_images ? urlImage === null || urlImage === void 0 || (_urlImage$card_images3 = urlImage.card_images[0]) === null || _urlImage$card_images3 === void 0 ? void 0 : _urlImage$card_images3.image_url_small : '',
       alt: urlImage.name
-    }, null, 8 /* PROPS */, _hoisted_43)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster(urlImage.frameType)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML(urlImage.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.card_sets ? urlImage === null || urlImage === void 0 || (_urlImage$card_sets$2 = urlImage.card_sets[0]) === null || _urlImage$card_sets$2 === void 0 ? void 0 : _urlImage$card_sets$2.set_name : ''), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 512 /* NEED_PATCH */)]);
+    }, null, 8 /* PROPS */, _hoisted_35)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster(urlImage.frameType)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML(urlImage.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage.card_sets ? urlImage === null || urlImage === void 0 || (_urlImage$card_sets$2 = urlImage.card_sets[0]) === null || _urlImage$card_sets$2 === void 0 ? void 0 : _urlImage$card_sets$2.set_name : ''), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 512 /* NEED_PATCH */)]);
   }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it just use make deck builder "), !((_$setup$props4 = $setup.props) !== null && _$setup$props4 !== void 0 && _$setup$props4.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.deckCollects, function (card, index) {
     var _card$card_images$;
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: index
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       src: card !== null && card !== void 0 && card.card_images ? card === null || card === void 0 || (_card$card_images$ = card.card_images[0]) === null || _card$card_images$ === void 0 ? void 0 : _card$card_images$.image_url_small : '',
       alt: card.name,
       "class": "image-style"
-    }, null, 8 /* PROPS */, _hoisted_53), card.value === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_54)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), card.value === 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_55)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, null, 8 /* PROPS */, _hoisted_45), card.value === 2 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_46)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), card.value === 3 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("img", _hoisted_47)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "button-action mr-1",
       onClick: function onClick($event) {
         return $setup.addCard(card);
       }
-    }, [].concat(_hoisted_59), 8 /* PROPS */, _hoisted_57), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    }, [].concat(_hoisted_51), 8 /* PROPS */, _hoisted_49), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "button-action",
       onClick: function onClick($event) {
         return $setup.removeCard(card);
       }
-    }, [].concat(_hoisted_62), 8 /* PROPS */, _hoisted_60)])])]);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$props.dataDeckBuilderLength.length && (_$setup$props5 = $setup.props) !== null && _$setup$props5 !== void 0 && _$setup$props5.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_63, [].concat(_hoisted_65))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_67, [$props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_68, " deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+    }, [].concat(_hoisted_54), 8 /* PROPS */, _hoisted_52)])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$props.dataDeckBuilderLength.length && (_$setup$props5 = $setup.props) !== null && _$setup$props5 !== void 0 && _$setup$props5.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_55, [].concat(_hoisted_57))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_58, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [$props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_60, " deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),
@@ -1781,11 +1767,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[11] || (_cache[11] = function ($event) {
       return $setup.submit();
     })
-  }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button type=\"button\" class=\"btn btn-danger ml-2\" @click=\"createPayload()\">Create Payload</button> ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
+  }, "Submit"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "btn btn-danger ml-2",
+    onClick: _cache[12] || (_cache[12] = function ($event) {
+      return $setup.createPayload();
+    })
+  }, "Create Payload")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: $setup.loading,
     responseGeneral: $setup.responseGeneral,
-    onConfirm: _ctx.confirm
-  }, null, 8 /* PROPS */, ["loading", "responseGeneral", "onConfirm"])]);
+    onConfirm: $setup.confirm
+  }, null, 8 /* PROPS */, ["loading", "responseGeneral"])]);
 }
 
 /***/ }),
@@ -1842,7 +1834,7 @@ var builderDeckService = {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
             }).then(function (response) {
-              return functionReuse.getDataDeckBuilder(response.data.deck_builder);
+              return functionReuse.getDataDeckBuilderAnother(response.data.deck_builder);
             })["catch"](function (error) {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
@@ -1852,6 +1844,50 @@ var builderDeckService = {
             return _context.stop();
         }
       }, _callee);
+    }))();
+  },
+  getDataDeckBuilder: function getDataDeckBuilder(payload) {
+    var _this = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var nameCard, urlApiYugioh, numberModulus, dataOrigin, nameConvert;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            nameCard = '';
+            urlApiYugioh = '';
+            numberModulus = 11;
+            dataOrigin = [];
+            nameConvert = '';
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+
+            // this.getFunction(payload);
+            payload.forEach(function (data, index) {
+              index = index + 1;
+              if (index % numberModulus !== 0) {
+                dataOrigin.push(data);
+                // it will make can return value false on root data  lol...     
+                // data.name = this.characterEncodingUrl(data.name);
+                nameConvert = _utilize_utilize__WEBPACK_IMPORTED_MODULE_5__.utilize.characterEncodingUrl(data.name);
+                //********* */ make can use many name card but call one time api
+                nameCard += "|".concat(nameConvert);
+                if (payload.length === index && nameCard.length) {
+                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
+                }
+              } else if (index % numberModulus === 0) {
+                if (index % numberModulus === 0 && nameCard.length) {
+                  urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
+                  _this.getApiYuGioh(urlApiYugioh, dataOrigin);
+                  nameCard = '';
+                  dataOrigin = [];
+                }
+              }
+            });
+          case 7:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
     }))();
   },
   getApiYuGioh: function getApiYuGioh(urlApiYugioh, dataOriginPayload) {
@@ -1876,10 +1912,10 @@ var builderDeckService = {
     });
   },
   getTableDeckBuilder: function getTableDeckBuilder(slug) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) switch (_context3.prev = _context3.next) {
           case 0:
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
@@ -1898,15 +1934,45 @@ var builderDeckService = {
             });
           case 3:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
-      }, _callee2);
+      }, _callee3);
+    }))();
+  },
+  createDeckBuilder: function createDeckBuilder(payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'post',
+              url: "".concat(urlBuilderStyle),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth),
+                'Content-Type': 'multipart/form-data'
+              },
+              data: payload
+            }).then(function (response) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 3:
+          case "end":
+            return _context4.stop();
+        }
+      }, _callee4);
     }))();
   }
 };
 var functionReuse = {
-  getDataDeckBuilder: function getDataDeckBuilder(payload) {
-    var _this = this;
+  getDataDeckBuilderAnother: function getDataDeckBuilderAnother(payload) {
+    var _this2 = this;
     var nameCard = '';
     var urlApiYugioh = '';
     var numberModulus = 11;
@@ -1926,12 +1992,12 @@ var functionReuse = {
         nameCard += "|".concat(nameConvert);
         if (payload.length === index && nameCard.length) {
           urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+          _this2.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
         }
       } else if (index % numberModulus === 0) {
         if (index % numberModulus === 0 && nameCard.length) {
           urlApiYugioh = "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlApiYgoProDeck, "name=").concat(nameCard);
-          _this.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
+          _this2.getApiYuGiohAnother(urlApiYugioh, dataOrigin);
           nameCard = '';
           dataOrigin = [];
         }
@@ -2118,34 +2184,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/spinner.svg?ef4b864bf183ec6dbcff104b7d7e73a7");
-
-/***/ }),
-
-/***/ "./resources/assets/image/cp-sr-rarity.webp":
-/*!**************************************************!*\
-  !*** ./resources/assets/image/cp-sr-rarity.webp ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/cp-sr-rarity.webp?2b39c92064358c60581cb054e211b4bf");
-
-/***/ }),
-
-/***/ "./resources/assets/image/cp-ur-rarity.webp":
-/*!**************************************************!*\
-  !*** ./resources/assets/image/cp-ur-rarity.webp ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/cp-ur-rarity.webp?c3bd5862c25d7f03255a756546e00dca");
 
 /***/ }),
 

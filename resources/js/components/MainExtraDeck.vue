@@ -10,7 +10,8 @@
           <template
             v-if="dataDeckBuilder?.price.total_rarity_UR && deckType === 'main deck'"
           >
-            <div class="d-flex price-wrap">
+            <!--********** this code comment because rarity can not implement  -->
+            <!-- <div class="d-flex price-wrap">
               <div class="d-flex align-items-center">
                 <img
                   class="image-rarity"
@@ -32,7 +33,7 @@
                   {{dataDeckBuilder.price.total_rarity_SR}}
                 </span>
               </div>
-            </div>
+            </div> -->
           </template>
           <template v-if="!dataDeckBuilder?.price.total_rarity_UR">
             <div></div>

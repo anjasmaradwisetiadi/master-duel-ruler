@@ -102,7 +102,7 @@
             </div>
             <div class="mt-4">
                 <button type="button" class="btn btn-success" @click="submit()">Submit</button>
-                <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
+                <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button>
             </div>
         </div>
         <LoadingAndAlert :loading="loading" :responseGeneral="responseGeneral" @confirm="confirm"></LoadingAndAlert>
@@ -139,6 +139,7 @@ const deckTypeExtra = ref('extra deck');
 const dataDeckTypeMain = ref([]);
 const dataDeckTypeExtra = ref([]);
 const cardSelectedChoice = ref(null);
+const paramsUrlSlugPlayStyle = ref('');
 // const fullCardLoad = defineModel('fullCardLoad');
 const fullCardLoad = ref(
     {
@@ -189,6 +190,8 @@ watch(deckCollectExtra, (newValue, oldValue)=>{
 })
 
 onBeforeMount(()=>{
+    const payload = router.currentRoute.value.params.slug_play_style
+    paramsUrlSlugPlayStyle.value = payload;
     builderDeckService.getDataDeckBuilder(dataDeckBuilder.value.deck_builder);
     deckCollectMain;
     deckCollectExtra;
@@ -389,17 +392,23 @@ function submit(){
     const getParamsCreate ={
         title: title.value,
         slug: slugCreated,
-        engines: 'akan masuk langsung di form data',
-        play_style_id: 'masih development',
+        engines_url: urlImage.value,
+        engines: image.value,
+        play_style_slug: paramsUrlSlugPlayStyle.value,
         price: priceDeck,
         total_card: totalCardDeck,
         description: description.value,
-        deck_buidler: dataDeckBuilder
+        deck_builder: dataDeckBuilder
     }
     for (const key in getParamsCreate) {
+        console.log("getParamsCreate[key] = ");
+        console.log(getParamsCreate[key]);
         formData.append(key, getParamsCreate[key])
     }
     formData.append('engines', image.value);
+    console.log("getParamsCreate = "),
+    console.log(getParamsCreate)
+    builderDeckService.createDeckBuilder(formData);
 }
 
 function createPayloadDeck(dataMain, dataExtra){
@@ -430,6 +439,20 @@ function createPayloadDeck(dataMain, dataExtra){
     })
 
     return dataCollectMain.concat(dataCollectExtra)
+}
+
+function confirm($event){
+    // if($event){
+    //     router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`)
+    // }
+}
+
+function createPayload(){
+    title.value = "example deck"
+    // state.slug = "example-deck"
+    // image.value = "https://images.ygoprodeck.com/images/cards_small/45663742.jpg";        
+    // state.urlImage = '',
+    description.value = "1. testing flow"
 }
 
 </script>

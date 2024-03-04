@@ -2,7 +2,7 @@
     <div id="CounterStyleDetail" class="mt-4">
         <div class="row justify-content-center mb-5">
             <div class="col-8 text-center">
-                <h1>{{ getDataCounterStyleDeck?.title?.toUpperCase() }}</h1>
+                <h3>{{ getDataCounterStyleDeck?.title?.toUpperCase() }}</h3>
             </div>
         </div>
         <div class="row mb-2">

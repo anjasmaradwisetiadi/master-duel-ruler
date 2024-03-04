@@ -2,7 +2,7 @@
     <div id="DeckBuilderDetail" class="mt-4">
       <div class="row justify-content-center mb-5">
         <div class="col-8 text-center">
-          <h1>Khastira</h1>
+          <h3>{{dataDeckBuilder?.title}}</h3>
         </div>
       </div>
       <div class="row mb-2">

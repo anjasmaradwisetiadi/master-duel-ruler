@@ -2752,3 +2752,13 @@ export const dataDummyTierList = {
       },
    ]
 }
+
+export const dataDevTeam = {
+   'data': [
+      {
+         name: 'Anjasmara Dwi Setiadi',
+         image:'http://laravel-vue.test/images/anjas-github.png?eb64c4e7983ee78d703c061b068d884a',
+         github: 'https://github.com/anjasmaradwisetiadi'
+      }
+   ]
+}

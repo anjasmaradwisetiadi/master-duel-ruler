@@ -22004,6 +22004,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   dataDevTeam: () => (/* binding */ dataDevTeam),
 /* harmony export */   dataDummyCards: () => (/* binding */ dataDummyCards),
 /* harmony export */   dataDummyDeckBuilder: () => (/* binding */ dataDummyDeckBuilder),
 /* harmony export */   dataDummyTierList: () => (/* binding */ dataDummyTierList)
@@ -24387,6 +24388,13 @@ var dataDummyTierList = {
       image: 'https://images.ygoprodeck.com/images/cards_cropped/64193046.jpg',
       power: '3.0'
     }]
+  }]
+};
+var dataDevTeam = {
+  'data': [{
+    name: 'Anjasmara Dwi Setiadi',
+    image: 'http://laravel-vue.test/images/anjas-github.png?eb64c4e7983ee78d703c061b068d884a',
+    github: 'https://github.com/anjasmaradwisetiadi'
   }]
 };
 

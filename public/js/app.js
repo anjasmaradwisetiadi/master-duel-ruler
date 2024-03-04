@@ -22005,7 +22005,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   dataDummyCards: () => (/* binding */ dataDummyCards),
-/* harmony export */   dataDummyDeckBuilder: () => (/* binding */ dataDummyDeckBuilder)
+/* harmony export */   dataDummyDeckBuilder: () => (/* binding */ dataDummyDeckBuilder),
+/* harmony export */   dataDummyTierList: () => (/* binding */ dataDummyTierList)
 /* harmony export */ });
 var dataDummyCards = {
   "data": [{
@@ -24342,6 +24343,50 @@ var dataDummyDeckBuilder = {
     }],
     "created_at": "2024-02-24 13:10:26",
     "updated_at": "2024-02-24 13:10:26"
+  }]
+};
+var dataDummyTierList = {
+  'data': [{
+    'tier_list': 1,
+    'data': [{
+      name: 'Snake-Eye',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/48452496.jpg',
+      power: '35.0'
+    }]
+  }, {
+    'tier_list': 2,
+    'data': [{
+      name: 'Branded Despia',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/62962630.jpg',
+      power: '11.0'
+    }]
+  }, {
+    'tier_list': 3,
+    'data': [{
+      name: 'Mathmech',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/42632209.jpg',
+      power: '6.0'
+    }, {
+      name: 'Mannadium',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/71277255.jpg',
+      power: '5.0'
+    }, {
+      name: 'Vanquish Soul',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/91073013.jpg',
+      power: '4.5'
+    }, {
+      name: 'Labrynth',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/2347656.jpg',
+      power: '4.0'
+    }, {
+      name: 'Kashtira',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg',
+      power: '3.0'
+    }, {
+      name: 'Superheavy Samurai',
+      image: 'https://images.ygoprodeck.com/images/cards_cropped/64193046.jpg',
+      power: '3.0'
+    }]
   }]
 };
 

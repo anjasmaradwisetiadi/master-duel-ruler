@@ -67,7 +67,7 @@
                 <div
                   v-for="(urlImage, index) of mainDeckCards"
                   :key="index"
-                  class="wrap-card-search-global"
+                  class="wrap-card-search-main-extra"
                 >
                   <!-- <div class="image-wrap-main"> 
                     <img
@@ -251,9 +251,10 @@
       </div>
       <div class="row">
         <div class="col">
+          <!-- ********** it just display data when create orr edit deck builder -->
           <span 
-            v-if="deckType === 'main deck'" 
-            class="invalid-text"> deck contain 40 until 60 cards </span>
+            v-if="deckType === 'main deck' && (totalCard < 40 || totalCard >= 60)" 
+            class="invalid-text"> Deck contain 40 until 60 cards </span>
         </div>
       </div>
     </div>
@@ -301,8 +302,8 @@
         valueCard+=element.value;
       });
 
-      listenChangeTotalCard(valueCard)
-      return valueCard;
+      listenChangeTotalCard(valueCard);
+      return store.getters.getterTotalMainDeck;
     }
   })
 
@@ -327,7 +328,7 @@
       let positionLeft = 0;
       let positionTop =  0;
       const data = index+1;
-      let listCardSelector = document.querySelector(`.wrap-card-search-global:nth-child(${data}) .hover-card`);
+      let listCardSelector = document.querySelector(`.wrap-card-search-main-extra:nth-child(${data}) .hover-card`);
       // trial add before
       // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
       if (condition){
@@ -438,17 +439,17 @@
     z-index: 1;
   }
   /* make untidy style */
-  /* .wrap-card-search-global{
+  /* .wrap-card-search-main-extra{
     position: relative;
   } */
-  .wrap-card-search-global .image-style{
+  .wrap-card-search-main-extra .image-style{
       max-width: 84px;
       padding-right: 6px;
       padding-top:4px;
       cursor: pointer;
   }
 
-  .wrap-card-search-global .image-card-value{
+  .wrap-card-search-main-extra .image-card-value{
     position: absolute;
     top: 74px;
     left: 22px;
@@ -456,11 +457,11 @@
     z-index: 2;
   }
 
-  .wrap-card-search-global .non-hover-card{
+  .wrap-card-search-main-extra .non-hover-card{
       display: none;
   }
   
-  .wrap-card-search-global .hover-card{
+  .wrap-card-search-main-extra .hover-card{
       display: none;
       position: relative;
       z-index: 2;

@@ -413,6 +413,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       openModal.value = value;
     }
     function confirm($event) {
+      store.state.responseGeneral = {};
       if ($event) {
         router.push('/play-style-deck/');
       }

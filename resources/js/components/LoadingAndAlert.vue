@@ -40,9 +40,11 @@
                     return  Swal.fire({
                         title: "Sukses!!!",
                         text: response.message,
-                        icon: "success"
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonText: "Yes",
                     }).then((result)=>{
-                        if (result.isConfirmed) {
+                        if (result.isConfirmed || result.isDismissed) {
                             emit('confirm',true)
                         }
                     })

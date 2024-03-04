@@ -21148,9 +21148,11 @@ __webpack_require__.r(__webpack_exports__);
           return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
             title: "Sukses!!!",
             text: response.message,
-            icon: "success"
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "Yes"
           }).then(function (result) {
-            if (result.isConfirmed) {
+            if (result.isConfirmed || result.isDismissed) {
               emit('confirm', true);
             }
           });

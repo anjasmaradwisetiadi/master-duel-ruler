@@ -277,7 +277,7 @@ function calculatePopupAddedCard(condition, value){
 }
 
 function addRemoveCardSelectedMain($event){
-    if($event.status === 'add'){
+    if($event.status === 'add' && store.getters.getterTotalMainDeck < 60){
         selectedCardHas($event.value);
     } else {
         selectedCardHasRemove($event.value);
@@ -493,6 +493,7 @@ function createPayloadDeck(dataMain, dataExtra){
 }
 
 function confirm($event){
+    store.state.responseGeneral = {};
     if($event){
         router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`)
     }

@@ -288,6 +288,7 @@ function dataModalCardPreview (value) {
 }
 
 function confirm($event){
+    store.state.responseGeneral = {};
     if($event){
         router.push('/play-style-deck/');
     }

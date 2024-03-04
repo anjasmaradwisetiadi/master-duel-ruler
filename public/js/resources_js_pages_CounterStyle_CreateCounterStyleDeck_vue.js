@@ -448,6 +448,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     }
     function confirm($event) {
+      store.state.responseGeneral = {};
       if ($event) {
         router.push('/counter-style-deck/');
       }

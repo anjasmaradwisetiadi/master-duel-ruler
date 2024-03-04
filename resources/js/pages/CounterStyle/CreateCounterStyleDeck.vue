@@ -327,6 +327,7 @@
     }
 
     function confirm($event){
+        store.state.responseGeneral = {};
         if($event){
             router.push('/counter-style-deck/');
         }

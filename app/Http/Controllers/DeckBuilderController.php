@@ -62,7 +62,7 @@ class DeckBuilderController extends Controller
             // this code add validation manual for conatin string or not in tag html contain
             if(!$checkStringContain){
                 $validator->errors()->add(
-                    'description', 'Isi Description sekarang'
+                    'description', 'Isi description sekarang'
                 );
             }
             // this code add validation manual for image

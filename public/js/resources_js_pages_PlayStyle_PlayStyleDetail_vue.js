@@ -1081,9 +1081,10 @@ var builderDeckService = {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.dataDeckBuilder = [];
             nameCard = '';
             urlApiYugioh = '';
-            numberModulus = 11;
+            numberModulus = 200;
             dataOrigin = [];
             nameConvert = '';
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
@@ -1111,7 +1112,7 @@ var builderDeckService = {
                 }
               }
             });
-          case 7:
+          case 8:
           case "end":
             return _context2.stop();
         }
@@ -1119,6 +1120,8 @@ var builderDeckService = {
     }))();
   },
   getApiYuGioh: function getApiYuGioh(urlApiYugioh, dataOriginPayload) {
+    var collectDataJoin = [];
+    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
     axios__WEBPACK_IMPORTED_MODULE_3___default()({
       method: 'get',
       url: urlApiYugioh
@@ -1132,7 +1135,10 @@ var builderDeckService = {
           }
         });
       });
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', dataJoin.data);
+      dataJoin.data.forEach(function (element, index) {
+        collectDataJoin.push(element);
+      });
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', collectDataJoin);
       _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
     })["catch"](function (error) {
       _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
@@ -1228,14 +1234,45 @@ var builderDeckService = {
         }
       }, _callee5);
     }))();
+  },
+  editBuilderDeck: function editBuilderDeck(payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
+          case 0:
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'post',
+              url: "".concat(urlBuilderStyle, "/").concat(payload.slug),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth),
+                'Content-Type': 'multipart/form-data'
+              },
+              data: payload.form
+            }).then(function (response) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', response.data);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 3:
+          case "end":
+            return _context6.stop();
+        }
+      }, _callee6);
+    }))();
   }
 };
 var functionReuse = {
   getDataDeckBuilderAnother: function getDataDeckBuilderAnother(payload) {
     var _this2 = this;
+    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.dataDeckBuilder = [];
     var nameCard = '';
     var urlApiYugioh = '';
-    var numberModulus = 11;
+    var numberModulus = 200;
     var dataOrigin = [];
     var nameConvert = '';
     _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
@@ -1265,6 +1302,7 @@ var functionReuse = {
   },
   getApiYuGiohAnother: function getApiYuGiohAnother(urlApiYugioh, dataOriginPayload) {
     _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+    var collectDataJoin = [];
     axios__WEBPACK_IMPORTED_MODULE_3___default()({
       method: 'get',
       url: urlApiYugioh
@@ -1282,7 +1320,10 @@ var functionReuse = {
           }
         });
       });
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', dataJoin.data);
+      dataJoin.data.forEach(function (element, index) {
+        collectDataJoin.push(element);
+      });
+      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', collectDataJoin);
       _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
     })["catch"](function (error) {
       _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);

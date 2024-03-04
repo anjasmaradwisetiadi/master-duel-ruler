@@ -33,9 +33,10 @@ export const builderDeckService = {
     },
 
     async getDataDeckBuilder(payload){
+        store.state.dataDeckBuilder = [];
         let nameCard = '';
         let urlApiYugioh = '';
-        let numberModulus = 11;
+        let numberModulus = 200;
         let dataOrigin = [];
         let nameConvert = '';
         store.state.loading = true;
@@ -66,6 +67,8 @@ export const builderDeckService = {
     },
 
     getApiYuGioh(urlApiYugioh, dataOriginPayload){
+        let collectDataJoin = [];
+        store.state.loading = true;
         axios({
             method: 'get',
             url: urlApiYugioh,
@@ -80,7 +83,11 @@ export const builderDeckService = {
                     }
                 })
             });
-            store.commit('mutateDataDeckBuilder', dataJoin.data);
+
+            dataJoin.data.forEach((element, index) => {
+                collectDataJoin.push(element);
+            });
+            store.commit('mutateDataDeckBuilder', collectDataJoin);
             store.state.loading = false;
         })
         .catch(function(error) {
@@ -153,14 +160,37 @@ export const builderDeckService = {
             store.commit('mutateResponsGeneral', error.message); 
             store.state.loading = false;
         })
+    }, 
+
+    async editBuilderDeck(payload){
+        const tokenAuth = store.getters.getterResponseAuth.token;
+        store.state.loading = true;
+        axios({
+            method: 'post',
+            url: `${urlBuilderStyle}/${payload.slug}`,
+            headers:{
+              'Authorization': `Bearer ${tokenAuth}`,
+              'Content-Type': 'multipart/form-data',
+            },
+            data:payload.form
+        })
+        .then(function(response){
+            store.commit('mutateResponsGeneral', response.data); 
+            store.state.loading = false;
+        })
+        .catch(function(error) {
+            store.commit('mutateResponsGeneral', error.message); 
+            store.state.loading = false;
+        })
     }
 }
 
 const functionReuse = {
     getDataDeckBuilderAnother(payload){
+        store.state.dataDeckBuilder = [];
         let nameCard = '';
         let urlApiYugioh = '';
-        let numberModulus = 11;
+        let numberModulus = 200;
         let dataOrigin = [];
         let nameConvert = '';
         store.state.loading = true;
@@ -191,6 +221,7 @@ const functionReuse = {
 
     getApiYuGiohAnother(urlApiYugioh, dataOriginPayload){
         store.state.loading = true;
+        let collectDataJoin = [];
         axios({
             method: 'get',
             url: urlApiYugioh,
@@ -209,7 +240,11 @@ const functionReuse = {
                     }
                 })
             });
-            store.commit('mutateDataDeckBuilder', dataJoin.data);
+            dataJoin.data.forEach((element, index) => {
+                collectDataJoin.push(element);
+            });
+
+            store.commit('mutateDataDeckBuilder', collectDataJoin);
             store.state.loading = false;
         })
         .catch(function(error) {

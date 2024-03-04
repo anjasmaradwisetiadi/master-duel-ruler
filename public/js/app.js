@@ -24585,6 +24585,8 @@ var builderDeck = {
   state: {
     dataDeckBuilder: [],
     detailDeckBuilder: {},
+    dataMainDeck: [],
+    dataExtraDeck: [],
     totalMainDeck: 0,
     totalExtraDeck: 0,
     listDeckBuilder: [],
@@ -24592,9 +24594,7 @@ var builderDeck = {
   },
   mutations: {
     mutateDataDeckBuilder: function mutateDataDeckBuilder(state, payload) {
-      payload.forEach(function (element, index) {
-        state.dataDeckBuilder.push(element);
-      });
+      state.dataDeckBuilder = payload;
     },
     mutateDetailDeckBuilder: function mutateDetailDeckBuilder(state, payload) {
       state.detailDeckBuilder = payload;

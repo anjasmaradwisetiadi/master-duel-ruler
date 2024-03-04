@@ -94,9 +94,9 @@
                   <div class="information-section">
                     <div class="row mb-2">
                       <div class="col-7 mr-auto">
-                        <szpan class="mr-1">
-                          <b>{{ dataHasSelected?.attribute }}</b></szpan
-                        >
+                        <span class="mr-1">
+                          <b>{{ dataHasSelected?.attribute }}</b>
+                        </span>
                       </div>
                       <div class="col-5 d-flex justify-content-end">
                         <span

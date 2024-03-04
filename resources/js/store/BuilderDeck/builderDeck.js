@@ -6,6 +6,8 @@ export const builderDeck = {
     state:{
         dataDeckBuilder: [], 
         detailDeckBuilder: {},
+        dataMainDeck:[],
+        dataExtraDeck:[],
         totalMainDeck : 0,
         totalExtraDeck : 0,
         listDeckBuilder: [],
@@ -13,9 +15,7 @@ export const builderDeck = {
     },
     mutations: {
         mutateDataDeckBuilder(state, payload){
-            payload.forEach((element, index) => {
-                state.dataDeckBuilder.push(element);
-            });
+            state.dataDeckBuilder = payload;
         }, 
 
         mutateDetailDeckBuilder(state, payload){

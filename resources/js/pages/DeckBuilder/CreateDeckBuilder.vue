@@ -2,7 +2,7 @@
     <div id="CreateDeckBuilder" class="mt-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-6 text-center">
-                <h3>Deck Builder</h3>
+                <h3>{{editOrNot ? 'Edit':'Create'}} Deck Builder</h3>
             </div>
         </div>
         <div class="row mb-2">
@@ -140,6 +140,7 @@ const dataDeckTypeMain = ref([]);
 const dataDeckTypeExtra = ref([]);
 const cardSelectedChoice = ref(null);
 const paramsUrlSlugPlayStyle = ref('');
+const paramsUrlSlug = ref('');
 
 // const fullCardLoad = defineModel('fullCardLoad');
 const fullCardLoad = ref(
@@ -163,6 +164,11 @@ const state = reactive({
 })
 
 onBeforeMount(()=>{
+    const payloadSlug = router.currentRoute.value.params.slug;
+    const payloadSlugPlayStyle= router.currentRoute.value.params.slug_play_style;
+    paramsUrlSlug.value = payloadSlug;
+    paramsUrlSlugPlayStyle.value = payloadSlugPlayStyle;
+
     decisionEditOrCreateRuler();
 })
 
@@ -416,7 +422,7 @@ function submit(){
 
     const getParamsCreate ={
         title: title.value,
-        slug: slugCreated,
+        // slug: slugCreated,
         engines_url: urlImage.value,
         // engines: image.value,
         play_style_slug: paramsUrlSlugPlayStyle.value,
@@ -428,8 +434,32 @@ function submit(){
     for (const key in getParamsCreate) {
         formData.append(key, getParamsCreate[key])
     }
-    formData.append('engines', image.value);
-    builderDeckService.createDeckBuilder(formData);
+
+    if(!editOrNot.value){
+        formData.append('engines', image.value);
+        formData.append('slug', slugCreated);
+        // service for submit create data deck builder
+        builderDeckService.createDeckBuilder(formData);
+        state.editOrNot = false
+    } else {
+        if(conditionImage.value === 'neutral'){
+            formData.append('engines', preview.value);
+        } else {
+            formData.append('engines', image.value);
+        }
+            //
+        formData.append('_method', 'PUT');
+        formData.append('slug', oldSlug.value);
+        formData.append('old-slug', oldSlug.value);
+        const data ={
+                slug:oldSlug.value,
+                form:formData
+        } 
+        // service for submit edit data deck builder
+        // store.dispatch('editCounterStyle', data);
+        builderDeckService.editBuilderDeck(data);
+        state.editOrNot = false
+    }
 }
 
 function createPayloadDeck(dataMain, dataExtra){

@@ -67,31 +67,26 @@
                 <div
                   v-for="(urlImage, index) of mainDeckCards"
                   :key="index"
-                  class="wrap-card-search-main-extra"
+                  class="wrap-card-search-main-extra" 
+                  :class="deckType === 'main deck' ? 'wrap-card-search-main-deck' : 'wrap-card-search-extra-deck'"
+                  id="wrap-card-search-main-extra"
                 >
-                  <!-- <div class="image-wrap-main"> 
+                  <div
+                    class="wrap-hover-image"
+                    ref="imagePosition"
+                    @mouseover=" displayCard($event,index,true)"
+                    @mouseleave=" displayCard($event,index,false)"
+                  >
+                  <div class="wrap-image-display">
                     <img
-                      :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
-                      :alt="urlImage?.name"
-                      @mouseover=" displayCard($event,index,true)"
-                      @mouseleave=" displayCard($event,index,false)"
-                      @click="selectedCard(urlImage)"
-                      class="image-style"
-                      ref="imagePosition"
+                        :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
+                        :alt="urlImage?.name"
+                        @click="selectedCard(urlImage)"
+                        class="image-style"
                     />
-                    it need adjustment because make untidy style
                     <img v-if="urlImage.value === 2" class="image-card-value"  src="../../assets/image/2-card.webp"  alt="2-card">
                     <img v-if="urlImage.value === 3" class="image-card-value"  src="../../assets/image/3-card.webp"  alt="3-card">
-                  </div> -->
-                  <img
-                      :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
-                      :alt="urlImage?.name"
-                      @mouseover=" displayCard($event,index,true)"
-                      @mouseleave=" displayCard($event,index,false)"
-                      @click="selectedCard(urlImage)"
-                      class="image-style"
-                      ref="imagePosition"
-                  />
+                  </div>
                   <div class="hover-card" ref="hoverCardTemplate">
                     <template
                       v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'"
@@ -209,6 +204,7 @@
                       </div>
                     </template>
                   </div>
+                  </div>
                 </div>
               </template>
               <!-- when it just use make deck builder -->
@@ -239,7 +235,7 @@
                 </div>
               </template>
               <!-- add loading spinner mandiri -->
-              <div class="d-flex justify-content-center" v-if="loading">
+              <div class="d-flex justify-content-center text-center width-loading" v-if="loading">
                 <div class="spinner-border text-light" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
@@ -335,19 +331,37 @@
       // ********** get data position image
       const { top, right, bottom, left } = imagePosition.value[index].getBoundingClientRect();
       const detectWidthMonitor = window.innerWidth;
-      let positionLeft = 0;
-      let positionTop =  0;
+      let positionLeft, positionTop  = 0;
+      let listCardSelector;
       const data = index+1;
-      let listCardSelector = document.querySelector(`.wrap-card-search-main-extra:nth-child(${data}) .hover-card`);
+
+      //*********** */ this make differential between extra and main deck because make hover not accurate index
+      if(props?.deckType === 'main deck'){
+        listCardSelector = document.querySelector(`.wrap-card-search-main-deck:nth-child(${data}) .hover-card`);
+      } else if (props?.deckType === 'extra deck'){
+        listCardSelector = document.querySelector(`.wrap-card-search-extra-deck:nth-child(${data}) .hover-card`);
+      }
+
       // trial add before
       // let listCardSelectorBefore = document.querySelector(`.wrap-card:nth-child(${data}) .hover-card::before`);
       if (condition){
           if(detectWidthMonitor >= 1910){
-              positionLeft = left-310;
-              positionTop =  top-292;
+              positionLeft = left-294;
+              //*********** */ this make differential between extra and main deck because make hover not accurate position
+              if(props?.deckType === 'main deck'){
+                positionTop =  top-290;
+              } else if (props?.deckType === 'extra deck'){
+                positionTop =  top-756;
+              }
           } else if (detectWidthMonitor >= 1200 && detectWidthMonitor<1910){
-              positionLeft = left-120;
-              positionTop =  top-282;
+              positionLeft = left-104;
+              // positionTop =  top-282;
+              //*********** */ this make differential between extra and main deck because make hover not accurate position
+              if(props?.deckType === 'main deck'){
+                positionTop =  top-282;
+              } else if (props?.deckType === 'extra deck'){
+                positionTop =  top-542;
+              }
           }
   
           //********* */ try to fixing when i scroll on botom scroll can display hover on top
@@ -452,10 +466,17 @@
   /* .wrap-card-search-main-extra{
     position: relative;
   } */
-  .wrap-card-search-main-extra .image-style{
-      max-width: 84px;
+  .wrap-hover-image{
       padding-right: 6px;
       padding-top:4px;
+  }
+
+  .wrap-hover-image .wrap-image-display{
+    position: relative;
+  }
+
+  .wrap-card-search-main-extra .image-style{
+      max-width: 80px;
       cursor: pointer;
   }
 
@@ -510,6 +531,9 @@
       max-height: 32rem;
       min-height: 10rem;
       overflow-y: auto;
+  }
+  .width-loading{
+    min-width: 520px;
   }
   /*---------- end style deck buider hover */
 

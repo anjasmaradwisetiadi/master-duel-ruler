@@ -74,7 +74,7 @@
                     <label>Deck</label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row style-row-search-cards-separate">
                 <div class="col-6 pt-1">
                     <SearchCardsSeparate 
                         @selectedCard="selectedCardHas" 
@@ -543,6 +543,10 @@ function createPayload(){
         margin-top: 0.25rem;
         font-size: .875em;
         color: #dc3545;
+    }
+
+    .style-row-search-cards-separate{
+        margin-left: -30px !important;
     }
 
 </style>

@@ -3,7 +3,9 @@
         <nav class="navbar navbar-expand-lg non-padding navbar-color text-white">
             <div class="container">
                 <div class="navbar-nav mr-auto">
-                    <a class="navbar-brand RogFont text-font text-white" href="/">Master Duel<br> Ruler</a>
+                    <a class="navbar-brand RogFont text-font text-white" href="/">
+                        <img class="logo-master-duel-ruler" src="../../assets/image/master-duel-ruler.png" alt="master-duel-ruler">
+                    </a>
                 </div>
                 <div class="navbar-nav ml-auto">
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -123,5 +125,8 @@ function logout(){
 
     .pointer{
         cursor: pointer;
+    }
+    .logo-master-duel-ruler{
+        width: 182px;
     }
 </style>

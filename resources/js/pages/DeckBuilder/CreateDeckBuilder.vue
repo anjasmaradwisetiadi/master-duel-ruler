@@ -22,7 +22,12 @@
                 <label for="imageUpload">Engines</label>
                 <div id="imageUpload" class="form-input-file">   
                     <div class="input-file-style">
-                        <input type="file"  class="form-control-file"  @change="previewImage($event)" ref="inputFile" 
+                        <input 
+                            type="file"  
+                            class="form-control-file"  
+                            @change="previewImage($event)" 
+                            ref="inputFile"
+                            accept="image/*" 
                             :disabled="conditionImage === 'input-image' || conditionImage === 'neutral' ? disabled : ''  ">
                     </div>
                     <div class="px-3 d-flex align-items-center">

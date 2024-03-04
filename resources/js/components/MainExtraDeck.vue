@@ -63,7 +63,7 @@
               v-if="props?.dataDeckBuilderLength?.length"
             >
               <!-- when it need hover for display detail information -->
-              <template v-if="props?.displayHover">
+              <template v-if="props?.displayHover && !loading">
                 <div
                   v-for="(urlImage, index) of mainDeckCards"
                   :key="index"
@@ -212,7 +212,7 @@
                 </div>
               </template>
               <!-- when it just use make deck builder -->
-              <template v-if="!props?.displayHover">
+              <template v-if="!props?.displayHover && !loading">
                 <div 
                   v-for="(card, index) of deckCollects"
                   :key="index"
@@ -238,10 +238,16 @@
                   </div>
                 </div>
               </template>
-  
+              <!-- add loading spinner mandiri -->
+              <div class="d-flex justify-content-center" v-if="loading">
+                <div class="spinner-border text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+              <!-- not record data  -->
               <div
                 class="d-flex justify-content-center"
-                v-if="!dataDeckBuilderLength.length && props?.displayHover"
+                v-if="!dataDeckBuilderLength.length && props?.displayHover && !loading"
               >
                 <span>Tidak ada kartu yang ke record</span>
               </div>
@@ -294,6 +300,10 @@
     const valueCard = props?.deckType === 'main deck' ? props?.dataDeckBuilder?.total_card?.total_card_main_deck :  props?.dataDeckBuilder?.total_card?.total_card_extra_deck;
     listenChangeTotalCard(valueCard);
   })
+
+  const loading = computed(()=>{
+    return store.getters.getterStateLoading;
+})
 
   const totalCard = computed(()=>{
     let valueCard = 0;

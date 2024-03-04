@@ -30,7 +30,7 @@
                                 </div>
                             </td>
                             <td colspan="1">
-                                <template v-if="deckBuilder.price.total_rarity_UR">
+                                <!-- <template v-if="deckBuilder.price.total_rarity_UR">
                                     <div class="d-flex align-items-center mb-1">
                                         <span>
                                             <img class="image-rarity" src="../../../assets/image/cp-ur-rarity.webp" alt="cp-ur-rarity">
@@ -47,12 +47,10 @@
                                             {{deckBuilder.price.total_rarity_SR}}
                                         </span>
                                     </div>
-                                </template>
-                                <template v-if="!deckBuilder.price.total_rarity_UR">
-                                    <div>
-                                        &#9866;
-                                    </div>
-                                </template>
+                                </template> -->
+                                <div>
+                                    &#9866;
+                                </div>
                             </td>
                             <td colspan="4">
                                 <div class="elipsis">
@@ -74,7 +72,6 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import {dataDummyDeckBuilder} from '../../DummyDataCard';
 import { useRouter } from 'vue-router';
 import { builderDeckService } from '../../store/BuilderDeck/builderDeckService';
 import {collectionUrl} from '../../urlCollect';

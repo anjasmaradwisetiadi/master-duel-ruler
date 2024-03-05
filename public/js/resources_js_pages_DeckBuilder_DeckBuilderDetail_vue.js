@@ -242,7 +242,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 /* harmony import */ var _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/BuilderDeck/builderDeckService */ "./resources/js/store/BuilderDeck/builderDeckService.js");
-/* harmony import */ var _DummyDataCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../DummyDataCard */ "./resources/js/DummyDataCard.js");
+/* harmony import */ var _components_LoadingAndAlert_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/LoadingAndAlert.vue */ "./resources/js/components/LoadingAndAlert.vue");
 /* harmony import */ var _components_MainExtraDeck_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/MainExtraDeck.vue */ "./resources/js/components/MainExtraDeck.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
@@ -302,15 +302,20 @@ __webpack_require__.r(__webpack_exports__);
     var extraDeckCards = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterdataDeckBuilderExtraDeck;
     });
-    function editPlayStyle() {
+    function editDeckBuilder() {
       router.push("/builder-deck/".concat(paramsUrlSlugPlayStyle.value, "/").concat(paramsUrlSlug.value, "/edit"));
     }
-    function deletePlayStyle() {
+    function deleteDeckBuilder() {
+      console.log("delete deck buidler");
       state.confirmDelete = true;
     }
     function methodConfirmDelete($event) {
       if ($event) {
-        // store.dispatch('deleteCounterStyle', paramsUrl.value);   
+        var payload = {
+          paramsUrlSlug: paramsUrlSlug.value,
+          paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle.value
+        };
+        _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.deleteDeckBuilder(payload);
       }
       state.confirmDelete = false;
     }
@@ -334,8 +339,8 @@ __webpack_require__.r(__webpack_exports__);
       dataHasSelected: dataHasSelected,
       mainDeckCards: mainDeckCards,
       extraDeckCards: extraDeckCards,
-      editPlayStyle: editPlayStyle,
-      deletePlayStyle: deletePlayStyle,
+      editDeckBuilder: editDeckBuilder,
+      deleteDeckBuilder: deleteDeckBuilder,
       methodConfirmDelete: methodConfirmDelete,
       backRoute: backRoute,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
@@ -347,12 +352,7 @@ __webpack_require__.r(__webpack_exports__);
       get builderDeckService() {
         return _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService;
       },
-      get dataDummyDeckBuilder() {
-        return _DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyDeckBuilder;
-      },
-      get dataDummyCards() {
-        return _DummyDataCard__WEBPACK_IMPORTED_MODULE_2__.dataDummyCards;
-      },
+      LoadingAndAlert: _components_LoadingAndAlert_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
       MainExtraDeck: _components_MainExtraDeck_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
       get useStore() {
         return vuex__WEBPACK_IMPORTED_MODULE_6__.useStore;
@@ -889,18 +889,17 @@ var _hoisted_57 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$setup$dataDeckBuild, _$setup$dataDeckBuild2, _$setup$dataDeckBuild3, _$setup$dataHasSelect, _$setup$dataHasSelect2, _$setup$dataHasSelect3, _$setup$dataHasSelect4, _$setup$dataHasSelect5, _$setup$dataHasSelect6, _$setup$dataHasSelect7, _$setup$dataHasSelect8, _$setup$dataHasSelect9, _$setup$dataHasSelect10, _$setup$dataHasSelect11, _$setup$dataHasSelect12, _$setup$dataHasSelect13, _$setup$dataHasSelect14, _$setup$dataHasSelect15, _$setup$dataHasSelect16, _$setup$dataHasSelect17, _$setup$dataHasSelect18, _$setup$dataHasSelect19, _$setup$dataHasSelect20, _$setup$dataHasSelect21, _$setup$dataHasSelect22, _$setup$dataHasSelect23, _$setup$dataHasSelect24, _$setup$dataHasSelect25, _$setup$dataHasSelect26, _$setup$dataHasSelect27, _$setup$dataHasSelect28, _$setup$dataHasSelect29, _$setup$dataHasSelect30, _$setup$dataHasSelect31, _$setup$dataHasSelect32, _$setup$dataHasSelect33, _$setup$dataHasSelect34;
-  var _component_LoadingAndAlert = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("LoadingAndAlert");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataDeckBuild = $setup.dataDeckBuilder) === null || _$setup$dataDeckBuild === void 0 || (_$setup$dataDeckBuild = _$setup$dataDeckBuild.title) === null || _$setup$dataDeckBuild === void 0 ? void 0 : _$setup$dataDeckBuild.toUpperCase()), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-success mr-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
-      return $setup.editPlayStyle();
+      return $setup.editDeckBuilder();
     })
   }, " Edit Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-danger",
     onClick: _cache[1] || (_cache[1] = function ($event) {
-      return $setup.deletePlayStyle();
+      return $setup.deleteDeckBuilder();
     })
   }, " Delete Deck Builder ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
@@ -945,7 +944,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8 /* PROPS */, _hoisted_43)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect22 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect22 !== void 0 && _$setup$dataHasSelect22.card_sets ? (_$setup$dataHasSelect23 = $setup.dataHasSelected) === null || _$setup$dataHasSelect23 === void 0 || (_$setup$dataHasSelect23 = _$setup$dataHasSelect23.card_sets[0]) === null || _$setup$dataHasSelect23 === void 0 ? void 0 : _$setup$dataHasSelect23.set_name : ' '), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((_$setup$dataHasSelect24 = $setup.dataHasSelected) === null || _$setup$dataHasSelect24 === void 0 ? void 0 : _$setup$dataHasSelect24.frameType) === 'trap' || ((_$setup$dataHasSelect25 = $setup.dataHasSelected) === null || _$setup$dataHasSelect25 === void 0 ? void 0 : _$setup$dataHasSelect25.frameType) === 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect26 = $setup.dataHasSelected) === null || _$setup$dataHasSelect26 === void 0 ? void 0 : _$setup$dataHasSelect26.name), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: (_$setup$dataHasSelect27 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect27 !== void 0 && _$setup$dataHasSelect27.card_images ? (_$setup$dataHasSelect28 = $setup.dataHasSelected) === null || _$setup$dataHasSelect28 === void 0 || (_$setup$dataHasSelect28 = _$setup$dataHasSelect28.card_images[0]) === null || _$setup$dataHasSelect28 === void 0 ? void 0 : _$setup$dataHasSelect28.image_url_small : ' ',
     alt: (_$setup$dataHasSelect29 = $setup.dataHasSelected) === null || _$setup$dataHasSelect29 === void 0 ? void 0 : _$setup$dataHasSelect29.name
-  }, null, 8 /* PROPS */, _hoisted_51)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect30 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect30 !== void 0 && _$setup$dataHasSelect30.frameType ? (_$setup$dataHasSelect31 = $setup.dataHasSelected) === null || _$setup$dataHasSelect31 === void 0 ? void 0 : _$setup$dataHasSelect31.frameType : ' ')) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect32 = $setup.dataHasSelected) === null || _$setup$dataHasSelect32 === void 0 ? void 0 : _$setup$dataHasSelect32.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect33 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect33 !== void 0 && _$setup$dataHasSelect33.card_sets ? (_$setup$dataHasSelect34 = $setup.dataHasSelected) === null || _$setup$dataHasSelect34 === void 0 || (_$setup$dataHasSelect34 = _$setup$dataHasSelect34.card_sets[0]) === null || _$setup$dataHasSelect34 === void 0 ? void 0 : _$setup$dataHasSelect34.set_name : ''), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_LoadingAndAlert, {
+  }, null, 8 /* PROPS */, _hoisted_51)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect30 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect30 !== void 0 && _$setup$dataHasSelect30.frameType ? (_$setup$dataHasSelect31 = $setup.dataHasSelected) === null || _$setup$dataHasSelect31 === void 0 ? void 0 : _$setup$dataHasSelect31.frameType : ' ')) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect32 = $setup.dataHasSelected) === null || _$setup$dataHasSelect32 === void 0 ? void 0 : _$setup$dataHasSelect32.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect33 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect33 !== void 0 && _$setup$dataHasSelect33.card_sets ? (_$setup$dataHasSelect34 = $setup.dataHasSelected) === null || _$setup$dataHasSelect34 === void 0 || (_$setup$dataHasSelect34 = _$setup$dataHasSelect34.card_sets[0]) === null || _$setup$dataHasSelect34 === void 0 ? void 0 : _$setup$dataHasSelect34.set_name : ''), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: _ctx.loading,
     confirmDelete: $setup.confirmDelete,
     onConfirm: $setup.methodConfirmDelete
@@ -1211,6 +1210,42 @@ var builderDeckService = {
             return _context6.stop();
         }
       }, _callee6);
+    }))();
+  },
+  deleteDeckBuilder: function deleteDeckBuilder(payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'delete',
+              url: "".concat(urlBuilderStyle, "/").concat(payload.paramsUrlSlug),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth)
+              }
+            }).then(function () {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
+                title: "Success Delete ",
+                icon: "success"
+              }).then(function (success) {
+                if (success) {
+                  _routes__WEBPACK_IMPORTED_MODULE_4__["default"].push("/play-style-deck/".concat(payload.paramsUrlSlugPlayStyle));
+                }
+              });
+              // commit('mutateResponsGeneral', response.data); 
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 3:
+          case "end":
+            return _context7.stop();
+        }
+      }, _callee7);
     }))();
   }
 };

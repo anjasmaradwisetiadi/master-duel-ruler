@@ -10,11 +10,11 @@
           <button
             type="button"
             class="btn btn-success mr-2"
-            @click="editPlayStyle()"
+            @click="editDeckBuilder()"
           >
             Edit Deck Builder
           </button>
-          <button type="button" class="btn btn-danger" @click="deletePlayStyle()">
+          <button type="button" class="btn btn-danger" @click="deleteDeckBuilder()">
             Delete Deck Builder
           </button>
         </div>
@@ -206,7 +206,7 @@
   <script setup>
   import { ref, reactive, watch, computed, onMounted, onBeforeMount } from 'vue';
   import { builderDeckService } from '../../store/BuilderDeck/builderDeckService';
-  import {dataDummyDeckBuilder, dataDummyCards} from '../../DummyDataCard';
+  import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
   import MainExtraDeck from '../../components/MainExtraDeck.vue';
   import { useStore } from 'vuex';
   import { useRouter } from 'vue-router';
@@ -263,17 +263,22 @@
       return store.getters.getterdataDeckBuilderExtraDeck;
   })
   
-  function editPlayStyle(){
+  function editDeckBuilder(){
       router.push(`/builder-deck/${paramsUrlSlugPlayStyle.value}/${paramsUrlSlug.value}/edit`);
   }
   
-  function deletePlayStyle(){
+  function deleteDeckBuilder(){
+      console.log("delete deck buidler")
       state.confirmDelete = true;
   }
 
   function methodConfirmDelete($event){
       if($event){
-          // store.dispatch('deleteCounterStyle', paramsUrl.value);   
+        let payload ={
+          paramsUrlSlug: paramsUrlSlug.value,
+          paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle.value
+        }
+        builderDeckService.deleteDeckBuilder(payload);
       }
       state.confirmDelete = false;
   }

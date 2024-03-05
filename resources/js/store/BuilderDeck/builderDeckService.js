@@ -182,6 +182,35 @@ export const builderDeckService = {
             store.commit('mutateResponsGeneral', error.message); 
             store.state.loading = false;
         })
+    },
+
+    async deleteDeckBuilder(payload){
+        const tokenAuth = store.getters.getterResponseAuth.token;
+        store.state.loading = true;
+        axios({
+            method: 'delete',
+            url: `${urlBuilderStyle}/${payload.paramsUrlSlug}`,
+            headers:{
+              'Authorization': `Bearer ${tokenAuth}`
+            }
+        })
+        .then(function(){
+            Swal.fire({
+              title: "Success Delete ",
+              icon: "success"
+            })
+            .then((success)=>{
+                if(success){
+                  router.push(`/play-style-deck/${payload.paramsUrlSlugPlayStyle}`);
+                }
+            });
+            // commit('mutateResponsGeneral', response.data); 
+            store.state.loading = false;
+        })
+        .catch(function(error) {
+            commit('mutateResponsGeneral', error.message); 
+            store.state.loading = false;
+        })
     }
 }
 

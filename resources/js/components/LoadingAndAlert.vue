@@ -68,7 +68,8 @@
     })
 
     const confirmDelete = computed(()=>{
-        if(props?.confirmDelete){
+        const data = props?.confirmDelete;
+        if(data){
             return Swal.fire({
             title: "Apa kamu yakin akan mengapus info Deck ini ? ",
             showCancelButton: true,

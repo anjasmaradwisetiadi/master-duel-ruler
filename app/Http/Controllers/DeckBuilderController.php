@@ -230,7 +230,15 @@ class DeckBuilderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findData = DeckBuilders::where('slug','=',$id)->firstOrFail();
+        $findPathImage = stristr($findData->image, env('APP_URL').'storage/');
+        if($findPathImage){
+            if($findData->image){
+                $stringManipulate = str_replace(env('APP_URL').'storage/','',$findData->image);
+                Storage::delete($stringManipulate);
+            }
+        } 
+
     }
 
     public function findTableDeckBuilder($slug){

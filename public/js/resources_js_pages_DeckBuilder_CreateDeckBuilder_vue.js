@@ -1997,6 +1997,42 @@ var builderDeckService = {
         }
       }, _callee6);
     }))();
+  },
+  deleteDeckBuilder: function deleteDeckBuilder(payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
+          case 0:
+            tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'delete',
+              url: "".concat(urlBuilderStyle, "/").concat(payload.paramsUrlSlug),
+              headers: {
+                'Authorization': "Bearer ".concat(tokenAuth)
+              }
+            }).then(function () {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
+                title: "Success Delete ",
+                icon: "success"
+              }).then(function (success) {
+                if (success) {
+                  _routes__WEBPACK_IMPORTED_MODULE_4__["default"].push("/play-style-deck/".concat(payload.paramsUrlSlugPlayStyle));
+                }
+              });
+              // commit('mutateResponsGeneral', response.data); 
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 3:
+          case "end":
+            return _context7.stop();
+        }
+      }, _callee7);
+    }))();
   }
 };
 var functionReuse = {

@@ -98,7 +98,7 @@ function editPlayStyle(slug){
 
 function methodConfirmDelete($event){
     if($event){
-        store.dispatch('deleteCounterStyle', paramsUrl.value);   
+        playStyleDeckService.deletePlayStyle(paramsUrl.value) 
     }
     state.confirmDelete = false;
 }

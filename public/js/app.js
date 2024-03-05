@@ -21176,7 +21176,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     });
     var confirmDelete = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      if (props !== null && props !== void 0 && props.confirmDelete) {
+      var data = props === null || props === void 0 ? void 0 : props.confirmDelete;
+      if (data) {
         return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
           title: "Apa kamu yakin akan mengapus info Deck ini ? ",
           showCancelButton: true,

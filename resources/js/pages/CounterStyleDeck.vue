@@ -9,7 +9,7 @@
         </div>
         <div class="row mb-2">
             <div class="col">
-                <button type="button" class="btn btn-secondary"><a :href="urlCreateDeck" class="add-new-counter-link">Add New Counter</a></button>
+                <button type="button" class="button-style-primary"><a :href="urlCreateDeck" class="add-new-counter-link">Add New Counter</a></button>
             </div>
         </div>
         <div class="row">
@@ -59,6 +59,10 @@ const cardListCounterStyle = computed(()=>{
     return store.getters.getterListCounterStyle
 })
 
+const loading = computed(()=>{
+    return store.getters.getterStateLoading
+})
+
 let urlCreateDeck = ref(collectionUrl.baseUrlHead+'counter-style-deck/create');
 
 onBeforeMount(()=>{
@@ -66,13 +70,8 @@ onBeforeMount(()=>{
 })
 
 onMounted(()=>{
-    // console.log("ini routing testing = ")
-    // console.log(router.currentRoute)
 })
 
-const loading = computed(()=>{
-    return store.getters.getterStateLoading
-})
 
 function searching(event){
     const input = event.target.value;
@@ -89,7 +88,8 @@ function searching(event){
 
 
 </script>
-<style>
+<style scoped>
+
     .card{
         color: black;
     }

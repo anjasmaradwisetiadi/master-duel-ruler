@@ -3,7 +3,7 @@
         <div class="row justify-content-center mt-3">
             <div class="col-9 background-image ml-4">
                     <div class="d-flex flex-wrap ml-1" 
-                        v-if="getDataYgoProDeck.length"
+                        v-if="getDataYgoProDeck?.length && !loading"
                     >
                         <div
                             v-for="(urlImage,index) in getDataYgoProDeck" 
@@ -89,9 +89,17 @@
                     </div>
                     <div 
                         class="d-flex justify-content-center"
-                        v-if="!getDataYgoProDeck.length"
+                        v-if="loading"
                     >
-                        <span>Tidak ada kartu yang ke record</span>
+                        <div class="spinner-border text-light" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    <div 
+                        class="d-flex justify-content-center"
+                        v-if="!getDataYgoProDeck?.length && !loading"
+                    >
+                        <span>Tidak ada kartu yang ke record agcduciicagcda</span>
                     </div>
             </div>
         </div>
@@ -115,6 +123,10 @@
 
      const hoverConditionIndex = ref(0);
      const hoverCondition = ref(false);
+
+     const loading = computed(()=>{
+        return store.getters.getterStateLoading
+     })
 
      onMounted(()=>{
         

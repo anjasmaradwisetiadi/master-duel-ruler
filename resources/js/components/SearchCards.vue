@@ -19,7 +19,6 @@
               </div>
             </div>
           </div>
-          <p>{{positionInformation}}</p>
           <div class="row mb-2">
             <div class="col">
               <input
@@ -37,12 +36,11 @@
             <div class="row">
                 <div class="col background-image">
                     <div class="d-flex flex-wrap ml-2 scroller-cards-collect" id="scrollbar1" 
-                        v-if="getDataYgoProDeck.length">
+                        v-if="getDataYgoProDeck?.length">
                         <div
                             v-for="(urlImage,index) in getDataYgoProDeck" 
                             :key="index" 
                             class="wrap-card-search-global" 
-                            :style="hoverFunctionCard"
                         >
                             <img 
                                 :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' " 
@@ -61,10 +59,10 @@
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">
-                                                <div class="col-8 mr-auto">
+                                                <div class="col-7 mr-auto">
                                                     <span> <b>{{ urlImage.name }}</b></span>
                                                 </div>
-                                                <div class="col-4 ml-auto ">
+                                                <div class="col-5  d-flex justify-content-end ">
                                                     <span class="mr-1"> <b>{{ urlImage.attribute }}</b></span>
                                                     <span class="wrap-star" v-if="urlImage.frameType === 'xyz'">
                                                         <img src="../../assets/image/rank-icon.webp" alt="rank">
@@ -102,10 +100,10 @@
                                         </div>
                                         <div class="information-section">
                                             <div class="row mb-2">
-                                                <div class="col-8 mr-auto">
+                                                <div class="col-7 mr-auto">
                                                     <span> <b>{{ urlImage.name }}</b></span>
                                                 </div>
-                                                <div class="col-4 ml-auto ">
+                                                <div class="col-5  d-flex justify-content-end ">
                                                     <span class="mr-1"> <b>{{ utilize.textTypeMonster(urlImage.frameType)}} - {{ urlImage.race }}</b></span>
                                                 </div>
                                             </div>
@@ -123,20 +121,20 @@
                     </div>
                     <div 
                         class="d-flex justify-content-center"
-                        v-if="!getDataYgoProDeck.length"
+                        v-if="!getDataYgoProDeck?.length"
                     >
                         <span>Tidak ada kartu yang ke record</span>
                     </div>
                 </div>
             </div>
           </div>
-          <div class="row" v-if="getDataYgoProDeck.length">
+          <div class="row" v-if="getDataYgoProDeck?.length">
             <div class="col d-flex justify-content-start align-items-center">
                 <div class="mr-4">
-                    <button class="btn btn-warning mr-2" 
+                    <button class="button-style-primary mr-2" 
                         @click="nextPage()" 
                         :disabled="!infoPage?.next_page_offset ? '':disabled"> > </button>
-                    <button class="btn btn-warning" 
+                    <button class="button-style-primary" 
                         @click="backPage()" 
                         :disabled="infoPage?.previous_page_offset === undefined  ? '':disabled"> < </button>
                 </div>
@@ -153,6 +151,7 @@
   </template>
   <script setup>
    import { reactive, ref, computed, onMounted, defineProps, defineEmits } from 'vue';
+   import LoadingAndAlert from './LoadingAndAlert.vue';
    import { useStore } from 'vuex';
    import {utilize} from '../utilize/utilize';
    import {collectionUrl} from '../urlCollect';
@@ -174,7 +173,6 @@
    const offset = ref(0);
    const valueSearch = ref('');
    const imagePosition = ref(null);
-   const positionInformation = ref(null);
    const hoverCardTemplate = ref(null);
    let searchTimeout;
 
@@ -195,7 +193,14 @@
    })
   
    onMounted(()=>{
-
+    //******* it make be default search but when app ready to use */
+    const payload = {
+        mode: 'all-search',
+        name: 'inf',
+        num: num.value,
+        offset: offset.value
+    }
+    store.dispatch('getSearchCards', payload);
    })
   
   function searching(event){
@@ -282,7 +287,7 @@
             listCardSelector.style.position='relative';
             listCardSelector.style.display = 'none';
         }
-    }
+  }
 
     function nextPage(){
         // state.inputSearch = inputSearch.value;
@@ -326,11 +331,11 @@
     width: 6px;
   }
 
-    #scrollbar1::-webkit-scrollbar-track {
+  #scrollbar1::-webkit-scrollbar-track {
         border-radius: 4px;
         background-color: #0C345A;
         border: 2px solid #0C345A;
-    }
+  }
 
     #scrollbar1::-webkit-scrollbar-thumb {
         border-radius: 4px;
@@ -385,19 +390,6 @@
         max-width: 95px;
         padding-right: 8px;
         cursor: pointer;
-    }
-
-    .wrap-card-search-global .hover-card{
-        display: none;
-        position: relative;
-    }
-
-    .wrap-card-search-global .non-hover-card{
-        display: none;
-    }
-    .image-style{
-        max-width: 92px;
-        padding-right: 6px;
         padding-top:4px;
         cursor: pointer;
     }
@@ -406,7 +398,7 @@
         display: none;
         position: relative;
     }
-
+    
     .wrap-card-search-global .non-hover-card{
         display: none;
     }

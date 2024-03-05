@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-2">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+                <button type="button" class="btn button-style-secondary" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="form-create">
@@ -22,7 +22,7 @@
                 <label for="imageUpload">Upload Image</label>
                 <div id="imageUpload" class="form-input-file">   
                     <div class="input-file-style">
-                        <input type="file"  class="form-control-file"  @change="previewImage($event)" ref="inputFile" 
+                        <input type="file"  class="form-control-file"  @change="previewImage($event)" ref="inputFile" accept="image/*" 
                             :disabled="conditionImage === 'input-image' || conditionImage === 'neutral' ? disabled : ''  ">
                     </div>
                     <div class="px-3 d-flex align-items-center">
@@ -68,7 +68,7 @@
                 <label for="chips">Chips File</label>
                 <div id="chips" aria-describedby="chips">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-secondary" @click="generateChips()">Generate Chips File</button>
+                        <button type="button" class="button-style-primary" @click="generateChips()">Generate Chips File</button>
                     </div>
                     <div v-if="listChips.length" class="row">
                         <div class="col">
@@ -85,7 +85,7 @@
                 <ListImageHover :getDataYgoProDeck='getDataYgoProDeck' @dataModalCard='dataModalCard' ></ListImageHover>
             </div> 
             <div>
-                <button type="button" class="btn btn-success" @click="submit()">Submit</button>
+                <button type="button" class="button-style-secondary" @click="submit()">Submit</button>
                 <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>
@@ -116,8 +116,7 @@
     const image = ref(null);
     const urlImage = ref(null);
     const inputFile = ref(0);
-    const listChips = ref([])
-    const textInformation = ref('')
+    const listChips = ref([]);
     const paramsUrl = ref('');
     const oldSlug = ref('');
     const editOrNot = ref(null);
@@ -133,10 +132,13 @@
         information, 
         title, 
         listChips, 
-        textInformation, 
         paramsUrl,
         oldSlug,
         editOrNot
+    })
+
+    onMounted(()=>{
+        decisionEditOrCreateRuler();
     })
 
     const getDataEditCounterStyle = computed(()=>{
@@ -179,13 +181,6 @@
         storeListCrad(newValue.list_chips); 
     })
 
-    onMounted(()=>{
-        decisionEditOrCreateRuler();
-        // let container = document.querySelector('.ql-container.ql-snow ');
-        // const toolbar = document.getElementsByClassName('ql-toolbar');
-        // container.style.border= '1px solid #dc3545 !important';
-    })
-
     function decisionEditOrCreateRuler(){
         const payload = router.currentRoute.value.params.slug
         state.paramsUrl = payload;
@@ -200,7 +195,7 @@
     function previewImage(event){
         let input = event.target;
         if (input.files) {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = (e) => {
                 state.preview = e.target.result;
             }
@@ -326,12 +321,13 @@
                 slug:oldSlug.value,
                 form:formData
             } 
-            store.dispatch('editCounterStyle', data)
+            store.dispatch('editCounterStyle', data);
             state.editOrNot = false
         }
     }
 
     function confirm($event){
+        store.state.responseGeneral = {};
         if($event){
             router.push('/counter-style-deck/');
         }
@@ -359,39 +355,21 @@
         // })
     }
 
+    function addImage(){
+
+    }
+
     function backRoute(){
         router.back();
     }
 </script>
 
-<style>
-button {
-  font-weight: bold;
-}
-
-.ql-toolbar{
-    background-color: #e2e5e7;
-}
-
-.ql-editor.ql-blank::before{
-    color: rgba(226,229,231, 0.8);
-    content: attr(data-placeholder);
-    font-style: italic;
-    left: 15px;
-    pointer-events: none;
-    position: absolute;
-    right: 15px;
-}
-
-.ql-container {
-    min-height: 120px;
-}
-
+<style scoped>
 .image-preview-wrap {
-    width: 200px;
+    width: 140px;
 }
 .image-preview-wrap .image-preview{
-    width: 200px;
+    width: 140px;
 }
 
 .image-preview-wrap .style-pointer{
@@ -442,7 +420,7 @@ button {
     display: flex;
 }
 .form-input-file .input-file-style{
-    width: 250px;
+    width: 230px;
 }
 .invalid-feedback-custom {
     width: 100%;
@@ -450,5 +428,28 @@ button {
     font-size: .875em;
     color: #dc3545;
 }
+</style>
 
+<style>
+button {
+  font-weight: bold;
+}
+
+.ql-toolbar{
+    background-color: #e2e5e7;
+}
+
+.ql-editor.ql-blank::before{
+    color: rgba(226,229,231, 0.8);
+    content: attr(data-placeholder);
+    font-style: italic;
+    left: 15px;
+    pointer-events: none;
+    position: absolute;
+    right: 15px;
+}
+
+.ql-container {
+    min-height: 120px;
+}
 </style>

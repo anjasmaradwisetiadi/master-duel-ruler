@@ -2648,3 +2648,117 @@ export const dataDummyCards = {
              }
         ]
 }
+
+export const dataDummyDeckBuilder = {
+         "data":[
+         {
+            "id":"1",
+            "title":"Sinfull spoil one 7888763873571567376147346714634614634163143143",
+            "slug":"sinfull-spoil-one",
+            "play_style_id":"1",
+            "engines": ["https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg", "https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg", "https://images.ygoprodeck.com/images/cards_cropped/45112597.jpg"],
+            "price":{"total_rarity_SR": 200, "total_rarity_UR": 300},
+            "total_card":{"total_card_main_deck": 40, "total_card_extra_deck": 15},
+            "description":"text ini untuk belajar dan sebagian dengan varian deck baru akchuiecgecgeyc63287528e83eg2ut8d2dg87o36d82y7otd72tdo7td873dro8d8ro38d82dr367odo2rd6",
+            "deck_builder":[{"name": "Infinite Impermanence", "value": 2, "rarity": "UR", "column_deck": "main deck"}, {"name": "Droll & Lock Bird", "value": 3, "rarity": "SR", "column_deck": "main deck"}, {"name": "Maxx \"C\"", "value": 3, "rarity": "UR", "column_deck": "main deck"}, {"name": "Divine Arsenal AA-ZEUS - Sky Thunder", "value": 1, "rarity": "UR", "column_deck": "extra deck"}, {"name": "Tri-Brigade Shuraig the Ominous Omen", "value": 1, "rarity": "UR", "column_deck": "extra deck"}, {"name": "Worldsea Dragon Zealantis", "value": 1, "rarity": "UR", "column_deck": "extra deck"}],
+            "created_at":"2024-02-24 13:10:26",
+            "updated_at":"2024-02-24 13:10:26"
+         },
+         {
+            "id":"2",
+            "title":"Sinfull spoil two",
+            "slug":"sinfull-spoil-two",
+            "play_style_id":"1",
+            "engines":["https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg", "https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg"],
+            "price":{"total_rarity_SR": 200, "total_rarity_UR": 300},
+            "total_card":{"total_card_main_deck": 40, "total_card_extra_deck": 15},
+            "description":"text ini untuk belajar dan sebagian dengan varian deck baru",
+            "deck_builder":[{"name": "Snake-Eyes Flamberge Dragon", "value": 2, "rarity": "UR", "column_deck": "main deck"}, {"name": "Snake-Eyes Poplar", "value": 3, "rarity": "UR", "column_deck": "main deck"}, {"name": "Snake-Eye Oak", "value": 3, "rarity": "N", "column_deck": "main deck"}, {"name": "Divine Arsenal AA-ZEUS - Sky Thunder", "value": 1, "rarity": "UR", "column_deck": "extra deck"}, {"name": "Tri-Brigade Shuraig the Ominous Omen", "value": 1, "rarity": "UR", "column_deck": "extra deck"}, {"name": "Worldsea Dragon Zealantis", "value": 1, "rarity": "UR", "column_deck": "extra deck"}],
+            "created_at":"2024-02-24 13:10:26",
+            "updated_at":"2024-02-24 13:10:26"
+         },
+         {
+            "id":"3",
+            "title":"Sinfull spoil three",
+            "slug":"sinfull-spoil-three",
+            "play_style_id":"2",
+            "engines":["https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg", "https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg"],
+            "price":{"total_rarity_SR": 200, "total_rarity_UR": 300},
+            "total_card":{"total_card_main_deck": 40, "total_card_extra_deck": 15},
+            "description":"text ini untuk belajar dan sebagian dengan varian deck baru",
+            "deck_builder":[{"name": "Snake-Eyes Flamberge Dragon", "value": 2, "rarity": "UR", "column_deck": "main deck"}, {"name": "Snake-Eyes Poplar", "value": 3, "rarity": "UR", "column_deck": "main deck"}, {"name": "Snake-Eye Oak", "value": 3, "rarity": "N", "column_deck": "main deck"}, {"name": "Divine Arsenal AA-ZEUS - Sky Thunder", "value": 1, "rarity": "UR", "column_deck": "extra deck"}, {"name": "Tri-Brigade Shuraig the Ominous Omen", "value": 1, "rarity": "UR", "column_deck": "extra deck"}, {"name": "Worldsea Dragon Zealantis", "value": 1, "rarity": "UR", "column_deck": "extra deck"}],
+            "created_at":"2024-02-24 13:10:26",
+            "updated_at":"2024-02-24 13:10:26"
+         }
+      ]
+}
+
+export const dataDummyTierList = {
+   'data': [
+      {  
+         'tier_list': 1,
+         'data': [
+            {
+               name:'Snake-Eye',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/48452496.jpg',
+               power: '35.0',
+            },
+         ]
+      },
+      {  
+         'tier_list': 2,
+         'data': [
+            {
+               name:'Branded Despia',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/62962630.jpg',
+               power: '11.0',
+            },
+         ]
+      },
+      { 
+         'tier_list': 3,
+         'data': [
+            {
+               name:'Mathmech',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/42632209.jpg',
+               power: '6.0',
+            },
+            {
+               name:'Mannadium',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/71277255.jpg',
+               power: '5.0',
+            },
+            {
+               name:'Vanquish Soul',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/91073013.jpg',
+               power: '4.5',
+            },
+            {
+               name:'Labrynth',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/2347656.jpg',
+               power: '4.0',
+            },
+            {
+               name:'Kashtira',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/48626373.jpg',
+               power: '3.0',
+            },
+            {
+               name:'Superheavy Samurai',
+               image: 'https://images.ygoprodeck.com/images/cards_cropped/64193046.jpg',
+               power: '3.0',
+            },
+         ]
+      },
+   ]
+}
+
+export const dataDevTeam = {
+   'data': [
+      {
+         name: 'Anjasmara Dwi Setiadi',
+         image:'http://laravel-vue.test/images/anjas-github.png?eb64c4e7983ee78d703c061b068d884a',
+         github: 'https://github.com/anjasmaradwisetiadi'
+      }
+   ]
+}

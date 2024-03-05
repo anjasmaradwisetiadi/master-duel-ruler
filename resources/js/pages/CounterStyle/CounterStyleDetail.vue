@@ -2,16 +2,17 @@
     <div id="CounterStyleDetail" class="mt-4">
         <div class="row justify-content-center mb-5">
             <div class="col-8 text-center">
-                <h1>{{ getDataCounterStyleDeck?.title?.toUpperCase() }}</h1>
+                <h3>{{ getDataCounterStyleDeck?.title?.toUpperCase() }}</h3>
             </div>
         </div>
         <div class="row mb-2">
             <div class="col">
-                <button type="button" class="btn btn-success mr-2" @click="editCounterStyle(getDataCounterStyleDeck.slug)">Edit Counter Style</button>
-                <button type="button" class="btn btn-danger" @click="deleteCounterStyle()">Delete Counter Style</button>
+                <button type="button" class="button-style-primary mr-2" @click="editCounterStyle(getDataCounterStyleDeck.slug)">Edit Counter Style</button>
+                <button type="button" class="button-style-primary" @click="deleteCounterStyle()">Delete Counter Style</button>
             </div>
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+                <!-- <button type="button" class="button-style-secondary">Add New Counter</button> -->
+                <button type="button" class="button-style-secondary" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="row">
@@ -37,10 +38,10 @@
 import { computed, onMounted, ref, reactive, watch } from 'vue';
 import LoadingAndAlert from '../../components/LoadingAndAlert.vue';
 import ListImageHover from '../../components/ListImageHover.vue';
-import ImagePreview from '../../components/ImagePreview.vue'
+import ImagePreview from '../../components/ImagePreview.vue';
+import {utilize} from '../../utilize/utilize';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import { utilize } from '../../utilize/utilize';
 import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
@@ -49,12 +50,10 @@ const openModal = ref(false);
 const dataSelectCards = ref(null);
 const paramsUrl = ref('');
 const confirmDelete = ref(false);
-const statusDelete = ref(false);
 
 const state = reactive({
     paramsUrl,
     confirmDelete,
-    statusDelete
 }) 
 
 onMounted(()=>{

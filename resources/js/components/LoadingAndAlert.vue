@@ -40,19 +40,21 @@
                     return  Swal.fire({
                         title: "Sukses!!!",
                         text: response.message,
-                        icon: "success"
+                        icon: "success",
+                        showCancelButton: false,
+                        confirmButtonText: "Yes",
                     }).then((result)=>{
-                        if (result.isConfirmed) {
+                        if (result.isConfirmed || result.isDismissed) {
                             emit('confirm',true)
                         }
                     })
                 } else if(response?.status === false) {
                     const conditionSlug = response?.message?.slug ? response?.message?.slug[0] : '';
-                    if(conditionSlug === 'slug unique'){
+                    if(conditionSlug.toLowerCase() === 'slug unique'){
                         return  Swal.fire({
                             icon: "error",
                             title: "Oops...",
-                            text: "Nama counter deck sudah ada, coba ganti nama lain !",
+                            text: "Nama sudah ada, coba ganti nama lain !",
                         });
                     } else {
                         return  Swal.fire({
@@ -66,7 +68,8 @@
     })
 
     const confirmDelete = computed(()=>{
-        if(props?.confirmDelete){
+        const data = props?.confirmDelete;
+        if(data){
             return Swal.fire({
             title: "Apa kamu yakin akan mengapus info Deck ini ? ",
             showCancelButton: true,

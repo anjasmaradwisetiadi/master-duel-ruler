@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\DashboardController;
 use App\Models\CounterStyleDecks;
+use App\Models\PlayStyleDecks;
+use App\Models\DeckBuilders;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +26,12 @@ Route::get('/counter-style-deck/{CounterStyleDecks:slug}/edit', [DashboardContro
 Route::get('/counter-style-deck/create', [DashboardController::class, 'index']);
 Route::get('/detail-one-card/{name}', [DashboardController::class, 'index']);
 Route::get('/play-style-deck', [DashboardController::class, 'index']);
+Route::get('/play-style-deck/create', [DashboardController::class, 'index']);
+Route::get('/play-style-deck/{PlayStyleDecks:slug}', [DashboardController::class, 'index']);
+Route::get('/play-style-deck/{PlayStyleDecks:slug}/edit', [DashboardController::class, 'index']);
+Route::get('/builder-deck/{slug_play_style}/{DeckBuilders:slug}', [DashboardController::class, 'index']);
+Route::get('/builder-deck/{slug_play_style}/{DeckBuilders:slug}/edit', [DashboardController::class, 'index']);
+Route::get('/builder-deck/{slug_play_style}/create', [DashboardController::class, 'index']);
 Route::get('/about', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);
 Route::get('/login', [TodoListController::class, 'index']);

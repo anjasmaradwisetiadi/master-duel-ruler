@@ -1,10 +1,10 @@
-import { createApp } from 'vue'
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 import axios from 'axios';
-import {collectionUrl} from '../urlCollect'
-import {dataDummyCards} from '../DummyDataCard'
-import {playStyleDeck} from './PlayStyleDeck/playStyleDeck'
-import router from '../routes'
+import {collectionUrl} from '../urlCollect';
+import {dataDummyCards} from '../DummyDataCard';
+import {builderDeck} from './BuilderDeck/builderDeck';
+import {playStyleDeck} from './PlayStyleDeck/playStyleDeck';
+import router from '../routes';
 import Swal from 'sweetalert2';
 // import {counterStyleDeck} from './CounterStyleDeck/counterStyleDeck'
 
@@ -16,8 +16,9 @@ const store = createStore({
 
   modules: {
     // ******** still not working , because action another file (playStyleDeck) cannot read action
-    // playStyleDeck,
     // counterStyleDeck
+    playStyleDeck,
+    builderDeck,
   },
 
   state: {
@@ -110,9 +111,9 @@ const store = createStore({
       axios({
           method: 'get',
           url: urlApiYugioh,
-          headers:{
-            'Content-Type': "multipart/form-data"
-          }
+          // headers:{
+          //   'Content-Type': "multipart/form-data"
+          // }
       })
       .then(function(response){
           if(payload.mode === 'all-search'){
@@ -357,6 +358,7 @@ const store = createStore({
           rootState.loading = false;
       })
     },
+
     getSearchStyleDeck({commit,rootState}, payload){
       axios({
           method: 'get',
@@ -379,6 +381,10 @@ const store = createStore({
   getters: {
     getterTodoList(state){
       return state.todoList;
+    },
+
+    getterResponseGeneral(state){
+      return state.responseGeneral;
     },
     // it need getter for loading because when read action "getListCounterStyle()" always true not false
     getterStateLoading(state){

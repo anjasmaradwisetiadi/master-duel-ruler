@@ -324,7 +324,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "position"
   }, [].concat(_hoisted_23), 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.position]]), !((_$setup$responseGener18 = $setup.responseGeneral) !== null && _$setup$responseGener18 !== void 0 && _$setup$responseGener18.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener19 = $setup.responseGeneral) !== null && _$setup$responseGener19 !== void 0 && (_$setup$responseGener19 = _$setup$responseGener19.message) !== null && _$setup$responseGener19 !== void 0 && _$setup$responseGener19.position ? (_$setup$responseGener20 = $setup.responseGeneral) === null || _$setup$responseGener20 === void 0 || (_$setup$responseGener20 = _$setup$responseGener20.message) === null || _$setup$responseGener20 === void 0 ? void 0 : _$setup$responseGener20.position[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-success",
+    "class": "button-style-secondary",
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $setup.submit();
     })
@@ -332,7 +332,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     key: 1
   }, [_hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-warning",
+    "class": "button-style-secondary",
     onClick: _cache[6] || (_cache[6] = function ($event) {
       return $setup.back();
     })
@@ -356,7 +356,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "aria-describedby": "password"
   }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.password]]), !((_$setup$responseGener26 = $setup.responseGeneral) !== null && _$setup$responseGener26 !== void 0 && _$setup$responseGener26.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener27 = $setup.responseGeneral) !== null && _$setup$responseGener27 !== void 0 && (_$setup$responseGener27 = _$setup$responseGener27.message) !== null && _$setup$responseGener27 !== void 0 && _$setup$responseGener27.password ? (_$setup$responseGener28 = $setup.responseGeneral) === null || _$setup$responseGener28 === void 0 || (_$setup$responseGener28 = _$setup$responseGener28.message) === null || _$setup$responseGener28 === void 0 ? void 0 : _$setup$responseGener28.password[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_38])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-success",
+    "class": "button-style-secondary",
     onClick: _cache[9] || (_cache[9] = function ($event) {
       return $setup.submit();
     })

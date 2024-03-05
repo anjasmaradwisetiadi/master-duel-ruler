@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-2">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+                <button type="button" class="btn button-style-secondary" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="form-create">
@@ -68,7 +68,7 @@
                 <label for="chips">Chips File</label>
                 <div id="chips" aria-describedby="chips">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-secondary" @click="generateChips()">Generate Chips File</button>
+                        <button type="button" class="button-style-primary" @click="generateChips()">Generate Chips File</button>
                     </div>
                     <div v-if="listChips.length" class="row">
                         <div class="col">
@@ -85,7 +85,7 @@
                 <ListImageHover :getDataYgoProDeck='getDataYgoProDeck' @dataModalCard='dataModalCard' ></ListImageHover>
             </div> 
             <div>
-                <button type="button" class="btn btn-success" @click="submit()">Submit</button>
+                <button type="button" class="button-style-secondary" @click="submit()">Submit</button>
                 <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>

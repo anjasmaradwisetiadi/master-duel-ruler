@@ -936,20 +936,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$setup$getDataPlaySt, _$setup$getDataPlaySt3;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$getDataPlaySt = $setup.getDataPlayStyleDeck) === null || _$setup$getDataPlaySt === void 0 || (_$setup$getDataPlaySt = _$setup$getDataPlaySt.title) === null || _$setup$getDataPlaySt === void 0 ? void 0 : _$setup$getDataPlaySt.toUpperCase()), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-success mr-2",
+    "class": "button-style-primary mr-2",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       var _$setup$getDataPlaySt2;
       return $setup.editPlayStyle((_$setup$getDataPlaySt2 = $setup.getDataPlayStyleDeck) === null || _$setup$getDataPlaySt2 === void 0 ? void 0 : _$setup$getDataPlaySt2.slug);
     })
   }, "Edit Play Style"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-danger",
+    "class": "button-style-primary",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.deletePlayStyle();
     })
   }, "Delete Play Style")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-warning",
+    "class": "button-style-secondary",
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $setup.backRoute();
     })
@@ -963,8 +963,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     openModal: $setup.openModal,
     dataSelectCards: $setup.dataSelectCards,
     onDataModalCardPreview: $setup.dataModalCardPreview
-  }, null, 8 /* PROPS */, ["openModal", "dataSelectCards"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table list Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "btn btn-secondary mt-2",
+  }, null, 8 /* PROPS */, ["openModal", "dataSelectCards"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table list Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "button-style-primary mt-4",
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return $setup.createDeckBuilder();
     })

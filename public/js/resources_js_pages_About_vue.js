@@ -118,7 +118,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.wrap-team[data-v-520b5d54]{\r\n        display: flex;\r\n        /* justify-content: center; */\r\n        align-items: center;\n}\n.wrap-team .wrap-image[data-v-520b5d54]{\r\n        border-radius: 50%;\r\n        width: 64px;\r\n        height: 64px;\r\n        border: 3px solid #385979;\r\n        margin-right: 1.6rem;\n}\n.wrap-team .wrap-info .link-portofolio a[data-v-520b5d54]{\r\n        color: white;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.wrap-team[data-v-520b5d54]{\r\n        display: flex;\r\n        /* justify-content: center; */\r\n        align-items: center;\n}\n.wrap-team .wrap-image[data-v-520b5d54]{\r\n        border-radius: 50%;\r\n        width: 64px;\r\n        height: 64px;\r\n        border: 4px solid #385979;\r\n        margin-right: 1.6rem;\n}\n.wrap-team .wrap-image img[data-v-520b5d54]{\r\n        width: 56px;\r\n        height: 56px;\n}\n.wrap-team .wrap-info .link-portofolio a[data-v-520b5d54]{\r\n        color: white;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

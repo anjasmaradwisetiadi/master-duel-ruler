@@ -10,7 +10,7 @@ import axios from 'axios';
 import {collectionUrl} from'./urlCollect.js'; 
 
 const options = {
-    confirmButtonColor: '#41b882',
+    confirmButtonColor: '#0b365e',
     cancelButtonColor: '#ff7674',
 };
 

@@ -7,11 +7,11 @@
         </div>
         <div class="row mb-2">
             <div class="col">
-                <button type="button" class="btn btn-success mr-2" @click="editPlayStyle(getDataPlayStyleDeck?.slug)">Edit Play Style</button>
-                <button type="button" class="btn btn-danger" @click="deletePlayStyle()">Delete Play Style</button>
+                <button type="button" class="button-style-primary mr-2" @click="editPlayStyle(getDataPlayStyleDeck?.slug)">Edit Play Style</button>
+                <button type="button" class="button-style-primary" @click="deletePlayStyle()">Delete Play Style</button>
             </div>
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>
+                <button type="button" class="button-style-secondary" @click="backRoute()">Kembali</button>
             </div>
         </div>
         <div class="row mb-2 mt-4">
@@ -29,9 +29,9 @@
         <!-- modal image previews -->
         <ImagePreview :openModal="openModal" :dataSelectCards="dataSelectCards" @dataModalCardPreview="dataModalCardPreview"></ImagePreview>
         <!-- Table list Deck Builder -->
-        <div class="btn btn-secondary mt-2" @click="createDeckBuilder()">
+        <button type="button" class="button-style-primary mt-4" @click="createDeckBuilder()">
             Add New Deck Builder
-        </div>
+        </button>
         <div class="row mt-2">
             <div class="col">
                 <h5>Deck Builder </h5>

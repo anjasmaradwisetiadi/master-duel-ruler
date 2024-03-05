@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-2">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>
+                <button type="button" class="button-style-secondary" @click="backRoute()">Kembali</button>
             </div>
         </div>
         <div class="form-create">

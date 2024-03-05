@@ -57,7 +57,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <button type="button" class="btn btn-success" @click="submit()">Submit</button>
+                        <button type="button" class="button-style-secondary" @click="submit()">Submit</button>
                         <!-- <button type="button" class="btn btn-warning" @click="createPayload()">Create Payload</button> -->
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col text-center">
-                        <button type="button" class="btn btn-warning" @click="back()"> Back </button>
+                        <button type="button" class="button-style-secondary" @click="back()"> Back </button>
                     </div>
                 </div>
             </template>
@@ -99,7 +99,7 @@
             </div>
             <div class="row justify-content-center">
                     <div class="col-6">
-                        <button type="button" class="btn btn-success" @click="submit()">Submit</button>
+                        <button type="button" class="button-style-secondary" @click="submit()">Submit</button>
                         <!-- <button type="button" class="btn btn-warning" @click="createPayload()">Create Payload</button> -->
                     </div>
                 </div>

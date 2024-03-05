@@ -172,14 +172,14 @@
             <div class="col-5 d-flex justify-content-start align-items-center">
                 <div class="mr-2">
                     <button
-                        class="btn btn-warning mr-2"
+                        class="button-style-primary mr-2"
                         @click="nextPage()"
                         :disabled="!infoPage?.next_page_offset ? '':disabled"
                     >
                         >
                     </button>
                     <button
-                        class="btn btn-warning"
+                        class="button-style-primary"
                         @click="backPage()"
                         :disabled="infoPage?.previous_page_offset === undefined  ? '':disabled"
                     >

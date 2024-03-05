@@ -131,10 +131,10 @@
           <div class="row" v-if="getDataYgoProDeck?.length">
             <div class="col d-flex justify-content-start align-items-center">
                 <div class="mr-4">
-                    <button class="btn btn-warning mr-2" 
+                    <button class="button-style-primary mr-2" 
                         @click="nextPage()" 
                         :disabled="!infoPage?.next_page_offset ? '':disabled"> > </button>
-                    <button class="btn btn-warning" 
+                    <button class="button-style-primary" 
                         @click="backPage()" 
                         :disabled="infoPage?.previous_page_offset === undefined  ? '':disabled"> < </button>
                 </div>

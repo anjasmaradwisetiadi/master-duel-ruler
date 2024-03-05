@@ -128,7 +128,7 @@ var _hoisted_5 = {
 };
 var _hoisted_6 = {
   type: "button",
-  "class": "btn btn-secondary"
+  "class": "button-style-primary"
 };
 var _hoisted_7 = ["href"];
 var _hoisted_8 = {

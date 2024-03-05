@@ -7,11 +7,12 @@
         </div>
         <div class="row mb-2">
             <div class="col">
-                <button type="button" class="btn btn-success mr-2" @click="editCounterStyle(getDataCounterStyleDeck.slug)">Edit Counter Style</button>
-                <button type="button" class="btn btn-danger" @click="deleteCounterStyle()">Delete Counter Style</button>
+                <button type="button" class="button-style-primary mr-2" @click="editCounterStyle(getDataCounterStyleDeck.slug)">Edit Counter Style</button>
+                <button type="button" class="button-style-primary" @click="deleteCounterStyle()">Delete Counter Style</button>
             </div>
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+                <!-- <button type="button" class="button-style-secondary">Add New Counter</button> -->
+                <button type="button" class="button-style-secondary" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="row">

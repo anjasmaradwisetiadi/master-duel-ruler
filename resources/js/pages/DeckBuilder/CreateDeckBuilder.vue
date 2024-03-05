@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-2">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning" @click="backRoute()">Back</button>
+                <button type="button" class="button-style-secondary" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="form-create">
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <button type="button" class="btn btn-success" @click="submit()">Submit</button>
+                <button type="button" class="button-style-secondary" @click="submit()">Submit</button>
                 <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>

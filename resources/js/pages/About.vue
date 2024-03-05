@@ -104,8 +104,13 @@
         border-radius: 50%;
         width: 64px;
         height: 64px;
-        border: 3px solid #385979;
+        border: 4px solid #385979;
         margin-right: 1.6rem;
+    }
+
+    .wrap-team .wrap-image img{
+        width: 56px;
+        height: 56px;
     }
 
     .wrap-team .wrap-info .link-portofolio a{

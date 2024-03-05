@@ -9,17 +9,17 @@
         <div class="col">
           <button
             type="button"
-            class="btn btn-success mr-2"
+            class="button-style-primary mr-2"
             @click="editDeckBuilder()"
           >
             Edit Deck Builder
           </button>
-          <button type="button" class="btn btn-danger" @click="deleteDeckBuilder()">
+          <button type="button" class="button-style-primary" @click="deleteDeckBuilder()">
             Delete Deck Builder
           </button>
         </div>
         <div class="col d-flex justify-content-end">
-          <button type="button" class="btn btn-warning" @click="backRoute()">
+          <button type="button" class="button-style-secondary" @click="backRoute()">
             Kembali
           </button>
         </div>

@@ -43,6 +43,14 @@ class DatabaseSeeder extends Seeder
             'position'=> 'player',
         ]);
 
+        User::create([
+            'name' => 'Ihdi Ulhaq',
+            'user_name'=> 'Ihdi Ulhaq',
+            'email'=> 'ihdiulhaq@gmail.com',
+            'password'=> bcrypt('ihdiulhaq'),
+            'position'=> 'player',
+        ]);
+
         Todolist::create([
             'content' => 'uji coba pertama'
         ]);

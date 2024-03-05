@@ -65,8 +65,10 @@
                     <div 
                         v-for="(data,index) in dataDevTeam.data" :key="index"
                         class="wrap-team">
-                        <div class="wrap-image">
-                            <img :src="data.image" :alt="data.name">
+                        <div 
+                            v-if="data.name === 'Anjasmara Dwi Setiadi'"
+                            class="wrap-image">
+                            <img src="../../assets/image/anjas-github.png" :alt="data.name">
                         </div>
                         <div class="wrap-info">
                             <div>

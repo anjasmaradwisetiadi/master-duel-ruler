@@ -457,6 +457,7 @@
       background-color: #03182c;
       border-radius: 10px;
       padding: 10px;
+      min-height: 10rem;
   }
   .image-wrap-main{
     position: relative;

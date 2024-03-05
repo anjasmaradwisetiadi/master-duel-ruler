@@ -7,8 +7,8 @@
         </div>
         <div class="row mb-2">
             <div class="col">
-                <button type="button" class="btn btn-success mr-2" @click="editPlayStyle(getDataPlayStyleDeck?.slug)">Edit Counter Style</button>
-                <button type="button" class="btn btn-danger" @click="deletePlayStyle()">Delete Counter Style</button>
+                <button type="button" class="btn btn-success mr-2" @click="editPlayStyle(getDataPlayStyleDeck?.slug)">Edit Play Style</button>
+                <button type="button" class="btn btn-danger" @click="deletePlayStyle()">Delete Play Style</button>
             </div>
             <div class="col d-flex justify-content-end">
                 <button type="button" class="btn btn-warning" @click="backRoute()">Kembali</button>

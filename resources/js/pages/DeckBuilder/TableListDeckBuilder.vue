@@ -5,11 +5,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" colspan="3">Title</th>
-                            <th scope="col" colspan="2">Engines</th>
-                            <th scope="col" colspan="1">Price</th>
-                            <th scope="col" colspan="4">Description</th>
-                            <th scope="col" colspan="2">Date</th>
+                            <th scope="col" >Title</th>
+                            <th scope="col" >Engines</th>
+                            <th scope="col" >Price</th>
+                            <th scope="col" >Description</th>
+                            <th scope="col" >Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -19,17 +19,17 @@
                             :key="index"
                             @click="redirectDetailDeckBuilder(deckBuilder.slug)"
                         >
-                            <th colspan="3"> 
+                            <td> 
                                 <div class="elipsis"> {{deckBuilder.title}}</div>
-                            </th>
-                            <td colspan="2">
+                            </td>
+                            <td>
                                 <div class="d-flex">
                                     <span v-for="(engine, index) of deckBuilder.engines" :key="index">
                                         <img class="image-engines mr-1" :src="engine" alt="card">
                                     </span>
                                 </div>
                             </td>
-                            <td colspan="1">
+                            <td>
                                 <!-- <template v-if="deckBuilder.price.total_rarity_UR">
                                     <div class="d-flex align-items-center mb-1">
                                         <span>
@@ -52,15 +52,22 @@
                                     &#9866;
                                 </div>
                             </td>
-                            <td colspan="4">
+                            <td>
                                 <div class="elipsis">
                                     {{deckBuilder.description}}
                                 </div>
                             </td>
-                            <td colspan="2">
+                            <td>
                                 <span>
                                     {{ dayjs(deckBuilder.updated_at).format('D-MMM-YYYY')  }}
                                 </span>
+                            </td>
+                        </tr>
+                        <tr v-if="!dataDeckBuilders.length">
+                            <td colspan="4">
+                                <div class="d-flex justify-content-center">
+                                    Tidak ada data yang terecord
+                                </div>
                             </td>
                         </tr>
                     </tbody>

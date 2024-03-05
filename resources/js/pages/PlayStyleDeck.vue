@@ -9,7 +9,7 @@
         </div>
         <div class="row mb-2">
             <div class="col">
-                <button type="button" class="btn btn-secondary"><a :href="urlCreateDeck" class="add-new-counter-link">Add New Counter</a></button>
+                <button type="button" class="btn btn-secondary"><a :href="urlCreateDeck" class="add-new-counter-link">Add New Play</a></button>
             </div>
         </div>
         <div class="row">

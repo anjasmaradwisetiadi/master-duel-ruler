@@ -2,7 +2,7 @@
     <div id="DeckBuilderDetail" class="mt-4">
       <div class="row justify-content-center mb-5">
         <div class="col-8 text-center">
-          <h3>{{dataDeckBuilder?.title}}</h3>
+          <h3 class="upp">{{dataDeckBuilder?.title?.toUpperCase()}}</h3>
         </div>
       </div>
       <div class="row mb-2">
@@ -12,10 +12,10 @@
             class="btn btn-success mr-2"
             @click="editPlayStyle()"
           >
-            Edit Counter Style
+            Edit Deck Builder
           </button>
           <button type="button" class="btn btn-danger" @click="deletePlayStyle()">
-            Delete Counter Style
+            Delete Deck Builder
           </button>
         </div>
         <div class="col d-flex justify-content-end">
@@ -175,12 +175,7 @@
                   </div>
                   <div class="information-section">
                     <div class="row mb-2">
-                      <div class="col-7 mr-auto">
-                        <span>
-                          <b>{{ dataHasSelected.name }}</b></span
-                        >
-                      </div>
-                      <div class="col-5 text-right">
+                      <div class="col text-left">
                         <span class="mr-1">
                           <b
                             >{{ utilize.textTypeMonster(dataHasSelected?.frameType ? dataHasSelected?.frameType: ' ')}}

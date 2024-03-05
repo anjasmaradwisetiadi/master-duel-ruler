@@ -164,5 +164,34 @@ export const playStyleDeckService = {
             store.commit('mutateResponsGeneral', error.message); 
             store.state.loading = false;
         })
+    },
+
+    async deletePlayStyle(payload){
+        const tokenAuth = store.getters.getterResponseAuth.token;
+        store.state.loading = true;
+        axios({
+            method: 'delete',
+            url: `${urlPlayStyle}/${payload}`,
+            headers:{
+              'Authorization': `Bearer ${tokenAuth}`
+            }
+        })
+        .then(function(){
+            Swal.fire({
+              title: "Success Delete ",
+              icon: "success"
+            })
+            .then((success)=>{
+                if(success){
+                  router.push('/play-style-deck/');
+                }
+            });
+            // commit('mutateResponsGeneral', response.data); 
+            store.state.loading = false;
+        })
+        .catch(function(error) {
+            commit('mutateResponsGeneral', error.message); 
+            store.state.loading = false;
+        })
     }
 }

@@ -49,7 +49,11 @@
       </div>
       <div class="row">
         <div class="col-6">
-          <div class="mt-2 main-deck-style">
+          <div 
+            class="mt-2 main-deck-style"
+            @mouseover=" displayCard($event,'main-deck',true)"
+            @mouseleave=" displayCard($event,'main-deck',false)"
+          >
             <MainExtraDeck
               :data-deck-builder-length="dataDeckBuilderLength"
               :data-deck-builder="dataDeckBuilder"
@@ -59,7 +63,11 @@
               :display-hover="displayHover"
             ></MainExtraDeck>
           </div>
-          <div class="mt-4 extra-deck-style">
+          <div 
+            class="mt-4 extra-deck-style"
+            @mouseover=" displayCard($event,'extra-deck',true)"
+            @mouseleave=" displayCard($event,'extra-deck',false)"
+          >
             <MainExtraDeck
               :data-deck-builder-length="dataDeckBuilderLength"
               :data-deck-builder="dataDeckBuilder"
@@ -212,6 +220,7 @@
   import { useRouter } from 'vue-router';
   import { utilize } from '../../utilize/utilize';
   import { collectionUrl } from '../../urlCollect';
+import { main } from '@popperjs/core';
   const dayjs = require('dayjs');
   
   const store = useStore();
@@ -282,6 +291,19 @@
       }
       state.confirmDelete = false;
   }
+
+  function displayCard($event, value, condition ){
+      let mainDeck = document.querySelector('.main-deck-style');
+      let extraDeck = document.querySelector('.extra-deck-style');
+
+      if(condition && value=== 'main-deck' ){
+        mainDeck.style.zIndex='2';
+        extraDeck.style.zIndex='1';
+      } else if(condition && value=== 'extra-deck') {
+        mainDeck.style.zIndex='1';
+        extraDeck.style.zIndex='2';
+      }
+  };
   
   function backRoute(){
       router.back();
@@ -337,11 +359,11 @@
   }
   /*--- end card selected */
   .main-deck-style{
-    z-index: 2;
+    /* z-index: 2; */
     position: relative;
   }
   .extra-deck-style{
-    z-index: 1;
+    /* z-index: 1; */
     position: relative;
   }
   </style>

@@ -53,8 +53,7 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="elipsis">
-                                    {{deckBuilder.description}}
+                                <div class="elipsis" v-html="utilize.elipisWord(7, deckBuilder?.description) ">
                                 </div>
                             </td>
                             <td>
@@ -81,9 +80,9 @@ import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { builderDeckService } from '../../store/BuilderDeck/builderDeckService';
+import { utilize } from '../../utilize/utilize';
 import {collectionUrl} from '../../urlCollect';
 const dayjs = require('dayjs');
-
 const store = useStore();
 const router = useRouter();
 const paramsUrl = ref('');
@@ -163,7 +162,7 @@ function redirectDetailDeckBuilder(slug){
     .row-list-deck{
         cursor: pointer;
     }
-    .elipsis {
+    .elipsis{
         text-overflow: ellipsis;
         /* Required for text-overflow to do anything */
         white-space: nowrap;

@@ -189,10 +189,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/BuilderDeck/builderDeckService */ "./resources/js/store/BuilderDeck/builderDeckService.js");
-/* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../urlCollect */ "./resources/js/urlCollect.js");
+/* harmony import */ var _utilize_utilize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utilize/utilize */ "./resources/js/utilize/utilize.js");
+/* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../urlCollect */ "./resources/js/urlCollect.js");
+
 
 
 
@@ -204,8 +206,8 @@ __webpack_require__.r(__webpack_exports__);
     var __expose = _ref.expose;
     __expose();
     var dayjs = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
-    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.useRouter)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
+    var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter)();
     var paramsUrl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       var payload = router.currentRoute.value.params.slug;
@@ -230,16 +232,19 @@ __webpack_require__.r(__webpack_exports__);
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       get useStore() {
-        return vuex__WEBPACK_IMPORTED_MODULE_3__.useStore;
+        return vuex__WEBPACK_IMPORTED_MODULE_4__.useStore;
       },
       get useRouter() {
-        return vue_router__WEBPACK_IMPORTED_MODULE_4__.useRouter;
+        return vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter;
       },
       get builderDeckService() {
         return _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService;
       },
+      get utilize() {
+        return _utilize_utilize__WEBPACK_IMPORTED_MODULE_2__.utilize;
+      },
       get collectionUrl() {
-        return _urlCollect__WEBPACK_IMPORTED_MODULE_2__.collectionUrl;
+        return _urlCollect__WEBPACK_IMPORTED_MODULE_3__.collectionUrl;
       }
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -835,9 +840,7 @@ var _hoisted_9 = ["src"];
 var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <template v-if=\"deckBuilder.price.total_rarity_UR\">\r\n                                    <div class=\"d-flex align-items-center mb-1\">\r\n                                        <span>\r\n                                            <img class=\"image-rarity\" src=\"../../../assets/image/cp-ur-rarity.webp\" alt=\"cp-ur-rarity\">\r\n                                        </span>\r\n                                        <span class=\"ml-2\">\r\n                                            {{deckBuilder.price.total_rarity_UR}}\r\n                                        </span>\r\n                                    </div>\r\n                                    <div  class=\"d-flex align-items-center\">\r\n                                        <span>\r\n                                            <img class=\"image-rarity\" src=\"../../../assets/image/cp-sr-rarity.webp\" alt=\"cp-sr-rarity\">\r\n                                        </span>\r\n                                        <span class=\"ml-2\">\r\n                                            {{deckBuilder.price.total_rarity_SR}}\r\n                                        </span>\r\n                                    </div>\r\n                                </template> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, " ⚊ ")], -1 /* HOISTED */);
 });
-var _hoisted_11 = {
-  "class": "elipsis"
-};
+var _hoisted_11 = ["innerHTML"];
 var _hoisted_12 = {
   key: 0
 };
@@ -866,7 +869,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         src: engine,
         alt: "card"
       }, null, 8 /* PROPS */, _hoisted_9)]);
-    }), 128 /* KEYED_FRAGMENT */))])]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(deckBuilder.description), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs(deckBuilder.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])], 8 /* PROPS */, _hoisted_6);
+    }), 128 /* KEYED_FRAGMENT */))])]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      "class": "elipsis",
+      innerHTML: $setup.utilize.elipisWord(7, deckBuilder === null || deckBuilder === void 0 ? void 0 : deckBuilder.description)
+    }, null, 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs(deckBuilder.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])], 8 /* PROPS */, _hoisted_6);
   }), 128 /* KEYED_FRAGMENT */)), !$setup.dataDeckBuilders.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_12, [].concat(_hoisted_14))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])]);
 }
 
@@ -1717,7 +1723,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-e28d5228]{\r\n        color: white;\r\n        border: 0.7px solid #385979;\r\n        /* border-radius: 8px; */\r\n        /* min-width: 60rem; */\n}\ntable thead[data-v-e28d5228] {\r\n        background-color: #2a4b6c;\n}\ntable tbody[data-v-e28d5228] {\r\n        background-color: #03182c;\n}\ntable thead tr[data-v-e28d5228]{\r\n        text-align: center;\n}\ntable tbody tr[data-v-e28d5228]:hover {\r\n        background-color: #1a4c7a;\n}\n.table th[data-v-e28d5228],\r\n    .table td[data-v-e28d5228] {\r\n        border: none !important;\n}\n.table thead th[data-v-e28d5228] {\r\n        border-bottom: none !important;\n}\ntable tr th[data-v-e28d5228]:nth-child(1),\r\n    table tr td[data-v-e28d5228]:nth-child(1)\r\n    {\r\n        min-width: 10rem;\r\n        max-width: 10rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(2),\r\n    table tr td[data-v-e28d5228]:nth-child(2) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(3),\r\n    table tr td[data-v-e28d5228]:nth-child(3) {\r\n        min-width: 4rem;\r\n        max-width: 4rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(4),\r\n    table tr td[data-v-e28d5228]:nth-child(4) {\r\n        min-width: 14rem;\r\n        max-width: 14rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(5),\r\n    table tr td[data-v-e28d5228]:nth-child(5) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\n.row-list-deck[data-v-e28d5228]{\r\n        cursor: pointer;\n}\n.elipsis[data-v-e28d5228] {\r\n        text-overflow: ellipsis;\r\n        /* Required for text-overflow to do anything */\r\n        white-space: nowrap;\r\n        overflow: hidden;\n}\n.image-engines[data-v-e28d5228]{\r\n        width: 40px;\r\n        height: 40px;\n}\n.image-rarity[data-v-e28d5228]{\r\n        width: 22px;\r\n        height: 22px;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-e28d5228]{\r\n        color: white;\r\n        border: 0.7px solid #385979;\r\n        /* border-radius: 8px; */\r\n        /* min-width: 60rem; */\n}\ntable thead[data-v-e28d5228] {\r\n        background-color: #2a4b6c;\n}\ntable tbody[data-v-e28d5228] {\r\n        background-color: #03182c;\n}\ntable thead tr[data-v-e28d5228]{\r\n        text-align: center;\n}\ntable tbody tr[data-v-e28d5228]:hover {\r\n        background-color: #1a4c7a;\n}\n.table th[data-v-e28d5228],\r\n    .table td[data-v-e28d5228] {\r\n        border: none !important;\n}\n.table thead th[data-v-e28d5228] {\r\n        border-bottom: none !important;\n}\ntable tr th[data-v-e28d5228]:nth-child(1),\r\n    table tr td[data-v-e28d5228]:nth-child(1)\r\n    {\r\n        min-width: 10rem;\r\n        max-width: 10rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(2),\r\n    table tr td[data-v-e28d5228]:nth-child(2) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(3),\r\n    table tr td[data-v-e28d5228]:nth-child(3) {\r\n        min-width: 4rem;\r\n        max-width: 4rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(4),\r\n    table tr td[data-v-e28d5228]:nth-child(4) {\r\n        min-width: 14rem;\r\n        max-width: 14rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(5),\r\n    table tr td[data-v-e28d5228]:nth-child(5) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\n.row-list-deck[data-v-e28d5228]{\r\n        cursor: pointer;\n}\n.elipsis[data-v-e28d5228]{\r\n        text-overflow: ellipsis;\r\n        /* Required for text-overflow to do anything */\r\n        white-space: nowrap;\r\n        overflow: hidden;\n}\n.image-engines[data-v-e28d5228]{\r\n        width: 40px;\r\n        height: 40px;\n}\n.image-rarity[data-v-e28d5228]{\r\n        width: 22px;\r\n        height: 22px;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

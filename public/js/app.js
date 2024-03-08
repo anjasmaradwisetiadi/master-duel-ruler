@@ -25248,6 +25248,9 @@ var utilize = {
         return 'main deck';
       }
     }
+  },
+  elipisWord: function elipisWord(endWord, word) {
+    return word ? word.split(' ').slice(0, endWord).join(" ") + "..." : '';
   }
 };
 

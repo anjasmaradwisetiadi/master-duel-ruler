@@ -359,11 +359,9 @@ import { main } from '@popperjs/core';
   }
   /*--- end card selected */
   .main-deck-style{
-    /* z-index: 2; */
     position: relative;
   }
   .extra-deck-style{
-    /* z-index: 1; */
     position: relative;
   }
   </style>

@@ -47,7 +47,7 @@
           </template>
           <template v-if="!props?.displayHover">
             <span>
-              {{totalCard}}
+              {{ deckType === 'main deck' ? totalCardMain :  totalCardExtra}}
             </span>
           </template>
           Cards
@@ -307,7 +307,7 @@
     return store.getters.getterStateLoading;
 })
 
-  const totalCard = computed(()=>{
+  const totalCardMain = computed(()=>{
     let valueCard = 0;
     if(deckCollects.value){
       deckCollects.value?.forEach(element => {
@@ -316,6 +316,18 @@
 
       listenChangeTotalCard(valueCard);
       return store.getters.getterTotalMainDeck;
+    }
+  })
+
+  const totalCardExtra = computed(()=>{
+    let valueCard = 0;
+    if(deckCollects.value){
+      deckCollects.value?.forEach(element => {
+        valueCard+=element.value;
+      });
+
+      listenChangeTotalCard(valueCard);
+      return store.getters.getterTotalExtraDeck;
     }
   })
 

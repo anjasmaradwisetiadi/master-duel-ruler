@@ -296,7 +296,7 @@ __webpack_require__.r(__webpack_exports__);
       /******* it make be default search but when app ready to use */
       var payload = {
         mode: 'all-search',
-        name: 'inf',
+        name: 'hero',
         num: num.value,
         offset: offset.value
       };
@@ -597,14 +597,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log("newValue getDataEditDeckBuilder ");
-              console.log(newValue);
               state.title = newValue.title;
               state.slug = newValue.slug;
               state.description = newValue.description;
               state.preview = newValue.engines;
               state.oldSlug = newValue.slug;
-            case 7:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -862,7 +860,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     function confirm($event) {
       store.state.responseGeneral = {};
       if ($event) {
-        router.push("/play-style-deck/".concat(paramsUrlSlugPlayStyle.value));
+        router.push("/builder-deck/".concat(paramsUrlSlugPlayStyle.value, "/").concat(paramsUrlSlug.value));
       }
     }
     function createPayload() {

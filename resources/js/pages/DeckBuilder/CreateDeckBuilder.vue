@@ -215,8 +215,6 @@ watch(deckCollectExtra, (newValue, oldValue)=>{
 })
 
 watch( getDataEditDeckBuilder,async (newValue, oldValue)=>{
-    console.log("newValue getDataEditDeckBuilder ")
-    console.log(newValue)
     state.title = newValue.title;
     state.slug = newValue.slug;
     state.description = newValue.description;
@@ -500,7 +498,7 @@ function createPayloadDeck(dataMain, dataExtra){
 function confirm($event){
     store.state.responseGeneral = {};
     if($event){
-        router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`)
+        router.push(`/builder-deck/${paramsUrlSlugPlayStyle.value}/${paramsUrlSlug.value}`)
     }
 }
 

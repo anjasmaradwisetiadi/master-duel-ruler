@@ -21391,7 +21391,7 @@ __webpack_require__.r(__webpack_exports__);
       //******* it make be default search but when app ready to use */
       var payload = {
         mode: 'all-search',
-        name: 'inf',
+        name: 'hero',
         num: num.value,
         offset: offset.value
       };

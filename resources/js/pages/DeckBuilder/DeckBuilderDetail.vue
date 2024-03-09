@@ -14,13 +14,16 @@
           >
             Edit Deck Builder
           </button>
-          <button type="button" class="button-style-primary" @click="deleteDeckBuilder()">
+          <button type="button" class="button-style-primary mr-2" @click="deleteDeckBuilder()">
             Delete Deck Builder
+          </button>
+          <button type="button" class="button-style-primary" @click="generateDeckBuilder()">
+            Generate Deck Builder
           </button>
         </div>
         <div class="col d-flex justify-content-end">
           <button type="button" class="button-style-secondary" @click="backRoute()">
-            Kembali
+            Back
           </button>
         </div>
       </div>
@@ -220,7 +223,7 @@
   import { useRouter } from 'vue-router';
   import { utilize } from '../../utilize/utilize';
   import { collectionUrl } from '../../urlCollect';
-import { main } from '@popperjs/core';
+  
   const dayjs = require('dayjs');
   
   const store = useStore();
@@ -237,6 +240,11 @@ import { main } from '@popperjs/core';
   const confirmDelete = ref(false);
   const paramsUrlSlugPlayStyle = ref('');
   const paramsUrlSlug = ref('');
+  const monsterCollection = ref([]);
+  const spellCollection = ref([]);
+  const trapCollection = ref([]);
+  const extraDeckCollection = ref([]);
+
 
   const state = reactive({
     paramsUrlSlug,
@@ -304,6 +312,77 @@ import { main } from '@popperjs/core';
         extraDeck.style.zIndex='2';
       }
   };
+
+  function generateDeckBuilder(){
+    generateSpellTrapMonsterExtraDeck(mainDeckCards.value, extraDeckCards.value);
+
+    let payload = {
+      title : dataDeckBuilder?.title,
+      total_card: {
+        "total_card_main_deck": dataDeckBuilder?.total_card?.total_card_main_deck, 
+        "total_card_extra_deck": dataDeckBuilder?.total_card?.total_card_extra_deck
+      },
+      price: {
+        "total_rarity_SR": dataDeckBuilder?.price?.total_rarity_SR, 
+        "total_rarity_UR": dataDeckBuilder?.price?.total_rarity_UR
+      },
+      update: dataDeckBuilder?.updated_at,
+      description: dataDeckBuilder?.description,
+      monster_card: monsterCollection.value,
+      spell_card : spellCollection.value, 
+      trap_card : trapCollection.value, 
+      extra_deck: extraDeckCollection.value
+    }
+
+    let contentType = 'text/plain';
+    let fileName = `${dataDeckBuilder?.title}_deck`;
+    let a = document.createElement("a");
+    let file = new Blob([JSON.stringify(payload)], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
+
+  function generateSpellTrapMonsterExtraDeck(mainDeckCards, extraDeckCards){
+
+    let monsterDeckSeperate, spellDeckSeperate, trapDeckSeperate = [];
+    if(extraDeckCards?.length){
+      extraDeckCards.forEach((element, index) => {
+        extraDeckCollection.value.push(`document.getElementById('exnm_${index}').value = ${element.name}`);
+        extraDeckCollection.value.push(`document.getElementById('exnum_${index}').value = ${element.value}`);
+      });
+    }
+
+    if(mainDeckCards?.length){
+      monsterDeckSeperate = mainDeckCards.filter((card)=>{
+        return card.frameType !== 'trap' && card.frameType !== 'spell';
+      });
+
+      spellDeckSeperate = mainDeckCards.filter((card)=>{
+        return card.frameType === 'spell';
+      });
+
+      trapDeckSeperate = mainDeckCards.filter((card)=>{
+        return card.frameType === 'trap';
+      });
+
+      monsterDeckSeperate.forEach((element, index)=>{
+        monsterCollection.value.push(`document.getElementById('monm_${index}').value = ${element.name}`);
+        monsterCollection.value.push(`document.getElementById('monum_${index}').value = ${element.value}`);
+      })
+
+      spellDeckSeperate.forEach((element, index)=>{
+        spellCollection.value.push(`document.getElementById('spnm_${index}').value = ${element.name}`);
+        spellCollection.value.push(`document.getElementById('spnum_${index}').value = ${element.value}`);
+      })
+
+      trapDeckSeperate.forEach((element, index)=>{
+        trapCollection.value.push(`document.getElementById('trnm_${index}').value = ${element.name}`);
+        trapCollection.value.push(`document.getElementById('trnum_${index}').value = ${element.value}`);
+      })
+
+    }
+  }
   
   function backRoute(){
       router.back();

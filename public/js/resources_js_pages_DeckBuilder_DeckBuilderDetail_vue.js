@@ -1,73 +1,5 @@
 (self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_pages_DeckBuilder_DeckBuilderDetail_vue"],{
 
-/***/ "./node_modules/@popperjs/core/lib/enums.js":
-/*!**************************************************!*\
-  !*** ./node_modules/@popperjs/core/lib/enums.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   afterMain: () => (/* binding */ afterMain),
-/* harmony export */   afterRead: () => (/* binding */ afterRead),
-/* harmony export */   afterWrite: () => (/* binding */ afterWrite),
-/* harmony export */   auto: () => (/* binding */ auto),
-/* harmony export */   basePlacements: () => (/* binding */ basePlacements),
-/* harmony export */   beforeMain: () => (/* binding */ beforeMain),
-/* harmony export */   beforeRead: () => (/* binding */ beforeRead),
-/* harmony export */   beforeWrite: () => (/* binding */ beforeWrite),
-/* harmony export */   bottom: () => (/* binding */ bottom),
-/* harmony export */   clippingParents: () => (/* binding */ clippingParents),
-/* harmony export */   end: () => (/* binding */ end),
-/* harmony export */   left: () => (/* binding */ left),
-/* harmony export */   main: () => (/* binding */ main),
-/* harmony export */   modifierPhases: () => (/* binding */ modifierPhases),
-/* harmony export */   placements: () => (/* binding */ placements),
-/* harmony export */   popper: () => (/* binding */ popper),
-/* harmony export */   read: () => (/* binding */ read),
-/* harmony export */   reference: () => (/* binding */ reference),
-/* harmony export */   right: () => (/* binding */ right),
-/* harmony export */   start: () => (/* binding */ start),
-/* harmony export */   top: () => (/* binding */ top),
-/* harmony export */   variationPlacements: () => (/* binding */ variationPlacements),
-/* harmony export */   viewport: () => (/* binding */ viewport),
-/* harmony export */   write: () => (/* binding */ write)
-/* harmony export */ });
-var top = 'top';
-var bottom = 'bottom';
-var right = 'right';
-var left = 'left';
-var auto = 'auto';
-var basePlacements = [top, bottom, right, left];
-var start = 'start';
-var end = 'end';
-var clippingParents = 'clippingParents';
-var viewport = 'viewport';
-var popper = 'popper';
-var reference = 'reference';
-var variationPlacements = /*#__PURE__*/basePlacements.reduce(function (acc, placement) {
-  return acc.concat([placement + "-" + start, placement + "-" + end]);
-}, []);
-var placements = /*#__PURE__*/[].concat(basePlacements, [auto]).reduce(function (acc, placement) {
-  return acc.concat([placement, placement + "-" + start, placement + "-" + end]);
-}, []); // modifiers that need to read the DOM
-
-var beforeRead = 'beforeRead';
-var read = 'read';
-var afterRead = 'afterRead'; // pure-logic modifiers
-
-var beforeMain = 'beforeMain';
-var main = 'main';
-var afterMain = 'afterMain'; // modifier with the purpose to write to the DOM (or write into a framework state)
-
-var beforeWrite = 'beforeWrite';
-var write = 'write';
-var afterWrite = 'afterWrite';
-var modifierPhases = [beforeRead, read, afterRead, beforeMain, main, afterMain, beforeWrite, write, afterWrite];
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/MainExtraDeck.vue?vue&type=script&setup=true&lang=js":
 /*!******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/MainExtraDeck.vue?vue&type=script&setup=true&lang=js ***!
@@ -316,8 +248,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _utilize_utilize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utilize/utilize */ "./resources/js/utilize/utilize.js");
 /* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../urlCollect */ "./resources/js/urlCollect.js");
-/* harmony import */ var _popperjs_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @popperjs/core */ "./node_modules/@popperjs/core/lib/enums.js");
-
 
 
 
@@ -345,6 +275,10 @@ __webpack_require__.r(__webpack_exports__);
     var confirmDelete = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var paramsUrlSlugPlayStyle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var paramsUrlSlug = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var monsterCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var spellCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var trapCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var extraDeckCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       paramsUrlSlug: paramsUrlSlug,
       paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle,
@@ -401,6 +335,70 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
     ;
+    function generateDeckBuilder() {
+      var _dataDeckBuilder$tota, _dataDeckBuilder$tota2, _dataDeckBuilder$pric, _dataDeckBuilder$pric2;
+      generateSpellTrapMonsterExtraDeck(mainDeckCards.value, extraDeckCards.value);
+      var payload = {
+        title: dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.title,
+        total_card: {
+          "total_card_main_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$tota = dataDeckBuilder.total_card) === null || _dataDeckBuilder$tota === void 0 ? void 0 : _dataDeckBuilder$tota.total_card_main_deck,
+          "total_card_extra_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$tota2 = dataDeckBuilder.total_card) === null || _dataDeckBuilder$tota2 === void 0 ? void 0 : _dataDeckBuilder$tota2.total_card_extra_deck
+        },
+        price: {
+          "total_rarity_SR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$pric = dataDeckBuilder.price) === null || _dataDeckBuilder$pric === void 0 ? void 0 : _dataDeckBuilder$pric.total_rarity_SR,
+          "total_rarity_UR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$pric2 = dataDeckBuilder.price) === null || _dataDeckBuilder$pric2 === void 0 ? void 0 : _dataDeckBuilder$pric2.total_rarity_UR
+        },
+        update: dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.updated_at,
+        description: dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.description,
+        monster_card: monsterCollection.value,
+        spell_card: spellCollection.value,
+        trap_card: trapCollection.value,
+        extra_deck: extraDeckCollection.value
+      };
+      var contentType = 'text/plain';
+      var fileName = "".concat(dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.title, "_deck");
+      var a = document.createElement("a");
+      var file = new Blob([JSON.stringify(payload)], {
+        type: contentType
+      });
+      a.href = URL.createObjectURL(file);
+      a.download = fileName;
+      a.click();
+    }
+    function generateSpellTrapMonsterExtraDeck(mainDeckCards, extraDeckCards) {
+      var monsterDeckSeperate,
+        spellDeckSeperate,
+        trapDeckSeperate = [];
+      if (extraDeckCards !== null && extraDeckCards !== void 0 && extraDeckCards.length) {
+        extraDeckCards.forEach(function (element, index) {
+          extraDeckCollection.value.push("document.getElementById('exnm_".concat(index, "').value = ").concat(element.name));
+          extraDeckCollection.value.push("document.getElementById('exnum_".concat(index, "').value = ").concat(element.value));
+        });
+      }
+      if (mainDeckCards !== null && mainDeckCards !== void 0 && mainDeckCards.length) {
+        monsterDeckSeperate = mainDeckCards.filter(function (card) {
+          return card.frameType !== 'trap' && card.frameType !== 'spell';
+        });
+        spellDeckSeperate = mainDeckCards.filter(function (card) {
+          return card.frameType === 'spell';
+        });
+        trapDeckSeperate = mainDeckCards.filter(function (card) {
+          return card.frameType === 'trap';
+        });
+        monsterDeckSeperate.forEach(function (element, index) {
+          monsterCollection.value.push("document.getElementById('monm_".concat(index, "').value = ").concat(element.name));
+          monsterCollection.value.push("document.getElementById('monum_".concat(index, "').value = ").concat(element.value));
+        });
+        spellDeckSeperate.forEach(function (element, index) {
+          spellCollection.value.push("document.getElementById('spnm_".concat(index, "').value = ").concat(element.name));
+          spellCollection.value.push("document.getElementById('spnum_".concat(index, "').value = ").concat(element.value));
+        });
+        trapDeckSeperate.forEach(function (element, index) {
+          trapCollection.value.push("document.getElementById('trnm_".concat(index, "').value = ").concat(element.name));
+          trapCollection.value.push("document.getElementById('trnum_".concat(index, "').value = ").concat(element.value));
+        });
+      }
+    }
     function backRoute() {
       router.back();
     }
@@ -415,6 +413,10 @@ __webpack_require__.r(__webpack_exports__);
       confirmDelete: confirmDelete,
       paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle,
       paramsUrlSlug: paramsUrlSlug,
+      monsterCollection: monsterCollection,
+      spellCollection: spellCollection,
+      trapCollection: trapCollection,
+      extraDeckCollection: extraDeckCollection,
       state: state,
       dataDeckBuilder: dataDeckBuilder,
       dataDeckBuilderLength: dataDeckBuilderLength,
@@ -425,6 +427,8 @@ __webpack_require__.r(__webpack_exports__);
       deleteDeckBuilder: deleteDeckBuilder,
       methodConfirmDelete: methodConfirmDelete,
       displayCard: displayCard,
+      generateDeckBuilder: generateDeckBuilder,
+      generateSpellTrapMonsterExtraDeck: generateSpellTrapMonsterExtraDeck,
       backRoute: backRoute,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
@@ -448,9 +452,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       get collectionUrl() {
         return _urlCollect__WEBPACK_IMPORTED_MODULE_5__.collectionUrl;
-      },
-      get main() {
-        return _popperjs_core__WEBPACK_IMPORTED_MODULE_8__.main;
       }
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
@@ -977,57 +978,63 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, " Edit Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "button-style-primary",
+    "class": "button-style-primary mr-2",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.deleteDeckBuilder();
     })
-  }, " Delete Deck Builder ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, " Delete Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "button-style-primary",
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return $setup.generateDeckBuilder();
+    })
+  }, " Generate Deck Builder ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "button-style-secondary",
-    onClick: _cache[2] || (_cache[2] = function ($event) {
+    onClick: _cache[3] || (_cache[3] = function ($event) {
       return $setup.backRoute();
     })
-  }, " Kembali ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "Updated: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs((_$setup$dataDeckBuild2 = $setup.dataDeckBuilder) === null || _$setup$dataDeckBuild2 === void 0 ? void 0 : _$setup$dataDeckBuild2.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, " Back ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "Updated: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs((_$setup$dataDeckBuild2 = $setup.dataDeckBuilder) === null || _$setup$dataDeckBuild2 === void 0 ? void 0 : _$setup$dataDeckBuild2.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "information-html",
     innerHTML: (_$setup$dataDeckBuild3 = $setup.dataDeckBuilder) === null || _$setup$dataDeckBuild3 === void 0 ? void 0 : _$setup$dataDeckBuild3.description
   }, null, 8 /* PROPS */, _hoisted_15)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "mt-2 main-deck-style",
-    onMouseover: _cache[5] || (_cache[5] = function ($event) {
+    onMouseover: _cache[6] || (_cache[6] = function ($event) {
       return $setup.displayCard($event, 'main-deck', true);
     }),
-    onMouseleave: _cache[6] || (_cache[6] = function ($event) {
+    onMouseleave: _cache[7] || (_cache[7] = function ($event) {
       return $setup.displayCard($event, 'main-deck', false);
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
     "data-deck-builder-length": $setup.dataDeckBuilderLength,
     "data-deck-builder": $setup.dataDeckBuilder,
     mainDeckCards: $setup.mainDeckCards,
-    "onUpdate:mainDeckCards": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:mainDeckCards": _cache[4] || (_cache[4] = function ($event) {
       return $setup.mainDeckCards = $event;
     }),
     "card-selected": $setup.cardSelected,
-    "onUpdate:cardSelected": _cache[4] || (_cache[4] = function ($event) {
+    "onUpdate:cardSelected": _cache[5] || (_cache[5] = function ($event) {
       return $setup.cardSelected = $event;
     }),
     "deck-type": $setup.deckTypeMain,
     "display-hover": $setup.displayHover
   }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "display-hover"])], 32 /* NEED_HYDRATION */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "mt-4 extra-deck-style",
-    onMouseover: _cache[9] || (_cache[9] = function ($event) {
+    onMouseover: _cache[10] || (_cache[10] = function ($event) {
       return $setup.displayCard($event, 'extra-deck', true);
     }),
-    onMouseleave: _cache[10] || (_cache[10] = function ($event) {
+    onMouseleave: _cache[11] || (_cache[11] = function ($event) {
       return $setup.displayCard($event, 'extra-deck', false);
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
     "data-deck-builder-length": $setup.dataDeckBuilderLength,
     "data-deck-builder": $setup.dataDeckBuilder,
     mainDeckCards: $setup.extraDeckCards,
-    "onUpdate:mainDeckCards": _cache[7] || (_cache[7] = function ($event) {
+    "onUpdate:mainDeckCards": _cache[8] || (_cache[8] = function ($event) {
       return $setup.extraDeckCards = $event;
     }),
     "card-selected": $setup.cardSelected,
-    "onUpdate:cardSelected": _cache[8] || (_cache[8] = function ($event) {
+    "onUpdate:cardSelected": _cache[9] || (_cache[9] = function ($event) {
       return $setup.cardSelected = $event;
     }),
     "deck-type": $setup.deckTypeExtra,

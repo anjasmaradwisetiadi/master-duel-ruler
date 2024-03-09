@@ -317,17 +317,17 @@
     generateSpellTrapMonsterExtraDeck(mainDeckCards.value, extraDeckCards.value);
 
     let payload = {
-      title : dataDeckBuilder?.title,
+      title : dataDeckBuilder?.value?.title,
       total_card: {
-        "total_card_main_deck": dataDeckBuilder?.total_card?.total_card_main_deck, 
-        "total_card_extra_deck": dataDeckBuilder?.total_card?.total_card_extra_deck
+        "total_card_main_deck": dataDeckBuilder?.value?.total_card?.total_card_main_deck, 
+        "total_card_extra_deck": dataDeckBuilder?.value?.total_card?.total_card_extra_deck
       },
       price: {
-        "total_rarity_SR": dataDeckBuilder?.price?.total_rarity_SR, 
-        "total_rarity_UR": dataDeckBuilder?.price?.total_rarity_UR
+        "total_rarity_SR": dataDeckBuilder?.value?.price?.total_rarity_SR, 
+        "total_rarity_UR": dataDeckBuilder?.value?.price?.total_rarity_UR
       },
-      update: dataDeckBuilder?.updated_at,
-      description: dataDeckBuilder?.description,
+      update: dataDeckBuilder?.value?.updated_at,
+      description: dataDeckBuilder?.value?.description,
       monster_card: monsterCollection.value,
       spell_card : spellCollection.value, 
       trap_card : trapCollection.value, 
@@ -335,7 +335,7 @@
     }
 
     let contentType = 'text/plain';
-    let fileName = `${dataDeckBuilder?.title}_deck`;
+    let fileName = `${dataDeckBuilder?.value.title}_deck`;
     let a = document.createElement("a");
     let file = new Blob([JSON.stringify(payload)], {type: contentType});
     a.href = URL.createObjectURL(file);

@@ -336,27 +336,27 @@ __webpack_require__.r(__webpack_exports__);
     }
     ;
     function generateDeckBuilder() {
-      var _dataDeckBuilder$tota, _dataDeckBuilder$tota2, _dataDeckBuilder$pric, _dataDeckBuilder$pric2;
+      var _dataDeckBuilder$valu, _dataDeckBuilder$valu2, _dataDeckBuilder$valu3, _dataDeckBuilder$valu4, _dataDeckBuilder$valu5, _dataDeckBuilder$valu6, _dataDeckBuilder$valu7;
       generateSpellTrapMonsterExtraDeck(mainDeckCards.value, extraDeckCards.value);
       var payload = {
-        title: dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.title,
+        title: dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu = dataDeckBuilder.value) === null || _dataDeckBuilder$valu === void 0 ? void 0 : _dataDeckBuilder$valu.title,
         total_card: {
-          "total_card_main_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$tota = dataDeckBuilder.total_card) === null || _dataDeckBuilder$tota === void 0 ? void 0 : _dataDeckBuilder$tota.total_card_main_deck,
-          "total_card_extra_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$tota2 = dataDeckBuilder.total_card) === null || _dataDeckBuilder$tota2 === void 0 ? void 0 : _dataDeckBuilder$tota2.total_card_extra_deck
+          "total_card_main_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu2 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu2 === void 0 || (_dataDeckBuilder$valu2 = _dataDeckBuilder$valu2.total_card) === null || _dataDeckBuilder$valu2 === void 0 ? void 0 : _dataDeckBuilder$valu2.total_card_main_deck,
+          "total_card_extra_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu3 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu3 === void 0 || (_dataDeckBuilder$valu3 = _dataDeckBuilder$valu3.total_card) === null || _dataDeckBuilder$valu3 === void 0 ? void 0 : _dataDeckBuilder$valu3.total_card_extra_deck
         },
         price: {
-          "total_rarity_SR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$pric = dataDeckBuilder.price) === null || _dataDeckBuilder$pric === void 0 ? void 0 : _dataDeckBuilder$pric.total_rarity_SR,
-          "total_rarity_UR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$pric2 = dataDeckBuilder.price) === null || _dataDeckBuilder$pric2 === void 0 ? void 0 : _dataDeckBuilder$pric2.total_rarity_UR
+          "total_rarity_SR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu4 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu4 === void 0 || (_dataDeckBuilder$valu4 = _dataDeckBuilder$valu4.price) === null || _dataDeckBuilder$valu4 === void 0 ? void 0 : _dataDeckBuilder$valu4.total_rarity_SR,
+          "total_rarity_UR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu5 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu5 === void 0 || (_dataDeckBuilder$valu5 = _dataDeckBuilder$valu5.price) === null || _dataDeckBuilder$valu5 === void 0 ? void 0 : _dataDeckBuilder$valu5.total_rarity_UR
         },
-        update: dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.updated_at,
-        description: dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.description,
+        update: dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu6 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu6 === void 0 ? void 0 : _dataDeckBuilder$valu6.updated_at,
+        description: dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu7 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu7 === void 0 ? void 0 : _dataDeckBuilder$valu7.description,
         monster_card: monsterCollection.value,
         spell_card: spellCollection.value,
         trap_card: trapCollection.value,
         extra_deck: extraDeckCollection.value
       };
       var contentType = 'text/plain';
-      var fileName = "".concat(dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.title, "_deck");
+      var fileName = "".concat(dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.value.title, "_deck");
       var a = document.createElement("a");
       var file = new Blob([JSON.stringify(payload)], {
         type: contentType

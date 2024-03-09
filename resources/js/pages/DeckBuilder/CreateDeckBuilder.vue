@@ -187,16 +187,16 @@ const dataDeckBuilder = computed(()=>{
 })
 
 const dataDeckBuilderLength = computed(()=>{
-    return store.getters.getterDataEditDeckBuilder.deck_builder;
+    return store.getters.getterDataEditDeckBuilder.deck_builder ? store.getters.getterDataEditDeckBuilder.deck_builder : [];
 })
   
 
 const deckCollectMain = computed(()=>{
-    return store.getters.getterdataDeckBuilderMainDeck;
+    return store?.getters?.getterdataDeckBuilderMainDeck ? store?.getters?.getterdataDeckBuilderMainDeck : [];
 })
 
 const deckCollectExtra = computed(()=>{
-    return store.getters.getterdataDeckBuilderExtraDeck;
+    return store?.getters?.getterdataDeckBuilderExtraDeck ? store?.getters?.getterdataDeckBuilderExtraDeck : [];
 })
 
 const getDataEditDeckBuilder = computed(()=>{

@@ -60,155 +60,156 @@
             <div
               class="d-flex flex-wrap scroller-cards-collect"
               id="scrollbar1"
-              v-if="props?.dataDeckBuilderLength?.length"
             >
               <!-- when it need hover for display detail information -->
-              <template v-if="props?.displayHover && !loading">
-                <div
-                  v-for="(urlImage, index) of mainDeckCards"
-                  :key="index"
-                  class="wrap-card-search-main-extra" 
-                  :class="deckType === 'main deck' ? 'wrap-card-search-main-deck' : 'wrap-card-search-extra-deck'"
-                  id="wrap-card-search-main-extra"
-                >
+              <template v-if="props?.dataDeckBuilderLength?.length">
+                <template v-if="props?.displayHover && !loading">
                   <div
-                    class="wrap-hover-image"
-                    ref="imagePosition"
-                    @mouseover=" displayCard($event,index,true)"
-                    @mouseleave=" displayCard($event,index,false)"
+                    v-for="(urlImage, index) of mainDeckCards"
+                    :key="index"
+                    class="wrap-card-search-main-extra" 
+                    :class="deckType === 'main deck' ? 'wrap-card-search-main-deck' : 'wrap-card-search-extra-deck'"
+                    id="wrap-card-search-main-extra"
                   >
-                  <div class="wrap-image-display">
-                    <img
-                        :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
-                        :alt="urlImage?.name"
-                        @click="selectedCard(urlImage)"
-                        class="image-style"
-                    />
-                    <img v-if="urlImage.value === 2" class="image-card-value"  src="../../assets/image/2-card.webp"  alt="2-card">
-                    <img v-if="urlImage.value === 3" class="image-card-value"  src="../../assets/image/3-card.webp"  alt="3-card">
-                  </div>
-                  <div class="hover-card" ref="hoverCardTemplate">
-                    <template
-                      v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'"
+                    <div
+                      class="wrap-hover-image"
+                      ref="imagePosition"
+                      @mouseover=" displayCard($event,index,true)"
+                      @mouseleave=" displayCard($event,index,false)"
                     >
-                      <div class="d-flex card-monster">
-                        <div class="image-section">
-                          <img
-                            :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small:''"
-                            :alt="urlImage?.name"
-                          />
-                        </div>
-                        <div class="information-section">
-                          <div class="row mb-2">
-                            <div class="col-8 mr-auto">
-                              <span>
-                                <b>{{ urlImage?.name }}</b></span
-                              >
+                    <div class="wrap-image-display">
+                      <img
+                          :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :'' "
+                          :alt="urlImage?.name"
+                          @click="selectedCard(urlImage)"
+                          class="image-style"
+                      />
+                      <img v-if="urlImage.value === 2" class="image-card-value"  src="../../assets/image/2-card.webp"  alt="2-card">
+                      <img v-if="urlImage.value === 3" class="image-card-value"  src="../../assets/image/3-card.webp"  alt="3-card">
+                    </div>
+                    <div class="hover-card" ref="hoverCardTemplate">
+                      <template
+                        v-if="urlImage.frameType !== 'trap' && urlImage.frameType !== 'spell'"
+                      >
+                        <div class="d-flex card-monster">
+                          <div class="image-section">
+                            <img
+                              :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small:''"
+                              :alt="urlImage?.name"
+                            />
+                          </div>
+                          <div class="information-section">
+                            <div class="row mb-2">
+                              <div class="col-8 mr-auto">
+                                <span>
+                                  <b>{{ urlImage?.name }}</b></span
+                                >
+                              </div>
+                              <div class="col-4 ml-auto">
+                                <span class="mr-1">
+                                  <b>{{ urlImage?.attribute }}</b></span
+                                >
+                                <span
+                                  class="wrap-star"
+                                  v-if="urlImage?.frameType === 'xyz'"
+                                >
+                                  <img
+                                    src="../../assets/image/rank-icon.webp"
+                                    alt="rank"
+                                  />
+                                  <span>{{ urlImage?.level }}</span>
+                                </span>
+                                <span
+                                  class="wrap-star"
+                                  v-else-if="urlImage?.frameType === 'link'"
+                                >
+                                  Link -
+                                  <span>{{ urlImage?.linkval }}</span>
+                                </span>
+                                <span class="wrap-star" v-else>
+                                  <img
+                                    src="../../assets/image/star-icon.webp"
+                                    alt="star"
+                                  />
+                                  <span>{{ urlImage?.level }}</span>
+                                </span>
+                              </div>
                             </div>
-                            <div class="col-4 ml-auto">
-                              <span class="mr-1">
-                                <b>{{ urlImage?.attribute }}</b></span
-                              >
+                            <div class="mb-2">
                               <span
-                                class="wrap-star"
-                                v-if="urlImage?.frameType === 'xyz'"
-                              >
-                                <img
-                                  src="../../assets/image/rank-icon.webp"
-                                  alt="rank"
-                                />
-                                <span>{{ urlImage?.level }}</span>
-                              </span>
-                              <span
-                                class="wrap-star"
-                                v-else-if="urlImage?.frameType === 'link'"
-                              >
-                                Link -
-                                <span>{{ urlImage?.linkval }}</span>
-                              </span>
-                              <span class="wrap-star" v-else>
-                                <img
-                                  src="../../assets/image/star-icon.webp"
-                                  alt="star"
-                                />
-                                <span>{{ urlImage?.level }}</span>
-                              </span>
-                            </div>
-                          </div>
-                          <div class="mb-2">
-                            <span
-                              ><b
-                                >[ {{ urlImage?.race }} /
-                                {{ utilize.textTypeMonster(urlImage?.frameType) }}
-                                {{utilize.textEffectMonster(urlImage?.frameType)}}
-                                ]</b
-                              ></span
-                            >
-                          </div>
-                          <div class="mb-2 description-card">
-                            {{ utilize.decodeHTML(urlImage?.desc) }}
-                          </div>
-                          <div class="mb-2">
-                            <span
-                              ><b>ATK/</b>{{ urlImage?.atk }}
-                              <span
-                                :innerHTML="utilize.textDef(urlImage?.frameType, urlImage?.def)"
-                              ></span
-                            ></span>
-                          </div>
-                          <div class="released-card">
-                            <span
-                              >Released on Card Set
-                              {{urlImage?.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </template>
-                    <template
-                      v-if="urlImage?.frameType === 'trap' || urlImage?.frameType === 'spell'"
-                    >
-                      <div class="d-flex card-trap-spell">
-                        <div class="image-section">
-                          <img
-                            :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :''"
-                            :alt="urlImage?.name"
-                          />
-                        </div>
-                        <div class="information-section">
-                          <div class="row mb-2">
-                            <div class="col-8 mr-auto">
-                              <span>
-                                <b>{{ urlImage?.name }}</b></span
-                              >
-                            </div>
-                            <div class="col-4 ml-auto">
-                              <span class="mr-1">
-                                <b
-                                  >{{ utilize.textTypeMonster(urlImage?.frameType)}}
-                                  - {{ urlImage?.race }}</b
+                                ><b
+                                  >[ {{ urlImage?.race }} /
+                                  {{ utilize.textTypeMonster(urlImage?.frameType) }}
+                                  {{utilize.textEffectMonster(urlImage?.frameType)}}
+                                  ]</b
                                 ></span
                               >
                             </div>
-                          </div>
-                          <div class="mb-2 description-card">
-                            {{ utilize.decodeHTML(urlImage?.desc) }}
-                          </div>
-                          <div class="released-card">
-                            <span
-                              >Released on Card Set
-                              {{urlImage?.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
-                            >
+                            <div class="mb-2 description-card">
+                              {{ utilize.decodeHTML(urlImage?.desc) }}
+                            </div>
+                            <div class="mb-2">
+                              <span
+                                ><b>ATK/</b>{{ urlImage?.atk }}
+                                <span
+                                  :innerHTML="utilize.textDef(urlImage?.frameType, urlImage?.def)"
+                                ></span
+                              ></span>
+                            </div>
+                            <div class="released-card">
+                              <span
+                                >Released on Card Set
+                                {{urlImage?.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
+                              >
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </template>
+                      </template>
+                      <template
+                        v-if="urlImage?.frameType === 'trap' || urlImage?.frameType === 'spell'"
+                      >
+                        <div class="d-flex card-trap-spell">
+                          <div class="image-section">
+                            <img
+                              :src="urlImage?.card_images ? urlImage?.card_images[0]?.image_url_small :''"
+                              :alt="urlImage?.name"
+                            />
+                          </div>
+                          <div class="information-section">
+                            <div class="row mb-2">
+                              <div class="col-8 mr-auto">
+                                <span>
+                                  <b>{{ urlImage?.name }}</b></span
+                                >
+                              </div>
+                              <div class="col-4 ml-auto">
+                                <span class="mr-1">
+                                  <b
+                                    >{{ utilize.textTypeMonster(urlImage?.frameType)}}
+                                    - {{ urlImage?.race }}</b
+                                  ></span
+                                >
+                              </div>
+                            </div>
+                            <div class="mb-2 description-card">
+                              {{ utilize.decodeHTML(urlImage?.desc) }}
+                            </div>
+                            <div class="released-card">
+                              <span
+                                >Released on Card Set
+                                {{urlImage?.card_sets ? urlImage?.card_sets[0]?.set_name: ''}}</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </template>
+                    </div>
+                    </div>
                   </div>
-                  </div>
-                </div>
+                </template>
               </template>
               <!-- when it just use make deck builder -->
-              <template v-if="!props?.displayHover && !loading">
+              <template v-if="!props?.displayHover && !loading && deckCollects?.length">
                 <div 
                   v-for="(card, index) of deckCollects"
                   :key="index"
@@ -234,6 +235,11 @@
                   </div>
                 </div>
               </template>
+              <template v-if="!props?.displayHover && !loading && !deckCollects?.length">
+                <div class="d-flex justify-content-center scroller-cards-collect" >
+                  <span>Tidak ada kartu yang ke record</span>
+                </div>
+              </template>
               <!-- add loading spinner mandiri -->
               <div class="d-flex justify-content-center text-center width-loading" v-if="loading">
                 <div class="spinner-border text-light" role="status">
@@ -243,7 +249,7 @@
               <!-- not record data  -->
               <div
                 class="d-flex justify-content-center"
-                v-if="!dataDeckBuilderLength.length && props?.displayHover && !loading"
+                v-if="!dataDeckBuilderLength?.length && props?.displayHover && !loading"
               >
                 <span>Tidak ada kartu yang ke record</span>
               </div>

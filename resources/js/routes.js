@@ -21,7 +21,7 @@ const router = createRouter({
         { path: '/builder-deck/:slug_play_style/create', component: () => import('./pages/DeckBuilder/CreateDeckBuilder.vue'), meta: {requiresAuth: true} },
         { path: '/about', component: () => import('./pages/About.vue'), meta: {requiresAuth: true} },
         { path: '/login', component: () => import('./pages/LoginRegister.vue'),  meta: {requiresUnauth: true} },
-        { path: '/register', component: () => import('./pages/LoginRegister.vue'), meta: {requiresUnauth: true}  },
+        { path: '/register', component: () => import('./pages/Register.vue'), meta: {requiresAuth: true}  },
     ]
   });
   

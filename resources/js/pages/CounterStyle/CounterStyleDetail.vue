@@ -114,7 +114,7 @@ function methodConfirmDelete($event){
 }
 
 function backRoute(){
-    router.back();
+    router.push(`/counter-style-deck`);
 }
 
 </script>

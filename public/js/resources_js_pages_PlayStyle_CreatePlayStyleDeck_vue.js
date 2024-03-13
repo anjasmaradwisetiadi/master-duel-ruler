@@ -459,7 +459,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           form: formData
         };
         _store_PlayStyleDeck_playStyleDeckService__WEBPACK_IMPORTED_MODULE_3__.playStyleDeckService.editPlayStyle(data);
-        state.editOrNot = false;
+        if (responseGeneral.status) {
+          state.editOrNot = false;
+        }
       }
     }
     function backRoute() {

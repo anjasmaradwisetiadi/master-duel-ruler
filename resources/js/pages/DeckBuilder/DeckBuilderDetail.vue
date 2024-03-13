@@ -385,7 +385,7 @@
   }
   
   function backRoute(){
-      router.back();
+      router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`);
   }
   </script>
   <style scoped>

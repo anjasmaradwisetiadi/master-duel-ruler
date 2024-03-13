@@ -294,7 +294,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       state.confirmDelete = false;
     }
     function backRoute() {
-      router.back();
+      router.push("/counter-style-deck");
     }
     var __returned__ = {
       router: router,

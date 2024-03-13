@@ -461,7 +461,9 @@ function submit(){
         // service for submit edit data deck builder
         // store.dispatch('editCounterStyle', data);
         builderDeckService.editBuilderDeck(data);
-        state.editOrNot = false
+        if(responseGeneral.status){
+            state.editOrNot = false;   
+        }
     }
 }
 

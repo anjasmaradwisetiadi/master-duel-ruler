@@ -333,7 +333,9 @@ function submit(){
             form:formData
         } 
         playStyleDeckService.editPlayStyle(data);
-        state.editOrNot = false
+        if(responseGeneral.status){
+            state.editOrNot = false;   
+        }
     }
 }
 

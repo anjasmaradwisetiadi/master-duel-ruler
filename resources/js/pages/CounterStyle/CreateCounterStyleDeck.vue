@@ -322,7 +322,9 @@
                 form:formData
             } 
             store.dispatch('editCounterStyle', data);
-            state.editOrNot = false
+            if(responseGeneral.status){
+                state.editOrNot = false;   
+            }
         }
     }
 

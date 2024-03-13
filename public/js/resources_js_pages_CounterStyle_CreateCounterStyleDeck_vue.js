@@ -448,7 +448,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           form: formData
         };
         store.dispatch('editCounterStyle', data);
-        state.editOrNot = false;
+        if (responseGeneral.status) {
+          state.editOrNot = false;
+        }
       }
     }
     function confirm($event) {

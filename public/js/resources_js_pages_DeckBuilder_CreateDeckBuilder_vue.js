@@ -841,7 +841,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // service for submit edit data deck builder
         // store.dispatch('editCounterStyle', data);
         _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_7__.builderDeckService.editBuilderDeck(data);
-        state.editOrNot = false;
+        if (responseGeneral.status) {
+          state.editOrNot = false;
+        }
       }
     }
     function createPayloadDeck(dataMain, dataExtra) {

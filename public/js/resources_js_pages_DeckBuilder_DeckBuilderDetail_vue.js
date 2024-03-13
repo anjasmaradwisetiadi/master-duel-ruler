@@ -412,7 +412,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
     function backRoute() {
-      router.back();
+      router.push("/play-style-deck/".concat(paramsUrlSlugPlayStyle.value));
     }
     var __returned__ = {
       dayjs: dayjs,

@@ -366,7 +366,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       state.confirmDelete = true;
     }
     function backRoute() {
-      router.back();
+      router.push("/play-style-deck");
     }
     var getDataYgoProDeck = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.state.dataListChips;

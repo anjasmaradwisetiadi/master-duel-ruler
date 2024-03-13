@@ -86,7 +86,7 @@ class DeckBuilderController extends Controller
             DeckBuilders::create([
                 'title' => $request->title,
                 'slug' => $request->slug,
-                'engines' => json_encode(array($imagePost)),
+                'engines' => $imagePost,
                 'play_style_id'=> $resultsFindStyle->id,
                 'price' => json_encode(array(
                     'total_rarity_SR' => $price->total_rarity_SR,
@@ -112,8 +112,7 @@ class DeckBuilderController extends Controller
     public function show($id)
     {
         $findData = DeckBuilders::where('slug','=',$id)->firstOrFail(); 
-
-        $findData->engines = json_decode($findData->engines);
+        $findData->engines = $findData->engines;
         $findData->price = json_decode($findData->price);
         $findData->total_card = json_decode($findData->total_card);
         $findData->deck_builder = json_decode($findData->deck_builder);
@@ -129,7 +128,7 @@ class DeckBuilderController extends Controller
     public function edit($id)
     {
         $findData = DeckBuilders::where('slug','=',$id)->firstOrFail();
-        $findData->engines = json_decode($findData->engines);
+        $findData->engines = $findData->engines;
         $findData->price = json_decode($findData->price);
         $findData->total_card = json_decode($findData->total_card);
         $findData->deck_builder = json_decode($findData->deck_builder);
@@ -205,7 +204,7 @@ class DeckBuilderController extends Controller
             ->update([
                 'title' => $request->title,
                 // 'slug' => $request->slug,
-                'engines' => json_encode(array($imagePost)),
+                'engines' => $imagePost,
                 'play_style_id'=> $findDataPlayStyle->id,
                 'price' => json_encode(array(
                     'total_rarity_SR' => $price->total_rarity_SR,
@@ -246,7 +245,7 @@ class DeckBuilderController extends Controller
         $results = DeckBuilders::where('play_style_id', '=', $resultsFindStyle[0]->id)->latest()->get();
 
         for ($index=0; $index<count($results); $index++) {
-            $results[$index]->engines = json_decode($results[$index]->engines);
+            $results[$index]->engines = $results[$index]->engines;
             $results[$index]->price = json_decode($results[$index]->price);
             $results[$index]->total_card = json_decode($results[$index]->total_card);
             $results[$index]->deck_builder = json_decode($results[$index]->deck_builder);

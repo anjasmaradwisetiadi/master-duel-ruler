@@ -18,7 +18,7 @@ class CreateDeckBuildersTable extends Migration
             $table->foreignId('play_style_id');
             $table->string('title');
             $table->string('slug');
-            $table->json('engines')->nullable();
+            $table->string('engines')->nullable();
             $table->json('price')->nullable();
             $table->json('total_card')->nullable();
             $table->text('description');

@@ -24,9 +24,7 @@
                             </td>
                             <td>
                                 <div class="d-flex">
-                                    <span v-for="(engine, index) of deckBuilder.engines" :key="index">
-                                        <img class="image-engines mr-1" :src="engine" alt="card">
-                                    </span>
+                                    <img class="image-engines mr-1" :src="deckBuilder?.engines" alt="card">
                                 </div>
                             </td>
                             <td>

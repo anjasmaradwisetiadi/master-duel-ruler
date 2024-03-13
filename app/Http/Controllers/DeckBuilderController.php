@@ -66,9 +66,9 @@ class DeckBuilderController extends Controller
                 );
             }
             // this code add validation manual for image
-            if($request->engines_url === 'null' && !$request->file('image') && $request->engines === 'null'){
+            if($request->engines_url === 'null' && !$request->file('engines') && $request->engines === 'null'){
                 $validator->errors()->add(
-                    'engines', 'Tambakan image sekarang'
+                    'engines', 'Tambakan engines image sekarang'
                 );
             }
         });
@@ -78,9 +78,9 @@ class DeckBuilderController extends Controller
             $imagePost = '';
             if($request->engines_url !== 'null'){
                 $imagePost = $request->engines_url;
-            } else if($request->file('image')){
+            } else if($request->file('engines')){
                 $baseUrlImage =  env('APP_URL').'storage/';
-                $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+                $imagePost = $baseUrlImage . $request->file('engines')->store('post-image');
             }
             
             DeckBuilders::create([
@@ -175,9 +175,9 @@ class DeckBuilderController extends Controller
                 );
             }
             // this code add validation manual for image
-            if($request->engines_url === 'null' && !$request->file('image') && $request->engines === 'null'){
+            if($request->engines_url === 'null' && !$request->file('engines') && $request->engines === 'null'){
                 $validator->errors()->add(
-                    'engines', 'Tambakan image sekarang'
+                    'engines', 'Tambakan engines image sekarang'
                 );
             }
         });
@@ -189,9 +189,9 @@ class DeckBuilderController extends Controller
                 $imagePost = $request->engines_url;
                 $imagePosition = 'new';
                 $this->removeImageOld($request, $findData, $imagePosition);
-            } else if($request->file('image')){
+            } else if($request->file('engines')){
                 $baseUrlImage = env('APP_URL').'storage/';
-                $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+                $imagePost = $baseUrlImage . $request->file('engines')->store('post-image');
                 $imagePosition = 'new';
                 $this->removeImageOld($request, $findData, $imagePosition);
             } else if($request->engines !== 'null'){
@@ -230,10 +230,10 @@ class DeckBuilderController extends Controller
     public function destroy($id)
     {
         $findData = DeckBuilders::where('slug','=',$id)->firstOrFail();
-        $findPathImage = stristr($findData->image, env('APP_URL').'storage/');
+        $findPathImage = stristr($findData->engines, env('APP_URL').'storage/');
         if($findPathImage){
-            if($findData->image){
-                $stringManipulate = str_replace(env('APP_URL').'storage/','',$findData->image);
+            if($findData->engines){
+                $stringManipulate = str_replace(env('APP_URL').'storage/','',$findData->engines);
                 Storage::delete($stringManipulate);
             }
         } 
@@ -268,11 +268,11 @@ class DeckBuilderController extends Controller
                 'slug.unique'=> 'Slug unique',
                 'description.required'=> 'Isi description sekarang'
             ];
-            if ($request->file('image')){
+            if ($request->file('engines')){
                 $rules['engines'] = 'required|file|max:1024';
-                $messages['engines.required'] = 'Isi image sekarang';
+                $messages['engines.required'] = 'Isi image engines sekarang';
                 $messages['engines.file'] = 'Isi file tidak cocok';
-                $messages['engines.max'] = 'File size terlalu besar >= 1024';
+                $messages['engines.max'] = 'File size terlalu besar 1024 kb';
             }
     
         } else if($from === 'edited') {
@@ -286,11 +286,11 @@ class DeckBuilderController extends Controller
                 'title.max' => 'Isi title hanya maximal 160 kata',
                 'description.required'=> 'Isi description sekarang'
             ];
-            if ($request->file('image')){
+            if ($request->file('engines')){
                 $rules['engines'] = 'required|file|max:1024';
-                $messages['engines.required'] = 'Isi image sekarang';
+                $messages['engines.required'] = 'Isi image engines sekarang';
                 $messages['engines.file'] = 'Isi file tidak cocok';
-                $messages['engines.max'] = 'File size terlalu besar >= 1024';
+                $messages['engines.max'] = 'File size terlalu besar 1024 kb';
             }
     
         }
@@ -299,7 +299,7 @@ class DeckBuilderController extends Controller
     }
 
     public function removeImageOld($request, $findData, $imagePosition){
-        $imageReplace= str_replace(env('APP_URL').'storage/', "", $findData->image);
+        $imageReplace= str_replace(env('APP_URL').'storage/', "", $findData->engines);
         if($imagePosition === 'new'){
             Storage::delete($imageReplace);
         } 

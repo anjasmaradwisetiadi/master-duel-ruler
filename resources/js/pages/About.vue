@@ -8,19 +8,8 @@
         <div class="row justify-content-center">
             <div class="col text-justify">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac 
-                    placerat urna. Duis facilisis vulputate neque at dapibus. Nunc sit amet 
-                    congue nibh, consequat volutpat mauris. Praesent et semper diam, 
-                    quis laoreet tortor. Sed eget condimentum justo. Pellentesque viverra 
-                    faucibus leo sit amet euismod. In hac habitasse platea dictumst. 
-                    Suspendisse efficitur maximus ultricies. Pellentesque habitant morbi 
-                    tristique senectus et netus et malesuada fames ac turpis egestas. Duis 
-                    ac libero quam. Orci varius natoque penatibus et magnis dis parturient 
-                    montes, nascetur ridiculus mus. Nullam massa nisi, tempus vitae enim 
-                    eget, dignissim volutpat purus. Fusce quis erat sit amet nisi vestibulum 
-                    lacinia sit amet vitae justo. Pellentesque condimentum sapien nec 
-                    dolor sollicitudin consequat ac tincidunt orci. Nullam erat mi, ultricies 
-                    sit amet risus et, vehicula venenatis purus.
+                    Alasan kenapa saya membuat aplikasi ini adalah didasarkan ketika saya sedang memainkan game <b>Yu gi oh Master Duel</b> di PC. Memainkan game Master Duel ternyata cukup membuat sulit karena ada lebih dari 10.000 kartu yang memiliki effect berbeda di setiap text effect kartunya. Ketika saya memainkan gamenya ada beberapa kesulitan yang saya alami ketika memainkannya, dari ketidaktahuan ataupun lupa gimana memainkan deck yang saya miliki ataupun combo yang benar. Selain itu ketika di turn lawan saya juga tidak mengetahui gimana cara menggangu atau disrupt combo lawan dengan deck yang meraka mainkan karena banyaknya variasi deck.
+                    Karena saya programmer kenapa tidak membuat aplikasi yang bisa mengatasi masalah saya ? Membuat catatan gimana memainkan suatu deck tertentu agar menghasilkan endboard yang maximal ataupun membuat catatan gimana suatu deck dapat di distrupt agar tidak menghasilkan endboard yang sesuai lawan inginkan. Dengan begini saya memiliki contekan sendiri agar saya ngak sering2 kalah dalam memainkan game. Cukup solutip-kan wkwkw.....
                 </p>
             </div>
         </div>
@@ -31,27 +20,25 @@
         </div>
         <div class="row justify-content-center">
             <div class="col text-justify">
+                <p>Beberapa feature yang ada di aplikasi ini: </p>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac 
-                    placerat urna. Duis facilisis vulputate neque at dapibus. Nunc sit amet 
-                    congue nibh, consequat volutpat mauris. Praesent et semper diam, 
-                    quis laoreet tortor. Sed eget condimentum justo. Pellentesque viverra 
-                    faucibus leo sit amet euismod. In hac habitasse platea dictumst. 
-                    Suspendisse efficitur maximus ultricies. Pellentesque habitant morbi 
-                    tristique senectus et netus et malesuada fames ac turpis egestas. Duis 
-                    ac libero quam. Orci varius natoque penatibus et magnis dis parturient 
-                    montes, nascetur ridiculus mus. Nullam massa nisi, tempus vitae enim 
-                    eget, dignissim volutpat purus. Fusce quis erat sit amet nisi vestibulum 
-                    lacinia sit amet vitae justo. Pellentesque condimentum sapien nec 
-                    dolor sollicitudin consequat ac tincidunt orci. Nullam erat mi, ultricies 
-                    sit amet risus et, vehicula venenatis purus.
+                    <b>Tier List:</b> adalah feature digunakan untuk memberikan info pengguna tentang peta kekuatan deck yu gi oh sekarang ini dimana akan berubah seiring waktu.
+                </p>
+                <p>
+                    <b>Play Style Deck:</b>  adalah feature digunakan untuk memberikan catatan tentang gimana cara memainkan kartu yang kita miliki saat ini ataupun memberikan step combo yang benar ketika kita sedang bermain. di feature ini juga disertakan feature Builder Deck deck apa yang bisa kita mainkan berdasarkan catatan di play style deck.
+                </p>
+                <p>
+                    <b>Builder Deck:</b> adalah feature digunakan untuk membuat deck yang kita inginkan dan kita bisa memasukan deck yang kita buat ke game "Master Duel Yu gi oh" melalui pihak ke tiga <a href="https://www.db.yugioh-card.com/yugiohdb/?request_locale=en">db.yugioh-card.com</a> .
+                </p>
+                <p>
+                    <b>Counter Style Deck:</b> adalah feature digunakan untuk memberikan catatan tentang gimana cara menganggu combo lawan berdasarkan deck yang mereka pakai saat pertandingan, dengan harapan dapat mematikan permainan lawan.
                 </p>
             </div>
         </div>
         <div class="row justify-content-center mt-3">
             <div class="col text-center">
-                <h5>Thanks to </h5>
-                <div class="font-weight-bold mt-3" style="font-size: 20px;">
+                <h4>Thanks to </h4>
+                <div class="font-weight-bold mt-3" style="font-size: 16px;">
                     YGOPRODeck
                 </div>
             </div>

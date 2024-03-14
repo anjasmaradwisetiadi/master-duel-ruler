@@ -62,7 +62,7 @@ __webpack_require__.r(__webpack_exports__);
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterStateLoading;
     });
-    var totalCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+    var totalCardMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var valueCard = 0;
       if (deckCollects.value) {
         var _deckCollects$value;
@@ -71,6 +71,17 @@ __webpack_require__.r(__webpack_exports__);
         });
         listenChangeTotalCard(valueCard);
         return store.getters.getterTotalMainDeck;
+      }
+    });
+    var totalCardExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      var valueCard = 0;
+      if (deckCollects.value) {
+        var _deckCollects$value2;
+        (_deckCollects$value2 = deckCollects.value) === null || _deckCollects$value2 === void 0 || _deckCollects$value2.forEach(function (element) {
+          valueCard += element.value;
+        });
+        listenChangeTotalCard(valueCard);
+        return store.getters.getterTotalExtraDeck;
       }
     });
     function listenChangeTotalCard(valueCard) {
@@ -200,7 +211,8 @@ __webpack_require__.r(__webpack_exports__);
       valueSearch: valueSearch,
       imagePosition: imagePosition,
       loading: loading,
-      totalCard: totalCard,
+      totalCardMain: totalCardMain,
+      totalCardExtra: totalCardExtra,
       listenChangeTotalCard: listenChangeTotalCard,
       displayCard: displayCard,
       createdStyleCardHover: createdStyleCardHover,
@@ -296,7 +308,7 @@ __webpack_require__.r(__webpack_exports__);
       /******* it make be default search but when app ready to use */
       var payload = {
         mode: 'all-search',
-        name: 'inf',
+        name: 'hero',
         num: num.value,
         offset: offset.value
       };
@@ -572,13 +584,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return store.getters.getterDataEditDeckBuilder;
     });
     var dataDeckBuilderLength = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return store.getters.getterDataEditDeckBuilder.deck_builder;
+      return store.getters.getterDataEditDeckBuilder.deck_builder ? store.getters.getterDataEditDeckBuilder.deck_builder : [];
     });
     var deckCollectMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return store.getters.getterdataDeckBuilderMainDeck;
+      var _store$getters, _store$getters2;
+      return store !== null && store !== void 0 && (_store$getters = store.getters) !== null && _store$getters !== void 0 && _store$getters.getterdataDeckBuilderMainDeck ? store === null || store === void 0 || (_store$getters2 = store.getters) === null || _store$getters2 === void 0 ? void 0 : _store$getters2.getterdataDeckBuilderMainDeck : [];
     });
     var deckCollectExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
-      return store.getters.getterdataDeckBuilderExtraDeck;
+      var _store$getters3, _store$getters4;
+      return store !== null && store !== void 0 && (_store$getters3 = store.getters) !== null && _store$getters3 !== void 0 && _store$getters3.getterdataDeckBuilderExtraDeck ? store === null || store === void 0 || (_store$getters4 = store.getters) === null || _store$getters4 === void 0 ? void 0 : _store$getters4.getterdataDeckBuilderExtraDeck : [];
     });
     var getDataEditDeckBuilder = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var data = store.getters.getterDataEditDeckBuilder;
@@ -597,14 +611,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              console.log("newValue getDataEditDeckBuilder ");
-              console.log(newValue);
               state.title = newValue.title;
               state.slug = newValue.slug;
               state.description = newValue.description;
               state.preview = newValue.engines;
               state.oldSlug = newValue.slug;
-            case 7:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -829,7 +841,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         // service for submit edit data deck builder
         // store.dispatch('editCounterStyle', data);
         _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_7__.builderDeckService.editBuilderDeck(data);
-        state.editOrNot = false;
+        if (responseGeneral.status) {
+          state.editOrNot = false;
+        }
       }
     }
     function createPayloadDeck(dataMain, dataExtra) {
@@ -862,7 +876,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     function confirm($event) {
       store.state.responseGeneral = {};
       if ($event) {
-        router.push("/play-style-deck/".concat(paramsUrlSlugPlayStyle.value));
+        router.push("/builder-deck/".concat(paramsUrlSlugPlayStyle.value, "/").concat(paramsUrlSlug.value));
       }
     }
     function createPayload() {
@@ -1018,7 +1032,6 @@ var _hoisted_11 = {
   "class": "background-image"
 };
 var _hoisted_12 = {
-  key: 0,
   "class": "d-flex flex-wrap scroller-cards-collect",
   id: "scrollbar1"
 };
@@ -1171,9 +1184,17 @@ var _hoisted_57 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_58 = [_hoisted_57];
 var _hoisted_59 = {
   key: 2,
-  "class": "d-flex justify-content-center text-center width-loading"
+  "class": "d-flex justify-content-center scroller-cards-collect"
 };
 var _hoisted_60 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
+});
+var _hoisted_61 = [_hoisted_60];
+var _hoisted_62 = {
+  key: 3,
+  "class": "d-flex justify-content-center text-center width-loading"
+};
+var _hoisted_63 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "spinner-border text-light",
     role: "status"
@@ -1181,30 +1202,32 @@ var _hoisted_60 = /*#__PURE__*/_withScopeId(function () {
     "class": "sr-only"
   }, "Loading...")], -1 /* HOISTED */);
 });
-var _hoisted_61 = [_hoisted_60];
-var _hoisted_62 = {
-  key: 3,
-  "class": "d-flex justify-content-center"
-};
-var _hoisted_63 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
-});
 var _hoisted_64 = [_hoisted_63];
 var _hoisted_65 = {
+  key: 4,
+  "class": "d-flex justify-content-center"
+};
+var _hoisted_66 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
+});
+var _hoisted_67 = [_hoisted_66];
+var _hoisted_68 = {
   "class": "row"
 };
-var _hoisted_66 = {
+var _hoisted_69 = {
   "class": "col"
 };
-var _hoisted_67 = {
+var _hoisted_70 = {
   key: 0,
   "class": "invalid-text"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$props$dataDeckBuild3, _$props$dataDeckBuild4, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5, _$setup$props6;
+  var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$props$dataDeckBuild3, _$props$dataDeckBuild4, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5, _$setup$deckCollects, _$setup$props6, _$setup$deckCollects2, _$props$dataDeckBuild5, _$setup$props7;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && (_$props$dataDeckBuild = _$props$dataDeckBuild.price) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("********** this code comment because rarity can not implement  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"d-flex price-wrap\">\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-ur-rarity.webp\"\r\n                  alt=\"cp-ur-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_UR}}\r\n                </span>\r\n              </div>\r\n              <div class=\"mx-2\">+</div>\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-sr-rarity.webp\"\r\n                  alt=\"cp-sr-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_SR}}\r\n                </span>\r\n              </div>\r\n            </div> ")], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && (_$props$dataDeckBuild2 = _$props$dataDeckBuild2.price) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? (_$props$dataDeckBuild3 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild3 === void 0 || (_$props$dataDeckBuild3 = _$props$dataDeckBuild3.total_card) === null || _$props$dataDeckBuild3 === void 0 ? void 0 : _$props$dataDeckBuild3.total_card_main_deck : (_$props$dataDeckBuild4 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild4 === void 0 || (_$props$dataDeckBuild4 = _$props$dataDeckBuild4.total_card) === null || _$props$dataDeckBuild4 === void 0 ? void 0 : _$props$dataDeckBuild4.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalCard), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && (_$setup$props3 = _$setup$props3.dataDeckBuilderLength) !== null && _$setup$props3 !== void 0 && _$setup$props3.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props4 = $setup.props) !== null && _$setup$props4 !== void 0 && _$setup$props4.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("********** this code comment because rarity can not implement  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"d-flex price-wrap\">\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-ur-rarity.webp\"\r\n                  alt=\"cp-ur-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_UR}}\r\n                </span>\r\n              </div>\r\n              <div class=\"mx-2\">+</div>\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-sr-rarity.webp\"\r\n                  alt=\"cp-sr-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_SR}}\r\n                </span>\r\n              </div>\r\n            </div> ")], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && (_$props$dataDeckBuild2 = _$props$dataDeckBuild2.price) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? (_$props$dataDeckBuild3 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild3 === void 0 || (_$props$dataDeckBuild3 = _$props$dataDeckBuild3.total_card) === null || _$props$dataDeckBuild3 === void 0 ? void 0 : _$props$dataDeckBuild3.total_card_main_deck : (_$props$dataDeckBuild4 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild4 === void 0 || (_$props$dataDeckBuild4 = _$props$dataDeckBuild4.total_card) === null || _$props$dataDeckBuild4 === void 0 ? void 0 : _$props$dataDeckBuild4.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? $setup.totalCardMain : $setup.totalCardExtra), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && (_$setup$props3 = _$setup$props3.dataDeckBuilderLength) !== null && _$setup$props3 !== void 0 && _$setup$props3.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, [(_$setup$props4 = $setup.props) !== null && _$setup$props4 !== void 0 && _$setup$props4.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.mainDeckCards, function (urlImage, index) {
     var _urlImage$card_images, _urlImage$card_images2, _urlImage$card_sets$, _urlImage$card_images3, _urlImage$card_sets$2;
@@ -1242,7 +1265,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       src: urlImage !== null && urlImage !== void 0 && urlImage.card_images ? urlImage === null || urlImage === void 0 || (_urlImage$card_images3 = urlImage.card_images[0]) === null || _urlImage$card_images3 === void 0 ? void 0 : _urlImage$card_images3.image_url_small : '',
       alt: urlImage === null || urlImage === void 0 ? void 0 : urlImage.name
     }, null, 8 /* PROPS */, _hoisted_39)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage === null || urlImage === void 0 ? void 0 : urlImage.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster(urlImage === null || urlImage === void 0 ? void 0 : urlImage.frameType)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage === null || urlImage === void 0 ? void 0 : urlImage.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML(urlImage === null || urlImage === void 0 ? void 0 : urlImage.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage !== null && urlImage !== void 0 && urlImage.card_sets ? urlImage === null || urlImage === void 0 || (_urlImage$card_sets$2 = urlImage.card_sets[0]) === null || _urlImage$card_sets$2 === void 0 ? void 0 : _urlImage$card_sets$2.set_name : ''), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 512 /* NEED_PATCH */)], 40 /* PROPS, NEED_HYDRATION */, _hoisted_13)], 2 /* CLASS */);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it just use make deck builder "), !((_$setup$props5 = $setup.props) !== null && _$setup$props5 !== void 0 && _$setup$props5.displayHover) && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it just use make deck builder "), !((_$setup$props5 = $setup.props) !== null && _$setup$props5 !== void 0 && _$setup$props5.displayHover) && !$setup.loading && (_$setup$deckCollects = $setup.deckCollects) !== null && _$setup$deckCollects !== void 0 && _$setup$deckCollects.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.deckCollects, function (card, index) {
     var _card$card_images$;
@@ -1263,7 +1286,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $setup.removeCard(card);
       }
     }, [].concat(_hoisted_58), 8 /* PROPS */, _hoisted_56)])])]);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !$props.dataDeckBuilderLength.length && (_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && ($setup.totalCard < 40 || $setup.totalCard >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_67, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover) && !$setup.loading && !((_$setup$deckCollects2 = $setup.deckCollects) !== null && _$setup$deckCollects2 !== void 0 && _$setup$deckCollects2.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !((_$props$dataDeckBuild5 = $props.dataDeckBuilderLength) !== null && _$props$dataDeckBuild5 !== void 0 && _$props$dataDeckBuild5.length) && (_$setup$props7 = $setup.props) !== null && _$setup$props7 !== void 0 && _$setup$props7.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_65, [].concat(_hoisted_67))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && (_ctx.totalCard < 40 || _ctx.totalCard >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_70, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),

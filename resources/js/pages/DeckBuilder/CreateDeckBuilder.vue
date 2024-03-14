@@ -187,16 +187,16 @@ const dataDeckBuilder = computed(()=>{
 })
 
 const dataDeckBuilderLength = computed(()=>{
-    return store.getters.getterDataEditDeckBuilder.deck_builder;
+    return store.getters.getterDataEditDeckBuilder.deck_builder ? store.getters.getterDataEditDeckBuilder.deck_builder : [];
 })
   
 
 const deckCollectMain = computed(()=>{
-    return store.getters.getterdataDeckBuilderMainDeck;
+    return store?.getters?.getterdataDeckBuilderMainDeck ? store?.getters?.getterdataDeckBuilderMainDeck : [];
 })
 
 const deckCollectExtra = computed(()=>{
-    return store.getters.getterdataDeckBuilderExtraDeck;
+    return store?.getters?.getterdataDeckBuilderExtraDeck ? store?.getters?.getterdataDeckBuilderExtraDeck : [];
 })
 
 const getDataEditDeckBuilder = computed(()=>{
@@ -215,8 +215,6 @@ watch(deckCollectExtra, (newValue, oldValue)=>{
 })
 
 watch( getDataEditDeckBuilder,async (newValue, oldValue)=>{
-    console.log("newValue getDataEditDeckBuilder ")
-    console.log(newValue)
     state.title = newValue.title;
     state.slug = newValue.slug;
     state.description = newValue.description;
@@ -463,7 +461,9 @@ function submit(){
         // service for submit edit data deck builder
         // store.dispatch('editCounterStyle', data);
         builderDeckService.editBuilderDeck(data);
-        state.editOrNot = false
+        if(responseGeneral.status){
+            state.editOrNot = false;   
+        }
     }
 }
 
@@ -500,7 +500,7 @@ function createPayloadDeck(dataMain, dataExtra){
 function confirm($event){
     store.state.responseGeneral = {};
     if($event){
-        router.push(`/play-style-deck/${paramsUrlSlugPlayStyle.value}`)
+        router.push(`/builder-deck/${paramsUrlSlugPlayStyle.value}/${paramsUrlSlug.value}`)
     }
 }
 

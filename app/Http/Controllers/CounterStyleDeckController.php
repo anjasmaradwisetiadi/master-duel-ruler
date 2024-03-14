@@ -228,7 +228,7 @@ class CounterStyleDeckController extends Controller
                 $rules['image'] = 'required|file|max:1024';
                 $messages['image.required'] = 'Isi image sekarang';
                 $messages['image.file'] = 'Isi file tidak cocok';
-                $messages['image.max'] = 'File size terlalu besar >= 1024';
+                $messages['image.max'] = 'File size terlalu besar 1024 kb';
             }
     
         } else if($from === 'edited') {
@@ -246,7 +246,7 @@ class CounterStyleDeckController extends Controller
                 $rules['image'] = 'required|file|max:1024';
                 $messages['image.required'] = 'Isi image sekarang';
                 $messages['image.file'] = 'Isi file tidak cocok';
-                $messages['image.max'] = 'File size terlalu besar >= 1024';
+                $messages['image.max'] = 'File size terlalu besar 1024 kb';
             }
     
         }

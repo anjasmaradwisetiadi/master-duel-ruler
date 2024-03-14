@@ -66,10 +66,13 @@
                 <small v-if="!responseGeneral?.status" class="form-text invalid-feedback-custom">{{responseGeneral?.message?.information ? responseGeneral?.message?.information[0] : ''}}</small>
             </div>
             <div class="form-group">
-                <label for="chips">Chips File</label>
+                <label for="chips">Chips Card</label>
                 <div id="chips" aria-describedby="chips">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-secondary" @click="generateChips()">Generate Chips File</button>
+                        <button type="button" class="btn btn-secondary" @click="generateChips()">Generate Chips Card</button>
+                    </div>
+                    <div>
+                        <small>Note: untuk menghasilkan chips card perlu menambahkan text format "your_card" di column text Information, dan pastikan kartu yang ditulis emang benar namanya</small>
                     </div>
                     <div v-if="listChips.length" class="row">
                         <div class="col">
@@ -333,7 +336,9 @@ function submit(){
             form:formData
         } 
         playStyleDeckService.editPlayStyle(data);
-        state.editOrNot = false
+        if(responseGeneral.status){
+            state.editOrNot = false;   
+        }
     }
 }
 

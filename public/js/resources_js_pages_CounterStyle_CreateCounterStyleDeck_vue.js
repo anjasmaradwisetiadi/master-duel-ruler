@@ -448,7 +448,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           form: formData
         };
         store.dispatch('editCounterStyle', data);
-        state.editOrNot = false;
+        if (responseGeneral.status) {
+          state.editOrNot = false;
+        }
       }
     }
     function confirm($event) {
@@ -870,7 +872,7 @@ var _hoisted_39 = {
   "class": "d-flex justify-content-center"
 };
 var _hoisted_40 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record agcduciicagcda", -1 /* HOISTED */);
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
 });
 var _hoisted_41 = [_hoisted_40];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -1020,7 +1022,7 @@ var _hoisted_28 = {
 var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "chips"
-  }, "Chips File", -1 /* HOISTED */);
+  }, "Chips Card", -1 /* HOISTED */);
 });
 var _hoisted_30 = {
   id: "chips",
@@ -1029,15 +1031,18 @@ var _hoisted_30 = {
 var _hoisted_31 = {
   "class": "mb-1"
 };
-var _hoisted_32 = {
+var _hoisted_32 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "Note: untuk menghasilkan chips card perlu menambahkan text format \"your_card\" di column text Information, dan pastikan kartu yang ditulis emang benar namanya")], -1 /* HOISTED */);
+});
+var _hoisted_33 = {
   key: 0,
   "class": "row"
 };
-var _hoisted_33 = {
+var _hoisted_34 = {
   "class": "col"
 };
-var _hoisted_34 = ["onClick"];
-var _hoisted_35 = {
+var _hoisted_35 = ["onClick"];
+var _hoisted_36 = {
   key: 1,
   "class": "form-group mb-2"
 };
@@ -1098,7 +1103,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[6] || (_cache[6] = function ($event) {
       return $setup.generateChips();
     })
-  }, "Generate Chips File")]), $setup.listChips.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.listChips, function (chip, index) {
+  }, "Generate Chips Card")]), _hoisted_32, $setup.listChips.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.listChips, function (chip, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "chip mr-2 mt-2",
       key: index
@@ -1107,8 +1112,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $setup.removeChip(index);
       }
-    }, "×", 8 /* PROPS */, _hoisted_34)]);
-  }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (_$setup$listChips = $setup.listChips) !== null && _$setup$listChips !== void 0 && _$setup$listChips.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" list image previews "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListImageHover"], {
+    }, "×", 8 /* PROPS */, _hoisted_35)]);
+  }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (_$setup$listChips = $setup.listChips) !== null && _$setup$listChips !== void 0 && _$setup$listChips.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" list image previews "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ListImageHover"], {
     getDataYgoProDeck: $setup.getDataYgoProDeck,
     onDataModalCard: $setup.dataModalCard
   }, null, 8 /* PROPS */, ["getDataYgoProDeck"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {

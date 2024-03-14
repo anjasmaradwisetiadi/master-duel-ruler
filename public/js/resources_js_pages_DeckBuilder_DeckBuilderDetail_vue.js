@@ -62,7 +62,7 @@ __webpack_require__.r(__webpack_exports__);
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterStateLoading;
     });
-    var totalCard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+    var totalCardMain = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var valueCard = 0;
       if (deckCollects.value) {
         var _deckCollects$value;
@@ -71,6 +71,17 @@ __webpack_require__.r(__webpack_exports__);
         });
         listenChangeTotalCard(valueCard);
         return store.getters.getterTotalMainDeck;
+      }
+    });
+    var totalCardExtra = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
+      var valueCard = 0;
+      if (deckCollects.value) {
+        var _deckCollects$value2;
+        (_deckCollects$value2 = deckCollects.value) === null || _deckCollects$value2 === void 0 || _deckCollects$value2.forEach(function (element) {
+          valueCard += element.value;
+        });
+        listenChangeTotalCard(valueCard);
+        return store.getters.getterTotalExtraDeck;
       }
     });
     function listenChangeTotalCard(valueCard) {
@@ -200,7 +211,8 @@ __webpack_require__.r(__webpack_exports__);
       valueSearch: valueSearch,
       imagePosition: imagePosition,
       loading: loading,
-      totalCard: totalCard,
+      totalCardMain: totalCardMain,
+      totalCardExtra: totalCardExtra,
       listenChangeTotalCard: listenChangeTotalCard,
       displayCard: displayCard,
       createdStyleCardHover: createdStyleCardHover,
@@ -275,6 +287,10 @@ __webpack_require__.r(__webpack_exports__);
     var confirmDelete = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var paramsUrlSlugPlayStyle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var paramsUrlSlug = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var monsterCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var spellCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var trapCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+    var extraDeckCollection = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       paramsUrlSlug: paramsUrlSlug,
       paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle,
@@ -319,8 +335,84 @@ __webpack_require__.r(__webpack_exports__);
       }
       state.confirmDelete = false;
     }
+    function displayCard($event, value, condition) {
+      var mainDeck = document.querySelector('.main-deck-style');
+      var extraDeck = document.querySelector('.extra-deck-style');
+      if (condition && value === 'main-deck') {
+        mainDeck.style.zIndex = '2';
+        extraDeck.style.zIndex = '1';
+      } else if (condition && value === 'extra-deck') {
+        mainDeck.style.zIndex = '1';
+        extraDeck.style.zIndex = '2';
+      }
+    }
+    ;
+    function generateDeckBuilder() {
+      var _dataDeckBuilder$valu, _dataDeckBuilder$valu2, _dataDeckBuilder$valu3, _dataDeckBuilder$valu4, _dataDeckBuilder$valu5, _dataDeckBuilder$valu6, _dataDeckBuilder$valu7;
+      generateSpellTrapMonsterExtraDeck(mainDeckCards.value, extraDeckCards.value);
+      var payload = {
+        title: dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu = dataDeckBuilder.value) === null || _dataDeckBuilder$valu === void 0 ? void 0 : _dataDeckBuilder$valu.title,
+        total_card: {
+          "total_card_main_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu2 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu2 === void 0 || (_dataDeckBuilder$valu2 = _dataDeckBuilder$valu2.total_card) === null || _dataDeckBuilder$valu2 === void 0 ? void 0 : _dataDeckBuilder$valu2.total_card_main_deck,
+          "total_card_extra_deck": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu3 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu3 === void 0 || (_dataDeckBuilder$valu3 = _dataDeckBuilder$valu3.total_card) === null || _dataDeckBuilder$valu3 === void 0 ? void 0 : _dataDeckBuilder$valu3.total_card_extra_deck
+        },
+        price: {
+          "total_rarity_SR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu4 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu4 === void 0 || (_dataDeckBuilder$valu4 = _dataDeckBuilder$valu4.price) === null || _dataDeckBuilder$valu4 === void 0 ? void 0 : _dataDeckBuilder$valu4.total_rarity_SR,
+          "total_rarity_UR": dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu5 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu5 === void 0 || (_dataDeckBuilder$valu5 = _dataDeckBuilder$valu5.price) === null || _dataDeckBuilder$valu5 === void 0 ? void 0 : _dataDeckBuilder$valu5.total_rarity_UR
+        },
+        update: dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu6 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu6 === void 0 ? void 0 : _dataDeckBuilder$valu6.updated_at,
+        description: dataDeckBuilder === null || dataDeckBuilder === void 0 || (_dataDeckBuilder$valu7 = dataDeckBuilder.value) === null || _dataDeckBuilder$valu7 === void 0 ? void 0 : _dataDeckBuilder$valu7.description,
+        monster_card: monsterCollection.value,
+        spell_card: spellCollection.value,
+        trap_card: trapCollection.value,
+        extra_deck: extraDeckCollection.value
+      };
+      var contentType = 'text/plain';
+      var fileName = "".concat(dataDeckBuilder === null || dataDeckBuilder === void 0 ? void 0 : dataDeckBuilder.value.title, "_deck");
+      var a = document.createElement("a");
+      var file = new Blob([JSON.stringify(payload)], {
+        type: contentType
+      });
+      a.href = URL.createObjectURL(file);
+      a.download = fileName;
+      a.click();
+    }
+    function generateSpellTrapMonsterExtraDeck(mainDeckCards, extraDeckCards) {
+      var monsterDeckSeperate,
+        spellDeckSeperate,
+        trapDeckSeperate = [];
+      if (extraDeckCards !== null && extraDeckCards !== void 0 && extraDeckCards.length) {
+        extraDeckCards.forEach(function (element, index) {
+          extraDeckCollection.value.push("document.getElementById('exnm_".concat(index, "').value = ").concat(element.name));
+          extraDeckCollection.value.push("document.getElementById('exnum_".concat(index, "').value = ").concat(element.value));
+        });
+      }
+      if (mainDeckCards !== null && mainDeckCards !== void 0 && mainDeckCards.length) {
+        monsterDeckSeperate = mainDeckCards.filter(function (card) {
+          return card.frameType !== 'trap' && card.frameType !== 'spell';
+        });
+        spellDeckSeperate = mainDeckCards.filter(function (card) {
+          return card.frameType === 'spell';
+        });
+        trapDeckSeperate = mainDeckCards.filter(function (card) {
+          return card.frameType === 'trap';
+        });
+        monsterDeckSeperate.forEach(function (element, index) {
+          monsterCollection.value.push("document.getElementById('monm_".concat(index, "').value = ").concat(element.name));
+          monsterCollection.value.push("document.getElementById('monum_".concat(index, "').value = ").concat(element.value));
+        });
+        spellDeckSeperate.forEach(function (element, index) {
+          spellCollection.value.push("document.getElementById('spnm_".concat(index, "').value = ").concat(element.name));
+          spellCollection.value.push("document.getElementById('spnum_".concat(index, "').value = ").concat(element.value));
+        });
+        trapDeckSeperate.forEach(function (element, index) {
+          trapCollection.value.push("document.getElementById('trnm_".concat(index, "').value = ").concat(element.name));
+          trapCollection.value.push("document.getElementById('trnum_".concat(index, "').value = ").concat(element.value));
+        });
+      }
+    }
     function backRoute() {
-      router.back();
+      router.push("/play-style-deck/".concat(paramsUrlSlugPlayStyle.value));
     }
     var __returned__ = {
       dayjs: dayjs,
@@ -333,6 +425,10 @@ __webpack_require__.r(__webpack_exports__);
       confirmDelete: confirmDelete,
       paramsUrlSlugPlayStyle: paramsUrlSlugPlayStyle,
       paramsUrlSlug: paramsUrlSlug,
+      monsterCollection: monsterCollection,
+      spellCollection: spellCollection,
+      trapCollection: trapCollection,
+      extraDeckCollection: extraDeckCollection,
       state: state,
       dataDeckBuilder: dataDeckBuilder,
       dataDeckBuilderLength: dataDeckBuilderLength,
@@ -342,6 +438,9 @@ __webpack_require__.r(__webpack_exports__);
       editDeckBuilder: editDeckBuilder,
       deleteDeckBuilder: deleteDeckBuilder,
       methodConfirmDelete: methodConfirmDelete,
+      displayCard: displayCard,
+      generateDeckBuilder: generateDeckBuilder,
+      generateSpellTrapMonsterExtraDeck: generateSpellTrapMonsterExtraDeck,
       backRoute: backRoute,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
@@ -439,7 +538,6 @@ var _hoisted_11 = {
   "class": "background-image"
 };
 var _hoisted_12 = {
-  key: 0,
   "class": "d-flex flex-wrap scroller-cards-collect",
   id: "scrollbar1"
 };
@@ -592,9 +690,17 @@ var _hoisted_57 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_58 = [_hoisted_57];
 var _hoisted_59 = {
   key: 2,
-  "class": "d-flex justify-content-center text-center width-loading"
+  "class": "d-flex justify-content-center scroller-cards-collect"
 };
 var _hoisted_60 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
+});
+var _hoisted_61 = [_hoisted_60];
+var _hoisted_62 = {
+  key: 3,
+  "class": "d-flex justify-content-center text-center width-loading"
+};
+var _hoisted_63 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "spinner-border text-light",
     role: "status"
@@ -602,30 +708,32 @@ var _hoisted_60 = /*#__PURE__*/_withScopeId(function () {
     "class": "sr-only"
   }, "Loading...")], -1 /* HOISTED */);
 });
-var _hoisted_61 = [_hoisted_60];
-var _hoisted_62 = {
-  key: 3,
-  "class": "d-flex justify-content-center"
-};
-var _hoisted_63 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
-});
 var _hoisted_64 = [_hoisted_63];
 var _hoisted_65 = {
+  key: 4,
+  "class": "d-flex justify-content-center"
+};
+var _hoisted_66 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
+});
+var _hoisted_67 = [_hoisted_66];
+var _hoisted_68 = {
   "class": "row"
 };
-var _hoisted_66 = {
+var _hoisted_69 = {
   "class": "col"
 };
-var _hoisted_67 = {
+var _hoisted_70 = {
   key: 0,
   "class": "invalid-text"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$props$dataDeckBuild3, _$props$dataDeckBuild4, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5, _$setup$props6;
+  var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$props$dataDeckBuild3, _$props$dataDeckBuild4, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5, _$setup$deckCollects, _$setup$props6, _$setup$deckCollects2, _$props$dataDeckBuild5, _$setup$props7;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && (_$props$dataDeckBuild = _$props$dataDeckBuild.price) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("********** this code comment because rarity can not implement  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"d-flex price-wrap\">\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-ur-rarity.webp\"\r\n                  alt=\"cp-ur-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_UR}}\r\n                </span>\r\n              </div>\r\n              <div class=\"mx-2\">+</div>\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-sr-rarity.webp\"\r\n                  alt=\"cp-sr-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_SR}}\r\n                </span>\r\n              </div>\r\n            </div> ")], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && (_$props$dataDeckBuild2 = _$props$dataDeckBuild2.price) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? (_$props$dataDeckBuild3 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild3 === void 0 || (_$props$dataDeckBuild3 = _$props$dataDeckBuild3.total_card) === null || _$props$dataDeckBuild3 === void 0 ? void 0 : _$props$dataDeckBuild3.total_card_main_deck : (_$props$dataDeckBuild4 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild4 === void 0 || (_$props$dataDeckBuild4 = _$props$dataDeckBuild4.total_card) === null || _$props$dataDeckBuild4 === void 0 ? void 0 : _$props$dataDeckBuild4.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.totalCard), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && (_$setup$props3 = _$setup$props3.dataDeckBuilderLength) !== null && _$setup$props3 !== void 0 && _$setup$props3.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props4 = $setup.props) !== null && _$setup$props4 !== void 0 && _$setup$props4.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("********** this code comment because rarity can not implement  "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"d-flex price-wrap\">\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-ur-rarity.webp\"\r\n                  alt=\"cp-ur-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_UR}}\r\n                </span>\r\n              </div>\r\n              <div class=\"mx-2\">+</div>\r\n              <div class=\"d-flex align-items-center\">\r\n                <img\r\n                  class=\"image-rarity\"\r\n                  src=\"../../assets/image/cp-sr-rarity.webp\"\r\n                  alt=\"cp-sr-rarity\"\r\n                />\r\n                <span class=\"ml-2\">\r\n                  {{dataDeckBuilder.price.total_rarity_SR}}\r\n                </span>\r\n              </div>\r\n            </div> ")], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$props$dataDeckBuild2 = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild2 !== void 0 && (_$props$dataDeckBuild2 = _$props$dataDeckBuild2.price) !== null && _$props$dataDeckBuild2 !== void 0 && _$props$dataDeckBuild2.total_rarity_UR) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(_$setup$props = $setup.props) !== null && _$setup$props !== void 0 && _$setup$props.displayHover ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? (_$props$dataDeckBuild3 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild3 === void 0 || (_$props$dataDeckBuild3 = _$props$dataDeckBuild3.total_card) === null || _$props$dataDeckBuild3 === void 0 ? void 0 : _$props$dataDeckBuild3.total_card_main_deck : (_$props$dataDeckBuild4 = $props.dataDeckBuilder) === null || _$props$dataDeckBuild4 === void 0 || (_$props$dataDeckBuild4 = _$props$dataDeckBuild4.total_card) === null || _$props$dataDeckBuild4 === void 0 ? void 0 : _$props$dataDeckBuild4.total_card_extra_deck), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props2 = $setup.props) !== null && _$setup$props2 !== void 0 && _$setup$props2.displayHover) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? $setup.totalCardMain : $setup.totalCardExtra), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cards ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" column list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it need hover for display detail information "), (_$setup$props3 = $setup.props) !== null && _$setup$props3 !== void 0 && (_$setup$props3 = _$setup$props3.dataDeckBuilderLength) !== null && _$setup$props3 !== void 0 && _$setup$props3.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    key: 0
+  }, [(_$setup$props4 = $setup.props) !== null && _$setup$props4 !== void 0 && _$setup$props4.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.mainDeckCards, function (urlImage, index) {
     var _urlImage$card_images, _urlImage$card_images2, _urlImage$card_sets$, _urlImage$card_images3, _urlImage$card_sets$2;
@@ -663,7 +771,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       src: urlImage !== null && urlImage !== void 0 && urlImage.card_images ? urlImage === null || urlImage === void 0 || (_urlImage$card_images3 = urlImage.card_images[0]) === null || _urlImage$card_images3 === void 0 ? void 0 : _urlImage$card_images3.image_url_small : '',
       alt: urlImage === null || urlImage === void 0 ? void 0 : urlImage.name
     }, null, 8 /* PROPS */, _hoisted_39)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage === null || urlImage === void 0 ? void 0 : urlImage.name), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster(urlImage === null || urlImage === void 0 ? void 0 : urlImage.frameType)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage === null || urlImage === void 0 ? void 0 : urlImage.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML(urlImage === null || urlImage === void 0 ? void 0 : urlImage.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(urlImage !== null && urlImage !== void 0 && urlImage.card_sets ? urlImage === null || urlImage === void 0 || (_urlImage$card_sets$2 = urlImage.card_sets[0]) === null || _urlImage$card_sets$2 === void 0 ? void 0 : _urlImage$card_sets$2.set_name : ''), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 512 /* NEED_PATCH */)], 40 /* PROPS, NEED_HYDRATION */, _hoisted_13)], 2 /* CLASS */);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it just use make deck builder "), !((_$setup$props5 = $setup.props) !== null && _$setup$props5 !== void 0 && _$setup$props5.displayHover) && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" when it just use make deck builder "), !((_$setup$props5 = $setup.props) !== null && _$setup$props5 !== void 0 && _$setup$props5.displayHover) && !$setup.loading && (_$setup$deckCollects = $setup.deckCollects) !== null && _$setup$deckCollects !== void 0 && _$setup$deckCollects.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 1
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.deckCollects, function (card, index) {
     var _card$card_images$;
@@ -684,7 +792,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $setup.removeCard(card);
       }
     }, [].concat(_hoisted_58), 8 /* PROPS */, _hoisted_56)])])]);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !$props.dataDeckBuilderLength.length && (_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && ($setup.totalCard < 40 || $setup.totalCard >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_67, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover) && !$setup.loading && !((_$setup$deckCollects2 = $setup.deckCollects) !== null && _$setup$deckCollects2 !== void 0 && _$setup$deckCollects2.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !((_$props$dataDeckBuild5 = $props.dataDeckBuilderLength) !== null && _$props$dataDeckBuild5 !== void 0 && _$props$dataDeckBuild5.length) && (_$setup$props7 = $setup.props) !== null && _$setup$props7 !== void 0 && _$setup$props7.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_65, [].concat(_hoisted_67))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && (_ctx.totalCard < 40 || _ctx.totalCard >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_70, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),
@@ -762,129 +870,123 @@ var _hoisted_17 = {
   "class": "col-6"
 };
 var _hoisted_18 = {
-  "class": "mt-2 main-deck-style"
-};
-var _hoisted_19 = {
-  "class": "mt-4 extra-deck-style"
-};
-var _hoisted_20 = {
   "class": "col-6"
 };
-var _hoisted_21 = {
+var _hoisted_19 = {
   key: 0,
   "class": "content-section"
 };
-var _hoisted_22 = {
+var _hoisted_20 = {
   key: 0,
   "class": "card-monster-preview wrap-card-currently"
 };
-var _hoisted_23 = {
+var _hoisted_21 = {
   "class": "d-flex justify-content-center"
 };
-var _hoisted_24 = {
+var _hoisted_22 = {
   "class": "mb-3"
 };
-var _hoisted_25 = {
+var _hoisted_23 = {
   "class": "name-card"
 };
-var _hoisted_26 = {
+var _hoisted_24 = {
   "class": "d-flex"
 };
-var _hoisted_27 = {
+var _hoisted_25 = {
   "class": "image-section"
 };
-var _hoisted_28 = ["src", "alt"];
-var _hoisted_29 = {
+var _hoisted_26 = ["src", "alt"];
+var _hoisted_27 = {
   "class": "information-section"
 };
-var _hoisted_30 = {
+var _hoisted_28 = {
   "class": "row mb-2"
 };
-var _hoisted_31 = {
+var _hoisted_29 = {
   "class": "col-7 mr-auto"
 };
-var _hoisted_32 = {
+var _hoisted_30 = {
   "class": "mr-1"
 };
-var _hoisted_33 = {
+var _hoisted_31 = {
   "class": "col-5 d-flex justify-content-end"
 };
-var _hoisted_34 = {
+var _hoisted_32 = {
   key: 0,
   "class": "wrap-star"
 };
-var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_33 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: _assets_image_rank_icon_webp__WEBPACK_IMPORTED_MODULE_1__["default"],
     alt: "rank"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_36 = {
+var _hoisted_34 = {
   key: 1,
   "class": "wrap-star"
 };
-var _hoisted_37 = {
+var _hoisted_35 = {
   key: 2,
   "class": "wrap-star"
 };
-var _hoisted_38 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_36 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: _assets_image_star_icon_webp__WEBPACK_IMPORTED_MODULE_2__["default"],
     alt: "star"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_39 = {
+var _hoisted_37 = {
   "class": "mb-2"
 };
-var _hoisted_40 = {
+var _hoisted_38 = {
   "class": "mb-2 description-card"
 };
-var _hoisted_41 = {
+var _hoisted_39 = {
   "class": "mb-1"
 };
-var _hoisted_42 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_40 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "ATK/", -1 /* HOISTED */);
 });
-var _hoisted_43 = ["innerHTML"];
-var _hoisted_44 = {
+var _hoisted_41 = ["innerHTML"];
+var _hoisted_42 = {
   "class": "released-card mb-2"
 };
-var _hoisted_45 = {
+var _hoisted_43 = {
   key: 1,
   "class": "card-trap-spell-preview wrap-card-currently"
 };
-var _hoisted_46 = {
+var _hoisted_44 = {
   "class": "d-flex justify-content-center"
 };
-var _hoisted_47 = {
+var _hoisted_45 = {
   "class": "mb-3"
 };
-var _hoisted_48 = {
+var _hoisted_46 = {
   "class": "name-card"
 };
-var _hoisted_49 = {
+var _hoisted_47 = {
   "class": "d-flex"
 };
-var _hoisted_50 = {
+var _hoisted_48 = {
   "class": "image-section"
 };
-var _hoisted_51 = ["src", "alt"];
-var _hoisted_52 = {
+var _hoisted_49 = ["src", "alt"];
+var _hoisted_50 = {
   "class": "information-section"
 };
-var _hoisted_53 = {
+var _hoisted_51 = {
   "class": "row mb-2"
 };
-var _hoisted_54 = {
+var _hoisted_52 = {
   "class": "col text-left"
 };
-var _hoisted_55 = {
+var _hoisted_53 = {
   "class": "mr-1"
 };
-var _hoisted_56 = {
+var _hoisted_54 = {
   "class": "mb-2 description-card"
 };
-var _hoisted_57 = {
+var _hoisted_55 = {
   "class": "released-card mb-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -897,54 +999,76 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, " Edit Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "button-style-primary",
+    "class": "button-style-primary mr-2",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.deleteDeckBuilder();
     })
-  }, " Delete Deck Builder ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, " Delete Deck Builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "button-style-primary",
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return $setup.generateDeckBuilder();
+    })
+  }, " Generate Deck Builder ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "button-style-secondary",
-    onClick: _cache[2] || (_cache[2] = function ($event) {
+    onClick: _cache[3] || (_cache[3] = function ($event) {
       return $setup.backRoute();
     })
-  }, " Kembali ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "Updated: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs((_$setup$dataDeckBuild2 = $setup.dataDeckBuilder) === null || _$setup$dataDeckBuild2 === void 0 ? void 0 : _$setup$dataDeckBuild2.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, " Back ")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", null, "Updated: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs((_$setup$dataDeckBuild2 = $setup.dataDeckBuilder) === null || _$setup$dataDeckBuild2 === void 0 ? void 0 : _$setup$dataDeckBuild2.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "information-html",
     innerHTML: (_$setup$dataDeckBuild3 = $setup.dataDeckBuilder) === null || _$setup$dataDeckBuild3 === void 0 ? void 0 : _$setup$dataDeckBuild3.description
-  }, null, 8 /* PROPS */, _hoisted_15)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
+  }, null, 8 /* PROPS */, _hoisted_15)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "mt-2 main-deck-style",
+    onMouseover: _cache[6] || (_cache[6] = function ($event) {
+      return $setup.displayCard($event, 'main-deck', true);
+    }),
+    onMouseleave: _cache[7] || (_cache[7] = function ($event) {
+      return $setup.displayCard($event, 'main-deck', false);
+    })
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
     "data-deck-builder-length": $setup.dataDeckBuilderLength,
     "data-deck-builder": $setup.dataDeckBuilder,
     mainDeckCards: $setup.mainDeckCards,
-    "onUpdate:mainDeckCards": _cache[3] || (_cache[3] = function ($event) {
+    "onUpdate:mainDeckCards": _cache[4] || (_cache[4] = function ($event) {
       return $setup.mainDeckCards = $event;
     }),
     "card-selected": $setup.cardSelected,
-    "onUpdate:cardSelected": _cache[4] || (_cache[4] = function ($event) {
+    "onUpdate:cardSelected": _cache[5] || (_cache[5] = function ($event) {
       return $setup.cardSelected = $event;
     }),
     "deck-type": $setup.deckTypeMain,
     "display-hover": $setup.displayHover
-  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "display-hover"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
+  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "display-hover"])], 32 /* NEED_HYDRATION */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "mt-4 extra-deck-style",
+    onMouseover: _cache[10] || (_cache[10] = function ($event) {
+      return $setup.displayCard($event, 'extra-deck', true);
+    }),
+    onMouseleave: _cache[11] || (_cache[11] = function ($event) {
+      return $setup.displayCard($event, 'extra-deck', false);
+    })
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["MainExtraDeck"], {
     "data-deck-builder-length": $setup.dataDeckBuilderLength,
     "data-deck-builder": $setup.dataDeckBuilder,
     mainDeckCards: $setup.extraDeckCards,
-    "onUpdate:mainDeckCards": _cache[5] || (_cache[5] = function ($event) {
+    "onUpdate:mainDeckCards": _cache[8] || (_cache[8] = function ($event) {
       return $setup.extraDeckCards = $event;
     }),
     "card-selected": $setup.cardSelected,
-    "onUpdate:cardSelected": _cache[6] || (_cache[6] = function ($event) {
+    "onUpdate:cardSelected": _cache[9] || (_cache[9] = function ($event) {
       return $setup.cardSelected = $event;
     }),
     "deck-type": $setup.deckTypeExtra,
     "display-hover": $setup.displayHover
-  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "display-hover"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" --- style card selected "), (_$setup$dataHasSelect = $setup.dataHasSelected) !== null && _$setup$dataHasSelect !== void 0 && _$setup$dataHasSelect.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_21, [((_$setup$dataHasSelect2 = $setup.dataHasSelected) === null || _$setup$dataHasSelect2 === void 0 ? void 0 : _$setup$dataHasSelect2.frameType) !== 'trap' && ((_$setup$dataHasSelect3 = $setup.dataHasSelected) === null || _$setup$dataHasSelect3 === void 0 ? void 0 : _$setup$dataHasSelect3.frameType) !== 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect4 = $setup.dataHasSelected) === null || _$setup$dataHasSelect4 === void 0 ? void 0 : _$setup$dataHasSelect4.name), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  }, null, 8 /* PROPS */, ["data-deck-builder-length", "data-deck-builder", "mainDeckCards", "card-selected", "deck-type", "display-hover"])], 32 /* NEED_HYDRATION */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" --- style card selected "), (_$setup$dataHasSelect = $setup.dataHasSelected) !== null && _$setup$dataHasSelect !== void 0 && _$setup$dataHasSelect.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [((_$setup$dataHasSelect2 = $setup.dataHasSelected) === null || _$setup$dataHasSelect2 === void 0 ? void 0 : _$setup$dataHasSelect2.frameType) !== 'trap' && ((_$setup$dataHasSelect3 = $setup.dataHasSelected) === null || _$setup$dataHasSelect3 === void 0 ? void 0 : _$setup$dataHasSelect3.frameType) !== 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect4 = $setup.dataHasSelected) === null || _$setup$dataHasSelect4 === void 0 ? void 0 : _$setup$dataHasSelect4.name), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: (_$setup$dataHasSelect5 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect5 !== void 0 && _$setup$dataHasSelect5.card_images ? (_$setup$dataHasSelect6 = $setup.dataHasSelected) === null || _$setup$dataHasSelect6 === void 0 || (_$setup$dataHasSelect6 = _$setup$dataHasSelect6.card_images[0]) === null || _$setup$dataHasSelect6 === void 0 ? void 0 : _$setup$dataHasSelect6.image_url_small : '',
     alt: (_$setup$dataHasSelect7 = $setup.dataHasSelected) === null || _$setup$dataHasSelect7 === void 0 ? void 0 : _$setup$dataHasSelect7.name
-  }, null, 8 /* PROPS */, _hoisted_28)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect8 = $setup.dataHasSelected) === null || _$setup$dataHasSelect8 === void 0 ? void 0 : _$setup$dataHasSelect8.attribute), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [((_$setup$dataHasSelect9 = $setup.dataHasSelected) === null || _$setup$dataHasSelect9 === void 0 ? void 0 : _$setup$dataHasSelect9.frameType) === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_34, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect10 = $setup.dataHasSelected) === null || _$setup$dataHasSelect10 === void 0 ? void 0 : _$setup$dataHasSelect10.level), 1 /* TEXT */)])) : ((_$setup$dataHasSelect11 = $setup.dataHasSelected) === null || _$setup$dataHasSelect11 === void 0 ? void 0 : _$setup$dataHasSelect11.frameType) === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Link - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect12 = $setup.dataHasSelected) === null || _$setup$dataHasSelect12 === void 0 ? void 0 : _$setup$dataHasSelect12.linkval), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_37, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect13 = $setup.dataHasSelected) === null || _$setup$dataHasSelect13 === void 0 ? void 0 : _$setup$dataHasSelect13.level), 1 /* TEXT */)]))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect14 = $setup.dataHasSelected) === null || _$setup$dataHasSelect14 === void 0 ? void 0 : _$setup$dataHasSelect14.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect15 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect15 !== void 0 && _$setup$dataHasSelect15.frameType ? (_$setup$dataHasSelect16 = $setup.dataHasSelected) === null || _$setup$dataHasSelect16 === void 0 ? void 0 : _$setup$dataHasSelect16.frameType : ' ')) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textEffectMonster((_$setup$dataHasSelect17 = $setup.dataHasSelected) === null || _$setup$dataHasSelect17 === void 0 ? void 0 : _$setup$dataHasSelect17.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect18 = $setup.dataHasSelected) === null || _$setup$dataHasSelect18 === void 0 ? void 0 : _$setup$dataHasSelect18.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect19 = $setup.dataHasSelected) === null || _$setup$dataHasSelect19 === void 0 ? void 0 : _$setup$dataHasSelect19.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  }, null, 8 /* PROPS */, _hoisted_26)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect8 = $setup.dataHasSelected) === null || _$setup$dataHasSelect8 === void 0 ? void 0 : _$setup$dataHasSelect8.attribute), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [((_$setup$dataHasSelect9 = $setup.dataHasSelected) === null || _$setup$dataHasSelect9 === void 0 ? void 0 : _$setup$dataHasSelect9.frameType) === 'xyz' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect10 = $setup.dataHasSelected) === null || _$setup$dataHasSelect10 === void 0 ? void 0 : _$setup$dataHasSelect10.level), 1 /* TEXT */)])) : ((_$setup$dataHasSelect11 = $setup.dataHasSelected) === null || _$setup$dataHasSelect11 === void 0 ? void 0 : _$setup$dataHasSelect11.frameType) === 'link' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Link - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect12 = $setup.dataHasSelected) === null || _$setup$dataHasSelect12 === void 0 ? void 0 : _$setup$dataHasSelect12.linkval), 1 /* TEXT */)])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_35, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect13 = $setup.dataHasSelected) === null || _$setup$dataHasSelect13 === void 0 ? void 0 : _$setup$dataHasSelect13.level), 1 /* TEXT */)]))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "[ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect14 = $setup.dataHasSelected) === null || _$setup$dataHasSelect14 === void 0 ? void 0 : _$setup$dataHasSelect14.race) + " / " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect15 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect15 !== void 0 && _$setup$dataHasSelect15.frameType ? (_$setup$dataHasSelect16 = $setup.dataHasSelected) === null || _$setup$dataHasSelect16 === void 0 ? void 0 : _$setup$dataHasSelect16.frameType : ' ')) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textEffectMonster((_$setup$dataHasSelect17 = $setup.dataHasSelected) === null || _$setup$dataHasSelect17 === void 0 ? void 0 : _$setup$dataHasSelect17.frameType)) + " ]", 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect18 = $setup.dataHasSelected) === null || _$setup$dataHasSelect18 === void 0 ? void 0 : _$setup$dataHasSelect18.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [_hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect19 = $setup.dataHasSelected) === null || _$setup$dataHasSelect19 === void 0 ? void 0 : _$setup$dataHasSelect19.atk) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     innerHTML: $setup.utilize.textDef((_$setup$dataHasSelect20 = $setup.dataHasSelected) === null || _$setup$dataHasSelect20 === void 0 ? void 0 : _$setup$dataHasSelect20.frameType, (_$setup$dataHasSelect21 = $setup.dataHasSelected) === null || _$setup$dataHasSelect21 === void 0 ? void 0 : _$setup$dataHasSelect21.def)
-  }, null, 8 /* PROPS */, _hoisted_43)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect22 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect22 !== void 0 && _$setup$dataHasSelect22.card_sets ? (_$setup$dataHasSelect23 = $setup.dataHasSelected) === null || _$setup$dataHasSelect23 === void 0 || (_$setup$dataHasSelect23 = _$setup$dataHasSelect23.card_sets[0]) === null || _$setup$dataHasSelect23 === void 0 ? void 0 : _$setup$dataHasSelect23.set_name : ' '), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((_$setup$dataHasSelect24 = $setup.dataHasSelected) === null || _$setup$dataHasSelect24 === void 0 ? void 0 : _$setup$dataHasSelect24.frameType) === 'trap' || ((_$setup$dataHasSelect25 = $setup.dataHasSelected) === null || _$setup$dataHasSelect25 === void 0 ? void 0 : _$setup$dataHasSelect25.frameType) === 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect26 = $setup.dataHasSelected) === null || _$setup$dataHasSelect26 === void 0 ? void 0 : _$setup$dataHasSelect26.name), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  }, null, 8 /* PROPS */, _hoisted_41)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect22 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect22 !== void 0 && _$setup$dataHasSelect22.card_sets ? (_$setup$dataHasSelect23 = $setup.dataHasSelected) === null || _$setup$dataHasSelect23 === void 0 || (_$setup$dataHasSelect23 = _$setup$dataHasSelect23.card_sets[0]) === null || _$setup$dataHasSelect23 === void 0 ? void 0 : _$setup$dataHasSelect23.set_name : ' '), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((_$setup$dataHasSelect24 = $setup.dataHasSelected) === null || _$setup$dataHasSelect24 === void 0 ? void 0 : _$setup$dataHasSelect24.frameType) === 'trap' || ((_$setup$dataHasSelect25 = $setup.dataHasSelected) === null || _$setup$dataHasSelect25 === void 0 ? void 0 : _$setup$dataHasSelect25.frameType) === 'spell' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect26 = $setup.dataHasSelected) === null || _$setup$dataHasSelect26 === void 0 ? void 0 : _$setup$dataHasSelect26.name), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
     src: (_$setup$dataHasSelect27 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect27 !== void 0 && _$setup$dataHasSelect27.card_images ? (_$setup$dataHasSelect28 = $setup.dataHasSelected) === null || _$setup$dataHasSelect28 === void 0 || (_$setup$dataHasSelect28 = _$setup$dataHasSelect28.card_images[0]) === null || _$setup$dataHasSelect28 === void 0 ? void 0 : _$setup$dataHasSelect28.image_url_small : ' ',
     alt: (_$setup$dataHasSelect29 = $setup.dataHasSelected) === null || _$setup$dataHasSelect29 === void 0 ? void 0 : _$setup$dataHasSelect29.name
-  }, null, 8 /* PROPS */, _hoisted_51)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect30 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect30 !== void 0 && _$setup$dataHasSelect30.frameType ? (_$setup$dataHasSelect31 = $setup.dataHasSelected) === null || _$setup$dataHasSelect31 === void 0 ? void 0 : _$setup$dataHasSelect31.frameType : ' ')) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect32 = $setup.dataHasSelected) === null || _$setup$dataHasSelect32 === void 0 ? void 0 : _$setup$dataHasSelect32.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect33 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect33 !== void 0 && _$setup$dataHasSelect33.card_sets ? (_$setup$dataHasSelect34 = $setup.dataHasSelected) === null || _$setup$dataHasSelect34 === void 0 || (_$setup$dataHasSelect34 = _$setup$dataHasSelect34.card_sets[0]) === null || _$setup$dataHasSelect34 === void 0 ? void 0 : _$setup$dataHasSelect34.set_name : ''), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
+  }, null, 8 /* PROPS */, _hoisted_49)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.textTypeMonster((_$setup$dataHasSelect30 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect30 !== void 0 && _$setup$dataHasSelect30.frameType ? (_$setup$dataHasSelect31 = $setup.dataHasSelected) === null || _$setup$dataHasSelect31 === void 0 ? void 0 : _$setup$dataHasSelect31.frameType : ' ')) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dataHasSelected.race), 1 /* TEXT */)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.utilize.decodeHTML((_$setup$dataHasSelect32 = $setup.dataHasSelected) === null || _$setup$dataHasSelect32 === void 0 ? void 0 : _$setup$dataHasSelect32.desc)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Released on Card Set " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataHasSelect33 = $setup.dataHasSelected) !== null && _$setup$dataHasSelect33 !== void 0 && _$setup$dataHasSelect33.card_sets ? (_$setup$dataHasSelect34 = $setup.dataHasSelected) === null || _$setup$dataHasSelect34 === void 0 || (_$setup$dataHasSelect34 = _$setup$dataHasSelect34.card_sets[0]) === null || _$setup$dataHasSelect34 === void 0 ? void 0 : _$setup$dataHasSelect34.set_name : ''), 1 /* TEXT */)])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: _ctx.loading,
     confirmDelete: $setup.confirmDelete,
     onConfirm: $setup.methodConfirmDelete
@@ -1358,7 +1482,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-31708fad] {\r\n    color: black;\n}\r\n  /*--- style card selected */\n.wrap-card-currently[data-v-31708fad] {\r\n    background-color: #0d2f4e;\r\n    padding: 8px;\r\n    border-radius: 10px;\r\n    border: 3px solid #385979;\n}\n.content-section[data-v-31708fad] {\r\n    margin-top: 2.5rem;\n}\n.image-section img[data-v-31708fad] {\r\n    width: 170px;\r\n    margin-right: 0.75rem;\n}\n.information-section .wrap-star[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\n}\n.information-section .wrap-star span[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\r\n    font-size: 18px;\n}\n.information-section .wrap-star img[data-v-31708fad] {\r\n    width: 20px;\r\n    height: 20px;\r\n    margin-right: 6px;\n}\n.information-section .description-card[data-v-31708fad] {\r\n    min-height: 220px;\r\n    text-align: justify;\r\n    font-size: 14px;\n}\n.released-card[data-v-31708fad] {\r\n    display: flex;\r\n    justify-content: end;\n}\r\n  /*--- end card selected */\n.main-deck-style[data-v-31708fad]{\r\n    z-index: 2;\r\n    position: relative;\n}\n.extra-deck-style[data-v-31708fad]{\r\n    z-index: 1;\r\n    position: relative;\n}\r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.card[data-v-31708fad] {\r\n    color: black;\n}\r\n  /*--- style card selected */\n.wrap-card-currently[data-v-31708fad] {\r\n    background-color: #0d2f4e;\r\n    padding: 8px;\r\n    border-radius: 10px;\r\n    border: 3px solid #385979;\n}\n.content-section[data-v-31708fad] {\r\n    margin-top: 2.5rem;\n}\n.image-section img[data-v-31708fad] {\r\n    width: 170px;\r\n    margin-right: 0.75rem;\n}\n.information-section .wrap-star[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\n}\n.information-section .wrap-star span[data-v-31708fad] {\r\n    display: flex;\r\n    align-items: center;\r\n    font-size: 18px;\n}\n.information-section .wrap-star img[data-v-31708fad] {\r\n    width: 20px;\r\n    height: 20px;\r\n    margin-right: 6px;\n}\n.information-section .description-card[data-v-31708fad] {\r\n    min-height: 220px;\r\n    text-align: justify;\r\n    font-size: 14px;\n}\n.released-card[data-v-31708fad] {\r\n    display: flex;\r\n    justify-content: end;\n}\r\n  /*--- end card selected */\n.main-deck-style[data-v-31708fad]{\r\n    position: relative;\n}\n.extra-deck-style[data-v-31708fad]{\r\n    position: relative;\n}\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

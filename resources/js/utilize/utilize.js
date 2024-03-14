@@ -45,5 +45,9 @@ export const utilize = {
                 return 'main deck';
             }
         }
+     }, 
+
+     elipisWord(endWord, word){
+        return word ? word.split(' ').slice(0, endWord).join(" ") + "..." : '';
      }
 }

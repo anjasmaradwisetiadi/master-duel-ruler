@@ -66,9 +66,9 @@ class DeckBuilderController extends Controller
                 );
             }
             // this code add validation manual for image
-            if($request->engines_url === 'null' && !$request->file('image') && $request->engines === 'null'){
+            if($request->engines_url === 'null' && !$request->file('engines') && $request->engines === 'null'){
                 $validator->errors()->add(
-                    'engines', 'Tambakan image sekarang'
+                    'engines', 'Tambakan engines image sekarang'
                 );
             }
         });
@@ -78,15 +78,15 @@ class DeckBuilderController extends Controller
             $imagePost = '';
             if($request->engines_url !== 'null'){
                 $imagePost = $request->engines_url;
-            } else if($request->file('image')){
+            } else if($request->file('engines')){
                 $baseUrlImage =  env('APP_URL').'storage/';
-                $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+                $imagePost = $baseUrlImage . $request->file('engines')->store('post-image');
             }
             
             DeckBuilders::create([
                 'title' => $request->title,
                 'slug' => $request->slug,
-                'engines' => json_encode(array($imagePost)),
+                'engines' => $imagePost,
                 'play_style_id'=> $resultsFindStyle->id,
                 'price' => json_encode(array(
                     'total_rarity_SR' => $price->total_rarity_SR,
@@ -112,8 +112,7 @@ class DeckBuilderController extends Controller
     public function show($id)
     {
         $findData = DeckBuilders::where('slug','=',$id)->firstOrFail(); 
-
-        $findData->engines = json_decode($findData->engines);
+        $findData->engines = $findData->engines;
         $findData->price = json_decode($findData->price);
         $findData->total_card = json_decode($findData->total_card);
         $findData->deck_builder = json_decode($findData->deck_builder);
@@ -129,7 +128,7 @@ class DeckBuilderController extends Controller
     public function edit($id)
     {
         $findData = DeckBuilders::where('slug','=',$id)->firstOrFail();
-        $findData->engines = json_decode($findData->engines);
+        $findData->engines = $findData->engines;
         $findData->price = json_decode($findData->price);
         $findData->total_card = json_decode($findData->total_card);
         $findData->deck_builder = json_decode($findData->deck_builder);
@@ -176,9 +175,9 @@ class DeckBuilderController extends Controller
                 );
             }
             // this code add validation manual for image
-            if($request->engines_url === 'null' && !$request->file('image') && $request->engines === 'null'){
+            if($request->engines_url === 'null' && !$request->file('engines') && $request->engines === 'null'){
                 $validator->errors()->add(
-                    'engines', 'Tambakan image sekarang'
+                    'engines', 'Tambakan engines image sekarang'
                 );
             }
         });
@@ -190,9 +189,9 @@ class DeckBuilderController extends Controller
                 $imagePost = $request->engines_url;
                 $imagePosition = 'new';
                 $this->removeImageOld($request, $findData, $imagePosition);
-            } else if($request->file('image')){
+            } else if($request->file('engines')){
                 $baseUrlImage = env('APP_URL').'storage/';
-                $imagePost = $baseUrlImage . $request->file('image')->store('post-image');
+                $imagePost = $baseUrlImage . $request->file('engines')->store('post-image');
                 $imagePosition = 'new';
                 $this->removeImageOld($request, $findData, $imagePosition);
             } else if($request->engines !== 'null'){
@@ -205,7 +204,7 @@ class DeckBuilderController extends Controller
             ->update([
                 'title' => $request->title,
                 // 'slug' => $request->slug,
-                'engines' => json_encode(array($imagePost)),
+                'engines' => $imagePost,
                 'play_style_id'=> $findDataPlayStyle->id,
                 'price' => json_encode(array(
                     'total_rarity_SR' => $price->total_rarity_SR,
@@ -231,10 +230,10 @@ class DeckBuilderController extends Controller
     public function destroy($id)
     {
         $findData = DeckBuilders::where('slug','=',$id)->firstOrFail();
-        $findPathImage = stristr($findData->image, env('APP_URL').'storage/');
+        $findPathImage = stristr($findData->engines, env('APP_URL').'storage/');
         if($findPathImage){
-            if($findData->image){
-                $stringManipulate = str_replace(env('APP_URL').'storage/','',$findData->image);
+            if($findData->engines){
+                $stringManipulate = str_replace(env('APP_URL').'storage/','',$findData->engines);
                 Storage::delete($stringManipulate);
             }
         } 
@@ -246,7 +245,7 @@ class DeckBuilderController extends Controller
         $results = DeckBuilders::where('play_style_id', '=', $resultsFindStyle[0]->id)->latest()->get();
 
         for ($index=0; $index<count($results); $index++) {
-            $results[$index]->engines = json_decode($results[$index]->engines);
+            $results[$index]->engines = $results[$index]->engines;
             $results[$index]->price = json_decode($results[$index]->price);
             $results[$index]->total_card = json_decode($results[$index]->total_card);
             $results[$index]->deck_builder = json_decode($results[$index]->deck_builder);
@@ -269,11 +268,11 @@ class DeckBuilderController extends Controller
                 'slug.unique'=> 'Slug unique',
                 'description.required'=> 'Isi description sekarang'
             ];
-            if ($request->file('image')){
+            if ($request->file('engines')){
                 $rules['engines'] = 'required|file|max:1024';
-                $messages['engines.required'] = 'Isi image sekarang';
+                $messages['engines.required'] = 'Isi image engines sekarang';
                 $messages['engines.file'] = 'Isi file tidak cocok';
-                $messages['engines.max'] = 'File size terlalu besar >= 1024';
+                $messages['engines.max'] = 'File size terlalu besar 1024 kb';
             }
     
         } else if($from === 'edited') {
@@ -287,11 +286,11 @@ class DeckBuilderController extends Controller
                 'title.max' => 'Isi title hanya maximal 160 kata',
                 'description.required'=> 'Isi description sekarang'
             ];
-            if ($request->file('image')){
+            if ($request->file('engines')){
                 $rules['engines'] = 'required|file|max:1024';
-                $messages['engines.required'] = 'Isi image sekarang';
+                $messages['engines.required'] = 'Isi image engines sekarang';
                 $messages['engines.file'] = 'Isi file tidak cocok';
-                $messages['engines.max'] = 'File size terlalu besar >= 1024';
+                $messages['engines.max'] = 'File size terlalu besar 1024 kb';
             }
     
         }
@@ -300,7 +299,7 @@ class DeckBuilderController extends Controller
     }
 
     public function removeImageOld($request, $findData, $imagePosition){
-        $imageReplace= str_replace(env('APP_URL').'storage/', "", $findData->image);
+        $imageReplace= str_replace(env('APP_URL').'storage/', "", $findData->engines);
         if($imagePosition === 'new'){
             Storage::delete($imageReplace);
         } 

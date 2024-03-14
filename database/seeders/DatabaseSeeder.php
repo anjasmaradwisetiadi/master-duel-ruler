@@ -139,11 +139,7 @@ class DatabaseSeeder extends Seeder
             'title'=>'Sinfull spoil one',
             'slug'=> 'sinfull-spoil-one',
             'play_style_id'=> 1,
-            'engines'=>json_encode(array(
-                '0'=>'https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg',
-                '1'=> 'https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg',
-                '2'=> 'https://images.ygoprodeck.com/images/cards_cropped/45112597.jpg',
-            )),
+            'engines'=>'https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg',
             'price'=>json_encode(array(
                 'total_rarity_SR' => 200,
                 'total_rarity_UR' => 300,
@@ -197,10 +193,7 @@ class DatabaseSeeder extends Seeder
             'title'=>'Sinfull spoil two',
             'slug'=> 'sinfull-spoil-two',
             'play_style_id'=> 1,
-            'engines'=>json_encode(array(
-                '0'=>'https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg',
-                '1'=> 'https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg',
-            )),
+            'engines'=>'https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg',
             'price'=>json_encode(array(
                 'total_rarity_SR' => 200,
                 'total_rarity_UR' => 300,
@@ -254,10 +247,7 @@ class DatabaseSeeder extends Seeder
             'title'=>'Sinfull spoil three',
             'slug'=> 'sinfull-spoil-three',
             'play_style_id'=> 2,
-            'engines'=>json_encode(array(
-                '0'=>'https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg',
-                '1'=> 'https://images.ygoprodeck.com/images/cards_cropped/27381364.jpg',
-            )),
+            'engines'=>'https://images.ygoprodeck.com/images/cards_cropped/72270339.jpg',
             'price'=>json_encode(array(
                 'total_rarity_SR' => 200,
                 'total_rarity_UR' => 300,

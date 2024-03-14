@@ -108,7 +108,7 @@ function deletePlayStyle(){
 }
 
 function backRoute(){
-    router.back();
+    router.push(`/play-style-deck`);
 }
 
 const getDataYgoProDeck = computed(()=>{

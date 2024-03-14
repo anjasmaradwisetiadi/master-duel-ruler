@@ -196,7 +196,7 @@
     //******* it make be default search but when app ready to use */
     const payload = {
         mode: 'all-search',
-        name: 'inf',
+        name: 'hero',
         num: num.value,
         offset: offset.value
     }

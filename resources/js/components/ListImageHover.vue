@@ -99,7 +99,7 @@
                         class="d-flex justify-content-center"
                         v-if="!getDataYgoProDeck?.length && !loading"
                     >
-                        <span>Tidak ada kartu yang ke record agcduciicagcda</span>
+                        <span>Tidak ada kartu yang ke record</span>
                     </div>
             </div>
         </div>

@@ -751,7 +751,7 @@ var _hoisted_39 = {
   "class": "d-flex justify-content-center"
 };
 var _hoisted_40 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record agcduciicagcda", -1 /* HOISTED */);
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, "Tidak ada kartu yang ke record", -1 /* HOISTED */);
 });
 var _hoisted_41 = [_hoisted_40];
 function render(_ctx, _cache, $props, $setup, $data, $options) {

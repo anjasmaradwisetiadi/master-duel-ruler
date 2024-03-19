@@ -188,9 +188,10 @@
                 </div>
                 <div>
                     <span>
+                    {{infoPage?.next_page_offset - infoPage?.current_rows }} -  
                     {{infoPage?.total_rows - infoPage?.rows_remaining}} of
-                    {{infoPage?.total_rows}}</span
-                    >
+                    {{infoPage?.total_rows}}
+                    </span>
                 </div>
             </div>
             <div class="col-3">

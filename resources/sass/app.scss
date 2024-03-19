@@ -49,3 +49,8 @@ body{
     color: #F4F4F4;
     border-radius: 0.5rem;
 }
+
+button:disabled,
+button[disabled]{
+  background-color: #63625c;
+}

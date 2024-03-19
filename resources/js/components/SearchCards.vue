@@ -139,7 +139,7 @@
                         :disabled="infoPage?.previous_page_offset === undefined  ? '':disabled"> < </button>
                 </div>
                 <div>
-                    <span> {{infoPage?.total_rows - infoPage?.rows_remaining}} of {{infoPage?.total_rows}}</span> 
+                    <span> {{infoPage?.next_page_offset - infoPage?.current_rows }} - {{infoPage?.total_rows - infoPage?.rows_remaining}} of {{infoPage?.total_rows}}</span> 
                 </div>
             </div>
           </div>

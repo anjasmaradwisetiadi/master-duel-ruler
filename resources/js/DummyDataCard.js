@@ -1,3 +1,4 @@
+import {collectionUrl} from './urlCollect'
 export const dataDummyCards = {
         "data":[
              {
@@ -405,12 +406,12 @@ export const dataDevTeam = {
    'data': [
       {
          name: 'Anjasmara Dwi Setiadi',
-         image:'http://laravel-vue.test/images/anjas-github.png?eb64c4e7983ee78d703c061b068d884a',
+         image:`${collectionUrl.baseUrlHead}/images/anjas-github.png?eb64c4e7983ee78d703c061b068d884a`,
          github: 'https://github.com/anjasmaradwisetiadi/master-duel-ruler'
       },
       {
          name: 'Ihdi Ulhaq',
-         image:'http://laravel-vue.test/images/ihdi-github.jpeg?58107cafd88e636998500ecceddc1c01',
+         image:`${collectionUrl.baseUrlHead}/images/ihdi-github.jpeg?58107cafd88e636998500ecceddc1c01`,
          github: 'https://github.com/IhdiUlhaq/master-duel-ruler',
       }
    ]

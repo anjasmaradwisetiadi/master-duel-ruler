@@ -61,7 +61,7 @@
                             </td>
                         </tr>
                         <tr v-if="!dataDeckBuilders.length">
-                            <td colspan="4">
+                            <td colspan="5">
                                 <div class="d-flex justify-content-center">
                                     Tidak ada data yang terecord
                                 </div>

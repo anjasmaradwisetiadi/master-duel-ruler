@@ -21925,7 +21925,7 @@ var _hoisted_50 = {
 var _hoisted_51 = ["disabled"];
 var _hoisted_52 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _$setup$getDataYgoPro, _$setup$getDataYgoPro2, _$setup$getDataYgoPro3, _$setup$infoPage, _$setup$infoPage2, _$setup$infoPage3, _$setup$infoPage4, _$setup$infoPage5;
+  var _$setup$getDataYgoPro, _$setup$getDataYgoPro2, _$setup$getDataYgoPro3, _$setup$infoPage, _$setup$infoPage2, _$setup$infoPage3, _$setup$infoPage4, _$setup$infoPage5, _$setup$infoPage6, _$setup$infoPage7;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($setup.props.openModal ? 'modal-wrapper' : 'modal-wrapper-none'),
     id: "SearchCards"
@@ -21993,7 +21993,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $setup.backPage();
     }),
     disabled: ((_$setup$infoPage2 = $setup.infoPage) === null || _$setup$infoPage2 === void 0 ? void 0 : _$setup$infoPage2.previous_page_offset) === undefined ? '' : _ctx.disabled
-  }, " < ", 8 /* PROPS */, _hoisted_52)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage3 = $setup.infoPage) === null || _$setup$infoPage3 === void 0 ? void 0 : _$setup$infoPage3.total_rows) - ((_$setup$infoPage4 = $setup.infoPage) === null || _$setup$infoPage4 === void 0 ? void 0 : _$setup$infoPage4.rows_remaining)) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$infoPage5 = $setup.infoPage) === null || _$setup$infoPage5 === void 0 ? void 0 : _$setup$infoPage5.total_rows), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
+  }, " < ", 8 /* PROPS */, _hoisted_52)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage3 = $setup.infoPage) === null || _$setup$infoPage3 === void 0 ? void 0 : _$setup$infoPage3.next_page_offset) - ((_$setup$infoPage4 = $setup.infoPage) === null || _$setup$infoPage4 === void 0 ? void 0 : _$setup$infoPage4.current_rows)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage5 = $setup.infoPage) === null || _$setup$infoPage5 === void 0 ? void 0 : _$setup$infoPage5.total_rows) - ((_$setup$infoPage6 = $setup.infoPage) === null || _$setup$infoPage6 === void 0 ? void 0 : _$setup$infoPage6.rows_remaining)) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$infoPage7 = $setup.infoPage) === null || _$setup$infoPage7 === void 0 ? void 0 : _$setup$infoPage7.total_rows), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["LoadingAndAlert"], {
     loading: $setup.loading,
     responseGeneral: $setup.responseGeneral,
     onConfirm: _ctx.confirm

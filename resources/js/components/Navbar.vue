@@ -1,6 +1,6 @@
 <template>
     <div id="navbar">
-        <nav class="navbar navbar-expand-lg non-padding navbar-color text-white">
+        <nav class="navbar navbar-expand-lg non-padding navbar-color text-white py-2">
             <div class="container">
                 <div class="navbar-nav mr-auto">
                     <a class="navbar-brand RogFont text-font text-white" href="/">

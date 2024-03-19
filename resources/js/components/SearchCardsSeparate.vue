@@ -169,21 +169,21 @@
           </div>
         </div>
         <div class="row mt-2" v-if="getDataYgoProDeck?.length">
-            <div class="col-5 d-flex justify-content-start align-items-center">
+            <div class="col-6 d-flex justify-content-start align-items-center">
                 <div class="mr-2">
                     <button
                         class="button-style-primary mr-2"
-                        @click="nextPage()"
-                        :disabled="!infoPage?.next_page_offset ? '':disabled"
-                    >
-                        >
-                    </button>
-                    <button
-                        class="button-style-primary"
                         @click="backPage()"
                         :disabled="infoPage?.previous_page_offset === undefined  ? '':disabled"
                     >
                         <
+                    </button>
+                    <button
+                        class="button-style-primary"
+                        @click="nextPage()"
+                        :disabled="!infoPage?.next_page_offset ? '':disabled"
+                    >
+                        >
                     </button>
                 </div>
                 <div>
@@ -201,7 +201,7 @@
                   {{conditionHover ? 'hover on' : 'hover off' }}
               </button>
             </div>
-            <div class="col-4 d-flex justify-content-end text-center">
+            <div class="col-3 d-flex justify-content-end text-center">
                 <div ref="ClassList" >
                     <span v-show="props?.fullCardLoad?.value < 3 && props?.fullCardLoad?.value >= 1">
                         {{props?.fullCardLoad?.value}} card added

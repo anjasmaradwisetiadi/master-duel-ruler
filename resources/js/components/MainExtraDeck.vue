@@ -261,8 +261,13 @@
         <div class="col">
           <!-- ********** it just display data when create orr edit deck builder -->
           <span 
-            v-if="deckType === 'main deck' && (totalCard < 40 || totalCard >= 60)" 
-            class="invalid-text"> Deck contain 40 until 60 cards </span>
+            v-if="deckType === 'main deck' && (totalCardMain < 40 || totalCardMain >= 60)" 
+            class="invalid-text"> Deck contain 40 until 60 cards 
+          </span>
+          <span 
+            v-if="deckType === 'extra deck' && (totalCardExtra >= 15 )" 
+            class="invalid-text"> Deck contain until 15 cards 
+          </span>
         </div>
       </div>
     </div>
@@ -427,11 +432,19 @@
   }
 
   function addCard(data){
-    const payload ={
-      status: 'add',
-      value: data
-    };
-    emits('addRemoveCardSelected', payload);
+    if(props?.deckType === 'main deck' && store.getters.getterTotalMainDeck < 60){
+        const payload ={
+        status: 'add',
+        value: data
+      };
+      emits('addRemoveCardSelected', payload);
+    } else if( props?.deckType === 'extra deck' && store.getters.getterTotalExtraDeck < 15 ){
+      const payload ={
+        status: 'add',
+        value: data
+      };
+      emits('addRemoveCardSelected', payload);
+    }
   }
   function removeCard(data){
     const payload ={

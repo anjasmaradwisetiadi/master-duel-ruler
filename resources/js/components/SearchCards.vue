@@ -132,11 +132,11 @@
             <div class="col d-flex justify-content-start align-items-center">
                 <div class="mr-4">
                     <button class="button-style-primary mr-2" 
-                        @click="nextPage()" 
-                        :disabled="!infoPage?.next_page_offset ? '':disabled"> > </button>
-                    <button class="button-style-primary" 
                         @click="backPage()" 
                         :disabled="infoPage?.previous_page_offset === undefined  ? '':disabled"> < </button>
+                    <button class="button-style-primary" 
+                    @click="nextPage()" 
+                    :disabled="!infoPage?.next_page_offset ? '':disabled"> > </button>
                 </div>
                 <div>
                     <span> {{infoPage?.next_page_offset - infoPage?.current_rows }} - {{infoPage?.total_rows - infoPage?.rows_remaining}} of {{infoPage?.total_rows}}</span> 

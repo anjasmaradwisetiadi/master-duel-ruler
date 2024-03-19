@@ -183,11 +183,19 @@ __webpack_require__.r(__webpack_exports__);
       cardSelected.value = data;
     }
     function addCard(data) {
-      var payload = {
-        status: 'add',
-        value: data
-      };
-      emits('addRemoveCardSelected', payload);
+      if ((props === null || props === void 0 ? void 0 : props.deckType) === 'main deck' && store.getters.getterTotalMainDeck < 60) {
+        var payload = {
+          status: 'add',
+          value: data
+        };
+        emits('addRemoveCardSelected', payload);
+      } else if ((props === null || props === void 0 ? void 0 : props.deckType) === 'extra deck' && store.getters.getterTotalExtraDeck < 15) {
+        var _payload = {
+          status: 'add',
+          value: data
+        };
+        emits('addRemoveCardSelected', _payload);
+      }
     }
     function removeCard(data) {
       var payload = {
@@ -727,6 +735,10 @@ var _hoisted_70 = {
   key: 0,
   "class": "invalid-text"
 };
+var _hoisted_71 = {
+  key: 1,
+  "class": "invalid-text"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$props$dataDeckBuild3, _$props$dataDeckBuild4, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5, _$setup$deckCollects, _$setup$props6, _$setup$deckCollects2, _$props$dataDeckBuild5, _$setup$props7;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && (_$props$dataDeckBuild = _$props$dataDeckBuild.price) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -792,7 +804,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $setup.removeCard(card);
       }
     }, [].concat(_hoisted_58), 8 /* PROPS */, _hoisted_56)])])]);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover) && !$setup.loading && !((_$setup$deckCollects2 = $setup.deckCollects) !== null && _$setup$deckCollects2 !== void 0 && _$setup$deckCollects2.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !((_$props$dataDeckBuild5 = $props.dataDeckBuilderLength) !== null && _$props$dataDeckBuild5 !== void 0 && _$props$dataDeckBuild5.length) && (_$setup$props7 = $setup.props) !== null && _$setup$props7 !== void 0 && _$setup$props7.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_65, [].concat(_hoisted_67))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && (_ctx.totalCard < 40 || _ctx.totalCard >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_70, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover) && !$setup.loading && !((_$setup$deckCollects2 = $setup.deckCollects) !== null && _$setup$deckCollects2 !== void 0 && _$setup$deckCollects2.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !((_$props$dataDeckBuild5 = $props.dataDeckBuilderLength) !== null && _$props$dataDeckBuild5 !== void 0 && _$props$dataDeckBuild5.length) && (_$setup$props7 = $setup.props) !== null && _$setup$props7 !== void 0 && _$setup$props7.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_65, [].concat(_hoisted_67))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && ($setup.totalCardMain < 40 || $setup.totalCardMain >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_70, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.deckType === 'extra deck' && $setup.totalCardExtra >= 15 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_71, " Deck contain until 15 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),

@@ -280,7 +280,7 @@ function calculatePopupAddedCard(condition, value){
 }
 
 function addRemoveCardSelectedMain($event){
-    if($event.status === 'add' && store.getters.getterTotalMainDeck < 60){
+    if($event.status === 'add'){
         selectedCardHas($event.value);
     } else {
         selectedCardHasRemove($event.value);
@@ -289,68 +289,66 @@ function addRemoveCardSelectedMain($event){
 
 function selectedCardHas(event){
     const dataType = utilize.sliceCardToMainOrExtraDeck(event);
-    // console.log("dataDeckTypeExtra.value selectedCardHas = ");
-    // console.log(dataDeckTypeExtra.value);
-    // console.log("dataDeckTypeMain.value selectedCardHas = ");
-    // console.log(dataDeckTypeMain.value);
     if(dataType === 'extra deck'){
-        const dataSearch = dataDeckTypeExtra.value.some((element, index) => {
-            return element.name === event.name
-        });
-        // ********* when it not have card collect
-        if(!dataSearch){
-            const dataJoin = {
-                value: 1,
-                rarity: 'N',
-                column_deck: 'extra deck'
-            }
-            event = {...event, ...dataJoin};
-            dataDeckTypeExtra.value.push(event)
-            calculatePopupAddedCard(false, 1);
-        } else if (dataSearch){
-            // ********* when it have card collect
-            dataDeckTypeExtra.value.forEach((element, index) => {
-                if(element.name === event.name){
-                    if(dataDeckTypeExtra.value[index].value === 3){
-                        calculatePopupAddedCard(true, 3);
-                    } else {
-                        dataDeckTypeExtra.value[index].value += 1;
-                        calculatePopupAddedCard(false, dataDeckTypeExtra.value[index].value);
-                    }
-                }
+        if(store.getters.getterTotalExtraDeck < 15){
+            const dataSearch = dataDeckTypeExtra.value.some((element, index) => {
+                return element.name === event.name
             });
+            // ********* when it not have card collect
+            if(!dataSearch){
+                const dataJoin = {
+                    value: 1,
+                    rarity: 'N',
+                    column_deck: 'extra deck'
+                }
+                event = {...event, ...dataJoin};
+                dataDeckTypeExtra.value.push(event)
+                calculatePopupAddedCard(false, 1);
+            } else if (dataSearch){
+                // ********* when it have card collect
+                dataDeckTypeExtra.value.forEach((element, index) => {
+                    if(element.name === event.name){
+                        if(dataDeckTypeExtra.value[index].value === 3){
+                            calculatePopupAddedCard(true, 3);
+                        } else {
+                            dataDeckTypeExtra.value[index].value += 1;
+                            calculatePopupAddedCard(false, dataDeckTypeExtra.value[index].value);
+                        }
+                    }
+                });
+            }
+            dataDeckTypeExtra.value = dataDeckTypeExtra.value;
         }
-        dataDeckTypeExtra.value = dataDeckTypeExtra.value;
-
-
     } else if(dataType === 'main deck'){
-        const dataSearch = dataDeckTypeMain.value.some((element, index) => {
-            return element.name === event.name
-        });
-        // ********* when it not have card collect
-        if(!dataSearch){
-            const dataJoin = {
-                value: 1,
-                rarity: 'N',
-                column_deck: 'main deck'
-            }
-            event = {...event, ...dataJoin};
-            dataDeckTypeMain.value.push(event)
-            calculatePopupAddedCard(false, 1);
-        } else if (dataSearch){
-            // ********* when it have card collect
-            dataDeckTypeMain.value.forEach((element, index) => {
-                if(element.name === event.name){
-                    if(dataDeckTypeMain.value[index].value === 3){
-                        calculatePopupAddedCard(true, 3);
-                    } else {
-                        dataDeckTypeMain.value[index].value += 1;
-                        calculatePopupAddedCard(false, dataDeckTypeMain.value[index].value);
-                    }
-                }
+        if(store.getters.getterTotalMainDeck < 60){
+                const dataSearch = dataDeckTypeMain.value.some((element, index) => {
+                return element.name === event.name
             });
+            // ********* when it not have card collect
+            if(!dataSearch){
+                const dataJoin = {
+                    value: 1,
+                    rarity: 'N',
+                    column_deck: 'main deck'
+                }
+                event = {...event, ...dataJoin};
+                dataDeckTypeMain.value.push(event)
+                calculatePopupAddedCard(false, 1);
+            } else if (dataSearch){
+                // ********* when it have card collect
+                dataDeckTypeMain.value.forEach((element, index) => {
+                    if(element.name === event.name){
+                        if(dataDeckTypeMain.value[index].value === 3){
+                            calculatePopupAddedCard(true, 3);
+                        } else {
+                            dataDeckTypeMain.value[index].value += 1;
+                            calculatePopupAddedCard(false, dataDeckTypeMain.value[index].value);
+                        }
+                    }
+                });
+            }
+            dataDeckTypeMain.value = dataDeckTypeMain.value;
         }
-        dataDeckTypeMain.value = dataDeckTypeMain.value;
     }
 }
 

@@ -183,11 +183,19 @@ __webpack_require__.r(__webpack_exports__);
       cardSelected.value = data;
     }
     function addCard(data) {
-      var payload = {
-        status: 'add',
-        value: data
-      };
-      emits('addRemoveCardSelected', payload);
+      if ((props === null || props === void 0 ? void 0 : props.deckType) === 'main deck' && store.getters.getterTotalMainDeck < 60) {
+        var payload = {
+          status: 'add',
+          value: data
+        };
+        emits('addRemoveCardSelected', payload);
+      } else if ((props === null || props === void 0 ? void 0 : props.deckType) === 'extra deck' && store.getters.getterTotalExtraDeck < 15) {
+        var _payload = {
+          status: 'add',
+          value: data
+        };
+        emits('addRemoveCardSelected', _payload);
+      }
     }
     function removeCard(data) {
       var payload = {
@@ -676,7 +684,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fullCardLoad.value.condition = condition, fullCardLoad.value.value = value;
     }
     function addRemoveCardSelectedMain($event) {
-      if ($event.status === 'add' && store.getters.getterTotalMainDeck < 60) {
+      if ($event.status === 'add') {
         selectedCardHas($event.value);
       } else {
         selectedCardHasRemove($event.value);
@@ -684,66 +692,66 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
     function selectedCardHas(event) {
       var dataType = _utilize_utilize__WEBPACK_IMPORTED_MODULE_9__.utilize.sliceCardToMainOrExtraDeck(event);
-      // console.log("dataDeckTypeExtra.value selectedCardHas = ");
-      // console.log(dataDeckTypeExtra.value);
-      // console.log("dataDeckTypeMain.value selectedCardHas = ");
-      // console.log(dataDeckTypeMain.value);
       if (dataType === 'extra deck') {
-        var dataSearch = dataDeckTypeExtra.value.some(function (element, index) {
-          return element.name === event.name;
-        });
-        // ********* when it not have card collect
-        if (!dataSearch) {
-          var dataJoin = {
-            value: 1,
-            rarity: 'N',
-            column_deck: 'extra deck'
-          };
-          event = _objectSpread(_objectSpread({}, event), dataJoin);
-          dataDeckTypeExtra.value.push(event);
-          calculatePopupAddedCard(false, 1);
-        } else if (dataSearch) {
-          // ********* when it have card collect
-          dataDeckTypeExtra.value.forEach(function (element, index) {
-            if (element.name === event.name) {
-              if (dataDeckTypeExtra.value[index].value === 3) {
-                calculatePopupAddedCard(true, 3);
-              } else {
-                dataDeckTypeExtra.value[index].value += 1;
-                calculatePopupAddedCard(false, dataDeckTypeExtra.value[index].value);
-              }
-            }
+        if (store.getters.getterTotalExtraDeck < 15) {
+          var dataSearch = dataDeckTypeExtra.value.some(function (element, index) {
+            return element.name === event.name;
           });
+          // ********* when it not have card collect
+          if (!dataSearch) {
+            var dataJoin = {
+              value: 1,
+              rarity: 'N',
+              column_deck: 'extra deck'
+            };
+            event = _objectSpread(_objectSpread({}, event), dataJoin);
+            dataDeckTypeExtra.value.push(event);
+            calculatePopupAddedCard(false, 1);
+          } else if (dataSearch) {
+            // ********* when it have card collect
+            dataDeckTypeExtra.value.forEach(function (element, index) {
+              if (element.name === event.name) {
+                if (dataDeckTypeExtra.value[index].value === 3) {
+                  calculatePopupAddedCard(true, 3);
+                } else {
+                  dataDeckTypeExtra.value[index].value += 1;
+                  calculatePopupAddedCard(false, dataDeckTypeExtra.value[index].value);
+                }
+              }
+            });
+          }
+          dataDeckTypeExtra.value = dataDeckTypeExtra.value;
         }
-        dataDeckTypeExtra.value = dataDeckTypeExtra.value;
       } else if (dataType === 'main deck') {
-        var _dataSearch = dataDeckTypeMain.value.some(function (element, index) {
-          return element.name === event.name;
-        });
-        // ********* when it not have card collect
-        if (!_dataSearch) {
-          var _dataJoin = {
-            value: 1,
-            rarity: 'N',
-            column_deck: 'main deck'
-          };
-          event = _objectSpread(_objectSpread({}, event), _dataJoin);
-          dataDeckTypeMain.value.push(event);
-          calculatePopupAddedCard(false, 1);
-        } else if (_dataSearch) {
-          // ********* when it have card collect
-          dataDeckTypeMain.value.forEach(function (element, index) {
-            if (element.name === event.name) {
-              if (dataDeckTypeMain.value[index].value === 3) {
-                calculatePopupAddedCard(true, 3);
-              } else {
-                dataDeckTypeMain.value[index].value += 1;
-                calculatePopupAddedCard(false, dataDeckTypeMain.value[index].value);
-              }
-            }
+        if (store.getters.getterTotalMainDeck < 60) {
+          var _dataSearch = dataDeckTypeMain.value.some(function (element, index) {
+            return element.name === event.name;
           });
+          // ********* when it not have card collect
+          if (!_dataSearch) {
+            var _dataJoin = {
+              value: 1,
+              rarity: 'N',
+              column_deck: 'main deck'
+            };
+            event = _objectSpread(_objectSpread({}, event), _dataJoin);
+            dataDeckTypeMain.value.push(event);
+            calculatePopupAddedCard(false, 1);
+          } else if (_dataSearch) {
+            // ********* when it have card collect
+            dataDeckTypeMain.value.forEach(function (element, index) {
+              if (element.name === event.name) {
+                if (dataDeckTypeMain.value[index].value === 3) {
+                  calculatePopupAddedCard(true, 3);
+                } else {
+                  dataDeckTypeMain.value[index].value += 1;
+                  calculatePopupAddedCard(false, dataDeckTypeMain.value[index].value);
+                }
+              }
+            });
+          }
+          dataDeckTypeMain.value = dataDeckTypeMain.value;
         }
-        dataDeckTypeMain.value = dataDeckTypeMain.value;
       }
     }
     function selectedCardHasRemove(event) {
@@ -1221,6 +1229,10 @@ var _hoisted_70 = {
   key: 0,
   "class": "invalid-text"
 };
+var _hoisted_71 = {
+  key: 1,
+  "class": "invalid-text"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$props$dataDeckBuild, _$props$dataDeckBuild2, _$setup$props, _$props$dataDeckBuild3, _$props$dataDeckBuild4, _$setup$props2, _$setup$props3, _$setup$props4, _$setup$props5, _$setup$deckCollects, _$setup$props6, _$setup$deckCollects2, _$props$dataDeckBuild5, _$setup$props7;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main deck "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" head list deck builder "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.deckType === 'main deck' ? 'Main Deck' : 'Extra Deck'), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(_$props$dataDeckBuild = $props.dataDeckBuilder) !== null && _$props$dataDeckBuild !== void 0 && (_$props$dataDeckBuild = _$props$dataDeckBuild.price) !== null && _$props$dataDeckBuild !== void 0 && _$props$dataDeckBuild.total_rarity_UR && $props.deckType === 'main deck' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
@@ -1286,7 +1298,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $setup.removeCard(card);
       }
     }, [].concat(_hoisted_58), 8 /* PROPS */, _hoisted_56)])])]);
-  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover) && !$setup.loading && !((_$setup$deckCollects2 = $setup.deckCollects) !== null && _$setup$deckCollects2 !== void 0 && _$setup$deckCollects2.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !((_$props$dataDeckBuild5 = $props.dataDeckBuilderLength) !== null && _$props$dataDeckBuild5 !== void 0 && _$props$dataDeckBuild5.length) && (_$setup$props7 = $setup.props) !== null && _$setup$props7 !== void 0 && _$setup$props7.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_65, [].concat(_hoisted_67))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && (_ctx.totalCard < 40 || _ctx.totalCard >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_70, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
+  }), 128 /* KEYED_FRAGMENT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$props6 = $setup.props) !== null && _$setup$props6 !== void 0 && _$setup$props6.displayHover) && !$setup.loading && !((_$setup$deckCollects2 = $setup.deckCollects) !== null && _$setup$deckCollects2 !== void 0 && _$setup$deckCollects2.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_59, [].concat(_hoisted_61))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" add loading spinner mandiri "), $setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_62, [].concat(_hoisted_64))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" not record data  "), !((_$props$dataDeckBuild5 = $props.dataDeckBuilderLength) !== null && _$props$dataDeckBuild5 !== void 0 && _$props$dataDeckBuild5.length) && (_$setup$props7 = $setup.props) !== null && _$setup$props7 !== void 0 && _$setup$props7.displayHover && !$setup.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_65, [].concat(_hoisted_67))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" ********** it just display data when create orr edit deck builder "), $props.deckType === 'main deck' && ($setup.totalCardMain < 40 || $setup.totalCardMain >= 60) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_70, " Deck contain 40 until 60 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.deckType === 'extra deck' && $setup.totalCardExtra >= 15 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_71, " Deck contain until 15 cards ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]);
 }
 
 /***/ }),
@@ -1442,7 +1454,7 @@ var _hoisted_42 = {
   "class": "row mt-2"
 };
 var _hoisted_43 = {
-  "class": "col-5 d-flex justify-content-start align-items-center"
+  "class": "col-6 d-flex justify-content-start align-items-center"
 };
 var _hoisted_44 = {
   "class": "mr-2"
@@ -1453,7 +1465,7 @@ var _hoisted_47 = {
   "class": "col-3"
 };
 var _hoisted_48 = {
-  "class": "col-4 d-flex justify-content-end text-center"
+  "class": "col-3 d-flex justify-content-end text-center"
 };
 var _hoisted_49 = {
   ref: "ClassList"
@@ -1508,16 +1520,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128 /* KEYED_FRAGMENT */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !((_$setup$getDataYgoPro2 = $setup.getDataYgoProDeck) !== null && _$setup$getDataYgoPro2 !== void 0 && _$setup$getDataYgoPro2.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_39, [].concat(_hoisted_41))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])]), (_$setup$getDataYgoPro3 = $setup.getDataYgoProDeck) !== null && _$setup$getDataYgoPro3 !== void 0 && _$setup$getDataYgoPro3.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "button-style-primary mr-2",
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $setup.nextPage();
-    }),
-    disabled: !((_$setup$infoPage = $setup.infoPage) !== null && _$setup$infoPage !== void 0 && _$setup$infoPage.next_page_offset) ? '' : _ctx.disabled
-  }, " > ", 8 /* PROPS */, _hoisted_45), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "button-style-primary",
-    onClick: _cache[3] || (_cache[3] = function ($event) {
       return $setup.backPage();
     }),
-    disabled: ((_$setup$infoPage2 = $setup.infoPage) === null || _$setup$infoPage2 === void 0 ? void 0 : _$setup$infoPage2.previous_page_offset) === undefined ? '' : _ctx.disabled
-  }, " < ", 8 /* PROPS */, _hoisted_46)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage3 = $setup.infoPage) === null || _$setup$infoPage3 === void 0 ? void 0 : _$setup$infoPage3.next_page_offset) - ((_$setup$infoPage4 = $setup.infoPage) === null || _$setup$infoPage4 === void 0 ? void 0 : _$setup$infoPage4.current_rows)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage5 = $setup.infoPage) === null || _$setup$infoPage5 === void 0 ? void 0 : _$setup$infoPage5.total_rows) - ((_$setup$infoPage6 = $setup.infoPage) === null || _$setup$infoPage6 === void 0 ? void 0 : _$setup$infoPage6.rows_remaining)) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$infoPage7 = $setup.infoPage) === null || _$setup$infoPage7 === void 0 ? void 0 : _$setup$infoPage7.total_rows), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    disabled: ((_$setup$infoPage = $setup.infoPage) === null || _$setup$infoPage === void 0 ? void 0 : _$setup$infoPage.previous_page_offset) === undefined ? '' : _ctx.disabled
+  }, " < ", 8 /* PROPS */, _hoisted_45), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "button-style-primary",
+    onClick: _cache[3] || (_cache[3] = function ($event) {
+      return $setup.nextPage();
+    }),
+    disabled: !((_$setup$infoPage2 = $setup.infoPage) !== null && _$setup$infoPage2 !== void 0 && _$setup$infoPage2.next_page_offset) ? '' : _ctx.disabled
+  }, " > ", 8 /* PROPS */, _hoisted_46)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage3 = $setup.infoPage) === null || _$setup$infoPage3 === void 0 ? void 0 : _$setup$infoPage3.next_page_offset) - ((_$setup$infoPage4 = $setup.infoPage) === null || _$setup$infoPage4 === void 0 ? void 0 : _$setup$infoPage4.current_rows)) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$setup$infoPage5 = $setup.infoPage) === null || _$setup$infoPage5 === void 0 ? void 0 : _$setup$infoPage5.total_rows) - ((_$setup$infoPage6 = $setup.infoPage) === null || _$setup$infoPage6 === void 0 ? void 0 : _$setup$infoPage6.rows_remaining)) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$infoPage7 = $setup.infoPage) === null || _$setup$infoPage7 === void 0 ? void 0 : _$setup$infoPage7.total_rows), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn", $setup.conditionHover ? 'btn-info' : 'btn-secondary']),
     onClick: _cache[4] || (_cache[4] = function ($event) {
       return $setup.conditionHover = !$setup.conditionHover;

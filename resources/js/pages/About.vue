@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col text-justify">
                 <p>
-                    Alasan kenapa saya membuat aplikasi ini adalah didasarkan ketika saya sedang memainkan game <b>Yu gi oh Master Duel</b> di PC. Memainkan game Master Duel ternyata cukup membuat sulit karena ada lebih dari 10.000 kartu yang memiliki effect berbeda di setiap text effect kartunya. Ketika saya memainkan gamenya ada beberapa kesulitan yang saya alami ketika memainkannya, dari ketidaktahuan ataupun lupa gimana memainkan deck yang saya miliki ataupun combo yang benar. Selain itu ketika di turn lawan saya juga tidak mengetahui gimana cara menggangu atau disrupt combo lawan dengan deck yang meraka mainkan karena banyaknya variasi deck.
+                    Alasan kenapa saya membuat aplikasi ini adalah didasarkan ketika saya sedang memainkan game <b>Yu gi oh Master Duel</b> di PC. Memainkan game Master Duel ternyata cukup membuat sulit karena ada lebih dari 10.000 kartu yang memiliki effect berbeda di setiap text effect kartunya. Ketika saya memainkan gamenya ada beberapa kesulitan yang saya alami ketika memainkannya, dari ketidaktahuan ataupun lupa gimana memainkan deck yang saya miliki ataupun combo yang benar. Selain itu ketika di turn lawan saya juga tidak mengetahui gimana cara menggangu atau distrupt combo lawan dengan deck yang meraka mainkan karena banyaknya variasi deck.
                     Karena saya programmer kenapa tidak membuat aplikasi yang bisa mengatasi masalah saya ? Membuat catatan gimana memainkan suatu deck tertentu agar menghasilkan endboard yang maximal ataupun membuat catatan gimana suatu deck dapat di distrupt agar tidak menghasilkan endboard yang sesuai lawan inginkan. Dengan begini saya memiliki contekan sendiri agar saya ngak sering2 kalah dalam memainkan game. Cukup solutip-kan wkwkw.....
                 </p>
             </div>
@@ -39,7 +39,7 @@
             <div class="col text-center">
                 <h4>Thanks to </h4>
                 <div class="font-weight-bold mt-3" style="font-size: 16px;">
-                    YGOPRODeck
+                    <a href="https://ygoprodeck.com/api-guide/"> https://ygoprodeck.com/ </a>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div 
                         v-for="(data,index) in dataDevTeam.data" :key="index"
-                        class="wrap-team">
+                        class="wrap-team mt-2">
                         <div class="wrap-image">
                             <img :src="data.image" :alt="data.name">
                         </div>
@@ -98,6 +98,7 @@
     .wrap-team .wrap-image img{
         width: 56px;
         height: 56px;
+        border-radius: 50%;
     }
 
     .wrap-team .wrap-info .link-portofolio a{

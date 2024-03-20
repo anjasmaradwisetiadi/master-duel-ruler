@@ -7,6 +7,7 @@
 ## master-duel-ruler
 
 Laravel-Vuejs Application for make easier play to game PC Master Duel Yu Gi Oh which make notelist how to play a deck we created, or make distrupt combo play by opponent. this app use an API provided by <a href="https://ygoprodeck.com/" target="_blank">ygprodeck.com</a> 
+Note: This application just running on display device laptop (14 inchi >= ) not used for device mobile or tablet.
 
 ## Main Technology
 

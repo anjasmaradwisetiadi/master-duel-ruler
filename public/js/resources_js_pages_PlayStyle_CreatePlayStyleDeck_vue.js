@@ -1038,7 +1038,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.backRoute();
     })
-  }, "Kembali")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, "Back")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", (_$setup$responseGener = $setup.responseGeneral) !== null && _$setup$responseGener !== void 0 && (_$setup$responseGener = _$setup$responseGener.message) !== null && _$setup$responseGener !== void 0 && _$setup$responseGener.title ? 'is-invalid' : '']),
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -1083,7 +1083,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     placeholder: "Write your information...."
   }, null, 8 /* PROPS */, ["content"]), !((_$setup$responseGener9 = $setup.responseGeneral) !== null && _$setup$responseGener9 !== void 0 && _$setup$responseGener9.status) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("small", _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseGener10 = $setup.responseGeneral) !== null && _$setup$responseGener10 !== void 0 && (_$setup$responseGener10 = _$setup$responseGener10.message) !== null && _$setup$responseGener10 !== void 0 && _$setup$responseGener10.information ? (_$setup$responseGener11 = $setup.responseGeneral) === null || _$setup$responseGener11 === void 0 || (_$setup$responseGener11 = _$setup$responseGener11.message) === null || _$setup$responseGener11 === void 0 ? void 0 : _$setup$responseGener11.information[0] : ''), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [_hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-secondary",
+    "class": "button-style-primary",
     onClick: _cache[6] || (_cache[6] = function ($event) {
       return $setup.generateChips();
     })
@@ -1102,7 +1102,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onDataModalCard: $setup.dataModalCard
   }, null, 8 /* PROPS */, ["getDataYgoProDeck"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
-    "class": "btn btn-success",
+    "class": "button-style-secondary",
     onClick: _cache[7] || (_cache[7] = function ($event) {
       return $setup.submit();
     })
@@ -1323,7 +1323,8 @@ var playStyleDeckService = _defineProperty({
             }).then(function () {
               sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
                 title: "Success Delete ",
-                icon: "success"
+                icon: "success",
+                confirmButtonColor: '#2b77bf'
               }).then(function (success) {
                 if (success) {
                   _routes__WEBPACK_IMPORTED_MODULE_4__["default"].push('/counter-style-deck/');
@@ -1388,7 +1389,8 @@ var playStyleDeckService = _defineProperty({
           }).then(function () {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
               title: "Success Delete ",
-              icon: "success"
+              icon: "success",
+              confirmButtonColor: '#2b77bf'
             }).then(function (success) {
               if (success) {
                 _routes__WEBPACK_IMPORTED_MODULE_4__["default"].push('/play-style-deck/');

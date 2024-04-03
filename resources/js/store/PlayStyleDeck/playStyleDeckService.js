@@ -129,7 +129,8 @@ export const playStyleDeckService = {
         .then(function(){
             Swal.fire({
               title: "Success Delete ",
-              icon: "success"
+              icon: "success",
+              confirmButtonColor: '#2b77bf',
             })
             .then((success)=>{
                 if(success){
@@ -177,7 +178,8 @@ export const playStyleDeckService = {
         .then(function(){
             Swal.fire({
               title: "Success Delete ",
-              icon: "success"
+              icon: "success",
+              confirmButtonColor: '#2b77bf',
             })
             .then((success)=>{
                 if(success){

@@ -209,10 +209,11 @@ __webpack_require__.r(__webpack_exports__);
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_4__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.useRouter)();
     var paramsUrl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var offset = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(1);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       var payload = router.currentRoute.value.params.slug;
       paramsUrl.value = payload;
-      _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getTableDeckBuilder(payload);
+      triggerSearchGlobal();
     });
     var dataDeckBuilders = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var _store$getters, _store$getters2;
@@ -221,13 +222,32 @@ __webpack_require__.r(__webpack_exports__);
     function redirectDetailDeckBuilder(slug) {
       router.push("/builder-deck/".concat(paramsUrl.value, "/").concat(slug));
     }
+    function nextPage() {
+      offset.value = offset.value + 1;
+      triggerSearchGlobal();
+    }
+    function backPage() {
+      offset.value = offset.value - 1;
+      triggerSearchGlobal();
+    }
+    function triggerSearchGlobal() {
+      var payload = {
+        slug: paramsUrl.value,
+        paginate: offset.value
+      };
+      _store_BuilderDeck_builderDeckService__WEBPACK_IMPORTED_MODULE_1__.builderDeckService.getTableDeckBuilder(payload);
+    }
     var __returned__ = {
       dayjs: dayjs,
       store: store,
       router: router,
       paramsUrl: paramsUrl,
+      offset: offset,
       dataDeckBuilders: dataDeckBuilders,
       redirectDetailDeckBuilder: redirectDetailDeckBuilder,
+      nextPage: nextPage,
+      backPage: backPage,
+      triggerSearchGlobal: triggerSearchGlobal,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
@@ -852,8 +872,24 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   }, " Tidak ada data yang terecord ")], -1 /* HOISTED */);
 });
 var _hoisted_14 = [_hoisted_13];
+var _hoisted_15 = {
+  colspan: "5"
+};
+var _hoisted_16 = {
+  key: 0,
+  "class": "row"
+};
+var _hoisted_17 = {
+  "class": "col d-flex justify-content-start align-items-center"
+};
+var _hoisted_18 = {
+  "class": "mr-4"
+};
+var _hoisted_19 = ["disabled"];
+var _hoisted_20 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.dataDeckBuilders, function (deckBuilder, index) {
+  var _$setup$dataDeckBuild, _$setup$dataDeckBuild2, _$setup$dataDeckBuild3, _$setup$dataDeckBuild4, _$setup$dataDeckBuild5, _$setup$dataDeckBuild6, _$setup$dataDeckBuild7, _$setup$dataDeckBuild8, _$setup$dataDeckBuild9;
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.dataDeckBuilders.data, function (deckBuilder, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       scope: "row",
       "class": "row-list-deck",
@@ -861,15 +897,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: function onClick($event) {
         return $setup.redirectDetailDeckBuilder(deckBuilder.slug);
       }
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(deckBuilder.title), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(deckBuilder === null || deckBuilder === void 0 ? void 0 : deckBuilder.title), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
       "class": "image-engines mr-1",
       src: deckBuilder === null || deckBuilder === void 0 ? void 0 : deckBuilder.engines,
       alt: "card"
     }, null, 8 /* PROPS */, _hoisted_9)])]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
       "class": "elipsis",
       innerHTML: $setup.utilize.elipisWord(7, deckBuilder === null || deckBuilder === void 0 ? void 0 : deckBuilder.description)
-    }, null, 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs(deckBuilder.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])], 8 /* PROPS */, _hoisted_6);
-  }), 128 /* KEYED_FRAGMENT */)), !$setup.dataDeckBuilders.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_12, [].concat(_hoisted_14))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])]);
+    }, null, 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.dayjs(deckBuilder === null || deckBuilder === void 0 ? void 0 : deckBuilder.updated_at).format('D-MMM-YYYY')), 1 /* TEXT */)])], 8 /* PROPS */, _hoisted_6);
+  }), 128 /* KEYED_FRAGMENT */)), !((_$setup$dataDeckBuild = $setup.dataDeckBuilders) !== null && _$setup$dataDeckBuild !== void 0 && (_$setup$dataDeckBuild = _$setup$dataDeckBuild.data) !== null && _$setup$dataDeckBuild !== void 0 && _$setup$dataDeckBuild.length) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_12, [].concat(_hoisted_14))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tfoot", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_15, [(_$setup$dataDeckBuild2 = $setup.dataDeckBuilders) !== null && _$setup$dataDeckBuild2 !== void 0 && (_$setup$dataDeckBuild2 = _$setup$dataDeckBuild2.data) !== null && _$setup$dataDeckBuild2 !== void 0 && _$setup$dataDeckBuild2.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "button-style-primary mr-2",
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $setup.backPage();
+    }),
+    disabled: ((_$setup$dataDeckBuild3 = $setup.dataDeckBuilders) === null || _$setup$dataDeckBuild3 === void 0 ? void 0 : _$setup$dataDeckBuild3.prev_page_url) === null || (_$setup$dataDeckBuild4 = $setup.dataDeckBuilders) !== null && _$setup$dataDeckBuild4 !== void 0 && _$setup$dataDeckBuild4.prev_page_url ? '' : _ctx.disabled
+  }, " < ", 8 /* PROPS */, _hoisted_19), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    "class": "button-style-primary",
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $setup.nextPage();
+    }),
+    disabled: !((_$setup$dataDeckBuild5 = $setup.dataDeckBuilders) !== null && _$setup$dataDeckBuild5 !== void 0 && _$setup$dataDeckBuild5.next_page_url) || ((_$setup$dataDeckBuild6 = $setup.dataDeckBuilders) === null || _$setup$dataDeckBuild6 === void 0 ? void 0 : _$setup$dataDeckBuild6.next_page_url) === null ? '' : _ctx.disabled
+  }, " > ", 8 /* PROPS */, _hoisted_20)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataDeckBuild7 = $setup.dataDeckBuilders) === null || _$setup$dataDeckBuild7 === void 0 ? void 0 : _$setup$dataDeckBuild7.from) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataDeckBuild8 = $setup.dataDeckBuilders) === null || _$setup$dataDeckBuild8 === void 0 ? void 0 : _$setup$dataDeckBuild8.to) + " of " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$dataDeckBuild9 = $setup.dataDeckBuilders) === null || _$setup$dataDeckBuild9 === void 0 ? void 0 : _$setup$dataDeckBuild9.total), 1 /* TEXT */)])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])]);
 }
 
 /***/ }),
@@ -1026,7 +1074,8 @@ var builderDeckService = {
           case 0:
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
               url: "".concat(urlBuilderStyle, "/").concat(slug),
               headers: {
@@ -1041,7 +1090,7 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -1094,42 +1143,55 @@ var builderDeckService = {
     }))();
   },
   getApiYuGioh: function getApiYuGioh(urlApiYugioh, dataOriginPayload) {
-    var collectDataJoin = [];
-    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-    axios__WEBPACK_IMPORTED_MODULE_3___default()({
-      method: 'get',
-      url: urlApiYugioh
-    }).then(function (response) {
-      var dataJoin = response.data;
-      dataJoin.data.forEach(function (data, index) {
-        dataOriginPayload.some(function (origin) {
-          if (data.name === origin.name) {
-            delete origin.name;
-            return dataJoin.data[index] = _objectSpread(_objectSpread({}, dataJoin.data[index]), origin);
-          }
-        });
-      });
-      dataJoin.data.forEach(function (element, index) {
-        collectDataJoin.push(element);
-      });
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', collectDataJoin);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    })["catch"](function (error) {
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    });
-  },
-  getTableDeckBuilder: function getTableDeckBuilder(slug) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      var tokenAuth;
+      var collectDataJoin;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) switch (_context3.prev = _context3.next) {
           case 0:
+            collectDataJoin = [];
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            _context3.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'get',
+              url: urlApiYugioh
+            }).then(function (response) {
+              var dataJoin = response.data;
+              dataJoin.data.forEach(function (data, index) {
+                dataOriginPayload.some(function (origin) {
+                  if (data.name === origin.name) {
+                    delete origin.name;
+                    return dataJoin.data[index] = _objectSpread(_objectSpread({}, dataJoin.data[index]), origin);
+                  }
+                });
+              });
+              dataJoin.data.forEach(function (element, index) {
+                collectDataJoin.push(element);
+              });
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', collectDataJoin);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }, _callee3);
+    }))();
+  },
+  getTableDeckBuilder: function getTableDeckBuilder(payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context4.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
-              url: "".concat(urlBuilderStyle, "/find/").concat(slug),
+              url: "".concat(urlBuilderStyle, "/find/").concat(payload === null || payload === void 0 ? void 0 : payload.slug, "?page=").concat(payload === null || payload === void 0 ? void 0 : payload.paginate),
               headers: {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
@@ -1140,22 +1202,23 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
-      }, _callee3);
+      }, _callee4);
     }))();
   },
   createDeckBuilder: function createDeckBuilder(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) switch (_context4.prev = _context4.next) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context5.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'post',
               url: "".concat(urlBuilderStyle),
               headers: {
@@ -1170,18 +1233,18 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   },
   getEditDeckBuilder: function getEditDeckBuilder(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-        while (1) switch (_context5.prev = _context5.next) {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
@@ -1204,20 +1267,21 @@ var builderDeckService = {
             });
           case 3:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
-      }, _callee5);
+      }, _callee6);
     }))();
   },
   editBuilderDeck: function editBuilderDeck(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-        while (1) switch (_context6.prev = _context6.next) {
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context7.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'post',
               url: "".concat(urlBuilderStyle, "/").concat(payload.slug),
               headers: {
@@ -1232,22 +1296,23 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
-      }, _callee6);
+      }, _callee7);
     }))();
   },
   deleteDeckBuilder: function deleteDeckBuilder(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-        while (1) switch (_context7.prev = _context7.next) {
+      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+        while (1) switch (_context8.prev = _context8.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context8.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'delete',
               url: "".concat(urlBuilderStyle, "/").concat(payload.paramsUrlSlug),
               headers: {
@@ -1268,11 +1333,11 @@ var builderDeckService = {
               commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context7.stop();
+            return _context8.stop();
         }
-      }, _callee7);
+      }, _callee8);
     }))();
   }
 };
@@ -1719,7 +1784,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-e28d5228]{\r\n        color: white;\r\n        border: 0.7px solid #385979;\r\n        /* border-radius: 8px; */\r\n        /* min-width: 60rem; */\n}\ntable thead[data-v-e28d5228] {\r\n        background-color: #2a4b6c;\n}\ntable tbody[data-v-e28d5228] {\r\n        background-color: #03182c;\n}\ntable thead tr[data-v-e28d5228]{\r\n        text-align: center;\n}\ntable tbody tr[data-v-e28d5228]:hover {\r\n        background-color: #1a4c7a;\n}\n.table th[data-v-e28d5228],\r\n    .table td[data-v-e28d5228] {\r\n        border: none !important;\n}\n.table thead th[data-v-e28d5228] {\r\n        border-bottom: none !important;\n}\ntable tr th[data-v-e28d5228]:nth-child(1),\r\n    table tr td[data-v-e28d5228]:nth-child(1)\r\n    {\r\n        min-width: 10rem;\r\n        max-width: 10rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(2),\r\n    table tr td[data-v-e28d5228]:nth-child(2) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(3),\r\n    table tr td[data-v-e28d5228]:nth-child(3) {\r\n        min-width: 4rem;\r\n        max-width: 4rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(4),\r\n    table tr td[data-v-e28d5228]:nth-child(4) {\r\n        min-width: 14rem;\r\n        max-width: 14rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(5),\r\n    table tr td[data-v-e28d5228]:nth-child(5) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\n.row-list-deck[data-v-e28d5228]{\r\n        cursor: pointer;\n}\n.elipsis[data-v-e28d5228]{\r\n        text-overflow: ellipsis;\r\n        /* Required for text-overflow to do anything */\r\n        white-space: nowrap;\r\n        overflow: hidden;\n}\n.image-engines[data-v-e28d5228]{\r\n        width: 40px;\r\n        height: 40px;\n}\n.image-rarity[data-v-e28d5228]{\r\n        width: 22px;\r\n        height: 22px;\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-e28d5228]{\r\n        color: white;\r\n        border: 0.7px solid #385979;\r\n        /* border-radius: 8px; */\r\n        /* min-width: 60rem; */\n}\ntable thead[data-v-e28d5228],  \r\n    table tfoot[data-v-e28d5228] {\r\n        background-color: #2a4b6c;\n}\ntable tbody[data-v-e28d5228] {\r\n        background-color: #03182c;\n}\ntable thead tr[data-v-e28d5228]{\r\n        text-align: center;\n}\ntable tbody tr[data-v-e28d5228]:hover {\r\n        background-color: #1a4c7a;\n}\n.table th[data-v-e28d5228],\r\n    .table td[data-v-e28d5228] {\r\n        border: none !important;\n}\n.table thead th[data-v-e28d5228] {\r\n        border-bottom: none !important;\n}\ntable tr th[data-v-e28d5228]:nth-child(1),\r\n    table tr td[data-v-e28d5228]:nth-child(1)\r\n    {\r\n        min-width: 10rem;\r\n        max-width: 10rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(2),\r\n    table tr td[data-v-e28d5228]:nth-child(2) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(3),\r\n    table tr td[data-v-e28d5228]:nth-child(3) {\r\n        min-width: 4rem;\r\n        max-width: 4rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(4),\r\n    table tr td[data-v-e28d5228]:nth-child(4) {\r\n        min-width: 14rem;\r\n        max-width: 14rem;\n}\ntable tr th[data-v-e28d5228]:nth-child(5),\r\n    table tr td[data-v-e28d5228]:nth-child(5) {\r\n        min-width: 6rem;\r\n        max-width: 6rem;\n}\n.row-list-deck[data-v-e28d5228]{\r\n        cursor: pointer;\n}\n.elipsis[data-v-e28d5228]{\r\n        text-overflow: ellipsis;\r\n        /* Required for text-overflow to do anything */\r\n        white-space: nowrap;\r\n        overflow: hidden;\n}\n.image-engines[data-v-e28d5228]{\r\n        width: 40px;\r\n        height: 40px;\n}\n.image-rarity[data-v-e28d5228]{\r\n        width: 22px;\r\n        height: 22px;\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -21255,7 +21255,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     var responseAuth = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       var _store$getters;
-      return store === null || store === void 0 || (_store$getters = store.getters) === null || _store$getters === void 0 || (_store$getters = _store$getters.getterResponseAuth) === null || _store$getters === void 0 ? void 0 : _store$getters.token;
+      return store === null || store === void 0 || (_store$getters = store.getters) === null || _store$getters === void 0 ? void 0 : _store$getters.getterResponseAuth;
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       store.dispatch('tryAutoLogin');
@@ -21484,12 +21484,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
     function nextPage() {
-      // state.inputSearch = inputSearch.value;
       offset.value = offset.value + 40;
       triggerSearchGlobal();
     }
     function backPage() {
-      // state.inputSearch = inputSearch.value;
       offset.value = offset.value - 40;
       triggerSearchGlobal();
     }
@@ -21698,18 +21696,44 @@ var _hoisted_9 = {
   "class": "nav-link text-white align-self-center ml-2 pointer"
 };
 var _hoisted_10 = {
+  key: 0,
   "class": "nav-link text-white",
   href: "/login"
 };
-var _hoisted_11 = {
-  key: 0,
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
   "class": "btn btn-light"
-};
-var _hoisted_12 = {
+}, "Login", -1 /* HOISTED */);
+var _hoisted_12 = [_hoisted_11];
+var _hoisted_13 = {
   "class": "nav-link text-white"
 };
+var _hoisted_14 = {
+  "class": "flex"
+};
+var _hoisted_15 = {
+  "class": "dropdown"
+};
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  role: "button",
+  "data-toggle": "dropdown",
+  "aria-expanded": "false"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "style-person-icon"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "material-icons"
+}, " person ")])], -1 /* HOISTED */);
+var _hoisted_17 = {
+  "class": "dropdown-menu"
+};
+var _hoisted_18 = {
+  "class": "account-login pl-2"
+};
+var _hoisted_19 = {
+  "class": "pl-2"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _$setup$responseAuth, _$setup$responseAuth2, _$setup$responseAuth3;
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("nav", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["nav-link text-white align-self-center ml-2", [$setup.activeLink === 'tier-list' ? 'text-active' : '']]),
     href: "/tier-list"
@@ -21727,14 +21751,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.searchCards();
     })
-  }, " search ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_10, [!$setup.responseAuth ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_11, "Login")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_12, [$setup.responseAuth ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+  }, " search ")]), !((_$setup$responseAuth = $setup.responseAuth) !== null && _$setup$responseAuth !== void 0 && _$setup$responseAuth.token) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", _hoisted_10, [].concat(_hoisted_12))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseAuth2 = $setup.responseAuth) === null || _$setup$responseAuth2 === void 0 ? void 0 : _$setup$responseAuth2.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(_$setup$responseAuth3 = $setup.responseAuth) !== null && _$setup$responseAuth3 !== void 0 && _$setup$responseAuth3.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 0,
     type: "button",
     "class": "btn btn-danger",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.logout();
     })
-  }, "Logout")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SearchCards"], {
+  }, "Logout ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SearchCards"], {
     openModal: $setup.openModal,
     onDataModalCard: $setup.dataModalCard
   }, null, 8 /* PROPS */, ["openModal"])]);
@@ -22713,7 +22737,7 @@ var builderDeck = {
     dataExtraDeck: [],
     totalMainDeck: 0,
     totalExtraDeck: 0,
-    listDeckBuilder: [],
+    listDeckBuilder: {},
     dataEditDeckBuilder: {}
   },
   mutations: {
@@ -25368,7 +25392,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.text-font{\r\n        text-align: center;\n}\n.non-padding{\r\n        padding: 0px !important;\n}\n.navbar-color{\r\n        background-color: #03182C !important;\r\n        color: white !important;\n}\n.navbar-list a{\r\n        font-size: 18px;\r\n        font-weight: 600;\n}\n.text-active{\r\n        text-decoration: underline;\n}\n.pointer{\r\n        cursor: pointer;\n}\n.logo-master-duel-ruler{\r\n        width: 182px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.text-font{\r\n        text-align: center;\n}\n.non-padding{\r\n        padding: 0px !important;\n}\n.navbar-color{\r\n        background-color: #03182C !important;\r\n        color: white !important;\n}\n.navbar-list a{\r\n        font-size: 18px;\r\n        font-weight: 600;\n}\n.text-active{\r\n        text-decoration: underline;\n}\n.pointer{\r\n        cursor: pointer;\n}\n.logo-master-duel-ruler{\r\n        width: 182px;\n}\n.style-person-icon{\r\n        background-color: #63625c;\r\n        border-radius: 50%;\r\n        border: 2px solid #385979;\r\n        width: 40px;\r\n        height: 40px;\r\n        padding: 6px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

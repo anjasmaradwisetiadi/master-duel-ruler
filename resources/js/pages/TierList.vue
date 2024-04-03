@@ -154,7 +154,6 @@
     border: 3px solid #385979;
     max-height: 90px;
     min-height: 90px;
-    cursor: pointer;
     background-color: #eff0f1;
     
 }

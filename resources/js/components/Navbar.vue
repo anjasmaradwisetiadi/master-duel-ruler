@@ -19,14 +19,35 @@
                                 search
                             </span>
                         </a>
-                        <a class="nav-link text-white" href="/login">
-                            <button type="button" class="btn btn-light" 
-                                v-if="!responseAuth">Login</button>
+                        <a v-if="!responseAuth?.token" class="nav-link text-white" href="/login">
+                            <button type="button" class="btn btn-light">Login</button>
                         </a>
                         <a class="nav-link text-white">
-                            <button type="button" class="btn btn-danger" 
-                                @click="logout()" 
-                                v-if="responseAuth">Logout</button>
+                            <div class="flex">
+                                <div class="dropdown">
+                                    <a role="button" data-toggle="dropdown" aria-expanded="false">
+                                        <div class="style-person-icon">
+                                            <span class="material-icons">
+                                                person
+                                            </span>
+                                        </div>
+                                    </a>
+
+                                    <div class="dropdown-menu">
+                                        <div class="account-login pl-2 ">
+                                            <span>{{responseAuth?.name}}</span>
+                                        </div>
+                                        <div class="pl-2">
+                                            <button type="button" class="btn btn-danger" 
+                                                @click="logout()" 
+                                                v-if="responseAuth?.token">Logout
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </a>
                     </div>
                 </div>
@@ -54,7 +75,7 @@ const state = reactive({
 })
 
 const responseAuth = computed(()=>{
-    return store?.getters?.getterResponseAuth?.token;
+    return store?.getters?.getterResponseAuth;
 })
 
 onMounted(()=>{
@@ -128,5 +149,13 @@ function logout(){
     }
     .logo-master-duel-ruler{
         width: 182px;
+    }
+    .style-person-icon{
+        background-color: #63625c;
+        border-radius: 50%;
+        border: 2px solid #385979;
+        width: 40px;
+        height: 40px;
+        padding: 6px;
     }
 </style>

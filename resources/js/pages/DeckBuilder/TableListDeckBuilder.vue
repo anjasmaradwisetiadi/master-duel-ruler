@@ -15,12 +15,12 @@
                     <tbody>
                         <tr scope="row"
                             class="row-list-deck"
-                            v-for="(deckBuilder, index) of dataDeckBuilders"
+                            v-for="(deckBuilder, index) of dataDeckBuilders.data"
                             :key="index"
                             @click="redirectDetailDeckBuilder(deckBuilder.slug)"
                         >
                             <td> 
-                                <div class="elipsis"> {{deckBuilder.title}}</div>
+                                <div class="elipsis"> {{deckBuilder?.title}}</div>
                             </td>
                             <td>
                                 <div class="d-flex">
@@ -56,11 +56,11 @@
                             </td>
                             <td>
                                 <span>
-                                    {{ dayjs(deckBuilder.updated_at).format('D-MMM-YYYY')  }}
+                                    {{ dayjs(deckBuilder?.updated_at).format('D-MMM-YYYY')  }}
                                 </span>
                             </td>
                         </tr>
-                        <tr v-if="!dataDeckBuilders.length">
+                        <tr v-if="!dataDeckBuilders?.data?.length">
                             <td colspan="5">
                                 <div class="d-flex justify-content-center">
                                     Tidak ada data yang terecord
@@ -68,6 +68,25 @@
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <th colspan="5">
+                            <div class="row" v-if="dataDeckBuilders?.data?.length">
+                                <div class="col d-flex justify-content-start align-items-center">
+                                    <div class="mr-4">
+                                        <button class="button-style-primary mr-2" 
+                                            @click="backPage()" 
+                                            :disabled="dataDeckBuilders?.prev_page_url === null || dataDeckBuilders?.prev_page_url ? '':disabled"> < </button>
+                                        <button class="button-style-primary" 
+                                        @click="nextPage()" 
+                                        :disabled="!dataDeckBuilders?.next_page_url || dataDeckBuilders?.next_page_url === null ? '':disabled"> > </button>
+                                    </div>
+                                    <div>
+                                        <span> {{dataDeckBuilders?.from }} - {{ dataDeckBuilders?.to }} of {{dataDeckBuilders?.total}}</span> 
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -84,11 +103,12 @@ const dayjs = require('dayjs');
 const store = useStore();
 const router = useRouter();
 const paramsUrl = ref('');
+const offset = ref(1);
 
 onMounted(()=>{
     const payload = router.currentRoute.value.params.slug;
     paramsUrl.value = payload;
-    builderDeckService.getTableDeckBuilder(payload);
+    triggerSearchGlobal()
 })
 
 const dataDeckBuilders = computed(()=>{
@@ -98,6 +118,25 @@ const dataDeckBuilders = computed(()=>{
 function redirectDetailDeckBuilder(slug){
     router.push(`/builder-deck/${paramsUrl.value}/${slug}`)
 }
+
+function nextPage(){
+    offset.value = offset.value+1;
+    triggerSearchGlobal();
+}
+
+function backPage(){
+    offset.value = offset.value-1;
+    triggerSearchGlobal();
+}
+
+function triggerSearchGlobal(){
+    const payload = {
+        slug: paramsUrl.value,
+        paginate: offset.value
+    }
+    builderDeckService.getTableDeckBuilder(payload);
+}
+
 </script>
 <style scoped>
     table{
@@ -106,7 +145,8 @@ function redirectDetailDeckBuilder(slug){
         /* border-radius: 8px; */
         /* min-width: 60rem; */
     }
-    table thead {
+    table thead,  
+    table tfoot {
         background-color: #2a4b6c;
     }
     table tbody {

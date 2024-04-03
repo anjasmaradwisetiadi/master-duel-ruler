@@ -1820,7 +1820,8 @@ var builderDeckService = {
           case 0:
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
               url: "".concat(urlBuilderStyle, "/").concat(slug),
               headers: {
@@ -1835,7 +1836,7 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -1888,42 +1889,55 @@ var builderDeckService = {
     }))();
   },
   getApiYuGioh: function getApiYuGioh(urlApiYugioh, dataOriginPayload) {
-    var collectDataJoin = [];
-    _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-    axios__WEBPACK_IMPORTED_MODULE_3___default()({
-      method: 'get',
-      url: urlApiYugioh
-    }).then(function (response) {
-      var dataJoin = response.data;
-      dataJoin.data.forEach(function (data, index) {
-        dataOriginPayload.some(function (origin) {
-          if (data.name === origin.name) {
-            delete origin.name;
-            return dataJoin.data[index] = _objectSpread(_objectSpread({}, dataJoin.data[index]), origin);
-          }
-        });
-      });
-      dataJoin.data.forEach(function (element, index) {
-        collectDataJoin.push(element);
-      });
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', collectDataJoin);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    })["catch"](function (error) {
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
-      _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
-    });
-  },
-  getTableDeckBuilder: function getTableDeckBuilder(slug) {
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-      var tokenAuth;
+      var collectDataJoin;
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) switch (_context3.prev = _context3.next) {
           case 0:
+            collectDataJoin = [];
+            _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
+            _context3.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
+              method: 'get',
+              url: urlApiYugioh
+            }).then(function (response) {
+              var dataJoin = response.data;
+              dataJoin.data.forEach(function (data, index) {
+                dataOriginPayload.some(function (origin) {
+                  if (data.name === origin.name) {
+                    delete origin.name;
+                    return dataJoin.data[index] = _objectSpread(_objectSpread({}, dataJoin.data[index]), origin);
+                  }
+                });
+              });
+              dataJoin.data.forEach(function (element, index) {
+                collectDataJoin.push(element);
+              });
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateDataDeckBuilder', collectDataJoin);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            })["catch"](function (error) {
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
+            });
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }, _callee3);
+    }))();
+  },
+  getTableDeckBuilder: function getTableDeckBuilder(payload) {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+      var tokenAuth;
+      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+        while (1) switch (_context4.prev = _context4.next) {
+          case 0:
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context4.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
-              url: "".concat(urlBuilderStyle, "/find/").concat(slug),
+              url: "".concat(urlBuilderStyle, "/find/").concat(payload === null || payload === void 0 ? void 0 : payload.slug, "?page=").concat(payload === null || payload === void 0 ? void 0 : payload.paginate),
               headers: {
                 'Authorization': "Bearer ".concat(tokenAuth)
               }
@@ -1934,22 +1948,23 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
-      }, _callee3);
+      }, _callee4);
     }))();
   },
   createDeckBuilder: function createDeckBuilder(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-        while (1) switch (_context4.prev = _context4.next) {
+      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+        while (1) switch (_context5.prev = _context5.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context5.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'post',
               url: "".concat(urlBuilderStyle),
               headers: {
@@ -1964,18 +1979,18 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   },
   getEditDeckBuilder: function getEditDeckBuilder(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-        while (1) switch (_context5.prev = _context5.next) {
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
@@ -1998,20 +2013,21 @@ var builderDeckService = {
             });
           case 3:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
-      }, _callee5);
+      }, _callee6);
     }))();
   },
   editBuilderDeck: function editBuilderDeck(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-        while (1) switch (_context6.prev = _context6.next) {
+      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+        while (1) switch (_context7.prev = _context7.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context7.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'post',
               url: "".concat(urlBuilderStyle, "/").concat(payload.slug),
               headers: {
@@ -2026,22 +2042,23 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
-      }, _callee6);
+      }, _callee7);
     }))();
   },
   deleteDeckBuilder: function deleteDeckBuilder(payload) {
-    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
       var tokenAuth;
-      return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-        while (1) switch (_context7.prev = _context7.next) {
+      return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+        while (1) switch (_context8.prev = _context8.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context8.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'delete',
               url: "".concat(urlBuilderStyle, "/").concat(payload.paramsUrlSlug),
               headers: {
@@ -2062,11 +2079,11 @@ var builderDeckService = {
               commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
-            return _context7.stop();
+            return _context8.stop();
         }
-      }, _callee7);
+      }, _callee8);
     }))();
   }
 };

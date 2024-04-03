@@ -12,7 +12,7 @@ export const builderDeckService = {
     async getDeckBuilderDetail(slug){
         store.state.loading = true;
         const tokenAuth = store.getters.getterResponseAuth.token;
-        axios({
+        await axios({
             method: 'get',
             url: `${urlBuilderStyle}/${slug}`,
             headers:{
@@ -66,10 +66,10 @@ export const builderDeckService = {
         }); 
     },
 
-    getApiYuGioh(urlApiYugioh, dataOriginPayload){
+    async getApiYuGioh(urlApiYugioh, dataOriginPayload){
         let collectDataJoin = [];
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'get',
             url: urlApiYugioh,
         })
@@ -96,12 +96,12 @@ export const builderDeckService = {
         })   
     },
 
-    async getTableDeckBuilder(slug){
+    async getTableDeckBuilder(payload){
         store.state.loading = true;
         const tokenAuth = store.getters.getterResponseAuth.token;
-        axios({
+        await axios({
             method: 'get',
-            url: `${urlBuilderStyle}/find/${slug}`,
+            url: `${urlBuilderStyle}/find/${payload?.slug}?page=${payload?.paginate}`,
             headers:{
                 'Authorization': `Bearer ${tokenAuth}`
               },
@@ -119,7 +119,7 @@ export const builderDeckService = {
     async createDeckBuilder(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'post',
             url: `${urlBuilderStyle}`,
             headers:{
@@ -165,7 +165,7 @@ export const builderDeckService = {
     async editBuilderDeck(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'post',
             url: `${urlBuilderStyle}/${payload.slug}`,
             headers:{
@@ -187,7 +187,7 @@ export const builderDeckService = {
     async deleteDeckBuilder(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'delete',
             url: `${urlBuilderStyle}/${payload.paramsUrlSlug}`,
             headers:{

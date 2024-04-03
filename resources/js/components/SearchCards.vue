@@ -290,13 +290,11 @@
   }
 
     function nextPage(){
-        // state.inputSearch = inputSearch.value;
         offset.value = offset.value+40;
         triggerSearchGlobal();
     }
 
     function backPage(){
-        // state.inputSearch = inputSearch.value;
         offset.value = offset.value-40;
         triggerSearchGlobal();
     }

@@ -21484,12 +21484,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
     function nextPage() {
-      // state.inputSearch = inputSearch.value;
       offset.value = offset.value + 40;
       triggerSearchGlobal();
     }
     function backPage() {
-      // state.inputSearch = inputSearch.value;
       offset.value = offset.value - 40;
       triggerSearchGlobal();
     }
@@ -22016,6 +22014,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   dataDummyDeckBuilder: () => (/* binding */ dataDummyDeckBuilder),
 /* harmony export */   dataDummyTierList: () => (/* binding */ dataDummyTierList)
 /* harmony export */ });
+/* harmony import */ var _urlCollect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./urlCollect */ "./resources/js/urlCollect.js");
+
 var dataDummyCards = {
   "data": [{
     "id": 48626373,
@@ -22456,11 +22456,11 @@ var dataDummyTierList = {
 var dataDevTeam = {
   'data': [{
     name: 'Anjasmara Dwi Setiadi',
-    image: 'http://laravel-vue.test/images/anjas-github.png?eb64c4e7983ee78d703c061b068d884a',
+    image: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlHead, "/images/anjas-github.png?eb64c4e7983ee78d703c061b068d884a"),
     github: 'https://github.com/anjasmaradwisetiadi/master-duel-ruler'
   }, {
     name: 'Ihdi Ulhaq',
-    image: 'http://laravel-vue.test/images/ihdi-github.jpeg?58107cafd88e636998500ecceddc1c01',
+    image: "".concat(_urlCollect__WEBPACK_IMPORTED_MODULE_0__.collectionUrl.baseUrlHead, "/images/ihdi-github.jpeg?58107cafd88e636998500ecceddc1c01"),
     github: 'https://github.com/IhdiUlhaq/master-duel-ruler'
   }]
 };
@@ -22711,7 +22711,7 @@ var builderDeck = {
     dataExtraDeck: [],
     totalMainDeck: 0,
     totalExtraDeck: 0,
-    listDeckBuilder: [],
+    listDeckBuilder: {},
     dataEditDeckBuilder: {}
   },
   mutations: {

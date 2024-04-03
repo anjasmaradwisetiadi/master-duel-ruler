@@ -10,7 +10,7 @@ export const builderDeck = {
         dataExtraDeck:[],
         totalMainDeck : 0,
         totalExtraDeck : 0,
-        listDeckBuilder: [],
+        listDeckBuilder: {},
         dataEditDeckBuilder: {}
     },
     mutations: {
@@ -36,7 +36,7 @@ export const builderDeck = {
 
         mutateEditDeckBuilder(state, payload){
             state.dataEditDeckBuilder = payload;
-        }
+        },
     }, 
     action:{
 

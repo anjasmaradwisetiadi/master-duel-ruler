@@ -242,7 +242,7 @@ class DeckBuilderController extends Controller
 
     public function findTableDeckBuilder($slug){
         $resultsFindStyle = PlayStyleDecks::where('slug','=',$slug )->get();
-        $results = DeckBuilders::where('play_style_id', '=', $resultsFindStyle[0]->id)->latest()->get();
+        $results = DeckBuilders::where('play_style_id', '=', $resultsFindStyle[0]->id)->paginate(10);
 
         for ($index=0; $index<count($results); $index++) {
             $results[$index]->engines = $results[$index]->engines;

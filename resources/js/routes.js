@@ -5,7 +5,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/tier-list' },
-        { path: '/dashboard', component: () => import('./components/ExampleComponent.vue')},
+        // { path: '/dashboard', component: () => import('./components/ExampleComponent.vue')},
         { path: '/tier-list', component: () => import('./pages/TierList.vue'), meta: {requiresAuth: true} },
         { path: '/counter-style-deck', component: () => import('./pages/CounterStyleDeck.vue'), meta: {requiresAuth: true} },
         { path: '/counter-style-deck/:slug', component: () => import('./pages/CounterStyle/CounterStyleDetail.vue'), meta: {requiresAuth: true} },
@@ -21,7 +21,8 @@ const router = createRouter({
         { path: '/builder-deck/:slug_play_style/create', component: () => import('./pages/DeckBuilder/CreateDeckBuilder.vue'), meta: {requiresAuth: true} },
         { path: '/about', component: () => import('./pages/About.vue'), meta: {requiresAuth: true} },
         { path: '/login', component: () => import('./pages/LoginRegister.vue'),  meta: {requiresUnauth: true} },
-        { path: '/register', component: () => import('./pages/Register.vue'), meta: {requiresAuth: true}  },
+        { path: '/register', component: () => import('./pages/Register.vue'), meta: {requiresUnauth: true}  },
+        { path: '/:pathMatch(.*)*', component: () => import('./components/PageNotFound.vue'), meta: {requiresAuth: true} },
     ]
   });
   

@@ -26,12 +26,8 @@ __webpack_require__.r(__webpack_exports__);
     __expose();
     var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
-    var name = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var username = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var email = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var password = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var position = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)([]);
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {});
     var loading = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)(function () {
       return store.getters.getterStateLoading;
@@ -40,17 +36,6 @@ __webpack_require__.r(__webpack_exports__);
       var _store$getters;
       return store === null || store === void 0 || (_store$getters = store.getters) === null || _store$getters === void 0 ? void 0 : _store$getters.getterResponseAuth;
     });
-
-    //  const loginOrNotChecked = computed(()=>{
-    //     if(router?.currentRoute?.value){
-    //         if(router?.currentRoute?.value?.path.includes('/register')){
-    //             return false;
-    //         } else if(router?.currentRoute?.value?.path.includes('/login')){
-    //             return true;
-    //         }
-    //     }
-    // })
-
     function submit() {
       var formData = new FormData();
       var payload = {
@@ -61,9 +46,6 @@ __webpack_require__.r(__webpack_exports__);
         formData.append(key, payload[key]);
       }
       store.dispatch('login', formData);
-    }
-    function back() {
-      router.push('/login');
     }
     function createPayload() {
       // if(!loginOrNotChecked){
@@ -81,16 +63,11 @@ __webpack_require__.r(__webpack_exports__);
     var __returned__ = {
       store: store,
       router: router,
-      name: name,
-      username: username,
       email: email,
       password: password,
-      position: position,
-      state: state,
       loading: loading,
       responseGeneral: responseGeneral,
       submit: submit,
-      back: back,
       createPayload: createPayload,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
@@ -147,7 +124,7 @@ var _hoisted_5 = {
 };
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "email"
-}, "Email", -1 /* HOISTED */);
+}, "Email or Username", -1 /* HOISTED */);
 var _hoisted_7 = {
   key: 0,
   "class": "form-text invalid-feedback"

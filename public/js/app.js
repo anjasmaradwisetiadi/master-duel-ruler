@@ -21165,6 +21165,12 @@ __webpack_require__.r(__webpack_exports__);
               title: "Oops...",
               text: "Nama sudah ada, coba ganti nama lain !"
             });
+          } else if ((response === null || response === void 0 ? void 0 : response.message.toLowerCase()) === 'email atau username dan password salah') {
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Email, Username dan Password salah, silahkan coba lagi !!!"
+            });
           } else {
             return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
               icon: "error",
@@ -21285,14 +21291,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          // localStorage.removeItem('user');
-          // store.state.responseAuth = {};
-          // router.push('/login');
-          // Swal.fire({
-          //     title: "Sukses!!!",
-          //     text: "Anda telah berhasil logout",
-          //     icon: "success"
-          // });
           store.dispatch('logout');
         } else {
           return false;
@@ -21706,6 +21704,7 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 }, "Login", -1 /* HOISTED */);
 var _hoisted_12 = [_hoisted_11];
 var _hoisted_13 = {
+  key: 1,
   "class": "nav-link text-white"
 };
 var _hoisted_14 = {
@@ -21730,7 +21729,7 @@ var _hoisted_18 = {
   "class": "account-login pl-2"
 };
 var _hoisted_19 = {
-  "class": "pl-2"
+  "class": "pl-2 pt-1"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$setup$responseAuth, _$setup$responseAuth2, _$setup$responseAuth3;
@@ -21751,14 +21750,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.searchCards();
     })
-  }, " search ")]), !((_$setup$responseAuth = $setup.responseAuth) !== null && _$setup$responseAuth !== void 0 && _$setup$responseAuth.token) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", _hoisted_10, [].concat(_hoisted_12))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseAuth2 = $setup.responseAuth) === null || _$setup$responseAuth2 === void 0 ? void 0 : _$setup$responseAuth2.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(_$setup$responseAuth3 = $setup.responseAuth) !== null && _$setup$responseAuth3 !== void 0 && _$setup$responseAuth3.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-    key: 0,
+  }, " search ")]), !((_$setup$responseAuth = $setup.responseAuth) !== null && _$setup$responseAuth !== void 0 && _$setup$responseAuth.token) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", _hoisted_10, [].concat(_hoisted_12))) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (_$setup$responseAuth2 = $setup.responseAuth) !== null && _$setup$responseAuth2 !== void 0 && _$setup$responseAuth2.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [_hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$responseAuth3 = $setup.responseAuth) === null || _$setup$responseAuth3 === void 0 ? void 0 : _$setup$responseAuth3.name), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-danger",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $setup.logout();
     })
-  }, "Logout ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SearchCards"], {
+  }, "Logout ")])])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" perlu adjustment lagi class untuk display hover kartu karena ada masalah sama hover image lain "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["SearchCards"], {
     openModal: $setup.openModal,
     onDataModalCard: $setup.dataModalCard
   }, null, 8 /* PROPS */, ["openModal"])]);
@@ -22563,12 +22561,9 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
   routes: [{
     path: '/',
     redirect: '/tier-list'
-  }, {
-    path: '/dashboard',
-    component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_js_components_ExampleComponent_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue"));
-    }
-  }, {
+  },
+  // { path: '/dashboard', component: () => import('./components/ExampleComponent.vue')},
+  {
     path: '/tier-list',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_pages_TierList_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/TierList.vue */ "./resources/js/pages/TierList.vue"));
@@ -22692,6 +22687,14 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
     path: '/register',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_js_pages_Register_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./pages/Register.vue */ "./resources/js/pages/Register.vue"));
+    },
+    meta: {
+      requiresUnauth: true
+    }
+  }, {
+    path: '/:pathMatch(.*)*',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_js_components_PageNotFound_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./components/PageNotFound.vue */ "./resources/js/components/PageNotFound.vue"));
     },
     meta: {
       requiresAuth: true
@@ -25392,7 +25395,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.text-font{\r\n        text-align: center;\n}\n.non-padding{\r\n        padding: 0px !important;\n}\n.navbar-color{\r\n        background-color: #03182C !important;\r\n        color: white !important;\n}\n.navbar-list a{\r\n        font-size: 18px;\r\n        font-weight: 600;\n}\n.text-active{\r\n        text-decoration: underline;\n}\n.pointer{\r\n        cursor: pointer;\n}\n.logo-master-duel-ruler{\r\n        width: 182px;\n}\n.style-person-icon{\r\n        background-color: #63625c;\r\n        border-radius: 50%;\r\n        border: 2px solid #385979;\r\n        width: 40px;\r\n        height: 40px;\r\n        padding: 6px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.text-font{\r\n        text-align: center;\n}\n.non-padding{\r\n        padding: 0px !important;\n}\n.navbar-color{\r\n        background-color: #03182C !important;\r\n        color: white !important;\n}\n.navbar-list a{\r\n        font-size: 18px;\r\n        font-weight: 600;\n}\n.text-active{\r\n        text-decoration: underline;\n}\n.pointer{\r\n        cursor: pointer;\n}\n.logo-master-duel-ruler{\r\n        width: 182px;\n}\n.style-person-icon{\r\n        background-color: #63625c;\r\n        border-radius: 50%;\r\n        border: 2px solid #385979;\r\n        width: 40px;\r\n        height: 40px;\r\n        padding: 6px;\n}\n.account-login{\r\n        border-bottom: 1px solid black;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -53460,7 +53463,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_ExampleComponent_vue":1,"resources_js_pages_TierList_vue":1,"resources_js_pages_CounterStyleDeck_vue":1,"resources_js_pages_CounterStyle_CounterStyleDetail_vue":1,"resources_js_pages_CounterStyle_CreateCounterStyleDeck_vue":1,"resources_js_pages_DetailOneCard_DetailOneCard_vue":1,"resources_js_pages_PlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_CreatePlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_PlayStyleDetail_vue":1,"resources_js_pages_DeckBuilder_DeckBuilderDetail_vue":1,"resources_js_pages_DeckBuilder_CreateDeckBuilder_vue":1,"resources_js_pages_About_vue":1,"resources_js_pages_LoginRegister_vue":1,"resources_js_pages_Register_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_pages_TierList_vue":1,"resources_js_pages_CounterStyleDeck_vue":1,"resources_js_pages_CounterStyle_CounterStyleDetail_vue":1,"resources_js_pages_CounterStyle_CreateCounterStyleDeck_vue":1,"resources_js_pages_DetailOneCard_DetailOneCard_vue":1,"resources_js_pages_PlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_CreatePlayStyleDeck_vue":1,"resources_js_pages_PlayStyle_PlayStyleDetail_vue":1,"resources_js_pages_DeckBuilder_DeckBuilderDetail_vue":1,"resources_js_pages_DeckBuilder_CreateDeckBuilder_vue":1,"resources_js_pages_About_vue":1,"resources_js_pages_LoginRegister_vue":1,"resources_js_pages_Register_vue":1,"resources_js_components_PageNotFound_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

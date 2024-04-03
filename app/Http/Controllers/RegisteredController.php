@@ -62,13 +62,12 @@ class RegisteredController extends Controller
 
     public function login(Request $request){
         $rules =[
-            'email'=> 'required|email',
+            'email'=> 'required',
             'password'=> 'required|min:8|max:32',
         ];
 
         $messages =[
-            'email.required'=> 'isi email sekarang',
-            'email.email'=> 'format email salah',
+            'email.required'=> 'isi email atau username sekarang',
             'password.required'=> 'isi password sekarang',
             'password.min'=> 'password minimal 8 karakter',
             'password.max'=> 'password maximal 32 karakter',
@@ -78,11 +77,16 @@ class RegisteredController extends Controller
         if($registerValidate->fails()){
             return response()->json(['status'=>false, 'message'=> $registerValidate->errors()]);
         } else if($registerValidate){
-            $dataUserLogin = [
+            $dataUserLoginEmail = [
                 'email'=>$request->email,
                 'password'=>$request->password
             ];
-            if(Auth::attempt($dataUserLogin)){
+            $dataUserLoginUsername = [
+                'user_name'=>$request->email,
+                'password'=>$request->password
+            ];
+
+            if(Auth::attempt($dataUserLoginEmail) || Auth::attempt($dataUserLoginUsername)){
                 $user = Auth::user();
                 $success = [
                     'name' => $user->name,
@@ -93,7 +97,7 @@ class RegisteredController extends Controller
                 ];
                 return response()->json(['status'=>true, 'message'=>'User berhasil login !!!', 'data'=>$success]);
             } else {
-                return response()->json(['status'=>false, 'message'=> 'Email dan password salah']);
+                return response()->json(['status'=>false, 'message'=> 'Email atau Username dan password salah']);
             }
         }
 

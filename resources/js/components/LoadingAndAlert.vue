@@ -42,6 +42,7 @@
                         text: response.message,
                         icon: "success",
                         showCancelButton: false,
+                        confirmButtonColor: '#2b77bf',
                         confirmButtonText: "Yes",
                     }).then((result)=>{
                         if (result.isConfirmed || result.isDismissed) {
@@ -55,19 +56,21 @@
                             icon: "error",
                             title: "Oops...",
                             text: "Nama sudah ada, coba ganti nama lain !",
+                            confirmButtonColor: '#2b77bf',
                         });
-                    } 
-                    else if(response?.message.toLowerCase() === 'email atau username dan password salah'){
+                    } else if(response?.data?.toLowerCase() === 'email atau username dan password salah'){
                         return  Swal.fire({
                             icon: "error",
                             title: "Oops...",
                             text: "Email, Username dan Password salah, silahkan coba lagi !!!",
+                            confirmButtonColor: '#2b77bf',
                         });
                     } else {
                         return  Swal.fire({
                             icon: "error",
                             title: "Oops...",
                             text: "Something went wrong!",
+                            confirmButtonColor: '#2b77bf',
                         });
                     }
                 }
@@ -80,6 +83,7 @@
             return Swal.fire({
             title: "Apa kamu yakin akan mengapus info Deck ini ? ",
             showCancelButton: true,
+            confirmButtonColor: '#2b77bf',
             confirmButtonText: "Yes",
         }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */

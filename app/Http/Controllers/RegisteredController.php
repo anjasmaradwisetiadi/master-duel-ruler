@@ -97,7 +97,7 @@ class RegisteredController extends Controller
                 ];
                 return response()->json(['status'=>true, 'message'=>'User berhasil login !!!', 'data'=>$success]);
             } else {
-                return response()->json(['status'=>false, 'message'=> 'Email atau Username dan password salah']);
+                return response()->json(['status'=>false, 'message'=> 'Email atau Username dan password salah', 'data'=>'Email atau Username dan password salah']);
             }
         }
 

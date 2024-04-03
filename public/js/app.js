@@ -21150,6 +21150,7 @@ __webpack_require__.r(__webpack_exports__);
             text: response.message,
             icon: "success",
             showCancelButton: false,
+            confirmButtonColor: '#2b77bf',
             confirmButtonText: "Yes"
           }).then(function (result) {
             if (result.isConfirmed || result.isDismissed) {
@@ -21157,25 +21158,28 @@ __webpack_require__.r(__webpack_exports__);
             }
           });
         } else if ((response === null || response === void 0 ? void 0 : response.status) === false) {
-          var _response$message, _response$message2;
+          var _response$message, _response$message2, _response$data;
           var conditionSlug = response !== null && response !== void 0 && (_response$message = response.message) !== null && _response$message !== void 0 && _response$message.slug ? response === null || response === void 0 || (_response$message2 = response.message) === null || _response$message2 === void 0 ? void 0 : _response$message2.slug[0] : '';
           if (conditionSlug.toLowerCase() === 'slug unique') {
             return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
               icon: "error",
               title: "Oops...",
-              text: "Nama sudah ada, coba ganti nama lain !"
+              text: "Nama sudah ada, coba ganti nama lain !",
+              confirmButtonColor: '#2b77bf'
             });
-          } else if ((response === null || response === void 0 ? void 0 : response.message.toLowerCase()) === 'email atau username dan password salah') {
+          } else if ((response === null || response === void 0 || (_response$data = response.data) === null || _response$data === void 0 ? void 0 : _response$data.toLowerCase()) === 'email atau username dan password salah') {
             return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
               icon: "error",
               title: "Oops...",
-              text: "Email, Username dan Password salah, silahkan coba lagi !!!"
+              text: "Email, Username dan Password salah, silahkan coba lagi !!!",
+              confirmButtonColor: '#2b77bf'
             });
           } else {
             return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
               icon: "error",
               title: "Oops...",
-              text: "Something went wrong!"
+              text: "Something went wrong!",
+              confirmButtonColor: '#2b77bf'
             });
           }
         }
@@ -21187,6 +21191,7 @@ __webpack_require__.r(__webpack_exports__);
         return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default().fire({
           title: "Apa kamu yakin akan mengapus info Deck ini ? ",
           showCancelButton: true,
+          confirmButtonColor: '#2b77bf',
           confirmButtonText: "Yes"
         }).then(function (result) {
           /* Read more about isConfirmed, isDenied below */
@@ -21287,7 +21292,8 @@ __webpack_require__.r(__webpack_exports__);
       sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
         title: "Apa kamu yakin akan Logout ? ",
         showCancelButton: true,
-        confirmButtonText: "Yes"
+        confirmButtonText: "Yes",
+        confirmButtonColor: '#2b77bf'
       }).then(function (result) {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
@@ -23022,7 +23028,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
         title: "Sukses!!!",
         text: "Anda telah berhasil logout",
-        icon: "success"
+        icon: "success",
+        confirmButtonColor: '#2b77bf'
       });
     },
     auth: function auth(_ref6, payload) {
@@ -23183,7 +23190,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
       }).then(function () {
         sweetalert2__WEBPACK_IMPORTED_MODULE_6___default().fire({
           title: "Success Delete ",
-          icon: "success"
+          icon: "success",
+          confirmButtonColor: '#2b77bf'
         }).then(function (success) {
           if (success) {
             _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/counter-style-deck/');

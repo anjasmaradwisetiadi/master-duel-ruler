@@ -405,7 +405,8 @@ var playStyleDeckService = _defineProperty({
             }).then(function () {
               sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
                 title: "Success Delete ",
-                icon: "success"
+                icon: "success",
+                confirmButtonColor: '#2b77bf'
               }).then(function (success) {
                 if (success) {
                   _routes__WEBPACK_IMPORTED_MODULE_4__["default"].push('/counter-style-deck/');
@@ -470,7 +471,8 @@ var playStyleDeckService = _defineProperty({
           }).then(function () {
             sweetalert2__WEBPACK_IMPORTED_MODULE_5___default().fire({
               title: "Success Delete ",
-              icon: "success"
+              icon: "success",
+              confirmButtonColor: '#2b77bf'
             }).then(function (success) {
               if (success) {
                 _routes__WEBPACK_IMPORTED_MODULE_4__["default"].push('/play-style-deck/');

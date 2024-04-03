@@ -105,6 +105,7 @@ function logout(){
             title: "Apa kamu yakin akan Logout ? ",
             showCancelButton: true,
             confirmButtonText: "Yes",
+            confirmButtonColor: '#2b77bf',
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {

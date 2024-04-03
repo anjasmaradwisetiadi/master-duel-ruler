@@ -157,7 +157,8 @@ const store = createStore({
       Swal.fire({
           title: "Sukses!!!",
           text: "Anda telah berhasil logout",
-          icon: "success"
+          icon: "success",
+          confirmButtonColor: '#2b77bf',
       });
     },
     
@@ -327,7 +328,8 @@ const store = createStore({
       .then(function(){
           Swal.fire({
             title: "Success Delete ",
-            icon: "success"
+            icon: "success",
+            confirmButtonColor: '#2b77bf',
           })
           .then((success)=>{
               if(success){

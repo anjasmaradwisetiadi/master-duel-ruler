@@ -7,7 +7,7 @@
         </div>
         <div class="row mb-2">
             <div class="col d-flex justify-content-end">
-                <button type="button" class="button-style-secondary" @click="backRoute()">Kembali</button>
+                <button type="button" class="button-style-secondary" @click="backRoute()">Back</button>
             </div>
         </div>
         <div class="form-create">
@@ -69,7 +69,7 @@
                 <label for="chips">Chips Card</label>
                 <div id="chips" aria-describedby="chips">
                     <div class="mb-1">
-                        <button type="button" class="btn btn-secondary" @click="generateChips()">Generate Chips Card</button>
+                        <button type="button" class="button-style-primary" @click="generateChips()">Generate Chips Card</button>
                     </div>
                     <div>
                         <small>Note: untuk menghasilkan chips card perlu menambahkan text format "your_card" di column text Information, dan pastikan kartu yang ditulis emang benar namanya</small>
@@ -89,7 +89,7 @@
                 <ListImageHover :getDataYgoProDeck='getDataYgoProDeck' @dataModalCard='dataModalCard' ></ListImageHover>
             </div> 
             <div>
-                <button type="button" class="btn btn-success" @click="submit()">Submit</button>
+                <button type="button" class="button-style-secondary" @click="submit()">Submit</button>
                 <!-- <button type="button" class="btn btn-danger ml-2" @click="createPayload()">Create Payload</button> -->
             </div>
         </div>

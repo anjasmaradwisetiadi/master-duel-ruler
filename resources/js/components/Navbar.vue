@@ -22,7 +22,8 @@
                         <a v-if="!responseAuth?.token" class="nav-link text-white" href="/login">
                             <button type="button" class="btn btn-light">Login</button>
                         </a>
-                        <a class="nav-link text-white">
+                        <a  v-if="responseAuth?.token"
+                            class="nav-link text-white">
                             <div class="flex">
                                 <div class="dropdown">
                                     <a role="button" data-toggle="dropdown" aria-expanded="false">
@@ -37,17 +38,15 @@
                                         <div class="account-login pl-2 ">
                                             <span>{{responseAuth?.name}}</span>
                                         </div>
-                                        <div class="pl-2">
+                                        <div class="pl-2 pt-1">
                                             <button type="button" class="btn btn-danger" 
                                                 @click="logout()" 
-                                                v-if="responseAuth?.token">Logout
+                                                >Logout
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </a>
                     </div>
                 </div>
@@ -109,14 +108,6 @@ function logout(){
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                // localStorage.removeItem('user');
-                // store.state.responseAuth = {};
-                // router.push('/login');
-                // Swal.fire({
-                //     title: "Sukses!!!",
-                //     text: "Anda telah berhasil logout",
-                //     icon: "success"
-                // });
                 store.dispatch('logout');
             } else{
                 return false;
@@ -157,5 +148,8 @@ function logout(){
         width: 40px;
         height: 40px;
         padding: 6px;
+    }
+    .account-login{
+        border-bottom: 1px solid black;
     }
 </style>

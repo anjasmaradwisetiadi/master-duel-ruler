@@ -56,6 +56,13 @@
                             title: "Oops...",
                             text: "Nama sudah ada, coba ganti nama lain !",
                         });
+                    } 
+                    else if(response?.message.toLowerCase() === 'email atau username dan password salah'){
+                        return  Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Email, Username dan Password salah, silahkan coba lagi !!!",
+                        });
                     } else {
                         return  Swal.fire({
                             icon: "error",

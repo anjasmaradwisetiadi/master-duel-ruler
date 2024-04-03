@@ -8,7 +8,7 @@
         <div class="row mb-3 justify-content-center">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email or Username</label>
                     <input type="email" class="form-control" 
                         v-model="email" 
                         :class="responseGeneral?.message?.email ? 'is-invalid':''" id="email" aria-describedby="email" 
@@ -43,16 +43,10 @@
      
      const store = useStore();
      const router = useRouter();
-    
-     const name = ref('');
-     const username = ref('');
+
      const email = ref('');
      const password = ref('');
-     const position = ref('');
      
-     const state = reactive([
-
-     ])
      onMounted(()=>{
 
      })
@@ -65,16 +59,6 @@
         return store?.getters?.getterResponseAuth
     })
 
-    //  const loginOrNotChecked = computed(()=>{
-    //     if(router?.currentRoute?.value){
-    //         if(router?.currentRoute?.value?.path.includes('/register')){
-    //             return false;
-    //         } else if(router?.currentRoute?.value?.path.includes('/login')){
-    //             return true;
-    //         }
-    //     }
-    // })
-
      function submit(){
         let formData = new FormData();
         const payload={
@@ -85,10 +69,6 @@
             formData.append(key, payload[key])
         }
         store.dispatch('login', formData);
-     }
-
-     function back(){
-        router.push('/login');
      }
 
      function createPayload(){

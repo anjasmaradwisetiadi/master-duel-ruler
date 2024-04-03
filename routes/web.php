@@ -36,6 +36,11 @@ Route::get('/about', [DashboardController::class, 'index']);
 Route::get('/home', [TodoListController::class, 'index']);
 Route::get('/login', [TodoListController::class, 'index']);
 Route::get('/register', [TodoListController::class, 'index']);
+Route::fallback(function(){
+    return view('dashboard');
+});
+
+// Route::get('*', [DashboardController::class, 'index']);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Auth::routes();

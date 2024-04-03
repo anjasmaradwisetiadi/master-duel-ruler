@@ -13,7 +13,7 @@ export const playStyleDeckService = {
     async getListPlayStyle(){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'get',
             url: `${urlPlayStyle}`,
             headers:{
@@ -34,7 +34,7 @@ export const playStyleDeckService = {
     async createPlayStyle(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'post',
             url: `${urlPlayStyle}`,
             headers:{
@@ -54,11 +54,9 @@ export const playStyleDeckService = {
     },
 
     async detailPlayStyle(payload){
-        console.log("payload detailPlayStyle =");
-        console.log(payload);
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'get',
             url: `${urlPlayStyle}/${payload}`,
             headers:{
@@ -78,7 +76,7 @@ export const playStyleDeckService = {
     async getEditPlayStyle(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading =true;
-        axios({
+        await axios({
             method: 'get',
             url: `${urlPlayStyle}/${payload}/edit`,
             headers:{
@@ -99,7 +97,7 @@ export const playStyleDeckService = {
         const tokenAuth = store.getters.getterResponseAuth.token;
         const dataForm = payload.form
         store.state.loading =true;
-        axios({
+        await axios({
             method: 'post',
             url: `${urlPlayStyle}/${payload.slug}`,
             headers:{
@@ -121,7 +119,7 @@ export const playStyleDeckService = {
     async deletePlayStyle( payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'delete',
             url: `${urlPlayStyle}/${payload}`,
             headers:{
@@ -149,7 +147,7 @@ export const playStyleDeckService = {
     
     async getSearchPlayStyleDeck(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
-        axios({
+        await axios({
             method: 'get',
             url: `${urlPlayStyle}/search/${payload}`,
             headers:{
@@ -169,7 +167,7 @@ export const playStyleDeckService = {
     async deletePlayStyle(payload){
         const tokenAuth = store.getters.getterResponseAuth.token;
         store.state.loading = true;
-        axios({
+        await axios({
             method: 'delete',
             url: `${urlPlayStyle}/${payload}`,
             headers:{

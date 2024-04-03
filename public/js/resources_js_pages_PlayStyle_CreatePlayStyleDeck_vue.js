@@ -1162,7 +1162,8 @@ var playStyleDeckService = _defineProperty({
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
               url: "".concat(urlPlayStyle),
               headers: {
@@ -1176,7 +1177,7 @@ var playStyleDeckService = _defineProperty({
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -1191,7 +1192,8 @@ var playStyleDeckService = _defineProperty({
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context2.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'post',
               url: "".concat(urlPlayStyle),
               headers: {
@@ -1206,7 +1208,7 @@ var playStyleDeckService = _defineProperty({
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
             return _context2.stop();
         }
@@ -1219,11 +1221,10 @@ var playStyleDeckService = _defineProperty({
       return _regeneratorRuntime().wrap(function _callee3$(_context3) {
         while (1) switch (_context3.prev = _context3.next) {
           case 0:
-            console.log("payload detailPlayStyle =");
-            console.log(payload);
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context3.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
               url: "".concat(urlPlayStyle, "/").concat(payload),
               headers: {
@@ -1236,7 +1237,7 @@ var playStyleDeckService = _defineProperty({
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 5:
+          case 4:
           case "end":
             return _context3.stop();
         }
@@ -1251,7 +1252,8 @@ var playStyleDeckService = _defineProperty({
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context4.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
               url: "".concat(urlPlayStyle, "/").concat(payload, "/edit"),
               headers: {
@@ -1264,7 +1266,7 @@ var playStyleDeckService = _defineProperty({
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
             return _context4.stop();
         }
@@ -1280,7 +1282,8 @@ var playStyleDeckService = _defineProperty({
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             dataForm = payload.form;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context5.next = 5;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'post',
               url: "".concat(urlPlayStyle, "/").concat(payload.slug),
               headers: {
@@ -1295,7 +1298,7 @@ var playStyleDeckService = _defineProperty({
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 4:
+          case 5:
           case "end":
             return _context5.stop();
         }
@@ -1310,7 +1313,8 @@ var playStyleDeckService = _defineProperty({
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context6.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'delete',
               url: "".concat(urlPlayStyle, "/").concat(payload),
               headers: {
@@ -1331,7 +1335,7 @@ var playStyleDeckService = _defineProperty({
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 3:
+          case 4:
           case "end":
             return _context6.stop();
         }
@@ -1345,7 +1349,8 @@ var playStyleDeckService = _defineProperty({
         while (1) switch (_context7.prev = _context7.next) {
           case 0:
             tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
-            axios__WEBPACK_IMPORTED_MODULE_3___default()({
+            _context7.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_3___default()({
               method: 'get',
               url: "".concat(urlPlayStyle, "/search/").concat(payload),
               headers: {
@@ -1358,7 +1363,7 @@ var playStyleDeckService = _defineProperty({
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
-          case 2:
+          case 3:
           case "end":
             return _context7.stop();
         }
@@ -1373,7 +1378,8 @@ var playStyleDeckService = _defineProperty({
         case 0:
           tokenAuth = _index__WEBPACK_IMPORTED_MODULE_2__["default"].getters.getterResponseAuth.token;
           _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = true;
-          axios__WEBPACK_IMPORTED_MODULE_3___default()({
+          _context8.next = 4;
+          return axios__WEBPACK_IMPORTED_MODULE_3___default()({
             method: 'delete',
             url: "".concat(urlPlayStyle, "/").concat(payload),
             headers: {
@@ -1394,7 +1400,7 @@ var playStyleDeckService = _defineProperty({
             commit('mutateResponsGeneral', error.message);
             _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
           });
-        case 3:
+        case 4:
         case "end":
           return _context8.stop();
       }

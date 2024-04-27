@@ -23116,7 +23116,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         commit('mutateResponsGeneral', response.data);
         rootState.loading = false;
       })["catch"](function (error) {
-        commit('mutateResponsGeneral', error.message);
+        commit('mutateResponsGeneral', error.response.data);
         rootState.loading = false;
       });
     },
@@ -23173,7 +23173,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         commit('mutateResponsGeneral', response.data);
         rootState.loading = false;
       })["catch"](function (error) {
-        commit('mutateResponsGeneral', error.message);
+        commit('mutateResponsGeneral', error.response.data);
         rootState.loading = false;
       });
     },
@@ -23197,7 +23197,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
             _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/counter-style-deck/');
           }
         });
-        // commit('mutateResponsGeneral', response.data); 
+        commit('mutateResponsGeneral', response.data);
         rootState.loading = false;
       })["catch"](function (error) {
         commit('mutateResponsGeneral', error.message);

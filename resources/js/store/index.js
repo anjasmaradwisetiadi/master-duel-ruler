@@ -251,7 +251,7 @@ const store = createStore({
           rootState.loading = false;
       })
       .catch(function(error) {
-          commit('mutateResponsGeneral', error.message); 
+          commit('mutateResponsGeneral', error.response.data); 
           rootState.loading = false;
       })
     },
@@ -311,7 +311,7 @@ const store = createStore({
           rootState.loading = false;
       })
       .catch(function(error) {
-          commit('mutateResponsGeneral', error.message); 
+          commit('mutateResponsGeneral', error.response.data); 
           rootState.loading = false;
       })
     },
@@ -336,7 +336,7 @@ const store = createStore({
                 router.push('/counter-style-deck/');
               }
           });
-          // commit('mutateResponsGeneral', response.data); 
+          commit('mutateResponsGeneral', response.data); 
           rootState.loading = false;
       })
       .catch(function(error) {

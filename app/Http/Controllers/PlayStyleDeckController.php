@@ -59,7 +59,7 @@ class PlayStyleDeckController extends Controller
             }
         });
         if($validator->fails()){
-            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+            return response()->json(['status'=>false, 'message'=> $validator->errors()], 400);
         } else if($validator){
             $imagePost = '';
             if($request->url_image !== 'null'){
@@ -137,7 +137,7 @@ class PlayStyleDeckController extends Controller
                 }
         });
         if($validator->fails()){
-            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+            return response()->json(['status'=>false, 'message'=> $validator->errors()], 400);
         } else if($validator){
             if($request->url_image !== 'null'){
                 $imagePost = $request->url_image;

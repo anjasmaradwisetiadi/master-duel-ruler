@@ -21180,6 +21180,14 @@ __webpack_require__.r(__webpack_exports__);
               title: "Oops...",
               text: "Something went wrong!",
               confirmButtonColor: '#2b77bf'
+            }).then(function (result) {
+              if (result.isConfirmed) {
+                // for reset when error on page currently not carry to another page
+                var resetMutateResponseGenereal = {
+                  status: null
+                };
+                store.commit('mutateResponsGeneral', resetMutateResponseGenereal);
+              }
             });
           }
         }

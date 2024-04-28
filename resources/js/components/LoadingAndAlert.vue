@@ -71,6 +71,14 @@
                             title: "Oops...",
                             text: "Something went wrong!",
                             confirmButtonColor: '#2b77bf',
+                        }).then((result)=>{
+                            if (result.isConfirmed) {
+                                // for reset when error on page currently not carry to another page
+                                const resetMutateResponseGenereal = {
+                                    status: null
+                                }
+                                store.commit('mutateResponsGeneral', resetMutateResponseGenereal); 
+                            }
                         });
                     }
                 }

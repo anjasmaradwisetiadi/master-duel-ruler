@@ -48,7 +48,7 @@ export const playStyleDeckService = {
             store.state.loading = false;
         })
         .catch(function(error) {
-            store.commit('mutateResponsGeneral', error.message); 
+            store.commit('mutateResponsGeneral', error.response.data); 
             store.state.loading = false;
         })
     },
@@ -111,7 +111,7 @@ export const playStyleDeckService = {
             store.state.loading = false;
         })
         .catch(function(error) {
-            store.commit('mutateResponsGeneral', error.message); 
+            store.commit('mutateResponsGeneral', error.response.data); 
             store.state.loading = false;
         })
     },

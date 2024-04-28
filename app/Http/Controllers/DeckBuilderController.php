@@ -73,7 +73,7 @@ class DeckBuilderController extends Controller
             }
         });
         if($validator->fails()){
-            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+            return response()->json(['status'=>false, 'message'=> $validator->errors(), 400]);
         } else if($validator){
             $imagePost = '';
             if($request->engines_url !== 'null'){
@@ -183,7 +183,7 @@ class DeckBuilderController extends Controller
         });
 
         if($validator->fails()){
-            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+            return response()->json(['status'=>false, 'message'=> $validator->errors(), 400]);
         } else if($validator){
             if($request->engines_url !== 'null'){
                 $imagePost = $request->engines_url;

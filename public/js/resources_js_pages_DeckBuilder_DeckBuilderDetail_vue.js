@@ -1291,7 +1291,7 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', response.data);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             })["catch"](function (error) {
-              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.response.data);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
           case 4:
@@ -1354,7 +1354,7 @@ var builderDeckService = {
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', response.data);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             })["catch"](function (error) {
-              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.message);
+              _index__WEBPACK_IMPORTED_MODULE_2__["default"].commit('mutateResponsGeneral', error.response.data);
               _index__WEBPACK_IMPORTED_MODULE_2__["default"].state.loading = false;
             });
           case 4:

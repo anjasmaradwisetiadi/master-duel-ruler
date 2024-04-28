@@ -21180,6 +21180,14 @@ __webpack_require__.r(__webpack_exports__);
               title: "Oops...",
               text: "Something went wrong!",
               confirmButtonColor: '#2b77bf'
+            }).then(function (result) {
+              if (result.isConfirmed) {
+                // for reset when error on page currently not carry to another page
+                var resetMutateResponseGenereal = {
+                  status: null
+                };
+                store.commit('mutateResponsGeneral', resetMutateResponseGenereal);
+              }
             });
           }
         }
@@ -23116,7 +23124,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         commit('mutateResponsGeneral', response.data);
         rootState.loading = false;
       })["catch"](function (error) {
-        commit('mutateResponsGeneral', error.message);
+        commit('mutateResponsGeneral', error.response.data);
         rootState.loading = false;
       });
     },
@@ -23173,7 +23181,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
         commit('mutateResponsGeneral', response.data);
         rootState.loading = false;
       })["catch"](function (error) {
-        commit('mutateResponsGeneral', error.message);
+        commit('mutateResponsGeneral', error.response.data);
         rootState.loading = false;
       });
     },
@@ -23197,7 +23205,7 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_7__.createStore)({
             _routes__WEBPACK_IMPORTED_MODULE_5__["default"].push('/counter-style-deck/');
           }
         });
-        // commit('mutateResponsGeneral', response.data); 
+        commit('mutateResponsGeneral', response.data);
         rootState.loading = false;
       })["catch"](function (error) {
         commit('mutateResponsGeneral', error.message);

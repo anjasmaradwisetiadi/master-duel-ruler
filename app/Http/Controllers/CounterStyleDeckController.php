@@ -61,7 +61,7 @@ class CounterStyleDeckController extends Controller
             }
         });
         if($validator->fails()){
-            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+            return response()->json(['status'=>false, 'message'=> $validator->errors()], 400);
         } else if($validator){
             $imagePost = '';
             if($request->url_image !== 'null'){
@@ -80,7 +80,7 @@ class CounterStyleDeckController extends Controller
                 'list_chips' => json_encode($list_chips_convert),
                 'user_id'=> auth()->user()->id
             ]);
-            return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!']);
+            return response()->json(['status'=>true, 'message'=>'Data berhasil disimpan !!!'],201);
         }
     }
 
@@ -139,7 +139,7 @@ class CounterStyleDeckController extends Controller
                 }
         });
         if($validator->fails()){
-            return response()->json(['status'=>false, 'message'=> $validator->errors()]);
+            return response()->json(['status'=>false, 'message'=> $validator->errors()],400);
         } else if($validator){
             if($request->url_image !== 'null'){
                 $imagePost = $request->url_image;

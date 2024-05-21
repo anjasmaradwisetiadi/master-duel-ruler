@@ -28,3 +28,4 @@ axios.defaults.baseURL = collectionUrl.baseUrlHead;
 
 // Enable CORS credentials
 axios.defaults.withCredentials = false;
+axios.defaults.contentType = '*';
